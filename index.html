@@ -1,0 +1,1368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PLUVOX — Polyrhythmic Euclidean Synth, Rain DSP & Whistle-to-Synth</title>
+  <style>
+    :root {
+      --bg-void: #07090e;
+      --bg-chassis: #0d111a;
+      --bg-panel: #131926;
+      --bg-module: #192131;
+      --bg-inset: #090c13;
+      --border-subtle: rgba(148, 163, 184, 0.14);
+      --border-glow: rgba(56, 189, 248, 0.35);
+      --text-primary: #f1f5f9;
+      --text-secondary: #94a3b8;
+      --text-muted: #526077;
+      --accent-amber: #f59e0b;
+      --accent-cyan: #38bdf8;
+      --accent-emerald: #10b981;
+      --accent-rose: #fb7185;
+      --accent-violet: #c084fc;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: radial-gradient(circle at 50% 0%, #131b2e 0%, var(--bg-void) 75%);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      user-select: none;
+    }
+
+    /* HEADER / TRANSPORT */
+    header {
+      background: rgba(13, 17, 26, 0.86);
+      backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--border-subtle);
+      padding: 0.85rem 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .brand-orb {
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--text-muted);
+      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .brand-orb.active {
+      background: var(--accent-cyan);
+      box-shadow: 0 0 16px var(--accent-cyan), 0 0 4px #fff;
+      transform: scale(1.15);
+    }
+
+    .brand h1 {
+      font-family: var(--font-mono);
+      font-size: 1.3rem;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      background: linear-gradient(90deg, #f8fafc 30%, var(--accent-cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-sub {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      color: var(--text-secondary);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .transport {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+
+    button {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.52rem 1rem;
+      border-radius: 6px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-module);
+      color: var(--text-primary);
+      cursor: pointer;
+      transition: transform 0.1s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.15s ease, border-color 0.15s ease;
+    }
+
+    button:hover {
+      background: #222d42;
+      border-color: rgba(255, 255, 255, 0.28);
+    }
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+    button.btn-play {
+      background: linear-gradient(135deg, #10b981, #059669);
+      color: #03150e;
+      border-color: #34d399;
+      min-width: 112px;
+      box-shadow: 0 4px 18px rgba(16, 185, 129, 0.25);
+    }
+
+    button.btn-play.playing {
+      background: linear-gradient(135deg, #f43f5e, #e11d48);
+      color: #fff;
+      border-color: #fb7185;
+      box-shadow: 0 4px 18px rgba(244, 63, 94, 0.3);
+    }
+
+    button.btn-mic.listening {
+      background: linear-gradient(135deg, #38bdf8, #0284c7);
+      color: #04121d;
+      border-color: #7dd3fc;
+      box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+    }
+
+    .pill-control {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      background: var(--bg-inset);
+      border: 1px solid var(--border-subtle);
+      padding: 0.38rem 0.75rem;
+      border-radius: 6px;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-secondary);
+    }
+
+    .pill-control strong {
+      color: var(--text-primary);
+      min-width: 28px;
+      text-align: right;
+    }
+
+    select {
+      background: var(--bg-inset);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+      border-radius: 5px;
+      padding: 0.42rem 0.65rem;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* CUSTOM TACTILE SLIDERS */
+    input[type="range"] {
+      -webkit-appearance: none;
+      appearance: none;
+      background: rgba(255, 255, 255, 0.08);
+      height: 5px;
+      border-radius: 999px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      border: 2px solid #090c13;
+      box-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
+      transition: transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    input[type="range"]::-webkit-slider-thumb:hover {
+      transform: scale(1.25);
+    }
+
+    /* MAIN LAYOUT */
+    .workspace {
+      max-width: 1480px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.35rem 1.75rem;
+      display: grid;
+      grid-template-columns: 1.35fr 1fr;
+      gap: 1.35rem;
+      align-items: start;
+    }
+
+    @media (max-width: 1100px) {
+      .workspace { grid-template-columns: 1fr; }
+    }
+
+    .panel {
+      background: rgba(19, 25, 38, 0.85);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 1.25rem;
+      margin-bottom: 1.25rem;
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
+    }
+
+    .panel-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      padding-bottom: 0.8rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .panel-title {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--text-primary);
+    }
+
+    .badge {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      padding: 0.2rem 0.55rem;
+      border-radius: 4px;
+      background: var(--bg-inset);
+      border: 1px solid var(--border-subtle);
+      color: var(--accent-cyan);
+    }
+
+    .preset-bar {
+      display: flex;
+      gap: 0.45rem;
+      flex-wrap: wrap;
+    }
+
+    .preset-bar button {
+      font-size: 0.7rem;
+      padding: 0.35rem 0.65rem;
+    }
+
+    /* EUCLIDEAN TRACK CARDS */
+    .track-card {
+      background: var(--bg-module);
+      border: 1px solid var(--border-subtle);
+      border-left: 4px solid var(--track-color);
+      border-radius: 8px;
+      padding: 0.9rem 1rem;
+      margin-bottom: 0.9rem;
+      transition: border-color 0.2s ease, transform 0.15s ease;
+    }
+
+    .track-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .track-label {
+      font-family: var(--font-mono);
+      font-size: 0.84rem;
+      font-weight: 800;
+      color: var(--track-color);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .track-controls {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      flex-wrap: wrap;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-secondary);
+    }
+
+    .track-controls label {
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .step-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
+      gap: 0.38rem;
+    }
+
+    .step-cell {
+      height: 36px;
+      border-radius: 5px;
+      background: var(--bg-inset);
+      border: 1px solid var(--border-subtle);
+      display: grid;
+      place-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: transform 0.14s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.1s ease, box-shadow 0.12s ease;
+    }
+
+    .step-cell:hover {
+      border-color: rgba(255, 255, 255, 0.35);
+    }
+
+    .step-cell.on {
+      background: var(--track-color);
+      color: #07090e;
+      font-weight: 800;
+      border-color: transparent;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .step-cell.playhead {
+      transform: scale(1.12);
+      outline: 2px solid #ffffff;
+      box-shadow: 0 0 14px var(--track-color);
+      z-index: 2;
+    }
+
+    /* PHYSICS CANVAS */
+    .canvas-stage {
+      position: relative;
+      background: radial-gradient(circle at 50% 50%, #101726 0%, #06080d 100%);
+      border: 1px solid var(--border-subtle);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 1.15rem;
+    }
+
+    canvas {
+      width: 100%;
+      height: 290px;
+      display: block;
+    }
+
+    .canvas-overlay {
+      position: absolute;
+      bottom: 10px;
+      left: 12px;
+      right: 12px;
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-secondary);
+      pointer-events: none;
+    }
+
+    /* LO-FI MIXER & WHISTLE SYNTH */
+    .fader-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+    }
+
+    .fader-card {
+      background: var(--bg-module);
+      border: 1px solid var(--border-subtle);
+      border-radius: 7px;
+      padding: 0.75rem 0.85rem;
+    }
+
+    .fader-top {
+      display: flex;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      margin-bottom: 0.45rem;
+      color: var(--text-secondary);
+    }
+
+    .fader-top strong {
+      color: var(--text-primary);
+    }
+
+    .fader-card input[type="range"] {
+      width: 100%;
+    }
+
+    .vox-telemetry {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.6rem;
+      background: var(--bg-inset);
+      border: 1px solid var(--border-subtle);
+      border-radius: 8px;
+      padding: 0.8rem;
+      text-align: center;
+      margin-bottom: 0.85rem;
+    }
+
+    .tel-label {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+    }
+
+    .tel-value {
+      font-family: var(--font-mono);
+      font-size: 1.08rem;
+      font-weight: 800;
+      color: var(--accent-cyan);
+      margin-top: 0.2rem;
+    }
+
+    .level-track {
+      height: 6px;
+      background: var(--bg-inset);
+      border-radius: 999px;
+      overflow: hidden;
+      margin-bottom: 0.85rem;
+    }
+
+    .level-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-emerald));
+      transition: width 0.04s linear;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand">
+      <div class="brand-orb" id="powerOrb"></div>
+      <div>
+        <h1>PLUVOX</h1>
+        <div class="brand-sub">Polyrhythmic Euclidean Synth · Rain DSP · Whistle-to-Synth</div>
+      </div>
+    </div>
+
+    <div class="transport">
+      <button id="btnPlay" class="btn-play">▶ START</button>
+
+      <div class="pill-control">
+        <span>BPM</span>
+        <input type="range" id="bpmSlider" min="58" max="165" value="88" style="width: 88px;" />
+        <strong id="bpmVal">88</strong>
+      </div>
+
+      <div class="pill-control">
+        <span>SCALE</span>
+        <select id="scaleSelect">
+          <option value="minorPentatonic">C Minor Pentatonic</option>
+          <option value="dorian">C Dorian (Neo-Soul)</option>
+          <option value="lydian">F Lydian (Floating)</option>
+          <option value="hirajoshi">C Hirajoshi (Kyoto)</option>
+        </select>
+      </div>
+
+      <div class="pill-control">
+        <span>SWING</span>
+        <input type="range" id="swingSlider" min="0" max="45" value="16" style="width: 65px;" />
+        <strong id="swingVal">16%</strong>
+      </div>
+    </div>
+  </header>
+
+  <main class="workspace">
+    <!-- LEFT COLUMN: EUCLIDEAN POLYRHYTHM ENGINE -->
+    <div>
+      <section class="panel">
+        <div class="panel-head">
+          <div class="panel-title">01 · Euclidean Polyrhythm Sequencer</div>
+          <div class="preset-bar">
+            <button data-preset="afro">3:4:5:7 Afro-Rain</button>
+            <button data-preset="math">5:7:8:11 Kyoto Drift</button>
+            <button data-preset="dub">4:6:3:8 Sub-Pulse</button>
+            <button id="btnRandomize">🎲 Mutate</button>
+          </div>
+        </div>
+        <div id="tracksContainer"></div>
+      </section>
+    </div>
+
+    <!-- RIGHT COLUMN: KINETIC PHASE PHYSICS + LO-FI RAIN + WHISTLE SYNTH -->
+    <div>
+      <section class="panel">
+        <div class="panel-head">
+          <div class="panel-title">02 · Kinetic Phase & Rain Physics</div>
+          <span class="badge" id="ratioBadge">RATIO 3 : 4 : 5 : 7</span>
+        </div>
+        <div class="canvas-stage">
+          <canvas id="physicsCanvas" width="540" height="290"></canvas>
+          <div class="canvas-overlay">
+            <span>SPRING NODES · SHOCKWAVE RIPPLES</span>
+            <span id="physicsTelemetry">RAIN PARTICLES: ACTIVE</span>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div class="panel-title">03 · Lo-Fi Rain & Tape Atmosphere</div>
+          <span class="badge">PROCEDURAL NOISE DSP</span>
+        </div>
+        <div class="fader-grid">
+          <div class="fader-card">
+            <div class="fader-top"><span>🌧️ Rain & Storm</span><strong id="rainVal">40%</strong></div>
+            <input type="range" id="rainSlider" min="0" max="100" value="40" />
+          </div>
+          <div class="fader-card">
+            <div class="fader-top"><span>📀 Vinyl Crackle</span><strong id="vinylVal">28%</strong></div>
+            <input type="range" id="vinylSlider" min="0" max="100" value="28" />
+          </div>
+          <div class="fader-card">
+            <div class="fader-top"><span>📼 Tape Low-Pass</span><strong id="toneVal">3.6 kHz</strong></div>
+            <input type="range" id="toneSlider" min="550" max="14000" value="3600" />
+          </div>
+          <div class="fader-card">
+            <div class="fader-top"><span>🌊 Dub Echo Send</span><strong id="delayVal">34%</strong></div>
+            <input type="range" id="delaySlider" min="0" max="80" value="34" />
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head">
+          <div class="panel-title">04 · Acoustic "Whistle & Hum" Synth</div>
+          <button id="btnToggleMic" class="btn-mic">🎙️ Activate Mic</button>
+        </div>
+        <p style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+          Whistle or hum into your microphone. Autocorrelation locks your vocal pitch to the active scale and drives an analog lead oscillator through the dub delay.
+        </p>
+
+        <div class="level-track"><div class="level-fill" id="micLevelBar"></div></div>
+
+        <div class="vox-telemetry">
+          <div>
+            <div class="tel-label">Input Pitch</div>
+            <div class="tel-value" id="detectedHz">--</div>
+          </div>
+          <div>
+            <div class="tel-label">Scale Lock</div>
+            <div class="tel-value" id="quantizedNote">--</div>
+          </div>
+          <div>
+            <div class="tel-label">Lead Timbre</div>
+            <div style="margin-top: 0.2rem;">
+              <select id="voiceWaveSelect">
+                <option value="triangle">Warm Flute</option>
+                <option value="sawtooth">Analog Saw</option>
+                <option value="sine">Pure Whistle</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <div class="fader-grid">
+          <div class="fader-card">
+            <div class="fader-top"><span>Lead Gain</span><strong id="voiceVolVal">60%</strong></div>
+            <input type="range" id="voiceVolSlider" min="0" max="100" value="60" />
+          </div>
+          <div class="fader-card">
+            <div class="fader-top"><span>Portamento Glide</span><strong id="glideVal">60 ms</strong></div>
+            <input type="range" id="glideSlider" min="5" max="240" value="60" />
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    // =========================================================================
+    // 1. MUSICAL SCALES & EUCLIDEAN BJORKLUND ALGORITHM
+    // =========================================================================
+    const SCALES = {
+      minorPentatonic: [0, 3, 5, 7, 10, 12, 15, 17, 19, 22, 24],
+      dorian:          [0, 2, 3, 5, 7, 9, 10, 12, 14, 15, 17, 19],
+      lydian:          [5, 7, 9, 11, 12, 14, 16, 17, 19, 21, 23, 24],
+      hirajoshi:       [0, 2, 3, 7, 8, 12, 14, 15, 19, 20, 24]
+    };
+
+    const NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+
+    function midiToFreq(midi) {
+      return 440 * Math.pow(2, (midi - 69) / 12);
+    }
+
+    function freqToMidi(freq) {
+      return Math.round(69 + 12 * Math.log2(freq / 440));
+    }
+
+    function midiToName(midi) {
+      return `${NOTE_NAMES[midi % 12]}${Math.floor(midi / 12) - 1}`;
+    }
+
+    function quantizeMidiToScale(rawMidi, scaleKey) {
+      const intervals = SCALES[scaleKey] || SCALES.minorPentatonic;
+      const baseC = 48;
+      let bestMidi = rawMidi;
+      let minDiff = Infinity;
+      for (let oct = -1; oct <= 3; oct++) {
+        for (const interval of intervals) {
+          const candidate = baseC + oct * 12 + interval;
+          const diff = Math.abs(rawMidi - candidate);
+          if (diff < minDiff) {
+            minDiff = diff;
+            bestMidi = candidate;
+          }
+        }
+      }
+      return bestMidi;
+    }
+
+    function generateEuclidean(steps, pulses) {
+      pulses = Math.max(0, Math.min(steps, pulses));
+      const pattern = new Array(steps).fill(false);
+      if (pulses === 0) return pattern;
+      let bucket = 0;
+      for (let i = 0; i < steps; i++) {
+        bucket += pulses;
+        if (bucket >= steps) {
+          bucket -= steps;
+          pattern[i] = true;
+        }
+      }
+      return pattern;
+    }
+
+    // =========================================================================
+    // 2. TRACK STATE & SPRING PHYSICS NODES
+    // =========================================================================
+    const tracks = [
+      { id: 0, name: "CH 1 · Sub Kick", type: "kick", color: "#f59e0b", steps: 3, pulses: 2, pitchOffset: 0, volume: 0.88, pattern: [true, false, true], currentStep: 0, springRadius: 0, springVel: 0 },
+      { id: 1, name: "CH 2 · Lo-Fi Rim", type: "snare", color: "#fb7185", steps: 4, pulses: 2, pitchOffset: 0, volume: 0.68, pattern: [false, true, false, true], currentStep: 0, springRadius: 0, springVel: 0 },
+      { id: 2, name: "CH 3 · Warm Rhodes", type: "pluck", color: "#38bdf8", steps: 5, pulses: 3, pitchOffset: 4, volume: 0.62, pattern: [true, false, true, false, true], currentStep: 0, springRadius: 0, springVel: 0 },
+      { id: 3, name: "CH 4 · Glass Bell", type: "bell", color: "#c084fc", steps: 7, pulses: 4, pitchOffset: 7, volume: 0.52, pattern: [true, false, true, false, true, false, true], currentStep: 0, springRadius: 0, springVel: 0 }
+    ];
+
+    // Physics particle pools
+    const shockwaves = [];
+    const raindrops = Array.from({ length: 75 }, () => ({
+      x: Math.random() * 540,
+      y: Math.random() * 290,
+      len: 8 + Math.random() * 14,
+      speed: 3 + Math.random() * 5,
+      alpha: 0.1 + Math.random() * 0.25
+    }));
+    const voxTrail = [];
+    let coreSpring = 0;
+    let coreVel = 0;
+
+    // =========================================================================
+    // 3. WEB AUDIO API DSP ENGINE
+    // =========================================================================
+    let audioCtx = null;
+    let masterFilter = null;
+    let delayNode = null;
+    let delayWet = null;
+    let rainGain = null;
+    let vinylGain = null;
+
+    let isPlaying = false;
+    let schedulerTimer = null;
+    let nextTickTime = 0;
+    let globalTick = 0;
+
+    // Mic Pitch Tracker
+    let micStream = null;
+    let analyserNode = null;
+    let micOsc = null;
+    let micGainNode = null;
+    let pitchRaf = null;
+    let activeVoxFreq = 0;
+
+    function initAudioEngine() {
+      if (audioCtx) return;
+      const AudioContext = window.AudioContext || window.webkitAudioContext;
+      audioCtx = new AudioContext();
+
+      const compressor = audioCtx.createDynamicsCompressor();
+      compressor.threshold.value = -15;
+      compressor.ratio.value = 4;
+
+      masterFilter = audioCtx.createBiquadFilter();
+      masterFilter.type = "lowpass";
+      masterFilter.frequency.value = Number(document.getElementById("toneSlider").value);
+      masterFilter.Q.value = 0.85;
+
+      // Stereo Dub Delay
+      delayNode = audioCtx.createDelay(2.0);
+      delayNode.delayTime.value = 0.34;
+      const delayFeedback = audioCtx.createGain();
+      delayFeedback.gain.value = 0.38;
+      delayWet = audioCtx.createGain();
+      delayWet.gain.value = Number(document.getElementById("delaySlider").value) / 100;
+
+      delayNode.connect(delayFeedback);
+      delayFeedback.connect(delayNode);
+      delayNode.connect(delayWet);
+      delayWet.connect(masterFilter);
+
+      masterFilter.connect(compressor);
+      compressor.connect(audioCtx.destination);
+
+      // Procedural Pink-Noise Rain Buffer
+      const bufferSize = audioCtx.sampleRate * 3;
+      const rainBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const rainData = rainBuffer.getChannelData(0);
+      let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
+      for (let i = 0; i < bufferSize; i++) {
+        const white = Math.random() * 2 - 1;
+        b0 = 0.99886 * b0 + white * 0.0555179;
+        b1 = 0.99332 * b1 + white * 0.0750759;
+        b2 = 0.96900 * b2 + white * 0.1538520;
+        b3 = 0.86650 * b3 + white * 0.3104856;
+        b4 = 0.55000 * b4 + white * 0.5329522;
+        b5 = -0.7616 * b5 - white * 0.0168980;
+        rainData[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.04;
+        b6 = white * 0.115926;
+      }
+
+      const rainSource = audioCtx.createBufferSource();
+      rainSource.buffer = rainBuffer;
+      rainSource.loop = true;
+
+      const rainBand = audioCtx.createBiquadFilter();
+      rainBand.type = "bandpass";
+      rainBand.frequency.value = 1050;
+      rainBand.Q.value = 0.5;
+
+      rainGain = audioCtx.createGain();
+      rainGain.gain.value = (Number(document.getElementById("rainSlider").value) / 100) * 0.55;
+
+      rainSource.connect(rainBand);
+      rainBand.connect(rainGain);
+      rainGain.connect(audioCtx.destination);
+      rainSource.start();
+
+      // Procedural Vinyl Crackle Buffer
+      const vinylBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+      const vinylData = vinylBuffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        const r = Math.random();
+        vinylData[i] = r > 0.9982 ? (Math.random() * 2 - 1) * 0.45 : (Math.random() * 2 - 1) * 0.004;
+      }
+
+      const vinylSource = audioCtx.createBufferSource();
+      vinylSource.buffer = vinylBuffer;
+      vinylSource.loop = true;
+
+      const vinylHigh = audioCtx.createBiquadFilter();
+      vinylHigh.type = "highpass";
+      vinylHigh.frequency.value = 1850;
+
+      vinylGain = audioCtx.createGain();
+      vinylGain.gain.value = (Number(document.getElementById("vinylSlider").value) / 100) * 0.6;
+
+      vinylSource.connect(vinylHigh);
+      vinylHigh.connect(vinylGain);
+      vinylGain.connect(audioCtx.destination);
+      vinylSource.start();
+    }
+
+    function triggerVoice(track, time, stepIndex) {
+      if (!audioCtx) return;
+      const scaleKey = document.getElementById("scaleSelect").value;
+      const intervals = SCALES[scaleKey];
+
+      if (track.type === "kick") {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(140, time);
+        osc.frequency.exponentialRampToValueAtTime(40, time + 0.15);
+
+        gain.gain.setValueAtTime(track.volume, time);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.35);
+
+        osc.connect(gain);
+        gain.connect(masterFilter);
+        osc.start(time);
+        osc.stop(time + 0.36);
+      } else if (track.type === "snare") {
+        const noiseLen = Math.floor(audioCtx.sampleRate * 0.14);
+        const buf = audioCtx.createBuffer(1, noiseLen, audioCtx.sampleRate);
+        const out = buf.getChannelData(0);
+        for (let i = 0; i < noiseLen; i++) out[i] = Math.random() * 2 - 1;
+
+        const noise = audioCtx.createBufferSource();
+        noise.buffer = buf;
+
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = "bandpass";
+        filter.frequency.value = 1450;
+
+        const gain = audioCtx.createGain();
+        gain.gain.setValueAtTime(track.volume * 0.55, time);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.13);
+
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.connect(masterFilter);
+        gain.connect(delayNode);
+        noise.start(time);
+      } else if (track.type === "pluck") {
+        const noteIdx = (stepIndex + track.pitchOffset) % intervals.length;
+        const freq = midiToFreq(48 + intervals[noteIdx]);
+
+        const osc = audioCtx.createOscillator();
+        const sub = audioCtx.createOscillator();
+        const filter = audioCtx.createBiquadFilter();
+        const gain = audioCtx.createGain();
+
+        osc.type = "triangle";
+        sub.type = "sine";
+        osc.frequency.setValueAtTime(freq, time);
+        sub.frequency.setValueAtTime(freq * 2, time);
+
+        filter.type = "lowpass";
+        filter.frequency.setValueAtTime(1700, time);
+        filter.frequency.exponentialRampToValueAtTime(280, time + 0.3);
+
+        gain.gain.setValueAtTime(0.001, time);
+        gain.gain.linearRampToValueAtTime(track.volume * 0.45, time + 0.015);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.38);
+
+        osc.connect(filter);
+        sub.connect(filter);
+        filter.connect(gain);
+        gain.connect(masterFilter);
+        gain.connect(delayNode);
+
+        osc.start(time);
+        sub.start(time);
+        osc.stop(time + 0.4);
+        sub.stop(time + 0.4);
+      } else if (track.type === "bell") {
+        const noteIdx = (stepIndex * 2 + track.pitchOffset) % intervals.length;
+        const freq = midiToFreq(60 + intervals[noteIdx]);
+
+        const osc = audioCtx.createOscillator();
+        const mod = audioCtx.createOscillator();
+        const modGain = audioCtx.createGain();
+        const gain = audioCtx.createGain();
+
+        osc.type = "sine";
+        mod.type = "sine";
+        osc.frequency.setValueAtTime(freq, time);
+        mod.frequency.setValueAtTime(freq * 2.5, time);
+        modGain.gain.setValueAtTime(freq * 0.75, time);
+        modGain.gain.exponentialRampToValueAtTime(1, time + 0.22);
+
+        gain.gain.setValueAtTime(0.001, time);
+        gain.gain.linearRampToValueAtTime(track.volume * 0.32, time + 0.01);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.56);
+
+        mod.connect(modGain);
+        modGain.connect(osc.frequency);
+        osc.connect(gain);
+        gain.connect(masterFilter);
+        gain.connect(delayNode);
+
+        osc.start(time);
+        mod.start(time);
+        osc.stop(time + 0.6);
+        mod.stop(time + 0.6);
+      }
+    }
+
+    // =========================================================================
+    // 4. LOOKAHEAD SCHEDULER + PHYSICS IMPULSE INJECTION
+    // =========================================================================
+    function schedulerLoop() {
+      const bpm = Number(document.getElementById("bpmSlider").value);
+      const swing = Number(document.getElementById("swingSlider").value) / 100;
+      const sixteenthDuration = (60 / bpm) / 4;
+
+      while (nextTickTime < audioCtx.currentTime + 0.1) {
+        const swingOffset = (globalTick % 2 === 1) ? sixteenthDuration * swing : 0;
+        const playTime = nextTickTime + swingOffset;
+
+        tracks.forEach(track => {
+          const stepIdx = globalTick % track.steps;
+          const isHit = track.pattern[stepIdx];
+          if (isHit) {
+            triggerVoice(track, playTime, stepIdx);
+          }
+
+          const delayMs = Math.max(0, (playTime - audioCtx.currentTime) * 1000);
+          setTimeout(() => {
+            track.currentStep = stepIdx;
+            highlightStepUI(track.id, stepIdx);
+
+            if (isHit) {
+              // Inject spring velocity into orbital ring and spawn shockwave
+              track.springVel += (track.type === "kick" ? 5.5 : 3.4);
+              if (track.type === "kick") coreVel += 6.0;
+
+              const canvas = document.getElementById("physicsCanvas");
+              const cx = canvas.width / 2;
+              const cy = canvas.height / 2;
+              const baseR = 36 + track.id * 26;
+              const angle = (stepIdx / track.steps) * Math.PI * 2 - Math.PI / 2;
+
+              shockwaves.push({
+                x: cx + Math.cos(angle) * baseR,
+                y: cy + Math.sin(angle) * baseR,
+                r: 4,
+                maxR: track.type === "kick" ? 68 : 44,
+                color: track.color,
+                alpha: 0.9
+              });
+            }
+          }, delayMs);
+        });
+
+        nextTickTime += sixteenthDuration;
+        globalTick++;
+      }
+    }
+
+    function togglePlay() {
+      initAudioEngine();
+      if (audioCtx.state === "suspended") audioCtx.resume();
+
+      const btn = document.getElementById("btnPlay");
+      const orb = document.getElementById("powerOrb");
+
+      if (!isPlaying) {
+        isPlaying = true;
+        globalTick = 0;
+        nextTickTime = audioCtx.currentTime + 0.05;
+        schedulerTimer = setInterval(schedulerLoop, 25);
+        btn.textContent = "■ STOP";
+        btn.classList.add("playing");
+        orb.classList.add("active");
+      } else {
+        isPlaying = false;
+        clearInterval(schedulerTimer);
+        btn.textContent = "▶ START";
+        btn.classList.remove("playing");
+        orb.classList.remove("active");
+        document.querySelectorAll(".step-cell").forEach(p => p.classList.remove("playhead"));
+      }
+    }
+
+    // =========================================================================
+    // 5. ACOUSTIC "WHISTLE & HUM" PITCH TRACKER
+    // =========================================================================
+    function autoCorrelate(buf, sampleRate) {
+      let size = buf.length;
+      let rms = 0;
+      for (let i = 0; i < size; i++) rms += buf[i] * buf[i];
+      rms = Math.sqrt(rms / size);
+      if (rms < 0.016) return { freq: -1, rms };
+
+      let r1 = 0, r2 = size - 1, thres = 0.2;
+      for (let i = 0; i < size / 2; i++) if (Math.abs(buf[i]) < thres) { r1 = i; break; }
+      for (let i = 1; i < size / 2; i++) if (Math.abs(buf[size - i]) < thres) { r2 = size - i; break; }
+
+      buf = buf.slice(r1, r2);
+      size = buf.length;
+
+      const c = new Array(size).fill(0);
+      for (let i = 0; i < size; i++) {
+        for (let j = 0; j < size - i; j++) {
+          c[i] += buf[j] * buf[j + i];
+        }
+      }
+
+      let d = 0;
+      while (c[d] > c[d + 1]) d++;
+      let maxval = -1, maxpos = -1;
+      for (let i = d; i < size; i++) {
+        if (c[i] > maxval) {
+          maxval = c[i];
+          maxpos = i;
+        }
+      }
+      return maxpos > 0 ? { freq: sampleRate / maxpos, rms } : { freq: -1, rms };
+    }
+
+    async function toggleMicrophoneSynth() {
+      initAudioEngine();
+      if (audioCtx.state === "suspended") await audioCtx.resume();
+      const btn = document.getElementById("btnToggleMic");
+
+      if (micStream) {
+        cancelAnimationFrame(pitchRaf);
+        micStream.getTracks().forEach(t => t.stop());
+        micStream = null;
+        if (micOsc) { micOsc.stop(); micOsc.disconnect(); micOsc = null; }
+        activeVoxFreq = 0;
+        btn.textContent = "🎙️ Activate Mic";
+        btn.classList.remove("listening");
+        document.getElementById("detectedHz").textContent = "--";
+        document.getElementById("quantizedNote").textContent = "--";
+        document.getElementById("micLevelBar").style.width = "0%";
+        return;
+      }
+
+      try {
+        micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        const micSource = audioCtx.createMediaStreamSource(micStream);
+        analyserNode = audioCtx.createAnalyser();
+        analyserNode.fftSize = 2048;
+        micSource.connect(analyserNode);
+
+        micOsc = audioCtx.createOscillator();
+        micOsc.type = document.getElementById("voiceWaveSelect").value;
+        micOsc.frequency.value = 261.63;
+
+        const micFilter = audioCtx.createBiquadFilter();
+        micFilter.type = "lowpass";
+        micFilter.frequency.value = 1900;
+
+        micGainNode = audioCtx.createGain();
+        micGainNode.gain.value = 0.0001;
+
+        micOsc.connect(micFilter);
+        micFilter.connect(micGainNode);
+        micGainNode.connect(masterFilter);
+        micGainNode.connect(delayNode);
+        micOsc.start();
+
+        btn.textContent = "🎙️ Listening (Mute)";
+        btn.classList.add("listening");
+
+        const timeData = new Float32Array(analyserNode.fftSize);
+        const trackPitchLoop = () => {
+          if (!micStream) return;
+          analyserNode.getFloatTimeDomainData(timeData);
+          const { freq, rms } = autoCorrelate(timeData, audioCtx.sampleRate);
+
+          const levelPct = Math.min(100, Math.round(rms * 420));
+          document.getElementById("micLevelBar").style.width = `${levelPct}%`;
+
+          const maxVol = (Number(document.getElementById("voiceVolSlider").value) / 100) * 0.48;
+          const glideSec = Number(document.getElementById("glideSlider").value) / 1000;
+
+          if (freq > 75 && freq < 1800) {
+            const rawMidi = freqToMidi(freq);
+            const scaleKey = document.getElementById("scaleSelect").value;
+            const quantMidi = quantizeMidiToScale(rawMidi, scaleKey);
+            const targetFreq = midiToFreq(quantMidi);
+            activeVoxFreq = targetFreq;
+
+            document.getElementById("detectedHz").textContent = `${Math.round(freq)} Hz`;
+            document.getElementById("quantizedNote").textContent = midiToName(quantMidi);
+
+            micOsc.frequency.setTargetAtTime(targetFreq, audioCtx.currentTime, glideSec);
+            micGainNode.gain.setTargetAtTime(Math.min(maxVol, rms * 2.4), audioCtx.currentTime, 0.03);
+          } else {
+            activeVoxFreq = 0;
+            micGainNode.gain.setTargetAtTime(0.0001, audioCtx.currentTime, 0.06);
+          }
+
+          pitchRaf = requestAnimationFrame(trackPitchLoop);
+        };
+        trackPitchLoop();
+      } catch (err) {
+        alert("Microphone access denied or unavailable: " + err.message);
+      }
+    }
+
+    // =========================================================================
+    // 6. KINETIC PHYSICS CANVAS (SPRING RINGS, RAIN STREAKS, & VOX RIBBON)
+    // =========================================================================
+    function renderPhysicsCanvas() {
+      const canvas = document.getElementById("physicsCanvas");
+      const ctx = canvas.getContext("2d");
+      const w = canvas.width;
+      const h = canvas.height;
+      const cx = w / 2;
+      const cy = h / 2;
+
+      ctx.clearRect(0, 0, w, h);
+
+      // 1. Rain Physics driven by Rain Fader & BPM Wind
+      const rainIntensity = Number(document.getElementById("rainSlider").value) / 100;
+      const activeDrops = Math.floor(raindrops.length * rainIntensity);
+      ctx.lineWidth = 1.2;
+      for (let i = 0; i < activeDrops; i++) {
+        const d = raindrops[i];
+        d.x -= 1.2 + rainIntensity * 1.8;
+        d.y += d.speed * (0.7 + rainIntensity * 1.1);
+        if (d.y > h) { d.y = -15; d.x = Math.random() * (w + 60); }
+        if (d.x < -20) { d.x = w + 20; }
+
+        ctx.beginPath();
+        ctx.moveTo(d.x, d.y);
+        ctx.lineTo(d.x + 2.5, d.y - d.len);
+        ctx.strokeStyle = `rgba(125, 211, 252, ${d.alpha * rainIntensity})`;
+        ctx.stroke();
+      }
+
+      // 2. Shockwave Ripples
+      for (let i = shockwaves.length - 1; i >= 0; i--) {
+        const sw = shockwaves[i];
+        sw.r += (sw.maxR - sw.r) * 0.14;
+        sw.alpha *= 0.91;
+        if (sw.alpha < 0.03) {
+          shockwaves.splice(i, 1);
+          continue;
+        }
+        ctx.beginPath();
+        ctx.arc(sw.x, sw.y, sw.r, 0, Math.PI * 2);
+        ctx.strokeStyle = sw.color;
+        ctx.globalAlpha = sw.alpha;
+        ctx.lineWidth = 2;
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+      }
+
+      // 3. Spring-Damped Center Core
+      const stiffness = 0.16;
+      const damping = 0.82;
+      coreVel = (coreVel - coreSpring * stiffness) * damping;
+      coreSpring += coreVel;
+
+      const coreR = Math.max(6, 11 + coreSpring);
+      const grad = ctx.createRadialGradient(cx, cy, 2, cx, cy, coreR * 2.2);
+      grad.addColorStop(0, "#ffffff");
+      grad.addColorStop(0.4, "#38bdf8");
+      grad.addColorStop(1, "rgba(56, 189, 248, 0)");
+      ctx.beginPath();
+      ctx.arc(cx, cy, coreR * 2.2, 0, Math.PI * 2);
+      ctx.fillStyle = grad;
+      ctx.fill();
+
+      // 4. Orbital Polyrhythm Rings with Spring Physics
+      tracks.forEach((t, idx) => {
+        t.springVel = (t.springVel - t.springRadius * 0.18) * 0.8;
+        t.springRadius += t.springVel;
+        const radius = 36 + idx * 26 + t.springRadius;
+
+        ctx.beginPath();
+        ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+        ctx.strokeStyle = "rgba(148, 163, 184, 0.16)";
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+
+        // Connect active steps into a geometric polygon
+        const activePoints = [];
+        for (let s = 0; s < t.steps; s++) {
+          const angle = (s / t.steps) * Math.PI * 2 - Math.PI / 2;
+          const x = cx + Math.cos(angle) * radius;
+          const y = cy + Math.sin(angle) * radius;
+          if (t.pattern[s]) activePoints.push({ x, y });
+
+          const isCurrent = isPlaying && t.currentStep === s;
+          const isActive = t.pattern[s];
+
+          ctx.beginPath();
+          ctx.arc(x, y, isCurrent ? 6.5 : (isActive ? 4.2 : 2.2), 0, Math.PI * 2);
+          ctx.fillStyle = isCurrent ? "#ffffff" : (isActive ? t.color : "#334155");
+          ctx.fill();
+        }
+
+        if (activePoints.length > 1) {
+          ctx.beginPath();
+          activePoints.forEach((pt, pIdx) => {
+            if (pIdx === 0) ctx.moveTo(pt.x, pt.y);
+            else ctx.lineTo(pt.x, pt.y);
+          });
+          ctx.closePath();
+          ctx.strokeStyle = t.color;
+          ctx.globalAlpha = 0.28;
+          ctx.lineWidth = 1.2;
+          ctx.stroke();
+          ctx.globalAlpha = 1;
+        }
+      });
+
+      // 5. Acoustic Whistle/Hum Pitch Ribbon
+      if (activeVoxFreq > 0) {
+        const normY = h - Math.min(h - 20, Math.max(20, ((activeVoxFreq - 100) / 900) * (h - 40)));
+        voxTrail.push({ x: w - 30, y: normY });
+      }
+      for (let i = voxTrail.length - 1; i >= 0; i--) {
+        voxTrail[i].x -= 3.5;
+        if (voxTrail[i].x < 0) voxTrail.splice(i, 1);
+      }
+      if (voxTrail.length > 1) {
+        ctx.beginPath();
+        voxTrail.forEach((pt, idx) => {
+          if (idx === 0) ctx.moveTo(pt.x, pt.y);
+          else ctx.lineTo(pt.x, pt.y);
+        });
+        ctx.strokeStyle = "#38bdf8";
+        ctx.lineWidth = 2.5;
+        ctx.stroke();
+      }
+
+      requestAnimationFrame(renderPhysicsCanvas);
+    }
+
+    // =========================================================================
+    // 7. SEQUENCER UI & CONTROLS
+    // =========================================================================
+    function renderTracksUI() {
+      const container = document.getElementById("tracksContainer");
+      container.innerHTML = tracks.map(t => `
+        <div class="track-card" style="--track-color: ${t.color};">
+          <div class="track-header">
+            <div class="track-label">${t.name}</div>
+            <div class="track-controls">
+              <label>STEPS
+                <input type="range" min="2" max="16" value="${t.steps}" data-track="${t.id}" data-param="steps" style="width: 72px;" />
+                <span>${t.steps}</span>
+              </label>
+              <label>PULSES
+                <input type="range" min="1" max="${t.steps}" value="${t.pulses}" data-track="${t.id}" data-param="pulses" style="width: 72px;" />
+                <span>${t.pulses}</span>
+              </label>
+              <label>VOL
+                <input type="range" min="0" max="100" value="${Math.round(t.volume * 100)}" data-track="${t.id}" data-param="volume" style="width: 60px;" />
+              </label>
+            </div>
+          </div>
+          <div class="step-grid">
+            ${t.pattern.map((active, sIdx) => `
+              <div class="step-cell ${active ? "on" : ""}" data-track="${t.id}" data-step="${sIdx}">
+                ${sIdx + 1}
+              </div>
+            `).join("")}
+          </div>
+        </div>
+      `).join("");
+
+      document.getElementById("ratioBadge").textContent = `RATIO ${tracks.map(t => t.steps).join(" : ")}`;
+
+      container.querySelectorAll("input[type='range']").forEach(inp => {
+        inp.addEventListener("input", () => {
+          const track = tracks[Number(inp.dataset.track)];
+          const param = inp.dataset.param;
+          const val = Number(inp.value);
+
+          if (param === "steps") {
+            track.steps = val;
+            track.pulses = Math.min(track.pulses, val);
+            track.pattern = generateEuclidean(track.steps, track.pulses);
+            renderTracksUI();
+          } else if (param === "pulses") {
+            track.pulses = val;
+            track.pattern = generateEuclidean(track.steps, track.pulses);
+            renderTracksUI();
+          } else if (param === "volume") {
+            track.volume = val / 100;
+          }
+        });
+      });
+
+      container.querySelectorAll(".step-cell").forEach(cell => {
+        cell.addEventListener("click", () => {
+          const track = tracks[Number(cell.dataset.track)];
+          const stepIdx = Number(cell.dataset.step);
+          track.pattern[stepIdx] = !track.pattern[stepIdx];
+          cell.classList.toggle("on", track.pattern[stepIdx]);
+        });
+      });
+    }
+
+    function highlightStepUI(trackId, stepIdx) {
+      const cards = document.querySelectorAll(".track-card");
+      const card = cards[trackId];
+      if (!card) return;
+      card.querySelectorAll(".step-cell").forEach((c, i) => c.classList.toggle("playhead", i === stepIdx));
+    }
+
+    const PRESETS = {
+      afro: [{ steps: 3, pulses: 2 }, { steps: 4, pulses: 2 }, { steps: 5, pulses: 3 }, { steps: 7, pulses: 4 }],
+      math: [{ steps: 5, pulses: 3 }, { steps: 7, pulses: 3 }, { steps: 8, pulses: 5 }, { steps: 11, pulses: 6 }],
+      dub:  [{ steps: 4, pulses: 2 }, { steps: 6, pulses: 2 }, { steps: 3, pulses: 2 }, { steps: 8, pulses: 5 }]
+    };
+
+    document.querySelectorAll("[data-preset]").forEach(btn => {
+      btn.addEventListener("click", () => {
+        PRESETS[btn.dataset.preset].forEach((c, idx) => {
+          tracks[idx].steps = c.steps;
+          tracks[idx].pulses = c.pulses;
+          tracks[idx].pattern = generateEuclidean(c.steps, c.pulses);
+        });
+        renderTracksUI();
+      });
+    });
+
+    document.getElementById("btnRandomize").addEventListener("click", () => {
+      tracks.forEach(t => {
+        t.steps = Math.floor(Math.random() * 10) + 3;
+        t.pulses = Math.max(1, Math.floor(t.steps * (0.4 + Math.random() * 0.35)));
+        t.pattern = generateEuclidean(t.steps, t.pulses);
+      });
+      renderTracksUI();
+    });
+
+    document.getElementById("btnPlay").addEventListener("click", togglePlay);
+    document.getElementById("btnToggleMic").addEventListener("click", toggleMicrophoneSynth);
+
+    document.getElementById("bpmSlider").addEventListener("input", e => {
+      document.getElementById("bpmVal").textContent = e.target.value;
+    });
+    document.getElementById("swingSlider").addEventListener("input", e => {
+      document.getElementById("swingVal").textContent = `${e.target.value}%`;
+    });
+    document.getElementById("rainSlider").addEventListener("input", e => {
+      document.getElementById("rainVal").textContent = `${e.target.value}%`;
+      if (rainGain) rainGain.gain.setTargetAtTime((Number(e.target.value) / 100) * 0.55, audioCtx.currentTime, 0.05);
+    });
+    document.getElementById("vinylSlider").addEventListener("input", e => {
+      document.getElementById("vinylVal").textContent = `${e.target.value}%`;
+      if (vinylGain) vinylGain.gain.setTargetAtTime((Number(e.target.value) / 100) * 0.6, audioCtx.currentTime, 0.05);
+    });
+    document.getElementById("toneSlider").addEventListener("input", e => {
+      const hz = Number(e.target.value);
+      document.getElementById("toneVal").textContent = hz >= 1000 ? `${(hz / 1000).toFixed(1)} kHz` : `${hz} Hz`;
+      if (masterFilter) masterFilter.frequency.setTargetAtTime(hz, audioCtx.currentTime, 0.05);
+    });
+    document.getElementById("delaySlider").addEventListener("input", e => {
+      document.getElementById("delayVal").textContent = `${e.target.value}%`;
+      if (delayWet) delayWet.gain.setTargetAtTime(Number(e.target.value) / 100, audioCtx.currentTime, 0.05);
+    });
+    document.getElementById("voiceWaveSelect").addEventListener("change", e => {
+      if (micOsc) micOsc.type = e.target.value;
+    });
+    document.getElementById("voiceVolSlider").addEventListener("input", e => {
+      document.getElementById("voiceVolVal").textContent = `${e.target.value}%`;
+    });
+    document.getElementById("glideSlider").addEventListener("input", e => {
+      document.getElementById("glideVal").textContent = `${e.target.value} ms`;
+    });
+
+    // Boot
+    renderTracksUI();
+    renderPhysicsCanvas();
+  </script>
+</body>
+</html>
