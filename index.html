@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PLUVOX — Orbital Polyrhythm Synth, Environments & Celestial Co-Pilot</title>
+  <title>PLUVOX — Orbital Polyrhythm Synth, Brain-Focus DSP & Solar System Studio</title>
   <style>
     :root {
       --void: #03050a;
-      --glass: rgba(10, 15, 27, 0.74);
-      --glass-strong: rgba(12, 18, 33, 0.92);
+      --glass: rgba(10, 15, 27, 0.76);
+      --glass-strong: rgba(11, 17, 31, 0.94);
       --glass-border: rgba(148, 163, 184, 0.18);
       --text-main: #f8fafc;
       --text-dim: #94a3b8;
@@ -48,29 +48,29 @@
     /* TOP FLOATING ORBITAL HUD */
     .hud-top {
       position: fixed;
-      top: 16px;
-      left: 20px;
-      right: 20px;
+      top: 14px;
+      left: 18px;
+      right: 18px;
       z-index: 20;
       display: flex;
       justify-content: space-between;
       align-items: center;
       pointer-events: none;
-      gap: 0.75rem;
+      gap: 0.65rem;
       flex-wrap: wrap;
     }
 
     .hud-group {
       display: flex;
       align-items: center;
-      gap: 0.55rem;
+      gap: 0.5rem;
       pointer-events: auto;
       flex-wrap: wrap;
     }
 
     .brand-title {
       font-family: var(--font-mono);
-      font-size: 1.3rem;
+      font-size: 1.25rem;
       font-weight: 800;
       letter-spacing: 0.14em;
       background: linear-gradient(90deg, #ffffff 20%, var(--cyan) 100%);
@@ -80,9 +80,9 @@
 
     .brand-hint {
       font-family: var(--font-mono);
-      font-size: 0.64rem;
+      font-size: 0.62rem;
       color: var(--text-dim);
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
     }
 
     .pill {
@@ -90,12 +90,12 @@
       backdrop-filter: blur(12px);
       border: 1px solid var(--glass-border);
       border-radius: 999px;
-      padding: 0.36rem 0.78rem;
+      padding: 0.34rem 0.72rem;
       display: flex;
       align-items: center;
-      gap: 0.42rem;
+      gap: 0.4rem;
       font-family: var(--font-mono);
-      font-size: 0.71rem;
+      font-size: 0.7rem;
       color: var(--text-dim);
       transition: border-color 0.2s ease;
     }
@@ -108,9 +108,9 @@
       backdrop-filter: blur(12px);
       border: 1px solid var(--glass-border);
       border-radius: 999px;
-      padding: 0.42rem 0.88rem;
+      padding: 0.4rem 0.85rem;
       font-family: var(--font-mono);
-      font-size: 0.71rem;
+      font-size: 0.7rem;
       font-weight: 700;
       color: var(--text-main);
       cursor: pointer;
@@ -156,13 +156,13 @@
       border: none;
       color: var(--text-main);
       font-family: var(--font-mono);
-      font-size: 0.71rem;
+      font-size: 0.7rem;
       font-weight: 700;
       outline: none;
       cursor: pointer;
     }
 
-    select option {
+    select option, select optgroup {
       background: #0b101c;
       color: #f8fafc;
     }
@@ -180,8 +180,8 @@
     input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 12px;
-      height: 12px;
+      width: 11px;
+      height: 11px;
       border-radius: 50%;
       background: var(--cyan);
       box-shadow: 0 0 8px var(--cyan);
@@ -190,84 +190,90 @@
 
     input[type="range"]::-webkit-slider-thumb:hover { transform: scale(1.3); }
 
-    /* LEFT FLOATING LOOP PEDALBOARD */
-    .pedalboard-dock {
+    /* LEFT FLOATING SOLAR SYSTEM BANK (FORMERLY PEDALBOARD) */
+    .solar-dock {
       position: fixed;
-      left: 20px;
+      left: 18px;
       top: 50%;
       transform: translateY(-50%);
       z-index: 22;
       display: flex;
       flex-direction: column;
-      gap: 0.42rem;
+      gap: 0.38rem;
       pointer-events: auto;
     }
 
-    .pedal-label {
+    .dock-header {
       font-family: var(--font-mono);
       font-size: 0.62rem;
-      color: var(--text-dim);
-      letter-spacing: 0.08em;
+      color: var(--cyan);
+      font-weight: 800;
+      letter-spacing: 0.1em;
       text-transform: uppercase;
       margin-bottom: 0.1rem;
-    }
-
-    .pedal-slot {
       display: flex;
       align-items: center;
-      gap: 0.35rem;
+      gap: 0.4rem;
     }
 
-    .pedal-btn {
+    .solar-slot {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem;
+    }
+
+    .solar-btn {
       background: var(--glass);
       backdrop-filter: blur(12px);
       border: 1px solid var(--glass-border);
       border-radius: 999px;
-      padding: 0.34rem 0.72rem;
+      padding: 0.32rem 0.68rem;
       font-family: var(--font-mono);
-      font-size: 0.69rem;
+      font-size: 0.68rem;
       font-weight: 700;
       color: var(--text-dim);
       cursor: pointer;
-      min-width: 94px;
+      min-width: 96px;
       display: flex;
       justify-content: space-between;
       align-items: center;
       transition: all 0.15s ease;
     }
 
-    .pedal-btn.has-data { color: var(--text-main); border-color: rgba(56, 189, 248, 0.38); }
-    .pedal-btn.active-scene {
+    .solar-btn.has-data { color: var(--text-main); border-color: rgba(56, 189, 248, 0.38); }
+    .solar-btn.active-scene {
       background: rgba(56, 189, 248, 0.22);
       border-color: var(--cyan);
       color: #ffffff;
       box-shadow: 0 0 16px rgba(56, 189, 248, 0.35);
     }
-    .pedal-btn.queued-scene {
+    .solar-btn.queued-scene {
       border-color: var(--amber);
       color: var(--amber);
       animation: pulseRec 0.7s infinite;
     }
 
-    .pedal-save {
+    .slot-mini-btn {
       background: var(--glass);
       border: 1px solid var(--glass-border);
       color: var(--text-dim);
       border-radius: 50%;
-      width: 23px;
-      height: 23px;
+      width: 22px;
+      height: 22px;
       font-size: 0.68rem;
       display: grid;
       place-items: center;
       cursor: pointer;
+      transition: all 0.12s ease;
     }
 
-    .pedal-save:hover { color: var(--emerald); border-color: var(--emerald); }
+    .slot-mini-btn.save:hover { color: var(--emerald); border-color: var(--emerald); }
+    .slot-mini-btn.del:hover { color: var(--rose); border-color: var(--rose); }
 
-    /* RIGHT FLOATING CELESTIAL AI CO-PILOT */
-    .celestial-dock {
+    /* RIGHT FLOATING CELESTIAL AI CO-PILOT & SOUND TOUCHPAD */
+    .right-dock {
       position: fixed;
-      right: 20px;
+      right: 18px;
       top: 50%;
       transform: translateY(-50%);
       z-index: 22;
@@ -275,7 +281,7 @@
       flex-direction: column;
       align-items: flex-end;
       gap: 0.45rem;
-      max-width: 275px;
+      max-width: 280px;
       pointer-events: auto;
     }
 
@@ -284,9 +290,9 @@
       backdrop-filter: blur(14px);
       border: 1px solid rgba(192, 132, 252, 0.45);
       border-radius: 999px;
-      padding: 0.42rem 0.9rem;
+      padding: 0.38rem 0.85rem;
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       font-weight: 800;
       color: #e9d5ff;
       cursor: pointer;
@@ -300,12 +306,12 @@
       background: var(--glass);
       backdrop-filter: blur(14px);
       border: 1px solid rgba(192, 132, 252, 0.28);
-      border-radius: 16px;
-      padding: 0.65rem 0.85rem;
+      border-radius: 14px;
+      padding: 0.58rem 0.8rem;
       font-family: var(--font-mono);
-      font-size: 0.68rem;
+      font-size: 0.66rem;
       color: var(--text-dim);
-      line-height: 1.42;
+      line-height: 1.4;
       text-align: right;
     }
 
@@ -314,9 +320,9 @@
       backdrop-filter: blur(12px);
       border: 1px solid var(--glass-border);
       border-radius: 999px;
-      padding: 0.34rem 0.78rem;
+      padding: 0.32rem 0.75rem;
       font-family: var(--font-mono);
-      font-size: 0.67rem;
+      font-size: 0.65rem;
       color: var(--text-main);
       cursor: pointer;
       transition: all 0.14s ease;
@@ -329,23 +335,81 @@
       transform: translateX(-3px);
     }
 
+    /* TACTILE SOUND TOUCHPAD POPOVER */
+    .touchpad-drawer {
+      background: var(--glass-strong);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 16px;
+      padding: 0.75rem;
+      width: 276px;
+      box-shadow: 0 18px 48px rgba(0, 0, 0, 0.7);
+      margin-top: 0.25rem;
+    }
+
+    .touchpad-drawer.hidden { display: none; }
+
+    .touchpad-title {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      color: var(--cyan);
+      font-weight: 800;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.5rem;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .pad-matrix {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.38rem;
+    }
+
+    .sound-pad {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--glass-border);
+      border-radius: 8px;
+      padding: 0.48rem 0.35rem;
+      font-family: var(--font-mono);
+      font-size: 0.62rem;
+      font-weight: 700;
+      color: var(--text-main);
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.1s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .sound-pad:hover {
+      border-color: var(--cyan);
+      background: rgba(56, 189, 248, 0.14);
+    }
+
+    .sound-pad:active { transform: scale(0.92); }
+
+    .sound-pad.assigned {
+      border-color: var(--emerald);
+      background: rgba(16, 185, 129, 0.2);
+      color: #a7f3d0;
+    }
+
     /* FLOATING SELECTED PLANET INSPECTOR */
     .planet-inspector {
       position: fixed;
-      left: 20px;
-      bottom: 68px;
+      left: 18px;
+      bottom: 64px;
       z-index: 25;
       background: var(--glass);
       backdrop-filter: blur(16px);
       border: 1px solid var(--glass-border);
       border-radius: 999px;
-      padding: 0.45rem 1.1rem;
+      padding: 0.42rem 1rem;
       display: flex;
       align-items: center;
-      gap: 0.9rem;
+      gap: 0.85rem;
       flex-wrap: wrap;
       font-family: var(--font-mono);
-      font-size: 0.71rem;
+      font-size: 0.7rem;
       box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55);
     }
 
@@ -354,7 +418,7 @@
       letter-spacing: 0.05em;
       display: flex;
       align-items: center;
-      gap: 0.45rem;
+      gap: 0.4rem;
     }
 
     .planet-dot { width: 10px; height: 10px; border-radius: 50%; }
@@ -362,31 +426,31 @@
     .inspector-control {
       display: flex;
       align-items: center;
-      gap: 0.35rem;
+      gap: 0.32rem;
       color: var(--text-dim);
     }
 
-    /* BOTTOM FLOATING ATMOSPHERE & SHARE DOCK */
+    /* BOTTOM FLOATING ATMOSPHERE, WHISTLE SYNTH & SHARE DOCK */
     .hud-bottom {
       position: fixed;
-      bottom: 16px;
-      left: 20px;
-      right: 20px;
+      bottom: 14px;
+      left: 18px;
+      right: 18px;
       z-index: 20;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 0.55rem;
+      gap: 0.5rem;
       pointer-events: none;
     }
 
     .hud-bottom > * { pointer-events: auto; }
 
     .vox-pill { border-color: rgba(56, 189, 248, 0.35); }
-    .vox-note { color: var(--cyan); font-weight: 800; min-width: 32px; text-align: center; }
+    .vox-note { color: var(--cyan); font-weight: 800; min-width: 30px; text-align: center; }
 
-    /* QR & PROJECT SHARE MODAL */
+    /* QR MODAL */
     .modal-overlay {
       position: fixed;
       inset: 0;
@@ -404,7 +468,7 @@
       background: var(--glass-strong);
       border: 1px solid rgba(56, 189, 248, 0.35);
       border-radius: 20px;
-      padding: 1.6rem;
+      padding: 1.5rem;
       max-width: 420px;
       width: 100%;
       text-align: center;
@@ -413,14 +477,14 @@
 
     .qr-chamber h3 {
       font-family: var(--font-mono);
-      font-size: 0.95rem;
+      font-size: 0.92rem;
       letter-spacing: 0.08em;
       color: var(--cyan);
       margin-bottom: 0.4rem;
     }
 
     .qr-chamber p {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       color: var(--text-dim);
       margin-bottom: 1rem;
       line-height: 1.45;
@@ -434,7 +498,7 @@
       margin-bottom: 1rem;
     }
 
-    .qr-frame img { display: block; width: 210px; height: 210px; }
+    .qr-frame img { display: block; width: 200px; height: 200px; }
 
     .share-actions {
       display: flex;
@@ -446,7 +510,7 @@
 
     .toast-banner {
       position: fixed;
-      top: 72px;
+      top: 68px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 55;
@@ -454,8 +518,8 @@
       border: 1px solid var(--emerald);
       color: #a7f3d0;
       font-family: var(--font-mono);
-      font-size: 0.73rem;
-      padding: 0.42rem 1rem;
+      font-size: 0.72rem;
+      padding: 0.4rem 0.95rem;
       border-radius: 999px;
       backdrop-filter: blur(10px);
       opacity: 0;
@@ -465,17 +529,17 @@
 
     .toast-banner.show { opacity: 1; }
 
-    @media (max-width: 960px) {
-      .celestial-dock { display: none; }
-      .pedalboard-dock {
+    @media (max-width: 980px) {
+      .right-dock { display: none; }
+      .solar-dock {
         top: auto;
-        bottom: 118px;
+        bottom: 114px;
         transform: none;
         flex-direction: row;
         flex-wrap: wrap;
-        max-width: 92vw;
+        max-width: 94vw;
       }
-      .pedal-label { display: none; }
+      .dock-header { display: none; }
     }
   </style>
 </head>
@@ -489,26 +553,41 @@
     <div class="hud-group">
       <div>
         <div class="brand-title">PLUVOX</div>
-        <div class="brand-hint">CLICK SUN TO IGNITE · DRAG PULSE ORBS · ASK CELESTIAL FOR HARMONIC SUGGESTIONS</div>
+        <div class="brand-hint">CLICK SUN TO IGNITE · DRAG PULSE ORBS · ADD UP TO 7 ORBITS · ASSIGN VOICES VIA TOUCHPAD</div>
       </div>
     </div>
 
     <div class="hud-group">
       <button id="btnPlay" class="hud-btn">▶ IGNITE SUN</button>
+      <button id="btnAddOrbit" class="hud-btn" title="Add another orbiting voice (max 7)">+ ORBIT</button>
+      <button id="btnRemoveOrbit" class="hud-btn" title="Remove outermost orbit (min 2)">− ORBIT</button>
 
       <div class="pill">
         <span>BIOME</span>
         <select id="envSelect">
           <option value="cosmos">🌌 Deep Cosmos</option>
-          <option value="kyoto">🌧️ Kyoto Midnight Rain</option>
+          <option value="kyoto">🌧️ Kyoto Rain</option>
           <option value="abyss">🌊 Bioluminescent Abyss</option>
           <option value="dune">🏜️ Solar Wind Mirage</option>
         </select>
       </div>
 
       <div class="pill">
+        <span>🧠 FOCUS FREQ</span>
+        <select id="brainWaveSelect" title="Isochronic Neural Entrainment Pulse">
+          <option value="0">Off</option>
+          <option value="12.5" selected>12.5 Hz · SMR Calm Focus</option>
+          <option value="10.0">10.0 Hz · Alpha Flow</option>
+          <option value="14.0">14.0 Hz · Low Beta Alert</option>
+          <option value="40.0">40.0 Hz · Gamma Binding</option>
+          <option value="6.0">6.0 Hz · Theta Ideation</option>
+          <option value="2.5">2.5 Hz · Delta Reset</option>
+        </select>
+      </div>
+
+      <div class="pill">
         <span>GRAVITY</span>
-        <input type="range" id="bpmSlider" min="58" max="165" value="86" style="width: 68px;" />
+        <input type="range" id="bpmSlider" min="58" max="165" value="86" style="width: 64px;" />
         <strong id="bpmVal">86 BPM</strong>
       </div>
 
@@ -546,10 +625,10 @@
             <option value="waltz">6:8:9:12 Celestial Waltz</option>
           </optgroup>
           <optgroup label="Cognitive Flow States">
-            <option value="hyperfocus">🧠 Hyperfocus Tunnel (4:4:8:16)</option>
-            <option value="neuralflow">⚡ Neural Momentum (3:4:6:8)</option>
-            <option value="alphadrift">🌊 Alpha Drift (5:5:10:15)</option>
-            <option value="gammaspark">🔮 Gamma Spark (5:7:9:12)</option>
+            <option value="hyperfocus">🧠 Hyperfocus Tunnel (12.5 Hz)</option>
+            <option value="neuralflow">⚡ Neural Momentum (14 Hz)</option>
+            <option value="alphadrift">🌊 Alpha Drift (10 Hz)</option>
+            <option value="gammaspark">🔮 Gamma Spark (40 Hz)</option>
           </optgroup>
           <option value="mutate">🎲 Mutate Orbits</option>
         </select>
@@ -557,44 +636,57 @@
     </div>
   </div>
 
-  <!-- LEFT FLOATING LOOP PEDALBOARD (8 CONSTELLATION SCENES) -->
-  <div class="pedalboard-dock" id="pedalboardDock">
-    <div class="pedal-label">LOOP PEDALBOARD</div>
+  <!-- LEFT FLOATING SOLAR SYSTEM BANK (FORMERLY PEDALBOARD) -->
+  <div class="solar-dock" id="solarDock">
+    <div class="dock-header">SOLAR SYSTEM</div>
   </div>
 
-  <!-- RIGHT FLOATING CELESTIAL AI CO-PILOT -->
-  <div class="celestial-dock">
-    <button class="celestial-orb-btn" id="btnCelestialAnalyze">✨ CELESTIAL CO-PILOT</button>
-    <div class="celestial-whisper" id="celestialInsight">
-      Orbit stable at 3:4:5:7. Tap a suggestion below to evolve harmony or lock into deep focus.
+  <!-- RIGHT FLOATING CELESTIAL AI CO-PILOT & SOUND TOUCHPAD -->
+  <div class="right-dock">
+    <div style="display:flex; gap:0.45rem;">
+      <button class="hud-btn" id="btnToggleTouchpad">🎛️ SOUND TOUCHPAD</button>
+      <button class="celestial-orb-btn" id="btnCelestialAnalyze">✨ CELESTIAL</button>
     </div>
-    <div id="celestialActions" style="display:flex; flex-direction:column; align-items:flex-end; gap:0.38rem;"></div>
+
+    <!-- TACTILE SOUND TOUCHPAD -->
+    <div class="touchpad-drawer" id="touchpadDrawer">
+      <div class="touchpad-title">
+        <span>AUDITION & ASSIGN VOICE</span>
+        <span id="touchpadTargetLabel" style="color:#f8fafc;">→ VULCAN</span>
+      </div>
+      <div class="pad-matrix" id="padMatrix"></div>
+    </div>
+
+    <div class="celestial-whisper" id="celestialInsight">
+      Orbit active with 12.5 Hz SMR focus carrier. Tap a suggestion below or assign new drum voices on the Touchpad.
+    </div>
+    <div id="celestialActions" style="display:flex; flex-direction:column; align-items:flex-end; gap:0.35rem;"></div>
   </div>
 
   <!-- FLOATING SELECTED PLANET INSPECTOR -->
   <div class="planet-inspector" id="planetInspector">
     <div class="inspector-title">
       <span class="planet-dot" id="inspDot"></span>
-      <span id="inspName">VULCAN · SUB KICK</span>
+      <span id="inspName">VULCAN · 808 SUB KICK</span>
     </div>
     <div class="inspector-control">
       <span>STEPS</span>
-      <input type="range" id="inspSteps" min="2" max="16" value="3" style="width: 64px;" />
+      <input type="range" id="inspSteps" min="2" max="16" value="3" style="width: 60px;" />
       <strong id="inspStepsVal">3</strong>
     </div>
     <div class="inspector-control">
       <span>ORBS</span>
-      <input type="range" id="inspPulses" min="1" max="16" value="2" style="width: 64px;" />
+      <input type="range" id="inspPulses" min="1" max="16" value="2" style="width: 60px;" />
       <strong id="inspPulsesVal">2</strong>
     </div>
     <div class="inspector-control">
       <span>PITCH</span>
-      <input type="range" id="inspPitch" min="0" max="11" value="0" style="width: 52px;" />
+      <input type="range" id="inspPitch" min="0" max="11" value="0" style="width: 50px;" />
       <strong id="inspPitchVal">+0</strong>
     </div>
     <div class="inspector-control">
       <span>GAIN</span>
-      <input type="range" id="inspVol" min="0" max="100" value="88" style="width: 58px;" />
+      <input type="range" id="inspVol" min="0" max="100" value="88" style="width: 54px;" />
       <strong id="inspVolVal">88%</strong>
     </div>
   </div>
@@ -604,29 +696,34 @@
     <div class="hud-group">
       <div class="pill">
         <span>☄️ RAIN</span>
-        <input type="range" id="rainSlider" min="0" max="100" value="42" style="width: 62px;" />
+        <input type="range" id="rainSlider" min="0" max="100" value="42" style="width: 58px;" />
         <strong id="rainVal">42%</strong>
       </div>
       <div class="pill">
         <span>🪨 VINYL</span>
-        <input type="range" id="vinylSlider" min="0" max="100" value="30" style="width: 62px;" />
-        <strong id="vinylVal">30%</strong>
+        <input type="range" id="vinylSlider" min="0" max="100" value="28" style="width: 58px;" />
+        <strong id="vinylVal">28%</strong>
+      </div>
+      <div class="pill">
+        <span>🧠 FOCUS VOL</span>
+        <input type="range" id="focusVolSlider" min="0" max="100" value="28" style="width: 58px;" />
+        <strong id="focusVolVal">28%</strong>
       </div>
       <div class="pill">
         <span>📼 FILTER</span>
-        <input type="range" id="toneSlider" min="550" max="14000" value="3800" style="width: 62px;" />
+        <input type="range" id="toneSlider" min="550" max="14000" value="3800" style="width: 58px;" />
         <strong id="toneVal">3.8k</strong>
       </div>
       <div class="pill">
         <span>🌊 ECHO</span>
-        <input type="range" id="delaySlider" min="0" max="80" value="36" style="width: 54px;" />
+        <input type="range" id="delaySlider" min="0" max="80" value="36" style="width: 52px;" />
         <strong id="delayVal">36%</strong>
       </div>
     </div>
 
     <div class="hud-group">
       <div class="pill vox-pill">
-        <button id="btnToggleMic" class="hud-btn" style="padding: 0.22rem 0.65rem; border: none;">🎙️ WHISTLE / HUM</button>
+        <button id="btnToggleMic" class="hud-btn" style="padding: 0.2rem 0.6rem; border: none;">🎙️ WHISTLE / HUM</button>
         <span class="vox-note" id="quantizedNote">--</span>
         <select id="voiceWaveSelect" title="Whistle Synth Timbre">
           <option value="triangle">Flute</option>
@@ -647,7 +744,7 @@
   <div class="modal-overlay" id="qrModal">
     <div class="qr-chamber">
       <h3>CUSTOM ORBIT QR TELEMETRY</h3>
-      <p>Scan this Orbit QR with your phone camera to open PLUVOX on mobile with your exact polyrhythms, biome, scale, chords, and atmosphere loaded.</p>
+      <p>Scan this Orbit QR with your phone camera to open PLUVOX on mobile with your exact polyrhythms, biome, focus frequency, and atmosphere loaded.</p>
       <div class="qr-frame">
         <img id="qrImage" alt="Custom Orbit QR Code" />
       </div>
@@ -662,7 +759,7 @@
 
   <script>
     // =========================================================================
-    // 1. SCALES, CHORDS, BIOMES & EUCLIDEAN GENERATOR
+    // 1. SCALES, CHORDS, BIOMES & SOUND VOICE LIBRARY (12 TOUCHPAD ENGINES)
     // =========================================================================
     const SCALES = {
       minorPentatonic: [0, 3, 5, 7, 10, 12, 15, 17, 19, 22, 24],
@@ -681,46 +778,39 @@
     };
 
     const BIOMES = {
-      cosmos: {
-        bgTrail: "rgba(3, 5, 10, 0.36)",
-        sunCore: "#fde047",
-        sunHalo: "rgba(245, 158, 11, 0.35)",
-        streakColor: "56, 189, 248",
-        particleMode: "rain",
-        rainFreq: 1050,
-        filterDefault: 3800
-      },
-      kyoto: {
-        bgTrail: "rgba(4, 13, 16, 0.36)",
-        sunCore: "#34d399",
-        sunHalo: "rgba(16, 185, 129, 0.32)",
-        streakColor: "52, 211, 153",
-        particleMode: "lantern",
-        rainFreq: 820,
-        filterDefault: 2600
-      },
-      abyss: {
-        bgTrail: "rgba(2, 8, 18, 0.36)",
-        sunCore: "#38bdf8",
-        sunHalo: "rgba(14, 165, 233, 0.38)",
-        streakColor: "125, 211, 252",
-        particleMode: "bubbles",
-        rainFreq: 520,
-        filterDefault: 1950
-      },
-      dune: {
-        bgTrail: "rgba(16, 9, 5, 0.36)",
-        sunCore: "#fb923c",
-        sunHalo: "rgba(234, 88, 12, 0.38)",
-        streakColor: "251, 146, 60",
-        particleMode: "wind",
-        rainFreq: 1450,
-        filterDefault: 4800
-      }
+      cosmos: { bgTrail: "rgba(3, 5, 10, 0.36)", sunCore: "#fde047", sunHalo: "rgba(245, 158, 11, 0.35)", streakColor: "56, 189, 248", particleMode: "rain", rainFreq: 1050, filterDefault: 3800 },
+      kyoto:  { bgTrail: "rgba(4, 13, 16, 0.36)", sunCore: "#34d399", sunHalo: "rgba(16, 185, 129, 0.32)", streakColor: "52, 211, 153", particleMode: "lantern", rainFreq: 820, filterDefault: 2600 },
+      abyss:  { bgTrail: "rgba(2, 8, 18, 0.36)", sunCore: "#38bdf8", sunHalo: "rgba(14, 165, 233, 0.38)", streakColor: "125, 211, 252", particleMode: "bubbles", rainFreq: 520, filterDefault: 1950 },
+      dune:   { bgTrail: "rgba(16, 9, 5, 0.36)", sunCore: "#fb923c", sunHalo: "rgba(234, 88, 12, 0.38)", streakColor: "251, 146, 60", particleMode: "wind", rainFreq: 1450, filterDefault: 4800 }
     };
 
-    const NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+    // 12 Distinct Drum, Percussion & Melodic Voices for the Touchpad
+    const VOICE_ENGINES = [
+      { id: "kick808",   label: "808 SUB KICK" },
+      { id: "kickPunch", label: "LO-FI KICK" },
+      { id: "rim",       label: "DUSTY RIM" },
+      { id: "snareTape", label: "TAPE SNARE" },
+      { id: "hatClosed", label: "CRISP HAT" },
+      { id: "hatOpen",   label: "OPEN SHIMMER" },
+      { id: "woodPerc",  label: "WOOD PERC" },
+      { id: "tomDeep",   label: "ORBIT TOM" },
+      { id: "pluck",     label: "WARM RHODES" },
+      { id: "bell",      label: "GLASS BELL" },
+      { id: "kalimba",   label: "KALIMBA" },
+      { id: "subBass",   label: "ACID SUB" }
+    ];
 
+    const PLANET_TEMPLATES = [
+      { baseName: "VULCAN",  type: "kick808",   color: "#f59e0b", radius: 15, steps: 3, pulses: 2, pitch: 0, vol: 0.88 },
+      { baseName: "CRIMSON", type: "rim",       color: "#fb7185", radius: 12, steps: 4, pulses: 2, pitch: 0, vol: 0.68 },
+      { baseName: "AQUARIA", type: "pluck",     color: "#38bdf8", radius: 14, steps: 5, pulses: 3, pitch: 3, vol: 0.64 },
+      { baseName: "NEBULA",  type: "bell",      color: "#c084fc", radius: 13, steps: 7, pulses: 4, pitch: 6, vol: 0.54 },
+      { baseName: "TITAN",   type: "hatClosed", color: "#34d399", radius: 10, steps: 8, pulses: 5, pitch: 0, vol: 0.48 },
+      { baseName: "AETHER",  type: "kalimba",   color: "#f472b6", radius: 12, steps: 9, pulses: 4, pitch: 5, vol: 0.55 },
+      { baseName: "ZEPHYR",  type: "woodPerc",  color: "#fbbf24", radius: 11, steps: 11, pulses: 5, pitch: 2, vol: 0.52 }
+    ];
+
+    const NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
     function midiToFreq(midi) { return 440 * Math.pow(2, (midi - 69) / 12); }
     function freqToMidi(freq) { return Math.round(69 + 12 * Math.log2(freq / 440)); }
     function midiToName(midi) { return `${NOTE_NAMES[midi % 12]}${Math.floor(midi / 12) - 1}`; }
@@ -767,147 +857,176 @@
     }
 
     // =========================================================================
-    // 2. PLANETARY BODIES & FLUID PHYSICS STATE
+    // 2. DYNAMIC PLANETS (4 TO 7 ORBITS)
     // =========================================================================
-    const planets = [
-      {
-        id: 0,
-        name: "VULCAN · SUB KICK",
-        type: "kick",
-        color: "#f59e0b",
-        planetRadius: 15,
-        steps: 3,
-        pulses: 2,
-        pitchOffset: 0,
-        volume: 0.88,
-        pattern: [true, false, true],
-        currentStep: 0,
-        visualAngle: -Math.PI / 2,
-        springOffset: 0,
-        springVel: 0,
-        floatPhase: 0.2,
-        pulseFlash: 0
-      },
-      {
-        id: 1,
-        name: "CRIMSON · LO-FI RIM",
-        type: "snare",
-        color: "#fb7185",
-        planetRadius: 12,
-        steps: 4,
-        pulses: 2,
-        pitchOffset: 0,
-        volume: 0.68,
-        pattern: [false, true, false, true],
-        currentStep: 0,
-        visualAngle: -Math.PI / 2,
-        springOffset: 0,
-        springVel: 0,
-        floatPhase: 1.7,
-        pulseFlash: 0
-      },
-      {
-        id: 2,
-        name: "AQUARIA · RHODES PLUCK",
-        type: "pluck",
-        color: "#38bdf8",
-        planetRadius: 14,
-        steps: 5,
-        pulses: 3,
-        pitchOffset: 3,
-        volume: 0.64,
-        pattern: [true, false, true, false, true],
-        currentStep: 0,
-        visualAngle: -Math.PI / 2,
-        springOffset: 0,
-        springVel: 0,
-        floatPhase: 3.1,
-        pulseFlash: 0
-      },
-      {
-        id: 3,
-        name: "NEBULA · GLASS BELL",
-        type: "bell",
-        color: "#c084fc",
-        planetRadius: 13,
-        steps: 7,
-        pulses: 4,
-        pitchOffset: 6,
-        volume: 0.54,
-        pattern: [true, false, true, false, true, false, true],
-        currentStep: 0,
-        visualAngle: -Math.PI / 2,
-        springOffset: 0,
-        springVel: 0,
-        floatPhase: 4.8,
-        pulseFlash: 0
-      }
-    ];
+    function createPlanetFromTemplate(idx, customCfg = null) {
+      const tpl = PLANET_TEMPLATES[idx % PLANET_TEMPLATES.length];
+      const steps = customCfg ? customCfg.steps : tpl.steps;
+      const pulses = customCfg ? customCfg.pulses : tpl.pulses;
+      const type = customCfg && customCfg.type ? customCfg.type : tpl.type;
+      const voiceLabel = VOICE_ENGINES.find(v => v.id === type)?.label || type.toUpperCase();
 
+      return {
+        id: idx,
+        baseName: tpl.baseName,
+        name: `${tpl.baseName} · ${voiceLabel}`,
+        type,
+        color: tpl.color,
+        planetRadius: tpl.radius,
+        steps,
+        pulses,
+        pitchOffset: customCfg ? (customCfg.pitchOffset ?? tpl.pitch) : tpl.pitch,
+        volume: customCfg ? (customCfg.volume ?? tpl.vol) : tpl.vol,
+        pattern: customCfg && customCfg.pattern ? [...customCfg.pattern] : generateEuclidean(steps, pulses),
+        currentStep: 0,
+        visualAngle: -Math.PI / 2 + idx * 0.4,
+        springOffset: 0,
+        springVel: 0,
+        floatPhase: idx * 1.35,
+        pulseFlash: 0
+      };
+    }
+
+    let planets = [0, 1, 2, 3].map(i => createPlanetFromTemplate(i));
     let selectedPlanetId = 0;
     let activeBiomeKey = "cosmos";
 
+    document.getElementById("btnAddOrbit").addEventListener("click", () => {
+      if (planets.length >= 7) {
+        showToast("Maximum 7 planetary orbits reached");
+        return;
+      }
+      const newIdx = planets.length;
+      const newPlanet = createPlanetFromTemplate(newIdx);
+      newPlanet.springVel = 5.5;
+      planets.push(newPlanet);
+      selectPlanet(newIdx);
+      refreshCelestialSuggestions();
+      showToast(`Added Orbit ${newIdx + 1}: ${newPlanet.name}`);
+    });
+
+    document.getElementById("btnRemoveOrbit").addEventListener("click", () => {
+      if (planets.length <= 2) {
+        showToast("Minimum 2 orbits required");
+        return;
+      }
+      const removed = planets.pop();
+      if (selectedPlanetId >= planets.length) selectedPlanetId = planets.length - 1;
+      selectPlanet(selectedPlanetId);
+      refreshCelestialSuggestions();
+      showToast(`Removed Orbit: ${removed.baseName}`);
+    });
+
     // =========================================================================
-    // 3. CELESTIAL AI CO-PILOT (HARMONIC & FLOW-STATE ENGINE)
+    // 3. TACTILE SOUND TOUCHPAD (AUDITION & ASSIGN TO SELECTED PLANET)
+    // =========================================================================
+    function renderTouchpad() {
+      const matrix = document.getElementById("padMatrix");
+      const targetPlanet = planets[selectedPlanetId];
+      document.getElementById("touchpadTargetLabel").textContent = `→ ${targetPlanet.baseName}`;
+
+      matrix.innerHTML = VOICE_ENGINES.map(v => {
+        const isAssigned = targetPlanet.type === v.id;
+        return `<button class="sound-pad ${isAssigned ? "assigned" : ""}" data-voice="${v.id}">${v.label}</button>`;
+      }).join("");
+
+      matrix.querySelectorAll(".sound-pad").forEach(pad => {
+        pad.addEventListener("click", () => {
+          initAudioEngine();
+          if (audioCtx.state === "suspended") audioCtx.resume();
+
+          const voiceId = pad.dataset.voice;
+          const p = planets[selectedPlanetId];
+          p.type = voiceId;
+          const vObj = VOICE_ENGINES.find(v => v.id === voiceId);
+          p.name = `${p.baseName} · ${vObj ? vObj.label : voiceId.toUpperCase()}`;
+          p.springVel += 4.0;
+          p.pulseFlash = 1.0;
+
+          // Audition sound immediately
+          triggerPlanetVoice(p, audioCtx.currentTime, 0);
+
+          selectPlanet(p.id);
+          renderTouchpad();
+          showToast(`Assigned ${vObj.label} to ${p.baseName}`);
+        });
+      });
+    }
+
+    document.getElementById("btnToggleTouchpad").addEventListener("click", () => {
+      document.getElementById("touchpadDrawer").classList.toggle("hidden");
+    });
+
+    // =========================================================================
+    // 4. CELESTIAL AI CO-PILOT
     // =========================================================================
     function refreshCelestialSuggestions() {
       const bpm = Number(document.getElementById("bpmSlider").value);
+      const focusHz = Number(document.getElementById("brainWaveSelect").value);
       const totalPulses = planets.reduce((acc, p) => acc + p.pulses, 0);
       const ratioStr = planets.map(p => p.steps).join(":");
       const insightEl = document.getElementById("celestialInsight");
       const actionsEl = document.getElementById("celestialActions");
 
-      let diagnosis = `Orbit ${ratioStr} (${bpm} BPM, ${totalPulses} active orbs). `;
-      if (totalPulses > 14) {
-        diagnosis += "High rhythmic density detected—thinning outer bells will open breathing room.";
-      } else if (bpm < 80) {
-        diagnosis += "Deep alpha-wave tempo detected—ideal for sustained deep focus and warm rain.";
+      let diagnosis = `Solar System ${ratioStr} (${bpm} BPM, ${totalPulses} orbs`;
+      diagnosis += focusHz > 0 ? `, ${focusHz} Hz entrainment). ` : `). `;
+      if (totalPulses > 16) {
+        diagnosis += "High rhythmic density—softening outer orbits will protect focus clarity.";
+      } else if (focusHz === 12.5) {
+        diagnosis += "12.5 Hz SMR carrier active—locks motor stillness and deep reading flow.";
       } else {
-        diagnosis += "Balanced polyrhythmic tension—ready for melodic counter-orbits or harmonic shift.";
+        diagnosis += "Harmonic field balanced—ready for counter-orbits or percussive layering.";
       }
       insightEl.textContent = diagnosis;
 
       const suggestions = [
         {
-          label: "🧠 Lock Hyperfocus Flow (4:4:8:16)",
+          label: "🧠 Engage 12.5 Hz SMR Deep Focus",
           run: () => {
             applyPreset("hyperfocus");
-            showToast("Celestial: Engaged Hyperfocus Flow state");
+            showToast("Celestial: Locked 12.5 Hz SMR Hyperfocus Tunnel");
           }
         },
         {
-          label: "✨ Interlock Outer Counter-Orbits",
+          label: "🥁 Add Crisp Hi-Hat Orbit Layer",
+          run: () => {
+            if (planets.length < 7) {
+              const idx = planets.length;
+              const hatPlanet = createPlanetFromTemplate(idx, { type: "hatClosed", steps: 8, pulses: 5, volume: 0.45 });
+              planets.push(hatPlanet);
+              selectPlanet(idx);
+              showToast("Celestial: Added Crisp Hi-Hat orbit");
+            } else {
+              planets[planets.length - 1].type = "hatClosed";
+              selectPlanet(planets.length - 1);
+            }
+          }
+        },
+        {
+          label: "✨ Interlock Melodic Counter-Orbits",
           run: () => {
             const base = planets[0].steps;
-            planets[2].steps = base + 2;
-            planets[2].pulses = Math.max(2, Math.ceil(planets[2].steps * 0.55));
-            planets[2].pattern = generateEuclidean(planets[2].steps, planets[2].pulses);
-
-            planets[3].steps = base * 2 + 1;
-            planets[3].pulses = Math.max(3, Math.ceil(planets[3].steps * 0.45));
-            planets[3].pattern = generateEuclidean(planets[3].steps, planets[3].pulses);
+            if (planets[2]) {
+              planets[2].steps = base + 2;
+              planets[2].pulses = Math.max(2, Math.ceil(planets[2].steps * 0.55));
+              planets[2].pattern = generateEuclidean(planets[2].steps, planets[2].pulses);
+            }
+            if (planets[3]) {
+              planets[3].steps = base * 2 + 1;
+              planets[3].pulses = Math.max(3, Math.ceil(planets[3].steps * 0.45));
+              planets[3].pattern = generateEuclidean(planets[3].steps, planets[3].pulses);
+            }
             selectPlanet(selectedPlanetId);
-            showToast(`Celestial: Interlocked Aquaria (${planets[2].steps}) & Nebula (${planets[3].steps})`);
+            showToast("Celestial: Interlocked outer melodic orbits");
           }
         },
         {
-          label: "🌌 Shift to Neo-Soul Dorian + Abyss",
+          label: "🌌 Shift to Dorian + Abyss Biome",
           run: () => {
             document.getElementById("scaleSelect").value = "dorian";
             document.getElementById("chordProgSelect").value = "neosoul";
             setBiome("abyss");
             showToast("Celestial: Shifted to C Dorian & Bioluminescent Abyss");
-          }
-        },
-        {
-          label: "🍃 Warm Tape & Thin Busy Orbs",
-          run: () => {
-            document.getElementById("toneSlider").value = 2100;
-            document.getElementById("toneVal").textContent = "2.1k";
-            if (masterFilter) masterFilter.frequency.setTargetAtTime(2100, audioCtx.currentTime, 0.08);
-            planets[3].volume = 0.35;
-            selectPlanet(selectedPlanetId);
-            showToast("Celestial: Softened tape filter to 2.1 kHz for warmth");
           }
         }
       ];
@@ -926,21 +1045,23 @@
 
     document.getElementById("btnCelestialAnalyze").addEventListener("click", () => {
       refreshCelestialSuggestions();
-      showToast("Celestial analyzed current orbital telemetry");
+      showToast("Celestial analyzed Solar System telemetry");
     });
 
     // =========================================================================
-    // 4. LOOP PEDALBOARD (8 CONSTELLATION SCENES) & PROJECT FILE IO
+    // 5. SOLAR SYSTEM BANK (FORMERLY PEDALBOARD — WITH DELETE BUTTON)
     // =========================================================================
-    const pedalScenes = new Array(8).fill(null);
+    const solarScenes = new Array(8).fill(null);
     let activeSceneIdx = 0;
     let queuedSceneIdx = null;
 
     function captureCurrentSnapshot(label = "") {
       return {
-        label: label || `PEDAL 0${activeSceneIdx + 1}`,
+        label: label || `SYSTEM 0${activeSceneIdx + 1}`,
         biome: activeBiomeKey,
         bpm: Number(document.getElementById("bpmSlider").value),
+        focusHz: Number(document.getElementById("brainWaveSelect").value),
+        focusVol: Number(document.getElementById("focusVolSlider").value),
         scale: document.getElementById("scaleSelect").value,
         chords: document.getElementById("chordProgSelect").value,
         rain: Number(document.getElementById("rainSlider").value),
@@ -948,6 +1069,7 @@
         tone: Number(document.getElementById("toneSlider").value),
         delay: Number(document.getElementById("delaySlider").value),
         planets: planets.map(p => ({
+          type: p.type,
           steps: p.steps,
           pulses: p.pulses,
           pitchOffset: p.pitchOffset,
@@ -962,102 +1084,126 @@
       if (snap.biome && BIOMES[snap.biome]) setBiome(snap.biome, true);
       document.getElementById("bpmSlider").value = snap.bpm;
       document.getElementById("bpmVal").textContent = `${snap.bpm} BPM`;
+
+      if (snap.focusHz !== undefined) {
+        document.getElementById("brainWaveSelect").value = String(snap.focusHz);
+        updateBrainwaveCarrier();
+      }
+      if (snap.focusVol !== undefined) {
+        document.getElementById("focusVolSlider").value = snap.focusVol;
+        document.getElementById("focusVolVal").textContent = `${snap.focusVol}%`;
+        updateBrainwaveCarrier();
+      }
+
       document.getElementById("scaleSelect").value = snap.scale;
       document.getElementById("chordProgSelect").value = snap.chords;
 
       document.getElementById("rainSlider").value = snap.rain;
       document.getElementById("rainVal").textContent = `${snap.rain}%`;
-      if (rainGain) rainGain.gain.setTargetAtTime((snap.rain / 100) * 0.55, audioCtx.currentTime, 0.05);
+      if (rainGain && audioCtx) rainGain.gain.setTargetAtTime((snap.rain / 100) * 0.55, audioCtx.currentTime, 0.05);
 
       document.getElementById("vinylSlider").value = snap.vinyl;
       document.getElementById("vinylVal").textContent = `${snap.vinyl}%`;
-      if (vinylGain) vinylGain.gain.setTargetAtTime((snap.vinyl / 100) * 0.6, audioCtx.currentTime, 0.05);
+      if (vinylGain && audioCtx) vinylGain.gain.setTargetAtTime((snap.vinyl / 100) * 0.6, audioCtx.currentTime, 0.05);
 
       document.getElementById("toneSlider").value = snap.tone;
       document.getElementById("toneVal").textContent = snap.tone >= 1000 ? `${(snap.tone / 1000).toFixed(1)}k` : `${snap.tone}`;
-      if (masterFilter) masterFilter.frequency.setTargetAtTime(snap.tone, audioCtx.currentTime, 0.05);
+      if (masterFilter && audioCtx) masterFilter.frequency.setTargetAtTime(snap.tone, audioCtx.currentTime, 0.05);
 
       document.getElementById("delaySlider").value = snap.delay;
       document.getElementById("delayVal").textContent = `${snap.delay}%`;
-      if (delayWet) delayWet.gain.setTargetAtTime(snap.delay / 100, audioCtx.currentTime, 0.05);
+      if (delayWet && audioCtx) delayWet.gain.setTargetAtTime(snap.delay / 100, audioCtx.currentTime, 0.05);
 
-      snap.planets.forEach((sp, idx) => {
-        if (!planets[idx]) return;
-        planets[idx].steps = sp.steps;
-        planets[idx].pulses = sp.pulses;
-        planets[idx].pitchOffset = sp.pitchOffset;
-        planets[idx].volume = sp.volume;
-        planets[idx].pattern = [...sp.pattern];
-        planets[idx].springVel += 3.5;
-      });
+      planets = snap.planets.map((sp, idx) => createPlanetFromTemplate(idx, sp));
+      if (selectedPlanetId >= planets.length) selectedPlanetId = 0;
 
       selectPlanet(selectedPlanetId);
       refreshCelestialSuggestions();
       if (!silent) showToast(`Loaded ${snap.label}`);
     }
 
-    function renderPedalboard() {
-      const dock = document.getElementById("pedalboardDock");
-      dock.innerHTML = `<div class="pedal-label">LOOP PEDALBOARD</div>` +
-        pedalScenes.map((scene, idx) => {
+    function renderSolarSystemDock() {
+      const dock = document.getElementById("solarDock");
+      dock.innerHTML = `<div class="dock-header">SOLAR SYSTEM</div>` +
+        solarScenes.map((scene, idx) => {
           const isActive = idx === activeSceneIdx;
           const isQueued = idx === queuedSceneIdx;
           const hasData = Boolean(scene);
           const ratioTag = scene ? scene.planets.map(p => p.steps).join(":") : "EMPTY";
           return `
-            <div class="pedal-slot">
-              <button class="pedal-btn ${hasData ? "has-data" : ""} ${isActive ? "active-scene" : ""} ${isQueued ? "queued-scene" : ""}" data-scene="${idx}">
+            <div class="solar-slot">
+              <button class="solar-btn ${hasData ? "has-data" : ""} ${isActive ? "active-scene" : ""} ${isQueued ? "queued-scene" : ""}" data-scene="${idx}">
                 <span>0${idx + 1}</span>
-                <span style="font-size:0.64rem; opacity:0.85;">${ratioTag}</span>
+                <span style="font-size:0.62rem; opacity:0.85;">${ratioTag}</span>
               </button>
-              <button class="pedal-save" data-save="${idx}" title="Capture current orbit to Pedal 0${idx + 1}">+</button>
+              <button class="slot-mini-btn save" data-save="${idx}" title="Save current Solar System to Slot 0${idx + 1}">+</button>
+              ${hasData ? `<button class="slot-mini-btn del" data-del="${idx}" title="Remove Slot 0${idx + 1}">×</button>` : ""}
             </div>
           `;
         }).join("");
 
-      dock.querySelectorAll(".pedal-btn").forEach(btn => {
+      dock.querySelectorAll(".solar-btn").forEach(btn => {
         btn.addEventListener("click", () => {
           const idx = Number(btn.dataset.scene);
-          if (!pedalScenes[idx]) {
-            pedalScenes[idx] = captureCurrentSnapshot(`PEDAL 0${idx + 1}`);
+          if (!solarScenes[idx]) {
+            solarScenes[idx] = captureCurrentSnapshot(`SYSTEM 0${idx + 1}`);
             activeSceneIdx = idx;
-            renderPedalboard();
-            showToast(`Captured Orbit into Pedal 0${idx + 1}`);
+            renderSolarSystemDock();
+            showToast(`Captured Solar System 0${idx + 1}`);
             return;
           }
           if (isPlaying) {
             queuedSceneIdx = idx;
-            renderPedalboard();
-            showToast(`Pedal 0${idx + 1} queued for next bar...`);
+            renderSolarSystemDock();
+            showToast(`Solar System 0${idx + 1} queued for next bar...`);
           } else {
             activeSceneIdx = idx;
-            applySnapshot(pedalScenes[idx]);
-            renderPedalboard();
+            applySnapshot(solarScenes[idx]);
+            renderSolarSystemDock();
           }
         });
       });
 
-      dock.querySelectorAll(".pedal-save").forEach(btn => {
+      dock.querySelectorAll(".slot-mini-btn.save").forEach(btn => {
         btn.addEventListener("click", () => {
           const idx = Number(btn.dataset.save);
-          pedalScenes[idx] = captureCurrentSnapshot(`PEDAL 0${idx + 1}`);
+          solarScenes[idx] = captureCurrentSnapshot(`SYSTEM 0${idx + 1}`);
           activeSceneIdx = idx;
-          renderPedalboard();
-          showToast(`Saved current orbit to Pedal 0${idx + 1}`);
+          renderSolarSystemDock();
+          showToast(`Saved Solar System 0${idx + 1}`);
+        });
+      });
+
+      dock.querySelectorAll(".slot-mini-btn.del").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const idx = Number(btn.dataset.del);
+          solarScenes[idx] = null;
+          if (queuedSceneIdx === idx) queuedSceneIdx = null;
+          renderSolarSystemDock();
+          showToast(`Cleared Solar System 0${idx + 1}`);
         });
       });
     }
 
     // =========================================================================
-    // 5. WEB AUDIO API DSP ENGINE
+    // 6. WEB AUDIO API DSP ENGINE (12 VOICES + ISOCHRONIC BRAIN-FOCUS CARRIER)
     // =========================================================================
     let audioCtx = null;
     let masterFilter = null;
+    let compressorNode = null;
     let delayNode = null;
     let delayWet = null;
     let rainBandFilter = null;
     let rainGain = null;
     let vinylGain = null;
+
+    // Isochronic Brain-Focus Entrainment Nodes
+    let focusCarrierOsc = null;
+    let focusLfoOsc = null;
+    let focusLfoDepth = null;
+    let focusModGain = null;
+    let focusMasterGain = null;
+
     let recordDest = null;
     let mediaRecorder = null;
     let recordedChunks = [];
@@ -1082,9 +1228,9 @@
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       audioCtx = new AudioContext();
 
-      const compressor = audioCtx.createDynamicsCompressor();
-      compressor.threshold.value = -14;
-      compressor.ratio.value = 3.5;
+      compressorNode = audioCtx.createDynamicsCompressor();
+      compressorNode.threshold.value = -14;
+      compressorNode.ratio.value = 3.5;
 
       masterFilter = audioCtx.createBiquadFilter();
       masterFilter.type = "lowpass";
@@ -1103,11 +1249,39 @@
       delayNode.connect(delayWet);
       delayWet.connect(masterFilter);
 
-      masterFilter.connect(compressor);
-      compressor.connect(audioCtx.destination);
+      masterFilter.connect(compressorNode);
+      compressorNode.connect(audioCtx.destination);
 
       recordDest = audioCtx.createMediaStreamDestination();
-      compressor.connect(recordDest);
+      compressorNode.connect(recordDest);
+
+      // Isochronic Brain-Focus Frequency Engine (e.g., 12.5 Hz SMR, 40 Hz Gamma)
+      focusCarrierOsc = audioCtx.createOscillator();
+      focusCarrierOsc.type = "sine";
+      focusCarrierOsc.frequency.value = 174; // Grounding 174 Hz warm carrier
+
+      focusModGain = audioCtx.createGain();
+      focusModGain.gain.value = 0.5;
+
+      focusLfoOsc = audioCtx.createOscillator();
+      focusLfoOsc.type = "sine";
+      focusLfoOsc.frequency.value = Number(document.getElementById("brainWaveSelect").value) || 12.5;
+
+      focusLfoDepth = audioCtx.createGain();
+      focusLfoDepth.gain.value = 0.45;
+
+      focusMasterGain = audioCtx.createGain();
+      focusMasterGain.gain.value = 0.0001;
+
+      focusLfoOsc.connect(focusLfoDepth);
+      focusLfoDepth.connect(focusModGain.gain);
+      focusCarrierOsc.connect(focusModGain);
+      focusModGain.connect(focusMasterGain);
+      focusMasterGain.connect(compressorNode);
+
+      focusCarrierOsc.start();
+      focusLfoOsc.start();
+      updateBrainwaveCarrier();
 
       // Procedural Pink/Brown-Noise Rain Buffer
       const bufferSize = audioCtx.sampleRate * 3;
@@ -1140,7 +1314,7 @@
 
       rainSource.connect(rainBandFilter);
       rainBandFilter.connect(rainGain);
-      rainGain.connect(compressor);
+      rainGain.connect(compressorNode);
       rainSource.start();
 
       // Procedural Vinyl Crackle Buffer
@@ -1164,8 +1338,24 @@
 
       vinylSource.connect(vinylHigh);
       vinylHigh.connect(vinylGain);
-      vinylGain.connect(compressor);
+      vinylGain.connect(compressorNode);
       vinylSource.start();
+    }
+
+    function updateBrainwaveCarrier() {
+      if (!audioCtx || !focusMasterGain) return;
+      const hz = Number(document.getElementById("brainWaveSelect").value);
+      const volPct = Number(document.getElementById("focusVolSlider").value) / 100;
+
+      if (hz <= 0 || volPct <= 0.01) {
+        focusMasterGain.gain.setTargetAtTime(0.0001, audioCtx.currentTime, 0.12);
+      } else {
+        focusLfoOsc.frequency.setTargetAtTime(hz, audioCtx.currentTime, 0.08);
+        // Slightly higher warm carrier pitch for Gamma (40Hz), deeper for Delta/Theta
+        const carrierHz = hz >= 30 ? 220 : (hz >= 10 ? 174 : 136.1);
+        focusCarrierOsc.frequency.setTargetAtTime(carrierHz, audioCtx.currentTime, 0.12);
+        focusMasterGain.gain.setTargetAtTime(volPct * 0.11, audioCtx.currentTime, 0.12);
+      }
     }
 
     function setBiome(biomeKey, silent = false) {
@@ -1182,7 +1372,7 @@
       if (masterFilter && audioCtx) {
         masterFilter.frequency.setTargetAtTime(b.filterDefault, audioCtx.currentTime, 0.12);
       }
-      if (!silent) showToast(`Environment shifted: ${biomeKey.toUpperCase()}`);
+      if (!silent) showToast(`Environment: ${biomeKey.toUpperCase()}`);
     }
 
     function triggerChordPad(time, durationSec) {
@@ -1249,75 +1439,109 @@
       });
     }
 
+    function createNoiseBuffer(durationSec) {
+      const len = Math.floor(audioCtx.sampleRate * durationSec);
+      const buf = audioCtx.createBuffer(1, len, audioCtx.sampleRate);
+      const out = buf.getChannelData(0);
+      for (let i = 0; i < len; i++) out[i] = Math.random() * 2 - 1;
+      return buf;
+    }
+
     function triggerPlanetVoice(planet, time, stepIndex) {
       if (!audioCtx) return;
       const scaleKey = document.getElementById("scaleSelect").value;
       const intervals = SCALES[scaleKey];
+      const t = planet.type;
 
-      if (planet.type === "kick") {
+      if (t === "kick808" || t === "kickPunch") {
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.type = "sine";
-        osc.frequency.setValueAtTime(145, time);
-        osc.frequency.exponentialRampToValueAtTime(38, time + 0.16);
+        osc.frequency.setValueAtTime(t === "kick808" ? 135 : 175, time);
+        osc.frequency.exponentialRampToValueAtTime(t === "kick808" ? 36 : 48, time + (t === "kick808" ? 0.22 : 0.09));
         gain.gain.setValueAtTime(planet.volume, time);
-        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.36);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + (t === "kick808" ? 0.45 : 0.24));
         osc.connect(gain);
         gain.connect(masterFilter);
         osc.start(time);
-        osc.stop(time + 0.38);
-      } else if (planet.type === "snare") {
-        const noiseLen = Math.floor(audioCtx.sampleRate * 0.14);
-        const buf = audioCtx.createBuffer(1, noiseLen, audioCtx.sampleRate);
-        const out = buf.getChannelData(0);
-        for (let i = 0; i < noiseLen; i++) out[i] = Math.random() * 2 - 1;
-
+        osc.stop(time + 0.46);
+      } else if (t === "rim" || t === "snareTape") {
+        const dur = t === "rim" ? 0.11 : 0.22;
         const noise = audioCtx.createBufferSource();
-        noise.buffer = buf;
+        noise.buffer = createNoiseBuffer(dur);
         const filter = audioCtx.createBiquadFilter();
-        filter.type = "bandpass";
-        filter.frequency.value = 1480;
+        filter.type = t === "rim" ? "bandpass" : "highpass";
+        filter.frequency.value = t === "rim" ? 1550 : 950;
         const gain = audioCtx.createGain();
-        gain.gain.setValueAtTime(planet.volume * 0.55, time);
-        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.13);
-
+        gain.gain.setValueAtTime(planet.volume * 0.58, time);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + dur);
         noise.connect(filter);
         filter.connect(gain);
         gain.connect(masterFilter);
         gain.connect(delayNode);
         noise.start(time);
-      } else if (planet.type === "pluck") {
+      } else if (t === "hatClosed" || t === "hatOpen") {
+        const dur = t === "hatClosed" ? 0.055 : 0.24;
+        const noise = audioCtx.createBufferSource();
+        noise.buffer = createNoiseBuffer(dur);
+        const filter = audioCtx.createBiquadFilter();
+        filter.type = "highpass";
+        filter.frequency.value = 6800;
+        const gain = audioCtx.createGain();
+        gain.gain.setValueAtTime(planet.volume * 0.36, time);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + dur);
+        noise.connect(filter);
+        filter.connect(gain);
+        gain.connect(masterFilter);
+        if (t === "hatOpen") gain.connect(delayNode);
+        noise.start(time);
+      } else if (t === "woodPerc" || t === "tomDeep") {
+        const baseFreq = t === "woodPerc" ? 520 + (planet.pitchOffset * 35) : 130 + (planet.pitchOffset * 12);
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = t === "woodPerc" ? "triangle" : "sine";
+        osc.frequency.setValueAtTime(baseFreq, time);
+        osc.frequency.exponentialRampToValueAtTime(baseFreq * 0.55, time + 0.14);
+        gain.gain.setValueAtTime(planet.volume * 0.65, time);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.18);
+        osc.connect(gain);
+        gain.connect(masterFilter);
+        gain.connect(delayNode);
+        osc.start(time);
+        osc.stop(time + 0.2);
+      } else if (t === "pluck" || t === "subBass") {
         const noteIdx = (stepIndex + planet.pitchOffset) % intervals.length;
-        const freq = midiToFreq(48 + intervals[noteIdx]);
+        const rootMidi = t === "subBass" ? 36 : 48;
+        const freq = midiToFreq(rootMidi + intervals[noteIdx]);
         const osc = audioCtx.createOscillator();
         const sub = audioCtx.createOscillator();
         const filter = audioCtx.createBiquadFilter();
         const gain = audioCtx.createGain();
 
-        osc.type = "triangle";
+        osc.type = t === "subBass" ? "sawtooth" : "triangle";
         sub.type = "sine";
         osc.frequency.setValueAtTime(freq, time);
-        sub.frequency.setValueAtTime(freq * 2, time);
+        sub.frequency.setValueAtTime(freq * (t === "subBass" ? 1 : 2), time);
         filter.type = "lowpass";
-        filter.frequency.setValueAtTime(1750, time);
-        filter.frequency.exponentialRampToValueAtTime(260, time + 0.3);
+        filter.frequency.setValueAtTime(t === "subBass" ? 680 : 1750, time);
+        filter.frequency.exponentialRampToValueAtTime(160, time + 0.32);
 
         gain.gain.setValueAtTime(0.001, time);
         gain.gain.linearRampToValueAtTime(planet.volume * 0.45, time + 0.015);
-        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.38);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.4);
 
         osc.connect(filter);
         sub.connect(filter);
         filter.connect(gain);
         gain.connect(masterFilter);
-        gain.connect(delayNode);
+        if (t !== "subBass") gain.connect(delayNode);
         osc.start(time);
         sub.start(time);
-        osc.stop(time + 0.4);
-        sub.stop(time + 0.4);
-      } else if (planet.type === "bell") {
+        osc.stop(time + 0.42);
+        sub.stop(time + 0.42);
+      } else if (t === "bell" || t === "kalimba") {
         const noteIdx = (stepIndex * 2 + planet.pitchOffset) % intervals.length;
-        const freq = midiToFreq(60 + intervals[noteIdx]);
+        const freq = midiToFreq((t === "kalimba" ? 55 : 60) + intervals[noteIdx]);
         const osc = audioCtx.createOscillator();
         const mod = audioCtx.createOscillator();
         const modGain = audioCtx.createGain();
@@ -1326,13 +1550,13 @@
         osc.type = "sine";
         mod.type = "sine";
         osc.frequency.setValueAtTime(freq, time);
-        mod.frequency.setValueAtTime(freq * 2.5, time);
-        modGain.gain.setValueAtTime(freq * 0.75, time);
-        modGain.gain.exponentialRampToValueAtTime(1, time + 0.22);
+        mod.frequency.setValueAtTime(freq * (t === "kalimba" ? 4.0 : 2.5), time);
+        modGain.gain.setValueAtTime(freq * (t === "kalimba" ? 1.2 : 0.75), time);
+        modGain.gain.exponentialRampToValueAtTime(1, time + 0.14);
 
         gain.gain.setValueAtTime(0.001, time);
-        gain.gain.linearRampToValueAtTime(planet.volume * 0.32, time + 0.01);
-        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.56);
+        gain.gain.linearRampToValueAtTime(planet.volume * 0.35, time + 0.008);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + (t === "kalimba" ? 0.34 : 0.56));
 
         mod.connect(modGain);
         modGain.connect(osc.frequency);
@@ -1347,7 +1571,7 @@
     }
 
     // =========================================================================
-    // 6. LOOKAHEAD SCHEDULER + PEDALBOARD SCENE QUANTIZATION
+    // 7. LOOKAHEAD SCHEDULER + SOLAR SYSTEM SCENE QUANTIZATION
     // =========================================================================
     function schedulerLoop() {
       const bpm = Number(document.getElementById("bpmSlider").value);
@@ -1360,8 +1584,8 @@
           activeSceneIdx = nextIdx;
           const delayMs = Math.max(0, (nextTickTime - audioCtx.currentTime) * 1000);
           setTimeout(() => {
-            applySnapshot(pedalScenes[nextIdx], true);
-            renderPedalboard();
+            applySnapshot(solarScenes[nextIdx], true);
+            renderSolarSystemDock();
           }, delayMs);
         }
 
@@ -1386,15 +1610,15 @@
             p.currentStep = stepIdx;
             if (isHit) {
               p.pulseFlash = 1.0;
-              p.springVel += (p.type === "kick" ? 5.2 : 3.2);
-              if (p.type === "kick") sunVel += 5.5;
+              p.springVel += (p.type.startsWith("kick") ? 5.2 : 3.2);
+              if (p.type.startsWith("kick")) sunVel += 5.5;
 
               const pos = getPlanetPosition(p);
               shockwaves.push({
                 x: pos.x,
                 y: pos.y,
                 r: p.planetRadius,
-                maxR: p.type === "kick" ? 90 : 62,
+                maxR: p.type.startsWith("kick") ? 90 : 62,
                 color: p.color,
                 alpha: 0.85
               });
@@ -1433,18 +1657,22 @@
         currentChordIndex = 0;
         nextTickTime = audioCtx.currentTime + 0.05;
         schedulerTimer = setInterval(schedulerLoop, 25);
+        updateBrainwaveCarrier();
         btn.textContent = "■ ECLIPSE";
         btn.classList.add("active-play");
       } else {
         isPlaying = false;
         clearInterval(schedulerTimer);
+        if (focusMasterGain && audioCtx) {
+          focusMasterGain.gain.setTargetAtTime(0.0001, audioCtx.currentTime, 0.15);
+        }
         btn.textContent = "▶ IGNITE SUN";
         btn.classList.remove("active-play");
       }
     }
 
     // =========================================================================
-    // 7. ACOUSTIC "WHISTLE & HUM" PITCH TRACKER
+    // 8. ACOUSTIC "WHISTLE & HUM" PITCH TRACKER
     // =========================================================================
     function autoCorrelate(buf, sampleRate) {
       let size = buf.length;
@@ -1554,7 +1782,7 @@
     }
 
     // =========================================================================
-    // 8. LIVE AUDIO RECORDER, FILE SAVE/LOAD & QR SHARE
+    // 9. AUDIO RECORDER, FILE SAVE/LOAD & QR SHARE
     // =========================================================================
     function toggleRecording() {
       initAudioEngine();
@@ -1569,7 +1797,7 @@
           const url = URL.createObjectURL(blob);
           const a = document.createElement("a");
           a.href = url;
-          a.download = `PLUVOX-Jam-${new Date().toISOString().slice(0, 19).replace(/:/g, "-")}.webm`;
+          a.download = `PLUVOX-SolarSystem-${new Date().toISOString().slice(0, 19).replace(/:/g, "-")}.webm`;
           a.click();
           URL.revokeObjectURL(url);
         };
@@ -1584,20 +1812,20 @@
     }
 
     document.getElementById("btnSaveProject").addEventListener("click", () => {
-      pedalScenes[activeSceneIdx] = captureCurrentSnapshot(`PEDAL 0${activeSceneIdx + 1}`);
+      solarScenes[activeSceneIdx] = captureCurrentSnapshot(`SYSTEM 0${activeSceneIdx + 1}`);
       const projectData = {
-        version: "PLUVOX-3.0",
+        version: "PLUVOX-4.0",
         activeSceneIdx,
-        pedalScenes
+        solarScenes
       };
       const blob = new Blob([JSON.stringify(projectData, null, 2)], { type: "application/json" });
       const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
       a.href = url;
-      a.download = `PLUVOX-Constellation-${new Date().toISOString().slice(0, 10)}.pluvox.json`;
+      a.download = `PLUVOX-SolarSystem-${new Date().toISOString().slice(0, 10)}.pluvox.json`;
       a.click();
       URL.revokeObjectURL(url);
-      showToast("Saved .pluvox.json project file");
+      showToast("Saved .pluvox.json Solar System file");
     });
 
     document.getElementById("btnLoadProject").addEventListener("click", () => {
@@ -1611,12 +1839,13 @@
       reader.onload = ev => {
         try {
           const parsed = JSON.parse(ev.target.result);
-          if (Array.isArray(parsed.pedalScenes)) {
-            parsed.pedalScenes.forEach((sc, i) => { pedalScenes[i] = sc; });
+          const arr = parsed.solarScenes || parsed.pedalScenes;
+          if (Array.isArray(arr)) {
+            arr.forEach((sc, i) => { solarScenes[i] = sc; });
             activeSceneIdx = parsed.activeSceneIdx || 0;
-            if (pedalScenes[activeSceneIdx]) applySnapshot(pedalScenes[activeSceneIdx]);
-            renderPedalboard();
-            showToast("Loaded Constellation Project");
+            if (solarScenes[activeSceneIdx]) applySnapshot(solarScenes[activeSceneIdx]);
+            renderSolarSystemDock();
+            showToast("Loaded Solar System Project");
           }
         } catch (err) {
           alert("Invalid PLUVOX project file.");
@@ -1630,6 +1859,7 @@
       const compact = {
         e: snap.biome,
         b: snap.bpm,
+        f: snap.focusHz,
         s: snap.scale,
         c: snap.chords,
         r: snap.rain,
@@ -1640,7 +1870,8 @@
           pl.steps,
           pl.pitchOffset,
           Math.round(pl.volume * 100),
-          pl.pattern.map(x => (x ? "1" : "0")).join("")
+          pl.pattern.map(x => (x ? "1" : "0")).join(""),
+          pl.type
         ])
       };
       return btoa(JSON.stringify(compact));
@@ -1656,10 +1887,12 @@
           label: "SHARED ORBIT",
           biome: compact.e || "cosmos",
           bpm: compact.b || 86,
+          focusHz: compact.f ?? 12.5,
+          focusVol: 28,
           scale: compact.s || "minorPentatonic",
           chords: compact.c || "lofi1",
           rain: compact.r ?? 42,
-          vinyl: compact.v ?? 30,
+          vinyl: compact.v ?? 28,
           tone: compact.t ?? 3800,
           delay: compact.d ?? 36,
           planets: (compact.p || []).map(arr => {
@@ -1669,13 +1902,14 @@
               pulses: pat.filter(Boolean).length,
               pitchOffset: arr[1] || 0,
               volume: (arr[2] ?? 80) / 100,
-              pattern: pat
+              pattern: pat,
+              type: arr[4] || undefined
             };
           })
         };
         applySnapshot(restored, true);
-        pedalScenes[0] = restored;
-        renderPedalboard();
+        solarScenes[0] = restored;
+        renderSolarSystemDock();
         showToast("Imported Shared Orbit from QR / Link!");
       } catch (_) {}
     }
@@ -1688,7 +1922,7 @@
       document.getElementById("qrImage").src = qrApiUrl;
       const ratioStr = planets.map(p => p.steps).join(" : ");
       document.getElementById("qrSummaryText").textContent =
-        `ORBIT ${ratioStr} · ${activeBiomeKey.toUpperCase()} · ${document.getElementById("bpmSlider").value} BPM`;
+        `ORBIT ${ratioStr} · ${activeBiomeKey.toUpperCase()} · ${document.getElementById("brainWaveSelect").value} Hz`;
       document.getElementById("qrModal").classList.add("open");
 
       document.getElementById("btnCopyOrbitLink").onclick = () => {
@@ -1713,7 +1947,7 @@
     });
 
     // =========================================================================
-    // 9. FLUID MULTI-BIOME CANVAS & DRAG-AND-DROP ORBS
+    // 10. FLUID MULTI-BIOME CANVAS & DRAG-AND-DROP ORBS
     // =========================================================================
     const canvas = document.getElementById("cosmos");
     const ctx = canvas.getContext("2d");
@@ -1758,8 +1992,10 @@
 
     function getOrbitRadius(index) {
       const minDim = Math.min(canvas.width, canvas.height);
-      const base = Math.max(82, minDim * 0.135);
-      const spacing = Math.max(56, minDim * 0.084);
+      const maxSpan = minDim * 0.41;
+      const base = Math.max(66, minDim * 0.11);
+      const count = Math.max(4, planets.length);
+      const spacing = Math.min(54, (maxSpan - base) / Math.max(1, count - 1));
       return base + index * spacing;
     }
 
@@ -1795,7 +2031,6 @@
       ctx.fillStyle = biome.bgTrail;
       ctx.fillRect(0, 0, w, h);
 
-      // 1. Background Stars / Spores
       stars.forEach(s => {
         s.twinkle += s.speed;
         const alpha = 0.22 + (Math.sin(s.twinkle) + 1) * 0.34;
@@ -1805,7 +2040,6 @@
         ctx.fill();
       });
 
-      // 2. Biome Atmosphere Particles (Rain / Kyoto Lanterns / Abyss Bubbles / Dune Wind)
       const rainPct = Number(document.getElementById("rainSlider").value) / 100;
       const activeCount = Math.floor(atmosphereParticles.length * rainPct);
       for (let i = 0; i < activeCount; i++) {
@@ -1843,9 +2077,8 @@
         }
       }
 
-      // 3. Vinyl Asteroid Belt
       const vinylPct = Number(document.getElementById("vinylSlider").value) / 100;
-      const beltBaseR = getOrbitRadius(3) + 54;
+      const beltBaseR = getOrbitRadius(planets.length - 1) + 46;
       if (vinylPct > 0.02) {
         asteroids.forEach(ast => {
           ast.angle += ast.speed * (0.4 + vinylPct);
@@ -1861,7 +2094,6 @@
         });
       }
 
-      // 4. Shockwave Ripples
       for (let i = shockwaves.length - 1; i >= 0; i--) {
         const sw = shockwaves[i];
         sw.r += (sw.maxR - sw.r) * 0.11;
@@ -1879,10 +2111,9 @@
         ctx.globalAlpha = 1;
       }
 
-      // 5. Whistle/Hum Plasma Aurora
       if (activeVoxFreq > 0) {
         const noteAngle = ((activeVoxMidi % 12) / 12) * Math.PI * 2 - Math.PI / 2;
-        const beamDist = getOrbitRadius(2) + Math.sin(now * 0.012) * 28;
+        const beamDist = getOrbitRadius(Math.min(2, planets.length - 1)) + Math.sin(now * 0.012) * 28;
         const bx = cx + Math.cos(noteAngle) * beamDist;
         const by = cy + Math.sin(noteAngle) * beamDist;
         plasmaTrail.push({ x: bx, y: by, alpha: 1.0 });
@@ -1906,10 +2137,13 @@
         ctx.fill();
       }
 
-      // 6. Central Pulsar Sun (Biome-Colored)
+      // Central Pulsar Sun (Modulates subtly with Brain-Focus Hz)
+      const focusHz = Number(document.getElementById("brainWaveSelect").value);
+      const focusPulse = isPlaying && focusHz > 0 ? Math.sin(now * 0.001 * focusHz * Math.PI * 2) * 2.2 : 0;
+
       sunVel = (sunVel - sunSpring * 0.11) * 0.88;
       sunSpring += sunVel;
-      const sunR = Math.max(18, 28 + sunSpring + Math.sin(now * 0.003) * 1.5);
+      const sunR = Math.max(16, 26 + sunSpring + focusPulse);
 
       const sunGrad = ctx.createRadialGradient(cx, cy, 4, cx, cy, sunR * 2.8);
       sunGrad.addColorStop(0, "#ffffff");
@@ -1921,7 +2155,6 @@
       ctx.fillStyle = sunGrad;
       ctx.fill();
 
-      // 7. Fluid Floating Planets & Draggable Pulse Orbs
       planets.forEach(p => {
         p.springVel = (p.springVel - p.springOffset * 0.09) * 0.89;
         p.springOffset += p.springVel;
@@ -2029,7 +2262,7 @@
     }
 
     // =========================================================================
-    // 10. POINTER INTERACTION: DRAG PULSE ORBS, CLICK PLANETS, DRAG SUN GRAVITY
+    // 11. POINTER INTERACTION
     // =========================================================================
     canvas.addEventListener("pointerdown", e => {
       const rect = canvas.getBoundingClientRect();
@@ -2133,7 +2366,7 @@
     });
 
     // =========================================================================
-    // 11. INSPECTOR, PRESETS (INCLUDING COGNITIVE FLOW STATES) & CONTROLS
+    // 12. INSPECTOR, PRESETS & GLOBAL BINDINGS
     // =========================================================================
     function selectPlanet(id) {
       selectedPlanetId = id;
@@ -2156,6 +2389,8 @@
       const volPct = Math.round(p.volume * 100);
       document.getElementById("inspVol").value = volPct;
       document.getElementById("inspVolVal").textContent = `${volPct}%`;
+
+      renderTouchpad();
     }
 
     document.getElementById("inspSteps").addEventListener("input", e => {
@@ -2188,17 +2423,16 @@
     });
 
     const ORBIT_PRESETS = {
-      afro:       { bpm: 88,  scale: "minorPentatonic", chords: "lofi1",   tracks: [{ steps: 3, pulses: 2 }, { steps: 4, pulses: 2 }, { steps: 5, pulses: 3 }, { steps: 7, pulses: 4 }] },
-      kyoto:      { bpm: 80,  scale: "hirajoshi",       chords: "drift",   tracks: [{ steps: 5, pulses: 3 }, { steps: 7, pulses: 3 }, { steps: 8, pulses: 5 }, { steps: 11, pulses: 6 }] },
-      dub:        { bpm: 78,  scale: "minorPentatonic", chords: "drift",   tracks: [{ steps: 4, pulses: 2 }, { steps: 6, pulses: 2 }, { steps: 3, pulses: 2 }, { steps: 8, pulses: 5 }] },
-      hypnotic:   { bpm: 94,  scale: "phrygian",        chords: "cyber",   tracks: [{ steps: 7, pulses: 4 }, { steps: 9, pulses: 5 }, { steps: 11, pulses: 6 }, { steps: 13, pulses: 7 }] },
-      neosoul:    { bpm: 84,  scale: "dorian",          chords: "neosoul", tracks: [{ steps: 3, pulses: 2 }, { steps: 5, pulses: 3 }, { steps: 4, pulses: 3 }, { steps: 6, pulses: 4 }] },
-      waltz:      { bpm: 76,  scale: "lydian",          chords: "lofi1",   tracks: [{ steps: 6, pulses: 3 }, { steps: 8, pulses: 3 }, { steps: 9, pulses: 5 }, { steps: 12, pulses: 7 }] },
-      // Cognitive Flow States (Deep Focus Presets)
-      hyperfocus: { bpm: 74,  scale: "dorian",          chords: "lofi1",   rain: 58, tone: 2200, tracks: [{ steps: 4, pulses: 2 }, { steps: 4, pulses: 1 }, { steps: 8, pulses: 4 }, { steps: 16, pulses: 6 }] },
-      neuralflow: { bpm: 96,  scale: "minorPentatonic", chords: "neosoul", rain: 45, tone: 3400, tracks: [{ steps: 3, pulses: 2 }, { steps: 4, pulses: 2 }, { steps: 6, pulses: 4 }, { steps: 8, pulses: 5 }] },
-      alphadrift: { bpm: 68,  scale: "lydian",          chords: "drift",   rain: 65, tone: 1850, tracks: [{ steps: 5, pulses: 2 }, { steps: 5, pulses: 1 }, { steps: 10, pulses: 4 }, { steps: 15, pulses: 5 }] },
-      gammaspark: { bpm: 116, scale: "hirajoshi",       chords: "neosoul", rain: 35, tone: 4200, tracks: [{ steps: 5, pulses: 3 }, { steps: 7, pulses: 4 }, { steps: 9, pulses: 5 }, { steps: 12, pulses: 7 }] }
+      afro:       { bpm: 88,  focusHz: 10.0, scale: "minorPentatonic", chords: "lofi1",   tracks: [{ steps: 3, pulses: 2 }, { steps: 4, pulses: 2 }, { steps: 5, pulses: 3 }, { steps: 7, pulses: 4 }] },
+      kyoto:      { bpm: 80,  focusHz: 6.0,  scale: "hirajoshi",       chords: "drift",   tracks: [{ steps: 5, pulses: 3 }, { steps: 7, pulses: 3 }, { steps: 8, pulses: 5 }, { steps: 11, pulses: 6 }] },
+      dub:        { bpm: 78,  focusHz: 6.0,  scale: "minorPentatonic", chords: "drift",   tracks: [{ steps: 4, pulses: 2 }, { steps: 6, pulses: 2 }, { steps: 3, pulses: 2 }, { steps: 8, pulses: 5 }] },
+      hypnotic:   { bpm: 94,  focusHz: 14.0, scale: "phrygian",        chords: "cyber",   tracks: [{ steps: 7, pulses: 4 }, { steps: 9, pulses: 5 }, { steps: 11, pulses: 6 }, { steps: 13, pulses: 7 }] },
+      neosoul:    { bpm: 84,  focusHz: 10.0, scale: "dorian",          chords: "neosoul", tracks: [{ steps: 3, pulses: 2 }, { steps: 5, pulses: 3 }, { steps: 4, pulses: 3 }, { steps: 6, pulses: 4 }] },
+      waltz:      { bpm: 76,  focusHz: 10.0, scale: "lydian",          chords: "lofi1",   tracks: [{ steps: 6, pulses: 3 }, { steps: 8, pulses: 3 }, { steps: 9, pulses: 5 }, { steps: 12, pulses: 7 }] },
+      hyperfocus: { bpm: 74,  focusHz: 12.5, scale: "dorian",          chords: "lofi1",   rain: 58, tone: 2200, tracks: [{ steps: 4, pulses: 2 }, { steps: 4, pulses: 1 }, { steps: 8, pulses: 4 }, { steps: 16, pulses: 6 }] },
+      neuralflow: { bpm: 96,  focusHz: 14.0, scale: "minorPentatonic", chords: "neosoul", rain: 45, tone: 3400, tracks: [{ steps: 3, pulses: 2 }, { steps: 4, pulses: 2 }, { steps: 6, pulses: 4 }, { steps: 8, pulses: 5 }] },
+      alphadrift: { bpm: 68,  focusHz: 10.0, scale: "lydian",          chords: "drift",   rain: 65, tone: 1850, tracks: [{ steps: 5, pulses: 2 }, { steps: 5, pulses: 1 }, { steps: 10, pulses: 4 }, { steps: 15, pulses: 5 }] },
+      gammaspark: { bpm: 116, focusHz: 40.0, scale: "hirajoshi",       chords: "neosoul", rain: 35, tone: 4200, tracks: [{ steps: 5, pulses: 3 }, { steps: 7, pulses: 4 }, { steps: 9, pulses: 5 }, { steps: 12, pulses: 7 }] }
     };
 
     function applyPreset(key) {
@@ -2216,6 +2450,10 @@
         document.getElementById("scaleSelect").value = cfg.scale;
         document.getElementById("chordProgSelect").value = cfg.chords;
 
+        if (cfg.focusHz !== undefined) {
+          document.getElementById("brainWaveSelect").value = String(cfg.focusHz);
+          updateBrainwaveCarrier();
+        }
         if (cfg.rain !== undefined) {
           document.getElementById("rainSlider").value = cfg.rain;
           document.getElementById("rainVal").textContent = `${cfg.rain}%`;
@@ -2228,6 +2466,7 @@
         }
 
         cfg.tracks.forEach((tr, idx) => {
+          if (!planets[idx]) planets[idx] = createPlanetFromTemplate(idx, tr);
           planets[idx].steps = tr.steps;
           planets[idx].pulses = tr.pulses;
           planets[idx].pattern = generateEuclidean(tr.steps, tr.pulses);
@@ -2240,6 +2479,16 @@
 
     document.getElementById("presetSelect").addEventListener("change", e => applyPreset(e.target.value));
     document.getElementById("envSelect").addEventListener("change", e => setBiome(e.target.value));
+    document.getElementById("brainWaveSelect").addEventListener("change", () => {
+      updateBrainwaveCarrier();
+      refreshCelestialSuggestions();
+      showToast(`Focus Carrier: ${document.getElementById("brainWaveSelect").value} Hz`);
+    });
+    document.getElementById("focusVolSlider").addEventListener("input", e => {
+      document.getElementById("focusVolVal").textContent = `${e.target.value}%`;
+      updateBrainwaveCarrier();
+    });
+
     document.getElementById("btnPlay").addEventListener("click", togglePlay);
     document.getElementById("btnToggleMic").addEventListener("click", toggleMicrophoneSynth);
     document.getElementById("btnRecord").addEventListener("click", toggleRecording);
@@ -2275,9 +2524,9 @@
     });
 
     // Boot
-    pedalScenes[0] = captureCurrentSnapshot("PEDAL 01");
+    solarScenes[0] = captureCurrentSnapshot("SYSTEM 01");
     decodeOrbitFromHash();
-    renderPedalboard();
+    renderSolarSystemDock();
     selectPlanet(0);
     refreshCelestialSuggestions();
     requestAnimationFrame(renderCosmos);
