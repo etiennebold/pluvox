@@ -3,183 +3,184 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>PLUVOX — Polyrhythmic Euclidean Synth, Rain DSP & Whistle-to-Synth</title>
+  <title>PLUVOX — Orbital Polyrhythm Synth, Rain DSP & Whistle-to-Synth</title>
   <style>
     :root {
-      --bg-void: #07090e;
-      --bg-chassis: #0d111a;
-      --bg-panel: #131926;
-      --bg-module: #192131;
-      --bg-inset: #090c13;
-      --border-subtle: rgba(148, 163, 184, 0.14);
-      --border-glow: rgba(56, 189, 248, 0.35);
-      --text-primary: #f1f5f9;
-      --text-secondary: #94a3b8;
-      --text-muted: #526077;
-      --accent-amber: #f59e0b;
-      --accent-cyan: #38bdf8;
-      --accent-emerald: #10b981;
-      --accent-rose: #fb7185;
-      --accent-violet: #c084fc;
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --void: #04060b;
+      --glass: rgba(11, 16, 28, 0.72);
+      --glass-border: rgba(148, 163, 184, 0.18);
+      --text-main: #f8fafc;
+      --text-dim: #94a3b8;
+      --cyan: #38bdf8;
+      --amber: #f59e0b;
+      --rose: #fb7185;
+      --violet: #c084fc;
+      --emerald: #10b981;
       --font-mono: 'JetBrains Mono', 'Fira Code', Consolas, monospace;
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
-    body {
-      background: radial-gradient(circle at 50% 0%, #131b2e 0%, var(--bg-void) 75%);
-      color: var(--text-primary);
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: var(--void);
+      color: var(--text-main);
       font-family: var(--font-sans);
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      overflow-x: hidden;
       user-select: none;
     }
 
-    /* HEADER / TRANSPORT */
-    header {
-      background: rgba(13, 17, 26, 0.86);
-      backdrop-filter: blur(14px);
-      border-bottom: 1px solid var(--border-subtle);
-      padding: 0.85rem 1.75rem;
+    canvas#cosmos {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      display: block;
+      z-index: 1;
+      cursor: grab;
+    }
+
+    canvas#cosmos:active {
+      cursor: grabbing;
+    }
+
+    /* FLOATING MINIMAL TOP HUD (NO CARDS) */
+    .hud-top {
+      position: fixed;
+      top: 18px;
+      left: 24px;
+      right: 24px;
+      z-index: 20;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 1rem;
-      position: sticky;
-      top: 0;
-      z-index: 50;
-    }
-
-    .brand {
-      display: flex;
       align-items: center;
-      gap: 0.8rem;
+      pointer-events: none;
+      gap: 1rem;
+      flex-wrap: wrap;
     }
 
-    .brand-orb {
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: var(--text-muted);
-      transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-    }
-
-    .brand-orb.active {
-      background: var(--accent-cyan);
-      box-shadow: 0 0 16px var(--accent-cyan), 0 0 4px #fff;
-      transform: scale(1.15);
-    }
-
-    .brand h1 {
-      font-family: var(--font-mono);
-      font-size: 1.3rem;
-      font-weight: 800;
-      letter-spacing: 0.08em;
-      background: linear-gradient(90deg, #f8fafc 30%, var(--accent-cyan) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .brand-sub {
-      font-family: var(--font-mono);
-      font-size: 0.7rem;
-      color: var(--text-secondary);
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-    }
-
-    .transport {
+    .hud-group {
       display: flex;
       align-items: center;
       gap: 0.75rem;
+      pointer-events: auto;
       flex-wrap: wrap;
     }
 
-    button {
+    .brand-title {
       font-family: var(--font-mono);
-      font-size: 0.78rem;
+      font-size: 1.35rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      background: linear-gradient(90deg, #ffffff 20%, var(--cyan) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 0 24px rgba(56, 189, 248, 0.35);
+    }
+
+    .brand-hint {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--text-dim);
+      letter-spacing: 0.06em;
+    }
+
+    .pill {
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      padding: 0.42rem 0.85rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--text-dim);
+      transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    .pill:hover {
+      border-color: rgba(255, 255, 255, 0.35);
+    }
+
+    .pill strong {
+      color: var(--text-main);
+    }
+
+    button.hud-btn {
+      background: var(--glass);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      padding: 0.48rem 1rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
       font-weight: 700;
-      padding: 0.52rem 1rem;
-      border-radius: 6px;
-      border: 1px solid var(--border-subtle);
-      background: var(--bg-module);
-      color: var(--text-primary);
+      color: var(--text-main);
       cursor: pointer;
-      transition: transform 0.1s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.15s ease, border-color 0.15s ease;
+      transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    button:hover {
-      background: #222d42;
-      border-color: rgba(255, 255, 255, 0.28);
+    button.hud-btn:hover {
+      border-color: rgba(255, 255, 255, 0.45);
+      transform: translateY(-1px);
     }
 
-    button:active {
+    button.hud-btn:active {
       transform: scale(0.95);
     }
 
-    button.btn-play {
-      background: linear-gradient(135deg, #10b981, #059669);
-      color: #03150e;
-      border-color: #34d399;
-      min-width: 112px;
-      box-shadow: 0 4px 18px rgba(16, 185, 129, 0.25);
+    button.hud-btn.active-play {
+      background: rgba(16, 185, 129, 0.22);
+      border-color: var(--emerald);
+      color: #6ee7b7;
+      box-shadow: 0 0 20px rgba(16, 185, 129, 0.3);
     }
 
-    button.btn-play.playing {
-      background: linear-gradient(135deg, #f43f5e, #e11d48);
-      color: #fff;
-      border-color: #fb7185;
-      box-shadow: 0 4px 18px rgba(244, 63, 94, 0.3);
+    button.hud-btn.active-mic {
+      background: rgba(56, 189, 248, 0.24);
+      border-color: var(--cyan);
+      color: #bae6fd;
+      box-shadow: 0 0 22px rgba(56, 189, 248, 0.4);
     }
 
-    button.btn-mic.listening {
-      background: linear-gradient(135deg, #38bdf8, #0284c7);
-      color: #04121d;
-      border-color: #7dd3fc;
-      box-shadow: 0 0 20px rgba(56, 189, 248, 0.35);
+    button.hud-btn.active-rec {
+      background: rgba(251, 113, 133, 0.25);
+      border-color: var(--rose);
+      color: #fecdd3;
+      box-shadow: 0 0 20px rgba(251, 113, 133, 0.45);
+      animation: pulseRec 1.4s infinite;
     }
 
-    .pill-control {
-      display: flex;
-      align-items: center;
-      gap: 0.55rem;
-      background: var(--bg-inset);
-      border: 1px solid var(--border-subtle);
-      padding: 0.38rem 0.75rem;
-      border-radius: 6px;
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      color: var(--text-secondary);
-    }
-
-    .pill-control strong {
-      color: var(--text-primary);
-      min-width: 28px;
-      text-align: right;
+    @keyframes pulseRec {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.65; }
     }
 
     select {
-      background: var(--bg-inset);
-      color: var(--text-primary);
-      border: 1px solid var(--border-subtle);
-      border-radius: 5px;
-      padding: 0.42rem 0.65rem;
+      background: transparent;
+      border: none;
+      color: var(--text-main);
       font-family: var(--font-mono);
-      font-size: 0.76rem;
+      font-size: 0.74rem;
+      font-weight: 700;
       outline: none;
       cursor: pointer;
     }
 
-    /* CUSTOM TACTILE SLIDERS */
+    select option {
+      background: #0b101c;
+      color: #f8fafc;
+    }
+
     input[type="range"] {
       -webkit-appearance: none;
       appearance: none;
-      background: rgba(255, 255, 255, 0.08);
-      height: 5px;
+      background: rgba(255, 255, 255, 0.14);
+      height: 4px;
       border-radius: 999px;
       outline: none;
       cursor: pointer;
@@ -188,425 +189,235 @@
     input[type="range"]::-webkit-slider-thumb {
       -webkit-appearance: none;
       appearance: none;
-      width: 14px;
-      height: 14px;
+      width: 12px;
+      height: 12px;
       border-radius: 50%;
-      background: var(--accent-cyan);
-      border: 2px solid #090c13;
-      box-shadow: 0 0 8px rgba(56, 189, 248, 0.6);
-      transition: transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1);
+      background: var(--cyan);
+      box-shadow: 0 0 8px var(--cyan);
+      transition: transform 0.12s ease;
     }
 
     input[type="range"]::-webkit-slider-thumb:hover {
-      transform: scale(1.25);
+      transform: scale(1.3);
     }
 
-    /* MAIN LAYOUT */
-    .workspace {
-      max-width: 1480px;
-      width: 100%;
-      margin: 0 auto;
-      padding: 1.35rem 1.75rem;
-      display: grid;
-      grid-template-columns: 1.35fr 1fr;
-      gap: 1.35rem;
-      align-items: start;
-    }
-
-    @media (max-width: 1100px) {
-      .workspace { grid-template-columns: 1fr; }
-    }
-
-    .panel {
-      background: rgba(19, 25, 38, 0.85);
-      backdrop-filter: blur(10px);
-      border: 1px solid var(--border-subtle);
-      border-radius: 12px;
-      padding: 1.25rem;
-      margin-bottom: 1.25rem;
-      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.35);
-    }
-
-    .panel-head {
+    /* FLOATING PLANETARY INSPECTOR (APPEARS ONLY WHEN A PLANET IS SELECTED) */
+    .planet-inspector {
+      position: fixed;
+      left: 24px;
+      bottom: 78px;
+      z-index: 25;
+      background: var(--glass);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--glass-border);
+      border-radius: 999px;
+      padding: 0.55rem 1.25rem;
       display: flex;
-      justify-content: space-between;
       align-items: center;
+      gap: 1.1rem;
       flex-wrap: wrap;
-      gap: 0.65rem;
-      padding-bottom: 0.8rem;
-      margin-bottom: 1rem;
-      border-bottom: 1px solid var(--border-subtle);
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.55);
+      transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    .panel-title {
-      font-family: var(--font-mono);
-      font-size: 0.82rem;
+    .planet-inspector.hidden {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(14px);
+    }
+
+    .inspector-title {
       font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      color: var(--text-primary);
-    }
-
-    .badge {
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      padding: 0.2rem 0.55rem;
-      border-radius: 4px;
-      background: var(--bg-inset);
-      border: 1px solid var(--border-subtle);
-      color: var(--accent-cyan);
-    }
-
-    .preset-bar {
+      letter-spacing: 0.05em;
       display: flex;
+      align-items: center;
       gap: 0.45rem;
-      flex-wrap: wrap;
     }
 
-    .preset-bar button {
-      font-size: 0.7rem;
-      padding: 0.35rem 0.65rem;
+    .planet-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
     }
 
-    /* EUCLIDEAN TRACK CARDS */
-    .track-card {
-      background: var(--bg-module);
-      border: 1px solid var(--border-subtle);
-      border-left: 4px solid var(--track-color);
-      border-radius: 8px;
-      padding: 0.9rem 1rem;
-      margin-bottom: 0.9rem;
-      transition: border-color 0.2s ease, transform 0.15s ease;
+    .inspector-control {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      color: var(--text-dim);
     }
 
-    .track-header {
+    /* FLOATING BOTTOM ATMOSPHERE & TELEMETRY DOCK */
+    .hud-bottom {
+      position: fixed;
+      bottom: 18px;
+      left: 24px;
+      right: 24px;
+      z-index: 20;
       display: flex;
       justify-content: space-between;
       align-items: center;
       flex-wrap: wrap;
-      gap: 0.65rem;
-      margin-bottom: 0.75rem;
-    }
-
-    .track-label {
-      font-family: var(--font-mono);
-      font-size: 0.84rem;
-      font-weight: 800;
-      color: var(--track-color);
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .track-controls {
-      display: flex;
-      align-items: center;
-      gap: 0.8rem;
-      flex-wrap: wrap;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--text-secondary);
-    }
-
-    .track-controls label {
-      display: flex;
-      align-items: center;
-      gap: 0.35rem;
-    }
-
-    .step-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(30px, 1fr));
-      gap: 0.38rem;
-    }
-
-    .step-cell {
-      height: 36px;
-      border-radius: 5px;
-      background: var(--bg-inset);
-      border: 1px solid var(--border-subtle);
-      display: grid;
-      place-items: center;
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      cursor: pointer;
-      transition: transform 0.14s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.1s ease, box-shadow 0.12s ease;
-    }
-
-    .step-cell:hover {
-      border-color: rgba(255, 255, 255, 0.35);
-    }
-
-    .step-cell.on {
-      background: var(--track-color);
-      color: #07090e;
-      font-weight: 800;
-      border-color: transparent;
-      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    .step-cell.playhead {
-      transform: scale(1.12);
-      outline: 2px solid #ffffff;
-      box-shadow: 0 0 14px var(--track-color);
-      z-index: 2;
-    }
-
-    /* PHYSICS CANVAS */
-    .canvas-stage {
-      position: relative;
-      background: radial-gradient(circle at 50% 50%, #101726 0%, #06080d 100%);
-      border: 1px solid var(--border-subtle);
-      border-radius: 10px;
-      overflow: hidden;
-      margin-bottom: 1.15rem;
-    }
-
-    canvas {
-      width: 100%;
-      height: 290px;
-      display: block;
-    }
-
-    .canvas-overlay {
-      position: absolute;
-      bottom: 10px;
-      left: 12px;
-      right: 12px;
-      display: flex;
-      justify-content: space-between;
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      color: var(--text-secondary);
+      gap: 0.75rem;
       pointer-events: none;
     }
 
-    /* LO-FI MIXER & WHISTLE SYNTH */
-    .fader-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 0.75rem;
+    .hud-bottom > * {
+      pointer-events: auto;
     }
 
-    .fader-card {
-      background: var(--bg-module);
-      border: 1px solid var(--border-subtle);
-      border-radius: 7px;
-      padding: 0.75rem 0.85rem;
+    .vox-pill {
+      border-color: rgba(56, 189, 248, 0.35);
     }
 
-    .fader-top {
-      display: flex;
-      justify-content: space-between;
-      font-family: var(--font-mono);
-      font-size: 0.74rem;
-      margin-bottom: 0.45rem;
-      color: var(--text-secondary);
-    }
-
-    .fader-top strong {
-      color: var(--text-primary);
-    }
-
-    .fader-card input[type="range"] {
-      width: 100%;
-    }
-
-    .vox-telemetry {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.6rem;
-      background: var(--bg-inset);
-      border: 1px solid var(--border-subtle);
-      border-radius: 8px;
-      padding: 0.8rem;
-      text-align: center;
-      margin-bottom: 0.85rem;
-    }
-
-    .tel-label {
-      font-family: var(--font-mono);
-      font-size: 0.66rem;
-      color: var(--text-secondary);
-      text-transform: uppercase;
-    }
-
-    .tel-value {
-      font-family: var(--font-mono);
-      font-size: 1.08rem;
+    .vox-note {
+      color: var(--cyan);
       font-weight: 800;
-      color: var(--accent-cyan);
-      margin-top: 0.2rem;
-    }
-
-    .level-track {
-      height: 6px;
-      background: var(--bg-inset);
-      border-radius: 999px;
-      overflow: hidden;
-      margin-bottom: 0.85rem;
-    }
-
-    .level-fill {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, var(--accent-cyan), var(--accent-emerald));
-      transition: width 0.04s linear;
+      min-width: 34px;
+      text-align: center;
     }
   </style>
 </head>
 <body>
 
-  <header>
-    <div class="brand">
-      <div class="brand-orb" id="powerOrb"></div>
+  <canvas id="cosmos"></canvas>
+
+  <!-- TOP FLOATING ORBITAL TRANSPORT -->
+  <div class="hud-top">
+    <div class="hud-group">
       <div>
-        <h1>PLUVOX</h1>
-        <div class="brand-sub">Polyrhythmic Euclidean Synth · Rain DSP · Whistle-to-Synth</div>
+        <div class="brand-title">PLUVOX</div>
+        <div class="brand-hint">CLICK SUN TO IGNITE · CLICK ORBIT NODES TO TOGGLE PULSES · DRAG PLANETS</div>
       </div>
     </div>
 
-    <div class="transport">
-      <button id="btnPlay" class="btn-play">▶ START</button>
+    <div class="hud-group">
+      <button id="btnPlay" class="hud-btn">▶ IGNITE SUN</button>
 
-      <div class="pill-control">
-        <span>BPM</span>
-        <input type="range" id="bpmSlider" min="58" max="165" value="88" style="width: 88px;" />
-        <strong id="bpmVal">88</strong>
+      <div class="pill">
+        <span>GRAVITY</span>
+        <input type="range" id="bpmSlider" min="58" max="165" value="86" style="width: 76px;" />
+        <strong id="bpmVal">86 BPM</strong>
       </div>
 
-      <div class="pill-control">
+      <div class="pill">
         <span>SCALE</span>
         <select id="scaleSelect">
           <option value="minorPentatonic">C Minor Pentatonic</option>
           <option value="dorian">C Dorian (Neo-Soul)</option>
-          <option value="lydian">F Lydian (Floating)</option>
+          <option value="lydian">F Lydian (Nebula)</option>
           <option value="hirajoshi">C Hirajoshi (Kyoto)</option>
         </select>
       </div>
 
-      <div class="pill-control">
-        <span>SWING</span>
-        <input type="range" id="swingSlider" min="0" max="45" value="16" style="width: 65px;" />
-        <strong id="swingVal">16%</strong>
+      <div class="pill">
+        <span>CHORDS</span>
+        <select id="chordProgSelect">
+          <option value="none">Off</option>
+          <option value="lofi1" selected>i – VI – III – VII (Rain)</option>
+          <option value="neosoul">ii – V – I – vi (Velvet)</option>
+          <option value="drift">i – iv – v – i (Deep Space)</option>
+        </select>
+      </div>
+
+      <div class="pill">
+        <span>ORBIT</span>
+        <select id="presetSelect">
+          <option value="afro">3:4:5:7 Afro-Solar</option>
+          <option value="kyoto">5:7:8:11 Kyoto Drift</option>
+          <option value="dub">4:6:3:8 Sub-Gravity</option>
+          <option value="mutate">🎲 Mutate System</option>
+        </select>
       </div>
     </div>
-  </header>
+  </div>
 
-  <main class="workspace">
-    <!-- LEFT COLUMN: EUCLIDEAN POLYRHYTHM ENGINE -->
-    <div>
-      <section class="panel">
-        <div class="panel-head">
-          <div class="panel-title">01 · Euclidean Polyrhythm Sequencer</div>
-          <div class="preset-bar">
-            <button data-preset="afro">3:4:5:7 Afro-Rain</button>
-            <button data-preset="math">5:7:8:11 Kyoto Drift</button>
-            <button data-preset="dub">4:6:3:8 Sub-Pulse</button>
-            <button id="btnRandomize">🎲 Mutate</button>
-          </div>
-        </div>
-        <div id="tracksContainer"></div>
-      </section>
+  <!-- FLOATING SELECTED PLANET ORBITAL RING CONTROLS -->
+  <div class="planet-inspector" id="planetInspector">
+    <div class="inspector-title">
+      <span class="planet-dot" id="inspDot"></span>
+      <span id="inspName">VULCAN · SUB KICK</span>
+    </div>
+    <div class="inspector-control">
+      <span>ORBIT STEPS</span>
+      <input type="range" id="inspSteps" min="2" max="16" value="3" style="width: 72px;" />
+      <strong id="inspStepsVal">3</strong>
+    </div>
+    <div class="inspector-control">
+      <span>ACTIVE MOONS</span>
+      <input type="range" id="inspPulses" min="1" max="16" value="2" style="width: 72px;" />
+      <strong id="inspPulsesVal">2</strong>
+    </div>
+    <div class="inspector-control">
+      <span>PITCH</span>
+      <input type="range" id="inspPitch" min="0" max="11" value="0" style="width: 58px;" />
+      <strong id="inspPitchVal">+0</strong>
+    </div>
+    <div class="inspector-control">
+      <span>GAIN</span>
+      <input type="range" id="inspVol" min="0" max="100" value="88" style="width: 64px;" />
+      <strong id="inspVolVal">88%</strong>
+    </div>
+  </div>
+
+  <!-- BOTTOM FLOATING ATMOSPHERE, WHISTLE SYNTH & RECORDER BAR -->
+  <div class="hud-bottom">
+    <div class="hud-group">
+      <div class="pill">
+        <span>☄️ METEOR RAIN</span>
+        <input type="range" id="rainSlider" min="0" max="100" value="42" style="width: 70px;" />
+        <strong id="rainVal">42%</strong>
+      </div>
+      <div class="pill">
+        <span>🪨 ASTEROID VINYL</span>
+        <input type="range" id="vinylSlider" min="0" max="100" value="30" style="width: 70px;" />
+        <strong id="vinylVal">30%</strong>
+      </div>
+      <div class="pill">
+        <span>📼 TAPE FILTER</span>
+        <input type="range" id="toneSlider" min="550" max="14000" value="3800" style="width: 70px;" />
+        <strong id="toneVal">3.8k</strong>
+      </div>
+      <div class="pill">
+        <span>🌊 ECHO</span>
+        <input type="range" id="delaySlider" min="0" max="80" value="36" style="width: 60px;" />
+        <strong id="delayVal">36%</strong>
+      </div>
     </div>
 
-    <!-- RIGHT COLUMN: KINETIC PHASE PHYSICS + LO-FI RAIN + WHISTLE SYNTH -->
-    <div>
-      <section class="panel">
-        <div class="panel-head">
-          <div class="panel-title">02 · Kinetic Phase & Rain Physics</div>
-          <span class="badge" id="ratioBadge">RATIO 3 : 4 : 5 : 7</span>
-        </div>
-        <div class="canvas-stage">
-          <canvas id="physicsCanvas" width="540" height="290"></canvas>
-          <div class="canvas-overlay">
-            <span>SPRING NODES · SHOCKWAVE RIPPLES</span>
-            <span id="physicsTelemetry">RAIN PARTICLES: ACTIVE</span>
-          </div>
-        </div>
-      </section>
+    <div class="hud-group">
+      <div class="pill vox-pill">
+        <button id="btnToggleMic" class="hud-btn" style="padding: 0.25rem 0.7rem; border: none;">🎙️ WHISTLE / HUM</button>
+        <span class="vox-note" id="quantizedNote">--</span>
+        <select id="voiceWaveSelect" title="Whistle Synth Timbre">
+          <option value="triangle">Flute</option>
+          <option value="sawtooth">Plasma Saw</option>
+          <option value="sine">Pure Sine</option>
+        </select>
+      </div>
 
-      <section class="panel">
-        <div class="panel-head">
-          <div class="panel-title">03 · Lo-Fi Rain & Tape Atmosphere</div>
-          <span class="badge">PROCEDURAL NOISE DSP</span>
-        </div>
-        <div class="fader-grid">
-          <div class="fader-card">
-            <div class="fader-top"><span>🌧️ Rain & Storm</span><strong id="rainVal">40%</strong></div>
-            <input type="range" id="rainSlider" min="0" max="100" value="40" />
-          </div>
-          <div class="fader-card">
-            <div class="fader-top"><span>📀 Vinyl Crackle</span><strong id="vinylVal">28%</strong></div>
-            <input type="range" id="vinylSlider" min="0" max="100" value="28" />
-          </div>
-          <div class="fader-card">
-            <div class="fader-top"><span>📼 Tape Low-Pass</span><strong id="toneVal">3.6 kHz</strong></div>
-            <input type="range" id="toneSlider" min="550" max="14000" value="3600" />
-          </div>
-          <div class="fader-card">
-            <div class="fader-top"><span>🌊 Dub Echo Send</span><strong id="delayVal">34%</strong></div>
-            <input type="range" id="delaySlider" min="0" max="80" value="34" />
-          </div>
-        </div>
-      </section>
-
-      <section class="panel">
-        <div class="panel-head">
-          <div class="panel-title">04 · Acoustic "Whistle & Hum" Synth</div>
-          <button id="btnToggleMic" class="btn-mic">🎙️ Activate Mic</button>
-        </div>
-        <p style="font-size: 0.78rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
-          Whistle or hum into your microphone. Autocorrelation locks your vocal pitch to the active scale and drives an analog lead oscillator through the dub delay.
-        </p>
-
-        <div class="level-track"><div class="level-fill" id="micLevelBar"></div></div>
-
-        <div class="vox-telemetry">
-          <div>
-            <div class="tel-label">Input Pitch</div>
-            <div class="tel-value" id="detectedHz">--</div>
-          </div>
-          <div>
-            <div class="tel-label">Scale Lock</div>
-            <div class="tel-value" id="quantizedNote">--</div>
-          </div>
-          <div>
-            <div class="tel-label">Lead Timbre</div>
-            <div style="margin-top: 0.2rem;">
-              <select id="voiceWaveSelect">
-                <option value="triangle">Warm Flute</option>
-                <option value="sawtooth">Analog Saw</option>
-                <option value="sine">Pure Whistle</option>
-              </select>
-            </div>
-          </div>
-        </div>
-
-        <div class="fader-grid">
-          <div class="fader-card">
-            <div class="fader-top"><span>Lead Gain</span><strong id="voiceVolVal">60%</strong></div>
-            <input type="range" id="voiceVolSlider" min="0" max="100" value="60" />
-          </div>
-          <div class="fader-card">
-            <div class="fader-top"><span>Portamento Glide</span><strong id="glideVal">60 ms</strong></div>
-            <input type="range" id="glideSlider" min="5" max="240" value="60" />
-          </div>
-        </div>
-      </section>
+      <button id="btnRecord" class="hud-btn">⏺ REC</button>
     </div>
-  </main>
+  </div>
 
   <script>
     // =========================================================================
-    // 1. MUSICAL SCALES & EUCLIDEAN BJORKLUND ALGORITHM
+    // 1. MUSICAL SCALES, CHORD PROGRESSIONS & EUCLIDEAN GENERATOR
     // =========================================================================
     const SCALES = {
       minorPentatonic: [0, 3, 5, 7, 10, 12, 15, 17, 19, 22, 24],
       dorian:          [0, 2, 3, 5, 7, 9, 10, 12, 14, 15, 17, 19],
       lydian:          [5, 7, 9, 11, 12, 14, 16, 17, 19, 21, 23, 24],
       hirajoshi:       [0, 2, 3, 7, 8, 12, 14, 15, 19, 20, 24]
+    };
+
+    const CHORD_PROGRESSIONS = {
+      none: [],
+      lofi1:   [[48, 55, 58, 62], [44, 51, 55, 60], [51, 58, 62, 67], [46, 53, 58, 62]], // Cm9 - Abmaj7 - Ebmaj7 - Bb6
+      neosoul: [[50, 57, 60, 64], [55, 59, 62, 65], [48, 55, 59, 64], [45, 52, 55, 60]], // Dm9 - G13 - Cmaj9 - Am7
+      drift:   [[48, 55, 60, 63], [53, 60, 65, 68], [55, 62, 67, 70], [48, 55, 60, 67]]  // Cm - Fm - Gm - Csus
     };
 
     const NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
@@ -657,30 +468,87 @@
     }
 
     // =========================================================================
-    // 2. TRACK STATE & SPRING PHYSICS NODES
+    // 2. CELESTIAL BODIES (4 ORBITING EUCLIDEAN PLANETS)
     // =========================================================================
-    const tracks = [
-      { id: 0, name: "CH 1 · Sub Kick", type: "kick", color: "#f59e0b", steps: 3, pulses: 2, pitchOffset: 0, volume: 0.88, pattern: [true, false, true], currentStep: 0, springRadius: 0, springVel: 0 },
-      { id: 1, name: "CH 2 · Lo-Fi Rim", type: "snare", color: "#fb7185", steps: 4, pulses: 2, pitchOffset: 0, volume: 0.68, pattern: [false, true, false, true], currentStep: 0, springRadius: 0, springVel: 0 },
-      { id: 2, name: "CH 3 · Warm Rhodes", type: "pluck", color: "#38bdf8", steps: 5, pulses: 3, pitchOffset: 4, volume: 0.62, pattern: [true, false, true, false, true], currentStep: 0, springRadius: 0, springVel: 0 },
-      { id: 3, name: "CH 4 · Glass Bell", type: "bell", color: "#c084fc", steps: 7, pulses: 4, pitchOffset: 7, volume: 0.52, pattern: [true, false, true, false, true, false, true], currentStep: 0, springRadius: 0, springVel: 0 }
+    const planets = [
+      {
+        id: 0,
+        name: "VULCAN · SUB KICK",
+        type: "kick",
+        color: "#f59e0b",
+        glow: "rgba(245, 158, 11, 0.45)",
+        planetRadius: 15,
+        steps: 3,
+        pulses: 2,
+        pitchOffset: 0,
+        volume: 0.88,
+        pattern: [true, false, true],
+        currentStep: 0,
+        smoothAngle: -Math.PI / 2,
+        springOffset: 0,
+        springVel: 0,
+        pulseFlash: 0
+      },
+      {
+        id: 1,
+        name: "CRIMSON · LO-FI RIM",
+        type: "snare",
+        color: "#fb7185",
+        glow: "rgba(251, 113, 133, 0.45)",
+        planetRadius: 12,
+        steps: 4,
+        pulses: 2,
+        pitchOffset: 0,
+        volume: 0.68,
+        pattern: [false, true, false, true],
+        currentStep: 0,
+        smoothAngle: -Math.PI / 2,
+        springOffset: 0,
+        springVel: 0,
+        pulseFlash: 0
+      },
+      {
+        id: 2,
+        name: "AQUARIA · RHODES PLUCK",
+        type: "pluck",
+        color: "#38bdf8",
+        glow: "rgba(56, 189, 248, 0.45)",
+        planetRadius: 14,
+        steps: 5,
+        pulses: 3,
+        pitchOffset: 3,
+        volume: 0.64,
+        pattern: [true, false, true, false, true],
+        currentStep: 0,
+        smoothAngle: -Math.PI / 2,
+        springOffset: 0,
+        springVel: 0,
+        pulseFlash: 0
+      },
+      {
+        id: 3,
+        name: "NEBULA · GLASS BELL",
+        type: "bell",
+        color: "#c084fc",
+        glow: "rgba(192, 132, 252, 0.45)",
+        planetRadius: 13,
+        steps: 7,
+        pulses: 4,
+        pitchOffset: 6,
+        volume: 0.54,
+        pattern: [true, false, true, false, true, false, true],
+        currentStep: 0,
+        smoothAngle: -Math.PI / 2,
+        springOffset: 0,
+        springVel: 0,
+        pulseFlash: 0
+      }
     ];
 
-    // Physics particle pools
-    const shockwaves = [];
-    const raindrops = Array.from({ length: 75 }, () => ({
-      x: Math.random() * 540,
-      y: Math.random() * 290,
-      len: 8 + Math.random() * 14,
-      speed: 3 + Math.random() * 5,
-      alpha: 0.1 + Math.random() * 0.25
-    }));
-    const voxTrail = [];
-    let coreSpring = 0;
-    let coreVel = 0;
+    let selectedPlanetId = 0;
 
     // =========================================================================
-    // 3. WEB AUDIO API DSP ENGINE
+    // 3. WEB AUDIO API DSP ENGINE (SYNTHS, CHORD PAD, RAIN, VINYL, RECORDER)
     // =========================================================================
     let audioCtx = null;
     let masterFilter = null;
@@ -688,11 +556,15 @@
     let delayWet = null;
     let rainGain = null;
     let vinylGain = null;
+    let recordDest = null;
+    let mediaRecorder = null;
+    let recordedChunks = [];
 
     let isPlaying = false;
     let schedulerTimer = null;
     let nextTickTime = 0;
     let globalTick = 0;
+    let currentChordIndex = 0;
 
     // Mic Pitch Tracker
     let micStream = null;
@@ -701,6 +573,7 @@
     let micGainNode = null;
     let pitchRaf = null;
     let activeVoxFreq = 0;
+    let activeVoxMidi = 0;
 
     function initAudioEngine() {
       if (audioCtx) return;
@@ -708,19 +581,19 @@
       audioCtx = new AudioContext();
 
       const compressor = audioCtx.createDynamicsCompressor();
-      compressor.threshold.value = -15;
-      compressor.ratio.value = 4;
+      compressor.threshold.value = -14;
+      compressor.ratio.value = 3.5;
 
       masterFilter = audioCtx.createBiquadFilter();
       masterFilter.type = "lowpass";
       masterFilter.frequency.value = Number(document.getElementById("toneSlider").value);
-      masterFilter.Q.value = 0.85;
+      masterFilter.Q.value = 0.8;
 
-      // Stereo Dub Delay
+      // Dub Stereo Delay
       delayNode = audioCtx.createDelay(2.0);
-      delayNode.delayTime.value = 0.34;
+      delayNode.delayTime.value = 0.35;
       const delayFeedback = audioCtx.createGain();
-      delayFeedback.gain.value = 0.38;
+      delayFeedback.gain.value = 0.4;
       delayWet = audioCtx.createGain();
       delayWet.gain.value = Number(document.getElementById("delaySlider").value) / 100;
 
@@ -732,7 +605,11 @@
       masterFilter.connect(compressor);
       compressor.connect(audioCtx.destination);
 
-      // Procedural Pink-Noise Rain Buffer
+      // Session Recorder Tap
+      recordDest = audioCtx.createMediaStreamDestination();
+      compressor.connect(recordDest);
+
+      // Procedural Rain Buffer
       const bufferSize = audioCtx.sampleRate * 3;
       const rainBuffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
       const rainData = rainBuffer.getChannelData(0);
@@ -745,7 +622,7 @@
         b3 = 0.86650 * b3 + white * 0.3104856;
         b4 = 0.55000 * b4 + white * 0.5329522;
         b5 = -0.7616 * b5 - white * 0.0168980;
-        rainData[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.04;
+        rainData[i] = (b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362) * 0.042;
         b6 = white * 0.115926;
       }
 
@@ -763,7 +640,7 @@
 
       rainSource.connect(rainBand);
       rainBand.connect(rainGain);
-      rainGain.connect(audioCtx.destination);
+      rainGain.connect(compressor);
       rainSource.start();
 
       // Procedural Vinyl Crackle Buffer
@@ -787,30 +664,94 @@
 
       vinylSource.connect(vinylHigh);
       vinylHigh.connect(vinylGain);
-      vinylGain.connect(audioCtx.destination);
+      vinylGain.connect(compressor);
       vinylSource.start();
     }
 
-    function triggerVoice(track, time, stepIndex) {
+    function triggerChordPad(time, durationSec) {
+      if (!audioCtx) return;
+      const progKey = document.getElementById("chordProgSelect").value;
+      const chords = CHORD_PROGRESSIONS[progKey];
+      if (!chords || chords.length === 0) return;
+
+      const notes = chords[currentChordIndex % chords.length];
+      currentChordIndex++;
+
+      notes.forEach((midi, idx) => {
+        const freq = midiToFreq(midi);
+        const osc1 = audioCtx.createOscillator();
+        const osc2 = audioCtx.createOscillator();
+        const filter = audioCtx.createBiquadFilter();
+        const gain = audioCtx.createGain();
+
+        osc1.type = "triangle";
+        osc2.type = "sine";
+        osc1.frequency.setValueAtTime(freq, time);
+        osc2.frequency.setValueAtTime(freq * 1.003, time); // Warm analog detune
+
+        filter.type = "lowpass";
+        filter.frequency.setValueAtTime(950, time);
+
+        const peak = 0.065 / Math.sqrt(notes.length);
+        gain.gain.setValueAtTime(0.0001, time);
+        gain.gain.linearRampToValueAtTime(peak, time + 0.35);
+        gain.gain.setValueAtTime(peak * 0.85, time + durationSec - 0.4);
+        gain.gain.exponentialRampToValueAtTime(0.0001, time + durationSec);
+
+        osc1.connect(filter);
+        osc2.connect(filter);
+        filter.connect(gain);
+        gain.connect(masterFilter);
+        if (idx === 0) gain.connect(delayNode);
+
+        osc1.start(time);
+        osc2.start(time);
+        osc1.stop(time + durationSec + 0.05);
+        osc2.stop(time + durationSec + 0.05);
+      });
+    }
+
+    function triggerSyzygySwell(time) {
+      if (!audioCtx) return;
+      const scaleKey = document.getElementById("scaleSelect").value;
+      const intervals = SCALES[scaleKey];
+      [0, 2, 4].forEach(idx => {
+        const freq = midiToFreq(72 + intervals[idx % intervals.length]);
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "sine";
+        osc.frequency.setValueAtTime(freq, time);
+        gain.gain.setValueAtTime(0.0001, time);
+        gain.gain.linearRampToValueAtTime(0.045, time + 0.12);
+        gain.gain.exponentialRampToValueAtTime(0.0001, time + 1.1);
+        osc.connect(gain);
+        gain.connect(delayNode);
+        gain.connect(masterFilter);
+        osc.start(time);
+        osc.stop(time + 1.15);
+      });
+    }
+
+    function triggerPlanetVoice(planet, time, stepIndex) {
       if (!audioCtx) return;
       const scaleKey = document.getElementById("scaleSelect").value;
       const intervals = SCALES[scaleKey];
 
-      if (track.type === "kick") {
+      if (planet.type === "kick") {
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.type = "sine";
-        osc.frequency.setValueAtTime(140, time);
-        osc.frequency.exponentialRampToValueAtTime(40, time + 0.15);
+        osc.frequency.setValueAtTime(145, time);
+        osc.frequency.exponentialRampToValueAtTime(38, time + 0.16);
 
-        gain.gain.setValueAtTime(track.volume, time);
-        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.35);
+        gain.gain.setValueAtTime(planet.volume, time);
+        gain.gain.exponentialRampToValueAtTime(0.001, time + 0.36);
 
         osc.connect(gain);
         gain.connect(masterFilter);
         osc.start(time);
-        osc.stop(time + 0.36);
-      } else if (track.type === "snare") {
+        osc.stop(time + 0.38);
+      } else if (planet.type === "snare") {
         const noiseLen = Math.floor(audioCtx.sampleRate * 0.14);
         const buf = audioCtx.createBuffer(1, noiseLen, audioCtx.sampleRate);
         const out = buf.getChannelData(0);
@@ -821,10 +762,10 @@
 
         const filter = audioCtx.createBiquadFilter();
         filter.type = "bandpass";
-        filter.frequency.value = 1450;
+        filter.frequency.value = 1480;
 
         const gain = audioCtx.createGain();
-        gain.gain.setValueAtTime(track.volume * 0.55, time);
+        gain.gain.setValueAtTime(planet.volume * 0.55, time);
         gain.gain.exponentialRampToValueAtTime(0.001, time + 0.13);
 
         noise.connect(filter);
@@ -832,8 +773,8 @@
         gain.connect(masterFilter);
         gain.connect(delayNode);
         noise.start(time);
-      } else if (track.type === "pluck") {
-        const noteIdx = (stepIndex + track.pitchOffset) % intervals.length;
+      } else if (planet.type === "pluck") {
+        const noteIdx = (stepIndex + planet.pitchOffset) % intervals.length;
         const freq = midiToFreq(48 + intervals[noteIdx]);
 
         const osc = audioCtx.createOscillator();
@@ -847,11 +788,11 @@
         sub.frequency.setValueAtTime(freq * 2, time);
 
         filter.type = "lowpass";
-        filter.frequency.setValueAtTime(1700, time);
-        filter.frequency.exponentialRampToValueAtTime(280, time + 0.3);
+        filter.frequency.setValueAtTime(1750, time);
+        filter.frequency.exponentialRampToValueAtTime(260, time + 0.3);
 
         gain.gain.setValueAtTime(0.001, time);
-        gain.gain.linearRampToValueAtTime(track.volume * 0.45, time + 0.015);
+        gain.gain.linearRampToValueAtTime(planet.volume * 0.45, time + 0.015);
         gain.gain.exponentialRampToValueAtTime(0.001, time + 0.38);
 
         osc.connect(filter);
@@ -864,8 +805,8 @@
         sub.start(time);
         osc.stop(time + 0.4);
         sub.stop(time + 0.4);
-      } else if (track.type === "bell") {
-        const noteIdx = (stepIndex * 2 + track.pitchOffset) % intervals.length;
+      } else if (planet.type === "bell") {
+        const noteIdx = (stepIndex * 2 + planet.pitchOffset) % intervals.length;
         const freq = midiToFreq(60 + intervals[noteIdx]);
 
         const osc = audioCtx.createOscillator();
@@ -881,7 +822,7 @@
         modGain.gain.exponentialRampToValueAtTime(1, time + 0.22);
 
         gain.gain.setValueAtTime(0.001, time);
-        gain.gain.linearRampToValueAtTime(track.volume * 0.32, time + 0.01);
+        gain.gain.linearRampToValueAtTime(planet.volume * 0.32, time + 0.01);
         gain.gain.exponentialRampToValueAtTime(0.001, time + 0.56);
 
         mod.connect(modGain);
@@ -898,51 +839,66 @@
     }
 
     // =========================================================================
-    // 4. LOOKAHEAD SCHEDULER + PHYSICS IMPULSE INJECTION
+    // 4. LOOKAHEAD SCHEDULER + SYZYGY DETECTION
     // =========================================================================
     function schedulerLoop() {
       const bpm = Number(document.getElementById("bpmSlider").value);
-      const swing = Number(document.getElementById("swingSlider").value) / 100;
       const sixteenthDuration = (60 / bpm) / 4;
 
       while (nextTickTime < audioCtx.currentTime + 0.1) {
-        const swingOffset = (globalTick % 2 === 1) ? sixteenthDuration * swing : 0;
+        const swingOffset = (globalTick % 2 === 1) ? sixteenthDuration * 0.16 : 0;
         const playTime = nextTickTime + swingOffset;
 
-        tracks.forEach(track => {
-          const stepIdx = globalTick % track.steps;
-          const isHit = track.pattern[stepIdx];
+        // Trigger 4-bar Lo-Fi Chord Pad every 16 sixteenth notes
+        if (globalTick % 16 === 0) {
+          triggerChordPad(playTime, sixteenthDuration * 15.5);
+        }
+
+        let simultaneousHits = 0;
+        planets.forEach(p => {
+          const stepIdx = globalTick % p.steps;
+          const isHit = p.pattern[stepIdx];
           if (isHit) {
-            triggerVoice(track, playTime, stepIdx);
+            simultaneousHits++;
+            triggerPlanetVoice(p, playTime, stepIdx);
           }
 
           const delayMs = Math.max(0, (playTime - audioCtx.currentTime) * 1000);
           setTimeout(() => {
-            track.currentStep = stepIdx;
-            highlightStepUI(track.id, stepIdx);
-
+            p.currentStep = stepIdx;
             if (isHit) {
-              // Inject spring velocity into orbital ring and spawn shockwave
-              track.springVel += (track.type === "kick" ? 5.5 : 3.4);
-              if (track.type === "kick") coreVel += 6.0;
+              p.pulseFlash = 1.0;
+              p.springVel += (p.type === "kick" ? 6.5 : 4.2);
+              if (p.type === "kick") sunVel += 7.0;
 
-              const canvas = document.getElementById("physicsCanvas");
-              const cx = canvas.width / 2;
-              const cy = canvas.height / 2;
-              const baseR = 36 + track.id * 26;
-              const angle = (stepIdx / track.steps) * Math.PI * 2 - Math.PI / 2;
-
+              const pos = getPlanetPosition(p);
               shockwaves.push({
-                x: cx + Math.cos(angle) * baseR,
-                y: cy + Math.sin(angle) * baseR,
-                r: 4,
-                maxR: track.type === "kick" ? 68 : 44,
-                color: track.color,
+                x: pos.x,
+                y: pos.y,
+                r: p.planetRadius,
+                maxR: p.type === "kick" ? 95 : 65,
+                color: p.color,
                 alpha: 0.9
               });
             }
           }, delayMs);
         });
+
+        // Syzygy Gravitational Alignment Bonus (3+ planets hit simultaneously)
+        if (simultaneousHits >= 3) {
+          triggerSyzygySwell(playTime);
+          const delayMs = Math.max(0, (playTime - audioCtx.currentTime) * 1000);
+          setTimeout(() => {
+            shockwaves.push({
+              x: canvas.width / 2,
+              y: canvas.height / 2,
+              r: 24,
+              maxR: Math.min(canvas.width, canvas.height) * 0.45,
+              color: "#ffffff",
+              alpha: 0.65
+            });
+          }, delayMs);
+        }
 
         nextTickTime += sixteenthDuration;
         globalTick++;
@@ -952,30 +908,26 @@
     function togglePlay() {
       initAudioEngine();
       if (audioCtx.state === "suspended") audioCtx.resume();
-
       const btn = document.getElementById("btnPlay");
-      const orb = document.getElementById("powerOrb");
 
       if (!isPlaying) {
         isPlaying = true;
         globalTick = 0;
+        currentChordIndex = 0;
         nextTickTime = audioCtx.currentTime + 0.05;
         schedulerTimer = setInterval(schedulerLoop, 25);
-        btn.textContent = "■ STOP";
-        btn.classList.add("playing");
-        orb.classList.add("active");
+        btn.textContent = "■ ECLIPSE";
+        btn.classList.add("active-play");
       } else {
         isPlaying = false;
         clearInterval(schedulerTimer);
-        btn.textContent = "▶ START";
-        btn.classList.remove("playing");
-        orb.classList.remove("active");
-        document.querySelectorAll(".step-cell").forEach(p => p.classList.remove("playhead"));
+        btn.textContent = "▶ IGNITE SUN";
+        btn.classList.remove("active-play");
       }
     }
 
     // =========================================================================
-    // 5. ACOUSTIC "WHISTLE & HUM" PITCH TRACKER
+    // 5. ACOUSTIC "WHISTLE & HUM" PITCH-TO-SYNTH ENGINE
     // =========================================================================
     function autoCorrelate(buf, sampleRate) {
       let size = buf.length;
@@ -1021,11 +973,9 @@
         micStream = null;
         if (micOsc) { micOsc.stop(); micOsc.disconnect(); micOsc = null; }
         activeVoxFreq = 0;
-        btn.textContent = "🎙️ Activate Mic";
-        btn.classList.remove("listening");
-        document.getElementById("detectedHz").textContent = "--";
+        btn.textContent = "🎙️ WHISTLE / HUM";
+        btn.classList.remove("active-mic");
         document.getElementById("quantizedNote").textContent = "--";
-        document.getElementById("micLevelBar").style.width = "0%";
         return;
       }
 
@@ -1042,7 +992,7 @@
 
         const micFilter = audioCtx.createBiquadFilter();
         micFilter.type = "lowpass";
-        micFilter.frequency.value = 1900;
+        micFilter.frequency.value = 2100;
 
         micGainNode = audioCtx.createGain();
         micGainNode.gain.value = 0.0001;
@@ -1053,8 +1003,8 @@
         micGainNode.connect(delayNode);
         micOsc.start();
 
-        btn.textContent = "🎙️ Listening (Mute)";
-        btn.classList.add("listening");
+        btn.textContent = "🎙️ LIVE AURORA";
+        btn.classList.add("active-mic");
 
         const timeData = new Float32Array(analyserNode.fftSize);
         const trackPitchLoop = () => {
@@ -1062,24 +1012,17 @@
           analyserNode.getFloatTimeDomainData(timeData);
           const { freq, rms } = autoCorrelate(timeData, audioCtx.sampleRate);
 
-          const levelPct = Math.min(100, Math.round(rms * 420));
-          document.getElementById("micLevelBar").style.width = `${levelPct}%`;
-
-          const maxVol = (Number(document.getElementById("voiceVolSlider").value) / 100) * 0.48;
-          const glideSec = Number(document.getElementById("glideSlider").value) / 1000;
-
           if (freq > 75 && freq < 1800) {
             const rawMidi = freqToMidi(freq);
             const scaleKey = document.getElementById("scaleSelect").value;
             const quantMidi = quantizeMidiToScale(rawMidi, scaleKey);
             const targetFreq = midiToFreq(quantMidi);
             activeVoxFreq = targetFreq;
+            activeVoxMidi = quantMidi;
 
-            document.getElementById("detectedHz").textContent = `${Math.round(freq)} Hz`;
             document.getElementById("quantizedNote").textContent = midiToName(quantMidi);
-
-            micOsc.frequency.setTargetAtTime(targetFreq, audioCtx.currentTime, glideSec);
-            micGainNode.gain.setTargetAtTime(Math.min(maxVol, rms * 2.4), audioCtx.currentTime, 0.03);
+            micOsc.frequency.setTargetAtTime(targetFreq, audioCtx.currentTime, 0.055);
+            micGainNode.gain.setTargetAtTime(Math.min(0.28, rms * 2.4), audioCtx.currentTime, 0.03);
           } else {
             activeVoxFreq = 0;
             micGainNode.gain.setTargetAtTime(0.0001, audioCtx.currentTime, 0.06);
@@ -1089,47 +1032,163 @@
         };
         trackPitchLoop();
       } catch (err) {
-        alert("Microphone access denied or unavailable: " + err.message);
+        alert("Microphone access denied: " + err.message);
       }
     }
 
     // =========================================================================
-    // 6. KINETIC PHYSICS CANVAS (SPRING RINGS, RAIN STREAKS, & VOX RIBBON)
+    // 6. LIVE AUDIO SESSION RECORDER
     // =========================================================================
-    function renderPhysicsCanvas() {
-      const canvas = document.getElementById("physicsCanvas");
-      const ctx = canvas.getContext("2d");
+    function toggleRecording() {
+      initAudioEngine();
+      const btn = document.getElementById("btnRecord");
+
+      if (!mediaRecorder || mediaRecorder.state === "inactive") {
+        recordedChunks = [];
+        mediaRecorder = new MediaRecorder(recordDest.stream);
+        mediaRecorder.ondataavailable = e => { if (e.data.size > 0) recordedChunks.push(e.data); };
+        mediaRecorder.onstop = () => {
+          const blob = new Blob(recordedChunks, { type: "audio/webm" });
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement("a");
+          a.href = url;
+          a.download = `PLUVOX-Session-${new Date().toISOString().slice(0, 19).replace(/:/g, "-")}.webm`;
+          a.click();
+          URL.revokeObjectURL(url);
+        };
+        mediaRecorder.start();
+        btn.textContent = "⏹ SAVE REC";
+        btn.classList.add("active-rec");
+      } else {
+        mediaRecorder.stop();
+        btn.textContent = "⏺ REC";
+        btn.classList.remove("active-rec");
+      }
+    }
+
+    // =========================================================================
+    // 7. OPEN-SPACE SOLAR SYSTEM CANVAS & DIRECT PHYSICS INTERACTION
+    // =========================================================================
+    const canvas = document.getElementById("cosmos");
+    const ctx = canvas.getContext("2d");
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+    window.addEventListener("resize", resizeCanvas);
+    resizeCanvas();
+
+    // Deep-space starfield, meteors, and vinyl asteroid belt
+    const stars = Array.from({ length: 220 }, () => ({
+      x: Math.random(),
+      y: Math.random(),
+      r: 0.5 + Math.random() * 1.6,
+      twinkle: Math.random() * Math.PI * 2,
+      speed: 0.01 + Math.random() * 0.03
+    }));
+
+    const meteors = Array.from({ length: 90 }, () => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      len: 14 + Math.random() * 24,
+      speed: 5 + Math.random() * 7,
+      alpha: 0.12 + Math.random() * 0.3
+    }));
+
+    const asteroids = Array.from({ length: 65 }, (_, i) => ({
+      angle: (i / 65) * Math.PI * 2,
+      distOffset: (Math.random() - 0.5) * 26,
+      size: 1 + Math.random() * 2.2,
+      speed: 0.0015 + Math.random() * 0.002
+    }));
+
+    const shockwaves = [];
+    const plasmaTrail = [];
+    let sunSpring = 0;
+    let sunVel = 0;
+
+    function getOrbitRadius(index) {
+      const minDim = Math.min(canvas.width, canvas.height);
+      const base = Math.max(78, minDim * 0.13);
+      const spacing = Math.max(54, minDim * 0.082);
+      return base + index * spacing;
+    }
+
+    function getPlanetPosition(planet) {
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+      const r = getOrbitRadius(planet.id) + planet.springOffset;
+      return {
+        x: cx + Math.cos(planet.smoothAngle) * r,
+        y: cy + Math.sin(planet.smoothAngle) * r,
+        orbitR: r
+      };
+    }
+
+    function renderCosmos() {
       const w = canvas.width;
       const h = canvas.height;
       const cx = w / 2;
       const cy = h / 2;
 
-      ctx.clearRect(0, 0, w, h);
+      // Subtle motion-trail fade in deep space
+      ctx.fillStyle = "rgba(4, 6, 11, 0.38)";
+      ctx.fillRect(0, 0, w, h);
 
-      // 1. Rain Physics driven by Rain Fader & BPM Wind
-      const rainIntensity = Number(document.getElementById("rainSlider").value) / 100;
-      const activeDrops = Math.floor(raindrops.length * rainIntensity);
-      ctx.lineWidth = 1.2;
-      for (let i = 0; i < activeDrops; i++) {
-        const d = raindrops[i];
-        d.x -= 1.2 + rainIntensity * 1.8;
-        d.y += d.speed * (0.7 + rainIntensity * 1.1);
-        if (d.y > h) { d.y = -15; d.x = Math.random() * (w + 60); }
-        if (d.x < -20) { d.x = w + 20; }
-
+      // 1. Twinkling Starfield
+      stars.forEach(s => {
+        s.twinkle += s.speed;
+        const alpha = 0.25 + (Math.sin(s.twinkle) + 1) * 0.35;
         ctx.beginPath();
-        ctx.moveTo(d.x, d.y);
-        ctx.lineTo(d.x + 2.5, d.y - d.len);
-        ctx.strokeStyle = `rgba(125, 211, 252, ${d.alpha * rainIntensity})`;
+        ctx.arc(s.x * w, s.y * h, s.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(226, 232, 240, ${alpha})`;
+        ctx.fill();
+      });
+
+      // 2. Meteor Shower (Driven by Rain DSP Slider)
+      const rainPct = Number(document.getElementById("rainSlider").value) / 100;
+      const activeMeteors = Math.floor(meteors.length * rainPct);
+      ctx.lineWidth = 1.3;
+      for (let i = 0; i < activeMeteors; i++) {
+        const m = meteors[i];
+        m.x -= m.speed * 0.65;
+        m.y += m.speed * 1.15;
+        if (m.y > h + 30 || m.x < -30) {
+          m.x = Math.random() * (w + 250);
+          m.y = -20;
+        }
+        ctx.beginPath();
+        ctx.moveTo(m.x, m.y);
+        ctx.lineTo(m.x + m.len * 0.55, m.y - m.len);
+        ctx.strokeStyle = `rgba(56, 189, 248, ${m.alpha * rainPct})`;
         ctx.stroke();
       }
 
-      // 2. Shockwave Ripples
+      // 3. Outer Asteroid Belt (Driven by Vinyl Crackle DSP Slider)
+      const vinylPct = Number(document.getElementById("vinylSlider").value) / 100;
+      const beltBaseR = getOrbitRadius(3) + 52;
+      if (vinylPct > 0.02) {
+        asteroids.forEach(ast => {
+          ast.angle += ast.speed * (0.4 + vinylPct);
+          const ax = cx + Math.cos(ast.angle) * (beltBaseR + ast.distOffset);
+          const ay = cy + Math.sin(ast.angle) * (beltBaseR + ast.distOffset);
+          const spark = Math.random() > 0.985;
+          ctx.beginPath();
+          ctx.arc(ax, ay, spark ? ast.size * 2.1 : ast.size, 0, Math.PI * 2);
+          ctx.fillStyle = spark
+            ? `rgba(251, 191, 36, ${0.85 * vinylPct})`
+            : `rgba(148, 163, 184, ${0.32 * vinylPct})`;
+          ctx.fill();
+        });
+      }
+
+      // 4. Shockwave Ripples
       for (let i = shockwaves.length - 1; i >= 0; i--) {
         const sw = shockwaves[i];
-        sw.r += (sw.maxR - sw.r) * 0.14;
-        sw.alpha *= 0.91;
-        if (sw.alpha < 0.03) {
+        sw.r += (sw.maxR - sw.r) * 0.12;
+        sw.alpha *= 0.92;
+        if (sw.alpha < 0.02) {
           shockwaves.splice(i, 1);
           continue;
         }
@@ -1142,227 +1201,320 @@
         ctx.globalAlpha = 1;
       }
 
-      // 3. Spring-Damped Center Core
-      const stiffness = 0.16;
-      const damping = 0.82;
-      coreVel = (coreVel - coreSpring * stiffness) * damping;
-      coreSpring += coreVel;
-
-      const coreR = Math.max(6, 11 + coreSpring);
-      const grad = ctx.createRadialGradient(cx, cy, 2, cx, cy, coreR * 2.2);
-      grad.addColorStop(0, "#ffffff");
-      grad.addColorStop(0.4, "#38bdf8");
-      grad.addColorStop(1, "rgba(56, 189, 248, 0)");
-      ctx.beginPath();
-      ctx.arc(cx, cy, coreR * 2.2, 0, Math.PI * 2);
-      ctx.fillStyle = grad;
-      ctx.fill();
-
-      // 4. Orbital Polyrhythm Rings with Spring Physics
-      tracks.forEach((t, idx) => {
-        t.springVel = (t.springVel - t.springRadius * 0.18) * 0.8;
-        t.springRadius += t.springVel;
-        const radius = 36 + idx * 26 + t.springRadius;
+      // 5. Acoustic Whistle/Hum Plasma Beam from the Sun
+      if (activeVoxFreq > 0) {
+        const noteAngle = ((activeVoxMidi % 12) / 12) * Math.PI * 2 - Math.PI / 2;
+        const beamDist = getOrbitRadius(2) + Math.sin(performance.now() * 0.012) * 28;
+        const bx = cx + Math.cos(noteAngle) * beamDist;
+        const by = cy + Math.sin(noteAngle) * beamDist;
+        plasmaTrail.push({ x: bx, y: by, alpha: 1.0 });
 
         ctx.beginPath();
-        ctx.arc(cx, cy, radius, 0, Math.PI * 2);
-        ctx.strokeStyle = "rgba(148, 163, 184, 0.16)";
-        ctx.lineWidth = 1.2;
+        ctx.moveTo(cx, cy);
+        ctx.lineTo(bx, by);
+        ctx.strokeStyle = "rgba(56, 189, 248, 0.55)";
+        ctx.lineWidth = 3;
         ctx.stroke();
+      }
+      for (let i = plasmaTrail.length - 1; i >= 0; i--) {
+        plasmaTrail[i].alpha *= 0.93;
+        if (plasmaTrail[i].alpha < 0.03) {
+          plasmaTrail.splice(i, 1);
+          continue;
+        }
+        ctx.beginPath();
+        ctx.arc(plasmaTrail[i].x, plasmaTrail[i].y, 6 * plasmaTrail[i].alpha, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(125, 211, 252, ${plasmaTrail[i].alpha})`;
+        ctx.fill();
+      }
 
-        // Connect active steps into a geometric polygon
-        const activePoints = [];
-        for (let s = 0; s < t.steps; s++) {
-          const angle = (s / t.steps) * Math.PI * 2 - Math.PI / 2;
-          const x = cx + Math.cos(angle) * radius;
-          const y = cy + Math.sin(angle) * radius;
-          if (t.pattern[s]) activePoints.push({ x, y });
+      // 6. Central Pulsar Sun (Spring Physics)
+      sunVel = (sunVel - sunSpring * 0.16) * 0.82;
+      sunSpring += sunVel;
+      const sunR = Math.max(18, 28 + sunSpring);
 
-          const isCurrent = isPlaying && t.currentStep === s;
-          const isActive = t.pattern[s];
+      const sunGrad = ctx.createRadialGradient(cx, cy, 4, cx, cy, sunR * 2.8);
+      sunGrad.addColorStop(0, "#ffffff");
+      sunGrad.addColorStop(0.28, isPlaying ? "#fde047" : "#94a3b8");
+      sunGrad.addColorStop(0.65, isPlaying ? "rgba(245, 158, 11, 0.35)" : "rgba(56, 189, 248, 0.12)");
+      sunGrad.addColorStop(1, "rgba(0, 0, 0, 0)");
 
+      ctx.beginPath();
+      ctx.arc(cx, cy, sunR * 2.8, 0, Math.PI * 2);
+      ctx.fillStyle = sunGrad;
+      ctx.fill();
+
+      // 7. Orbit Rings, Euclidean Step Nodes & Planets
+      planets.forEach(p => {
+        p.springVel = (p.springVel - p.springOffset * 0.18) * 0.8;
+        p.springOffset += p.springVel;
+        p.pulseFlash *= 0.9;
+
+        const targetAngle = (p.currentStep / p.steps) * Math.PI * 2 - Math.PI / 2;
+        if (isPlaying) {
+          // Smooth shortest-arc angular interpolation
+          let diff = targetAngle - p.smoothAngle;
+          while (diff < -Math.PI) diff += Math.PI * 2;
+          while (diff > Math.PI) diff -= Math.PI * 2;
+          p.smoothAngle += diff * 0.28;
+        } else {
+          p.smoothAngle = -Math.PI / 2;
+        }
+
+        const orbitR = getOrbitRadius(p.id) + p.springOffset;
+        const isSelected = p.id === selectedPlanetId;
+
+        // Orbital Track Ring
+        ctx.beginPath();
+        ctx.arc(cx, cy, orbitR, 0, Math.PI * 2);
+        ctx.strokeStyle = isSelected ? p.color : "rgba(148, 163, 184, 0.18)";
+        ctx.globalAlpha = isSelected ? 0.55 : 1;
+        ctx.lineWidth = isSelected ? 2 : 1.1;
+        ctx.stroke();
+        ctx.globalAlpha = 1;
+
+        // Euclidean Polygon Geometry connecting active step nodes
+        const activeNodes = [];
+        for (let s = 0; s < p.steps; s++) {
+          const stepAngle = (s / p.steps) * Math.PI * 2 - Math.PI / 2;
+          const nx = cx + Math.cos(stepAngle) * orbitR;
+          const ny = cy + Math.sin(stepAngle) * orbitR;
+          const active = p.pattern[s];
+          if (active) activeNodes.push({ x: nx, y: ny });
+
+          // Draw clickable step node on the orbit ring
           ctx.beginPath();
-          ctx.arc(x, y, isCurrent ? 6.5 : (isActive ? 4.2 : 2.2), 0, Math.PI * 2);
-          ctx.fillStyle = isCurrent ? "#ffffff" : (isActive ? t.color : "#334155");
+          ctx.arc(nx, ny, active ? 5.5 : 3.2, 0, Math.PI * 2);
+          ctx.fillStyle = active ? p.color : "rgba(100, 116, 139, 0.45)";
           ctx.fill();
         }
 
-        if (activePoints.length > 1) {
+        if (activeNodes.length > 1) {
           ctx.beginPath();
-          activePoints.forEach((pt, pIdx) => {
-            if (pIdx === 0) ctx.moveTo(pt.x, pt.y);
+          activeNodes.forEach((pt, idx) => {
+            if (idx === 0) ctx.moveTo(pt.x, pt.y);
             else ctx.lineTo(pt.x, pt.y);
           });
           ctx.closePath();
-          ctx.strokeStyle = t.color;
-          ctx.globalAlpha = 0.28;
-          ctx.lineWidth = 1.2;
+          ctx.strokeStyle = p.color;
+          ctx.globalAlpha = 0.24 + p.pulseFlash * 0.35;
+          ctx.lineWidth = 1.4;
           ctx.stroke();
           ctx.globalAlpha = 1;
         }
-      });
 
-      // 5. Acoustic Whistle/Hum Pitch Ribbon
-      if (activeVoxFreq > 0) {
-        const normY = h - Math.min(h - 20, Math.max(20, ((activeVoxFreq - 100) / 900) * (h - 40)));
-        voxTrail.push({ x: w - 30, y: normY });
-      }
-      for (let i = voxTrail.length - 1; i >= 0; i--) {
-        voxTrail[i].x -= 3.5;
-        if (voxTrail[i].x < 0) voxTrail.splice(i, 1);
-      }
-      if (voxTrail.length > 1) {
+        // Orbiting Planet Body
+        const px = cx + Math.cos(p.smoothAngle) * orbitR;
+        const py = cy + Math.sin(p.smoothAngle) * orbitR;
+        const pRad = p.planetRadius + p.pulseFlash * 6;
+
+        // Planet Glow Aura
+        const pGrad = ctx.createRadialGradient(px, py, 2, px, py, pRad * 2.4);
+        pGrad.addColorStop(0, "#ffffff");
+        pGrad.addColorStop(0.35, p.color);
+        pGrad.addColorStop(1, "rgba(0,0,0,0)");
         ctx.beginPath();
-        voxTrail.forEach((pt, idx) => {
-          if (idx === 0) ctx.moveTo(pt.x, pt.y);
-          else ctx.lineTo(pt.x, pt.y);
-        });
-        ctx.strokeStyle = "#38bdf8";
-        ctx.lineWidth = 2.5;
-        ctx.stroke();
+        ctx.arc(px, py, pRad * 2.4, 0, Math.PI * 2);
+        ctx.fillStyle = pGrad;
+        ctx.fill();
+
+        // Selection Halo Ring
+        if (isSelected) {
+          ctx.beginPath();
+          ctx.arc(px, py, pRad + 6, 0, Math.PI * 2);
+          ctx.strokeStyle = "#ffffff";
+          ctx.lineWidth = 1.5;
+          ctx.stroke();
+        }
+      });
+
+      requestAnimationFrame(renderCosmos);
+    }
+
+    // =========================================================================
+    // 8. DIRECT CANVAS INTERACTION (CLICK SUN, PLANETS, ORBIT NODES & DRAG)
+    // =========================================================================
+    let isDraggingSun = false;
+    let dragStartY = 0;
+    let dragStartBpm = 86;
+
+    canvas.addEventListener("pointerdown", e => {
+      const rect = canvas.getBoundingClientRect();
+      const mx = e.clientX - rect.left;
+      const my = e.clientY - rect.top;
+      const cx = canvas.width / 2;
+      const cy = canvas.height / 2;
+
+      // 1. Check Central Sun Click / Drag
+      if (Math.hypot(mx - cx, my - cy) <= 42) {
+        isDraggingSun = true;
+        dragStartY = my;
+        dragStartBpm = Number(document.getElementById("bpmSlider").value);
+        togglePlay();
+        return;
       }
 
-      requestAnimationFrame(renderPhysicsCanvas);
-    }
+      // 2. Check Planet Body Click (Selects Planet for Orbital Inspector)
+      for (const p of planets) {
+        const pos = getPlanetPosition(p);
+        if (Math.hypot(mx - pos.x, my - pos.y) <= p.planetRadius + 14) {
+          selectPlanet(p.id);
+          p.springVel += 4;
+          return;
+        }
+      }
 
-    // =========================================================================
-    // 7. SEQUENCER UI & CONTROLS
-    // =========================================================================
-    function renderTracksUI() {
-      const container = document.getElementById("tracksContainer");
-      container.innerHTML = tracks.map(t => `
-        <div class="track-card" style="--track-color: ${t.color};">
-          <div class="track-header">
-            <div class="track-label">${t.name}</div>
-            <div class="track-controls">
-              <label>STEPS
-                <input type="range" min="2" max="16" value="${t.steps}" data-track="${t.id}" data-param="steps" style="width: 72px;" />
-                <span>${t.steps}</span>
-              </label>
-              <label>PULSES
-                <input type="range" min="1" max="${t.steps}" value="${t.pulses}" data-track="${t.id}" data-param="pulses" style="width: 72px;" />
-                <span>${t.pulses}</span>
-              </label>
-              <label>VOL
-                <input type="range" min="0" max="100" value="${Math.round(t.volume * 100)}" data-track="${t.id}" data-param="volume" style="width: 60px;" />
-              </label>
-            </div>
-          </div>
-          <div class="step-grid">
-            ${t.pattern.map((active, sIdx) => `
-              <div class="step-cell ${active ? "on" : ""}" data-track="${t.id}" data-step="${sIdx}">
-                ${sIdx + 1}
-              </div>
-            `).join("")}
-          </div>
-        </div>
-      `).join("");
-
-      document.getElementById("ratioBadge").textContent = `RATIO ${tracks.map(t => t.steps).join(" : ")}`;
-
-      container.querySelectorAll("input[type='range']").forEach(inp => {
-        inp.addEventListener("input", () => {
-          const track = tracks[Number(inp.dataset.track)];
-          const param = inp.dataset.param;
-          const val = Number(inp.value);
-
-          if (param === "steps") {
-            track.steps = val;
-            track.pulses = Math.min(track.pulses, val);
-            track.pattern = generateEuclidean(track.steps, track.pulses);
-            renderTracksUI();
-          } else if (param === "pulses") {
-            track.pulses = val;
-            track.pattern = generateEuclidean(track.steps, track.pulses);
-            renderTracksUI();
-          } else if (param === "volume") {
-            track.volume = val / 100;
+      // 3. Check Orbit Step Node Click (Toggles individual Euclidean pulse directly in space)
+      for (const p of planets) {
+        const orbitR = getOrbitRadius(p.id);
+        for (let s = 0; s < p.steps; s++) {
+          const stepAngle = (s / p.steps) * Math.PI * 2 - Math.PI / 2;
+          const nx = cx + Math.cos(stepAngle) * orbitR;
+          const ny = cy + Math.sin(stepAngle) * orbitR;
+          if (Math.hypot(mx - nx, my - ny) <= 13) {
+            p.pattern[s] = !p.pattern[s];
+            p.pulses = p.pattern.filter(Boolean).length;
+            selectPlanet(p.id);
+            shockwaves.push({ x: nx, y: ny, r: 4, maxR: 34, color: p.color, alpha: 0.85 });
+            return;
           }
-        });
-      });
-
-      container.querySelectorAll(".step-cell").forEach(cell => {
-        cell.addEventListener("click", () => {
-          const track = tracks[Number(cell.dataset.track)];
-          const stepIdx = Number(cell.dataset.step);
-          track.pattern[stepIdx] = !track.pattern[stepIdx];
-          cell.classList.toggle("on", track.pattern[stepIdx]);
-        });
-      });
-    }
-
-    function highlightStepUI(trackId, stepIdx) {
-      const cards = document.querySelectorAll(".track-card");
-      const card = cards[trackId];
-      if (!card) return;
-      card.querySelectorAll(".step-cell").forEach((c, i) => c.classList.toggle("playhead", i === stepIdx));
-    }
-
-    const PRESETS = {
-      afro: [{ steps: 3, pulses: 2 }, { steps: 4, pulses: 2 }, { steps: 5, pulses: 3 }, { steps: 7, pulses: 4 }],
-      math: [{ steps: 5, pulses: 3 }, { steps: 7, pulses: 3 }, { steps: 8, pulses: 5 }, { steps: 11, pulses: 6 }],
-      dub:  [{ steps: 4, pulses: 2 }, { steps: 6, pulses: 2 }, { steps: 3, pulses: 2 }, { steps: 8, pulses: 5 }]
-    };
-
-    document.querySelectorAll("[data-preset]").forEach(btn => {
-      btn.addEventListener("click", () => {
-        PRESETS[btn.dataset.preset].forEach((c, idx) => {
-          tracks[idx].steps = c.steps;
-          tracks[idx].pulses = c.pulses;
-          tracks[idx].pattern = generateEuclidean(c.steps, c.pulses);
-        });
-        renderTracksUI();
-      });
+        }
+      }
     });
 
-    document.getElementById("btnRandomize").addEventListener("click", () => {
-      tracks.forEach(t => {
-        t.steps = Math.floor(Math.random() * 10) + 3;
-        t.pulses = Math.max(1, Math.floor(t.steps * (0.4 + Math.random() * 0.35)));
-        t.pattern = generateEuclidean(t.steps, t.pulses);
-      });
-      renderTracksUI();
+    canvas.addEventListener("pointermove", e => {
+      if (!isDraggingSun) return;
+      const deltaY = dragStartY - e.clientY;
+      const newBpm = Math.max(58, Math.min(165, Math.round(dragStartBpm + deltaY * 0.4)));
+      document.getElementById("bpmSlider").value = newBpm;
+      document.getElementById("bpmVal").textContent = `${newBpm} BPM`;
+    });
+
+    window.addEventListener("pointerup", () => {
+      isDraggingSun = false;
+    });
+
+    window.addEventListener("keydown", e => {
+      if (e.code === "Space" && document.activeElement.tagName !== "SELECT") {
+        e.preventDefault();
+        togglePlay();
+      }
+    });
+
+    // =========================================================================
+    // 9. FLOATING INSPECTOR & HUD BINDINGS
+    // =========================================================================
+    function selectPlanet(id) {
+      selectedPlanetId = id;
+      const p = planets[id];
+      document.getElementById("planetInspector").classList.remove("hidden");
+      document.getElementById("inspDot").style.background = p.color;
+      document.getElementById("inspName").textContent = p.name;
+      document.getElementById("inspName").style.color = p.color;
+
+      document.getElementById("inspSteps").value = p.steps;
+      document.getElementById("inspStepsVal").textContent = p.steps;
+
+      const pulsesEl = document.getElementById("inspPulses");
+      pulsesEl.max = p.steps;
+      pulsesEl.value = p.pulses;
+      document.getElementById("inspPulsesVal").textContent = p.pulses;
+
+      document.getElementById("inspPitch").value = p.pitchOffset;
+      document.getElementById("inspPitchVal").textContent = `+${p.pitchOffset}`;
+
+      const volPct = Math.round(p.volume * 100);
+      document.getElementById("inspVol").value = volPct;
+      document.getElementById("inspVolVal").textContent = `${volPct}%`;
+    }
+
+    document.getElementById("inspSteps").addEventListener("input", e => {
+      const p = planets[selectedPlanetId];
+      p.steps = Number(e.target.value);
+      p.pulses = Math.min(p.pulses, p.steps);
+      p.pattern = generateEuclidean(p.steps, p.pulses);
+      selectPlanet(p.id);
+    });
+
+    document.getElementById("inspPulses").addEventListener("input", e => {
+      const p = planets[selectedPlanetId];
+      p.pulses = Number(e.target.value);
+      p.pattern = generateEuclidean(p.steps, p.pulses);
+      selectPlanet(p.id);
+    });
+
+    document.getElementById("inspPitch").addEventListener("input", e => {
+      const p = planets[selectedPlanetId];
+      p.pitchOffset = Number(e.target.value);
+      document.getElementById("inspPitchVal").textContent = `+${p.pitchOffset}`;
+    });
+
+    document.getElementById("inspVol").addEventListener("input", e => {
+      const p = planets[selectedPlanetId];
+      p.volume = Number(e.target.value) / 100;
+      document.getElementById("inspVolVal").textContent = `${e.target.value}%`;
+    });
+
+    const ORBIT_PRESETS = {
+      afro:  [{ steps: 3, pulses: 2 }, { steps: 4, pulses: 2 }, { steps: 5, pulses: 3 }, { steps: 7, pulses: 4 }],
+      kyoto: [{ steps: 5, pulses: 3 }, { steps: 7, pulses: 3 }, { steps: 8, pulses: 5 }, { steps: 11, pulses: 6 }],
+      dub:   [{ steps: 4, pulses: 2 }, { steps: 6, pulses: 2 }, { steps: 3, pulses: 2 }, { steps: 8, pulses: 5 }]
+    };
+
+    document.getElementById("presetSelect").addEventListener("change", e => {
+      const val = e.target.value;
+      if (val === "mutate") {
+        planets.forEach(p => {
+          p.steps = Math.floor(Math.random() * 10) + 3;
+          p.pulses = Math.max(1, Math.floor(p.steps * (0.4 + Math.random() * 0.35)));
+          p.pattern = generateEuclidean(p.steps, p.pulses);
+        });
+      } else if (ORBIT_PRESETS[val]) {
+        ORBIT_PRESETS[val].forEach((cfg, idx) => {
+          planets[idx].steps = cfg.steps;
+          planets[idx].pulses = cfg.pulses;
+          planets[idx].pattern = generateEuclidean(cfg.steps, cfg.pulses);
+        });
+      }
+      selectPlanet(selectedPlanetId);
     });
 
     document.getElementById("btnPlay").addEventListener("click", togglePlay);
     document.getElementById("btnToggleMic").addEventListener("click", toggleMicrophoneSynth);
+    document.getElementById("btnRecord").addEventListener("click", toggleRecording);
 
     document.getElementById("bpmSlider").addEventListener("input", e => {
-      document.getElementById("bpmVal").textContent = e.target.value;
+      document.getElementById("bpmVal").textContent = `${e.target.value} BPM`;
     });
-    document.getElementById("swingSlider").addEventListener("input", e => {
-      document.getElementById("swingVal").textContent = `${e.target.value}%`;
-    });
+
     document.getElementById("rainSlider").addEventListener("input", e => {
       document.getElementById("rainVal").textContent = `${e.target.value}%`;
       if (rainGain) rainGain.gain.setTargetAtTime((Number(e.target.value) / 100) * 0.55, audioCtx.currentTime, 0.05);
     });
+
     document.getElementById("vinylSlider").addEventListener("input", e => {
       document.getElementById("vinylVal").textContent = `${e.target.value}%`;
       if (vinylGain) vinylGain.gain.setTargetAtTime((Number(e.target.value) / 100) * 0.6, audioCtx.currentTime, 0.05);
     });
+
     document.getElementById("toneSlider").addEventListener("input", e => {
       const hz = Number(e.target.value);
-      document.getElementById("toneVal").textContent = hz >= 1000 ? `${(hz / 1000).toFixed(1)} kHz` : `${hz} Hz`;
+      document.getElementById("toneVal").textContent = hz >= 1000 ? `${(hz / 1000).toFixed(1)}k` : `${hz}`;
       if (masterFilter) masterFilter.frequency.setTargetAtTime(hz, audioCtx.currentTime, 0.05);
     });
+
     document.getElementById("delaySlider").addEventListener("input", e => {
       document.getElementById("delayVal").textContent = `${e.target.value}%`;
       if (delayWet) delayWet.gain.setTargetAtTime(Number(e.target.value) / 100, audioCtx.currentTime, 0.05);
     });
+
     document.getElementById("voiceWaveSelect").addEventListener("change", e => {
       if (micOsc) micOsc.type = e.target.value;
     });
-    document.getElementById("voiceVolSlider").addEventListener("input", e => {
-      document.getElementById("voiceVolVal").textContent = `${e.target.value}%`;
-    });
-    document.getElementById("glideSlider").addEventListener("input", e => {
-      document.getElementById("glideVal").textContent = `${e.target.value} ms`;
-    });
 
     // Boot
-    renderTracksUI();
-    renderPhysicsCanvas();
+    selectPlanet(0);
+    renderCosmos();
   </script>
 </body>
 </html>
