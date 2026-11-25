@@ -93,8 +93,8 @@
 
     .hud-pill {
       background: var(--pill-bg);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border: 1px solid var(--border);
       border-radius: 999px;
       padding: 0.42rem 0.85rem;
@@ -106,7 +106,7 @@
       display: inline-flex;
       align-items: center;
       gap: 0.4rem;
-      transition: all 0.15s ease;
+      transition: border-color 0.15s ease, transform 0.12s ease;
     }
 
     .hud-pill:hover { border-color: rgba(255, 255, 255, 0.4); }
@@ -116,7 +116,6 @@
       background: rgba(16, 185, 129, 0.24);
       border-color: var(--emerald);
       color: #a7f3d0;
-      box-shadow: 0 0 20px rgba(16, 185, 129, 0.28);
     }
 
     .hud-pill.muse-pill {
@@ -140,15 +139,14 @@
       height: 46px;
       border-radius: 50%;
       background: var(--pill-bg);
-      backdrop-filter: blur(16px);
-      -webkit-backdrop-filter: blur(16px);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
       border: 1px solid var(--border-hi);
       color: var(--cyan);
       display: grid;
       place-items: center;
       cursor: pointer;
-      box-shadow: 0 8px 28px rgba(0, 0, 0, 0.6), 0 0 18px rgba(56, 189, 248, 0.24);
-      transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+      transition: transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
     .wheel-hub-btn:hover { transform: scale(1.08); }
@@ -165,7 +163,7 @@
       -webkit-backdrop-filter: blur(4px);
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.16s ease;
+      transition: opacity 0.15s ease;
     }
 
     .wheel-backdrop.open {
@@ -180,9 +178,10 @@
       margin-left: -155px;
       margin-top: -155px;
       z-index: 65;
-      transform: scale(0.8);
+      transform: scale(0.84);
       opacity: 0;
-      transition: transform 0.18s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.14s ease;
+      will-change: transform, opacity;
+      transition: transform 0.16s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.12s ease;
     }
 
     .wheel-backdrop.open .gta-wheel-container {
@@ -194,15 +193,14 @@
       width: 100%;
       height: 100%;
       overflow: visible;
-      filter: drop-shadow(0 18px 40px rgba(0, 0, 0, 0.85));
     }
 
     .wheel-wedge {
-      fill: rgba(11, 17, 32, 0.86);
+      fill: rgba(11, 17, 32, 0.88);
       stroke: rgba(255, 255, 255, 0.14);
       stroke-width: 1.5;
       cursor: pointer;
-      transition: fill 0.12s ease, stroke 0.12s ease, transform 0.14s ease;
+      transition: fill 0.1s ease, stroke 0.1s ease, transform 0.12s ease;
       transform-origin: 155px 155px;
     }
 
@@ -257,7 +255,7 @@
       width: 84px;
       height: 84px;
       border-radius: 50%;
-      background: rgba(6, 10, 20, 0.92);
+      background: rgba(6, 10, 20, 0.94);
       border: 1px solid rgba(56, 189, 248, 0.35);
       display: flex;
       flex-direction: column;
@@ -274,14 +272,13 @@
       width: 304px;
       max-width: 90vw;
       background: var(--widget-bg);
-      backdrop-filter: blur(14px);
-      -webkit-backdrop-filter: blur(14px);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
       border: 1px solid var(--border);
       border-radius: 16px;
-      box-shadow: 0 16px 42px rgba(0, 0, 0, 0.55);
       z-index: 30;
       overflow: hidden;
-      transition: border-color 0.15s ease;
+      will-change: left, top;
     }
 
     .studio-widget:hover { border-color: rgba(255, 255, 255, 0.32); }
@@ -322,7 +319,6 @@
       overflow-y: auto;
     }
 
-    /* QUICK ORBIT SWITCHER PILLS INSIDE INSPECTOR */
     .orbit-switcher-bar {
       display: flex;
       gap: 4px;
@@ -343,13 +339,11 @@
       color: var(--dim);
       cursor: pointer;
       text-align: center;
-      transition: all 0.12s ease;
     }
 
     .orb-tab.active {
       color: #ffffff;
       background: rgba(255, 255, 255, 0.16);
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.12);
     }
 
     .w-row {
@@ -372,7 +366,6 @@
       color: var(--cyan);
     }
 
-    .w-grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.28rem; }
     .w-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.3rem; }
     .w-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.32rem; }
 
@@ -387,7 +380,6 @@
       color: var(--text);
       cursor: pointer;
       text-align: center;
-      transition: all 0.12s ease;
     }
 
     .w-btn:hover { border-color: var(--cyan); background: rgba(56, 189, 248, 0.18); }
@@ -413,7 +405,6 @@
       height: 13px;
       border-radius: 50%;
       background: var(--cyan);
-      box-shadow: 0 0 8px var(--cyan);
       cursor: pointer;
     }
 
@@ -441,7 +432,7 @@
       z-index: 55;
       opacity: 0;
       transform: scale(0.4);
-      transition: transform 0.38s linear, opacity 0.14s ease;
+      transition: transform 0.36s linear, opacity 0.12s ease;
     }
 
     .hold-ring.charging { opacity: 0.9; transform: scale(1.15); }
@@ -459,10 +450,10 @@
       font-size: 0.64rem;
       padding: 0.32rem 0.85rem;
       border-radius: 999px;
-      backdrop-filter: blur(12px);
+      backdrop-filter: blur(10px);
       opacity: 0;
       pointer-events: none;
-      transition: opacity 0.2s ease;
+      transition: opacity 0.18s ease;
     }
 
     .toast-pill.show { opacity: 1; }
@@ -628,14 +619,14 @@
     };
 
     const BIOMES = {
-      cosmos: { label: "COSMOS", bgTrail: "rgba(3, 5, 10, 0.36)",   sunCore: "#fde047", sunHalo: "rgba(245, 158, 11, 0.35)", streakColor: "56, 189, 248",  particleMode: "rain",     rainFreq: 1050, filterDefault: 4200, driveDefault: 15 },
-      kyoto:  { label: "KYOTO",  bgTrail: "rgba(4, 13, 16, 0.36)",  sunCore: "#34d399", sunHalo: "rgba(16, 185, 129, 0.32)", streakColor: "52, 211, 153",  particleMode: "lantern",  rainFreq: 820,  filterDefault: 2800, driveDefault: 10 },
-      abyss:  { label: "ABYSS",  bgTrail: "rgba(2, 8, 18, 0.36)",   sunCore: "#38bdf8", sunHalo: "rgba(14, 165, 233, 0.38)", streakColor: "125, 211, 252", particleMode: "bubbles",  rainFreq: 520,  filterDefault: 2100, driveDefault: 12 },
-      dune:   { label: "DUNE",   bgTrail: "rgba(16, 9, 5, 0.36)",   sunCore: "#fb923c", sunHalo: "rgba(234, 88, 12, 0.38)",  streakColor: "251, 146, 60",  particleMode: "wind",     rainFreq: 1450, filterDefault: 4800, driveDefault: 22 },
-      rock:   { label: "STUDIO", bgTrail: "rgba(19, 10, 5, 0.38)",  sunCore: "#f59e0b", sunHalo: "rgba(217, 119, 6, 0.48)",  streakColor: "245, 158, 11",  particleMode: "studio",   rainFreq: 2400, filterDefault: 6800, driveDefault: 58 },
-      jazz:   { label: "LOUNGE", bgTrail: "rgba(18, 6, 12, 0.38)",  sunCore: "#fb7185", sunHalo: "rgba(225, 29, 72, 0.42)",  streakColor: "251, 113, 133", particleMode: "smoke",    rainFreq: 920,  filterDefault: 3200, driveDefault: 26 },
-      cyber:  { label: "NEON",   bgTrail: "rgba(10, 4, 22, 0.36)",  sunCore: "#e879f9", sunHalo: "rgba(192, 132, 252, 0.48)",streakColor: "232, 121, 249", particleMode: "neonrain", rainFreq: 1650, filterDefault: 7200, driveDefault: 36 },
-      nordic: { label: "AURORA", bgTrail: "rgba(3, 14, 18, 0.36)",  sunCore: "#6ee7b7", sunHalo: "rgba(52, 211, 153, 0.42)", streakColor: "110, 231, 183", particleMode: "aurora",   rainFreq: 740,  filterDefault: 4400, driveDefault: 8 }
+      cosmos: { label: "COSMOS", bgTrail: "rgba(3, 5, 10, 0.38)",   sunCore: "#fde047", sunHalo: "rgba(245, 158, 11, 0.32)", streakColor: "56, 189, 248",  particleMode: "rain",     rainFreq: 1050, filterDefault: 4200, driveDefault: 15 },
+      kyoto:  { label: "KYOTO",  bgTrail: "rgba(4, 13, 16, 0.38)",  sunCore: "#34d399", sunHalo: "rgba(16, 185, 129, 0.30)", streakColor: "52, 211, 153",  particleMode: "lantern",  rainFreq: 820,  filterDefault: 2800, driveDefault: 10 },
+      abyss:  { label: "ABYSS",  bgTrail: "rgba(2, 8, 18, 0.38)",   sunCore: "#38bdf8", sunHalo: "rgba(14, 165, 233, 0.35)", streakColor: "125, 211, 252", particleMode: "bubbles",  rainFreq: 520,  filterDefault: 2100, driveDefault: 12 },
+      dune:   { label: "DUNE",   bgTrail: "rgba(16, 9, 5, 0.38)",   sunCore: "#fb923c", sunHalo: "rgba(234, 88, 12, 0.35)",  streakColor: "251, 146, 60",  particleMode: "wind",     rainFreq: 1450, filterDefault: 4800, driveDefault: 22 },
+      rock:   { label: "STUDIO", bgTrail: "rgba(19, 10, 5, 0.40)",  sunCore: "#f59e0b", sunHalo: "rgba(217, 119, 6, 0.44)",  streakColor: "245, 158, 11",  particleMode: "studio",   rainFreq: 2400, filterDefault: 6800, driveDefault: 58 },
+      jazz:   { label: "LOUNGE", bgTrail: "rgba(18, 6, 12, 0.40)",  sunCore: "#fb7185", sunHalo: "rgba(225, 29, 72, 0.38)",  streakColor: "251, 113, 133", particleMode: "smoke",    rainFreq: 920,  filterDefault: 3200, driveDefault: 26 },
+      cyber:  { label: "NEON",   bgTrail: "rgba(10, 4, 22, 0.38)",  sunCore: "#e879f9", sunHalo: "rgba(192, 132, 252, 0.44)",streakColor: "232, 121, 249", particleMode: "neonrain", rainFreq: 1650, filterDefault: 7200, driveDefault: 36 },
+      nordic: { label: "AURORA", bgTrail: "rgba(3, 14, 18, 0.38)",  sunCore: "#6ee7b7", sunHalo: "rgba(52, 211, 153, 0.38)", streakColor: "110, 231, 183", particleMode: "aurora",   rainFreq: 740,  filterDefault: 4400, driveDefault: 8 }
     };
 
     const VOICE_ENGINES = [
@@ -717,11 +708,11 @@
       el.textContent = msg;
       el.classList.add("show");
       clearTimeout(el._t);
-      el._t = setTimeout(() => el.classList.remove("show"), 2200);
+      el._t = setTimeout(() => el.classList.remove("show"), 2000);
     }
 
     // =========================================================================
-    // 3. STUDIO STATE (SYNCHRONIZED STEPS, PULSES, ORBIT SPEED & CHORDS)
+    // 3. STUDIO STATE & DEBOUNCED PERSISTENCE
     // =========================================================================
     function createPlanetFromTemplate(idx, customCfg = null) {
       const tpl = PLANET_TEMPLATES[idx % PLANET_TEMPLATES.length];
@@ -754,7 +745,7 @@
         planetRadius: tpl.radius,
         steps,
         pulses: pattern.filter(Boolean).length,
-        speedMult, // 0.5, 1, 2, 4
+        speedMult,
         probability: customCfg?.probability ?? 100,
         pitchOffset: customCfg?.pitchOffset ?? tpl.pitch,
         volume: customCfg?.volume ?? tpl.vol,
@@ -763,7 +754,8 @@
         locked: Boolean(customCfg?.locked),
         pattern,
         stepNotes,
-        phaseSteps: 0, // Continuous step-aligned phase for 100% visual/audio lock
+        phaseSteps: 0,
+        lastTriggerAudioTime: -1,
         nodeFlashes: new Array(steps).fill(0),
         visualAngle: -Math.PI / 2,
         springOffset: 0,
@@ -780,7 +772,7 @@
 
     let bpm = 90;
     let scaleKey = "minorPentatonic";
-    let chordProgKey = "none"; // Off by default so selected orbit sounds are crystal clear
+    let chordProgKey = "none";
     let focusHz = 12.5;
     let rainLevel = 26;
     let vinylLevel = 18;
@@ -800,6 +792,17 @@
     let queuedSceneIdx = null;
     let isChainActive = false;
     let chainBarCounter = 0;
+
+    // Debounced localStorage save so slider drags stay at 60fps
+    let saveDebounceTimer = null;
+    function saveStudioState() {
+      clearTimeout(saveDebounceTimer);
+      saveDebounceTimer = setTimeout(() => {
+        try {
+          localStorage.setItem("pluvox_v14_fast", JSON.stringify({ activeSceneIdx, solarScenes, current: captureCurrentSnapshot() }));
+        } catch (_) {}
+      }, 350);
+    }
 
     // =========================================================================
     // 4. GTA-STYLE SEGMENTED WEDGE WEAPON WHEEL
@@ -830,21 +833,13 @@
       const p3 = polarToCartesian(cx, cy, innerR, endAngle);
       const p4 = polarToCartesian(cx, cy, innerR, startAngle);
       const largeArc = endAngle - startAngle <= 180 ? "0" : "1";
-      return [
-        `M ${p1.x} ${p1.y}`,
-        `A ${outerR} ${outerR} 0 ${largeArc} 1 ${p2.x} ${p2.y}`,
-        `L ${p3.x} ${p3.y}`,
-        `A ${innerR} ${innerR} 0 ${largeArc} 0 ${p4.x} ${p4.y}`,
-        "Z"
-      ].join(" ");
+      return `M ${p1.x} ${p1.y} A ${outerR} ${outerR} 0 ${largeArc} 1 ${p2.x} ${p2.y} L ${p3.x} ${p3.y} A ${innerR} ${innerR} 0 ${largeArc} 0 ${p4.x} ${p4.y} Z`;
     }
 
     function openGtaWeaponWheel(x, y) {
       const margin = 165;
-      const clampedX = Math.max(margin, Math.min(window.innerWidth - margin, x));
-      const clampedY = Math.max(margin, Math.min(window.innerHeight - margin, y));
-      gtaWheel.style.left = `${clampedX}px`;
-      gtaWheel.style.top = `${clampedY}px`;
+      gtaWheel.style.left = `${Math.max(margin, Math.min(logicalW - margin, x))}px`;
+      gtaWheel.style.top = `${Math.max(margin, Math.min(logicalH - margin, y))}px`;
 
       gtaWheelSvg.innerHTML = "";
       gtaWheel.querySelectorAll(".wheel-wedge-content").forEach(el => el.remove());
@@ -862,15 +857,8 @@
         path.setAttribute("d", createAnnularWedgePath(cx, cy, innerR, outerR, startA, endA));
         path.setAttribute("class", `wheel-wedge ${openWidgets[w.id] ? "widget-open" : ""}`);
 
-        path.addEventListener("pointerenter", () => {
-          document.getElementById("wheelHoverName").textContent = w.label;
-        });
-
-        path.addEventListener("click", () => {
-          closeGtaWeaponWheel();
-          togglePersistentWidget(w.id);
-        });
-
+        path.addEventListener("pointerenter", () => { document.getElementById("wheelHoverName").textContent = w.label; });
+        path.addEventListener("click", () => { closeGtaWeaponWheel(); togglePersistentWidget(w.id); });
         gtaWheelSvg.appendChild(path);
 
         const labelPos = polarToCartesian(cx, cy, (innerR + outerR) * 0.52, midA);
@@ -886,21 +874,10 @@
       wheelBackdrop.classList.add("open");
     }
 
-    function closeGtaWeaponWheel() {
-      wheelBackdrop.classList.remove("open");
-    }
-
-    wheelBackdrop.addEventListener("click", e => {
-      if (e.target === wheelBackdrop || e.target.closest("#wheelCenterClose")) closeGtaWeaponWheel();
-    });
-
-    document.getElementById("btnOpenWheel").addEventListener("click", () => {
-      openGtaWeaponWheel(window.innerWidth / 2, window.innerHeight / 2);
-    });
-
-    document.getElementById("btnTopCelestial").addEventListener("click", () => {
-      togglePersistentWidget("muse");
-    });
+    function closeGtaWeaponWheel() { wheelBackdrop.classList.remove("open"); }
+    wheelBackdrop.addEventListener("click", e => { if (e.target === wheelBackdrop || e.target.closest("#wheelCenterClose")) closeGtaWeaponWheel(); });
+    document.getElementById("btnOpenWheel").addEventListener("click", () => openGtaWeaponWheel(logicalW / 2, logicalH / 2));
+    document.getElementById("btnTopCelestial").addEventListener("click", () => togglePersistentWidget("muse"));
 
     // =========================================================================
     // 5. PERSISTENT, DRAGGABLE, 80% TRANSPARENT LAYERABLE WIDGET SYSTEM
@@ -924,12 +901,9 @@
         const el = document.createElement("div");
         el.className = "studio-widget";
         const count = Object.keys(openWidgets).length;
-        const initX = Math.min(window.innerWidth - 314, Math.max(14, 20 + (count % 3) * 32));
-        const initY = Math.min(window.innerHeight - 300, Math.max(64, 70 + (count % 4) * 36));
-        el.style.left = `${initX}px`;
-        el.style.top = `${initY}px`;
+        el.style.left = `${Math.min(logicalW - 314, Math.max(14, 20 + (count % 3) * 32))}px`;
+        el.style.top = `${Math.min(logicalH - 300, Math.max(64, 70 + (count % 4) * 36))}px`;
         bringWidgetToFront(el);
-
         el.addEventListener("pointerdown", () => bringWidgetToFront(el));
         widgetLayer.appendChild(el);
         openWidgets[id] = el;
@@ -952,10 +926,8 @@
       });
       handleEl.addEventListener("pointermove", e => {
         if (!dragging) return;
-        const nx = Math.max(4, Math.min(window.innerWidth - widgetEl.offsetWidth - 4, e.clientX - offsetX));
-        const ny = Math.max(4, Math.min(window.innerHeight - widgetEl.offsetHeight - 4, e.clientY - offsetY));
-        widgetEl.style.left = `${nx}px`;
-        widgetEl.style.top = `${ny}px`;
+        widgetEl.style.left = `${Math.max(4, Math.min(logicalW - widgetEl.offsetWidth - 4, e.clientX - offsetX))}px`;
+        widgetEl.style.top = `${Math.max(4, Math.min(logicalH - widgetEl.offsetHeight - 4, e.clientY - offsetY))}px`;
       });
       handleEl.addEventListener("pointerup", () => { dragging = false; });
     }
@@ -976,7 +948,6 @@
             <button class="widget-close-btn">×</button>
           </div>
           <div class="widget-body">
-            <!-- EASY ORBIT SWITCHER PILLS -->
             <div class="orbit-switcher-bar">
               ${planets.map(pl => `
                 <button class="orb-tab ${pl.id === selectedPlanetId ? "active" : ""}"
@@ -986,14 +957,11 @@
                 </button>
               `).join("")}
             </div>
-
             <div class="w-grid-3" style="margin-bottom:0.5rem;">
               <button class="w-btn ${p.locked ? "active" : ""}" id="wLock">${p.locked ? "LOCKED" : "LOCK"}</button>
               <button class="w-btn ${p.muted ? "warn" : ""}" id="wMute">${p.muted ? "MUTED" : "MUTE"}</button>
               <button class="w-btn" id="wPhase">SHIFT +1</button>
             </div>
-
-            <!-- ORBIT SPEED MULTIPLIER -->
             <div class="w-row">
               <span>ORBIT SPEED</span>
               <div style="display:flex; gap:3px;">
@@ -1002,13 +970,11 @@
                 `).join("")}
               </div>
             </div>
-
             <div class="w-row"><span>STEPS</span><input type="range" id="wSteps" min="2" max="16" value="${p.steps}" /><span class="w-val" id="wStepsV">${p.steps}</span></div>
             <div class="w-row"><span>PULSES</span><input type="range" id="wPulses" min="1" max="${p.steps}" value="${p.pulses}" /><span class="w-val" id="wPulsesV">${p.pulses}</span></div>
             <div class="w-row"><span>CHANCE</span><input type="range" id="wProb" min="15" max="100" value="${p.probability}" /><span class="w-val" id="wProbV">${p.probability}%</span></div>
             <div class="w-row"><span>PITCH</span><input type="range" id="wPitch" min="0" max="11" value="${p.pitchOffset}" /><span class="w-val" id="wPitchV">+${p.pitchOffset}</span></div>
             <div class="w-row"><span>VOLUME</span><input type="range" id="wVol" min="0" max="100" value="${Math.round(p.volume * 100)}" /><span class="w-val" id="wVolV">${Math.round(p.volume * 100)}%</span></div>
-
             <div class="w-grid-2" style="margin-top:0.55rem;">
               <button class="w-btn" id="wAddOrb">+ ADD ORBIT</button>
               <button class="w-btn" id="wRemOrb">− REMOVE</button>
@@ -1016,20 +982,8 @@
           </div>
         `;
 
-        // Quick orbit tab switching
-        el.querySelectorAll("[data-switch-orb]").forEach(btn => {
-          btn.onclick = () => selectPlanet(Number(btn.dataset.switchOrb), false);
-        });
-
-        // Per-orbit speed multiplier
-        el.querySelectorAll("[data-speed]").forEach(btn => {
-          btn.onclick = () => {
-            p.speedMult = Number(btn.dataset.speed);
-            renderWidgetContent("orbit");
-            saveStudioState();
-          };
-        });
-
+        el.querySelectorAll("[data-switch-orb]").forEach(btn => btn.onclick = () => selectPlanet(Number(btn.dataset.switchOrb), false));
+        el.querySelectorAll("[data-speed]").forEach(btn => btn.onclick = () => { p.speedMult = Number(btn.dataset.speed); renderWidgetContent("orbit"); saveStudioState(); });
         el.querySelector("#wLock").onclick = () => { p.locked = !p.locked; renderWidgetContent("orbit"); saveStudioState(); };
         el.querySelector("#wMute").onclick = () => { p.muted = !p.muted; renderWidgetContent("orbit"); saveStudioState(); };
         el.querySelector("#wPhase").onclick = () => {
@@ -1044,7 +998,6 @@
         el.querySelector("#wRemOrb").onclick = () => {
           if (planets.length > 2) { planets.pop(); selectPlanet(Math.min(selectedPlanetId, planets.length - 1), false); saveStudioState(); }
         };
-
         el.querySelector("#wSteps").oninput = e => {
           p.steps = Number(e.target.value);
           p.pulses = Math.min(p.pulses, p.steps);
@@ -1063,21 +1016,9 @@
           el.querySelector("#wPulsesV").textContent = p.pulses;
           saveStudioState();
         };
-        el.querySelector("#wProb").oninput = e => {
-          p.probability = Number(e.target.value);
-          el.querySelector("#wProbV").textContent = `${p.probability}%`;
-          saveStudioState();
-        };
-        el.querySelector("#wPitch").oninput = e => {
-          p.pitchOffset = Number(e.target.value);
-          el.querySelector("#wPitchV").textContent = `+${p.pitchOffset}`;
-          saveStudioState();
-        };
-        el.querySelector("#wVol").oninput = e => {
-          p.volume = Number(e.target.value) / 100;
-          el.querySelector("#wVolV").textContent = `${e.target.value}%`;
-          saveStudioState();
-        };
+        el.querySelector("#wProb").oninput = e => { p.probability = Number(e.target.value); el.querySelector("#wProbV").textContent = `${p.probability}%`; saveStudioState(); };
+        el.querySelector("#wPitch").oninput = e => { p.pitchOffset = Number(e.target.value); el.querySelector("#wPitchV").textContent = `+${p.pitchOffset}`; saveStudioState(); };
+        el.querySelector("#wVol").oninput = e => { p.volume = Number(e.target.value) / 100; el.querySelector("#wVolV").textContent = `${e.target.value}%`; saveStudioState(); };
       } else if (id === "rack") {
         const p = planets[selectedPlanetId];
         const list = activePadCat === "all" ? VOICE_ENGINES : VOICE_ENGINES.filter(v => v.cat === activePadCat);
@@ -1106,9 +1047,7 @@
             </div>
           </div>
         `;
-        el.querySelectorAll("[data-switch-orb]").forEach(btn => {
-          btn.onclick = () => selectPlanet(Number(btn.dataset.switchOrb), false);
-        });
+        el.querySelectorAll("[data-switch-orb]").forEach(btn => btn.onclick = () => selectPlanet(Number(btn.dataset.switchOrb), false));
         el.querySelectorAll("[data-cat]").forEach(b => b.onclick = () => { activePadCat = b.dataset.cat; renderWidgetContent("rack"); });
         el.querySelectorAll("[data-voice]").forEach(b => b.onclick = () => {
           initAudioEngine();
@@ -1316,20 +1255,25 @@
     }
 
     // =========================================================================
-    // 6. WEB AUDIO API DSP ENGINE + SAMPLE-ACCURATE STEP & PULSE SYNCHRONIZATION
+    // 6. ZERO-ALLOCATION WEB AUDIO ENGINE (PRE-ALLOCATED BUFFERS & PANNERS)
     // =========================================================================
     let audioCtx = null, masterFilter = null, masterAnalyser = null, tapeSaturator = null;
     let compressorNode = null, delayNode = null, delayWet = null, rainBandFilter = null, rainGain = null, vinylGain = null;
     let focusCarrierOsc = null, focusLfoOsc = null, focusMasterGain = null;
+    let sharedNoiseBuffer = null;
+    const planetPanners = [];
+
     let wavProcessor = null, isRecordingWav = false, wavLeftChunks = [], wavRightChunks = [];
     let isPlaying = false, schedulerTimer = null, nextTickTime = 0, globalTick = 0, currentChordIndex = 0;
     let micStream = null, analyserNode = null, isHumCapturing = false;
     let humCapturedSteps = new Array(16).fill(false), humCapturedNotes = new Array(16).fill(0);
 
+    // Pre-computed waveshaper curve (computed once instead of 44,100 floats per note)
+    const SHARED_CURVE_SAMPLES = 4096;
     function makeTapeSaturationCurve(amount) {
-      const k = amount * 1.4, nSamples = 44100, curve = new Float32Array(nSamples), deg = Math.PI / 180;
-      for (let i = 0; i < nSamples; i++) {
-        const x = (i * 2) / nSamples - 1;
+      const k = amount * 1.4, curve = new Float32Array(SHARED_CURVE_SAMPLES), deg = Math.PI / 180;
+      for (let i = 0; i < SHARED_CURVE_SAMPLES; i++) {
+        const x = (i * 2) / SHARED_CURVE_SAMPLES - 1;
         curve[i] = k === 0 ? x : ((3 + k) * x * 20 * deg) / (Math.PI + k * Math.abs(x));
       }
       return curve;
@@ -1343,6 +1287,12 @@
       if (audioCtx) return;
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       audioCtx = new AudioContext();
+
+      // Pre-allocate 1-second reusable white-noise buffer
+      const noiseLen = audioCtx.sampleRate;
+      sharedNoiseBuffer = audioCtx.createBuffer(1, noiseLen, audioCtx.sampleRate);
+      const nOut = sharedNoiseBuffer.getChannelData(0);
+      for (let i = 0; i < noiseLen; i++) nOut[i] = Math.random() * 2 - 1;
 
       compressorNode = audioCtx.createDynamicsCompressor();
       compressorNode.threshold.value = -14;
@@ -1376,14 +1326,20 @@
       compressorNode.connect(masterAnalyser);
       masterAnalyser.connect(audioCtx.destination);
 
+      // Pre-allocate 7 reusable StereoPannerNodes (one per orbit slot)
+      for (let i = 0; i < 7; i++) {
+        const pan = audioCtx.createStereoPanner();
+        pan.connect(tapeSaturator);
+        planetPanners.push(pan);
+      }
+
+      // WAV Recorder stays disconnected until user starts recording (saves main-thread CPU)
       wavProcessor = audioCtx.createScriptProcessor(4096, 2, 2);
       wavProcessor.onaudioprocess = e => {
         if (!isRecordingWav) return;
         wavLeftChunks.push(new Float32Array(e.inputBuffer.getChannelData(0)));
         wavRightChunks.push(new Float32Array(e.inputBuffer.getChannelData(1)));
       };
-      compressorNode.connect(wavProcessor);
-      wavProcessor.connect(audioCtx.destination);
 
       focusCarrierOsc = audioCtx.createOscillator();
       focusCarrierOsc.frequency.value = 174;
@@ -1405,7 +1361,7 @@
       focusLfoOsc.start();
       updateBrainwaveCarrier();
 
-      const bufferSize = audioCtx.sampleRate * 3;
+      const bufferSize = audioCtx.sampleRate * 2;
       const rainBuf = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
       const rd = rainBuf.getChannelData(0);
       let b0 = 0, b1 = 0, b2 = 0, b3 = 0, b4 = 0, b5 = 0, b6 = 0;
@@ -1475,14 +1431,6 @@
       if (!silent) showToast(`World: ${b.label}`);
     }
 
-    function createNoiseBuffer(dur) {
-      const len = Math.floor(audioCtx.sampleRate * dur);
-      const buf = audioCtx.createBuffer(1, len, audioCtx.sampleRate);
-      const out = buf.getChannelData(0);
-      for (let i = 0; i < len; i++) out[i] = Math.random() * 2 - 1;
-      return buf;
-    }
-
     function triggerChordPad(time, durationSec) {
       if (!audioCtx || chordProgKey === "none") return;
       const chords = CHORD_PROGRESSIONS[chordProgKey];
@@ -1524,10 +1472,9 @@
       if (planet.layer === "synth" && hybridXfade < 0) layerGain = Math.max(0.08, 1 + hybridXfade / 105);
       const effectiveVol = planet.volume * layerGain;
 
-      const panner = audioCtx.createStereoPanner();
+      const panner = planetPanners[planet.id % planetPanners.length];
       const vMeta = VOICE_ENGINES.find(v => v.id === t);
       panner.pan.setValueAtTime(Math.max(-1, Math.min(1, panVal * (vMeta?.band === "low" ? 0.22 : 0.85))), time);
-      panner.connect(tapeSaturator);
 
       const stepDegree = planet.stepNotes[stepIndex % planet.stepNotes.length] || 0;
       const noteIdx = (stepDegree + planet.pitchOffset) % intervals.length;
@@ -1544,7 +1491,7 @@
       } else if (t.startsWith("snare") || t === "rim") {
         const dur = t === "rim" ? 0.11 : 0.22;
         const noise = audioCtx.createBufferSource();
-        noise.buffer = createNoiseBuffer(dur);
+        noise.buffer = sharedNoiseBuffer;
         const filter = audioCtx.createBiquadFilter();
         filter.type = t === "rim" ? "bandpass" : "highpass";
         filter.frequency.value = t === "rim" ? 1550 : 950;
@@ -1552,11 +1499,11 @@
         gain.gain.setValueAtTime(effectiveVol * 0.65, time);
         gain.gain.exponentialRampToValueAtTime(0.001, time + dur);
         noise.connect(filter); filter.connect(gain); gain.connect(panner); gain.connect(delayNode);
-        noise.start(time);
+        noise.start(time); noise.stop(time + dur + 0.01);
       } else if (t === "vinylScratch") {
         const dur = 0.22;
         const noise = audioCtx.createBufferSource();
-        noise.buffer = createNoiseBuffer(dur);
+        noise.buffer = sharedNoiseBuffer;
         const filter = audioCtx.createBiquadFilter();
         filter.type = "bandpass";
         filter.Q.value = 6.5;
@@ -1568,11 +1515,11 @@
         gain.gain.linearRampToValueAtTime(effectiveVol * 0.68, time + 0.02);
         gain.gain.exponentialRampToValueAtTime(0.001, time + dur);
         noise.connect(filter); filter.connect(gain); gain.connect(panner); gain.connect(delayNode);
-        noise.start(time);
+        noise.start(time); noise.stop(time + dur + 0.01);
       } else if (t.startsWith("hat") || t === "crashCym") {
         const dur = t === "hatClosed" ? 0.055 : (t === "hatOpen" ? 0.22 : 0.52);
         const noise = audioCtx.createBufferSource();
-        noise.buffer = createNoiseBuffer(dur);
+        noise.buffer = sharedNoiseBuffer;
         const filter = audioCtx.createBiquadFilter();
         filter.type = "highpass";
         filter.frequency.value = 6200;
@@ -1580,7 +1527,7 @@
         gain.gain.setValueAtTime(effectiveVol * 0.36, time);
         gain.gain.exponentialRampToValueAtTime(0.001, time + dur);
         noise.connect(filter); filter.connect(gain); gain.connect(panner);
-        noise.start(time);
+        noise.start(time); noise.stop(time + dur + 0.01);
       } else {
         const octaveBase = (t.includes("Bass") || t === "nuMetalGtr" || t === "palmMuteGtr") ? 36 : 52;
         const freq = midiToFreq(octaveBase + intervals[noteIdx]);
@@ -1606,7 +1553,7 @@
       }
     }
 
-    // Precision Scheduler: advances each planet by its speedMult and locks visualAngle to exact step triggers
+    // Zero-setTimeout Scheduler: stores audio-clock timestamps for direct rAF sync
     function schedulerLoop() {
       const sixteenthDuration = (60 / bpm) / 4;
       while (nextTickTime < audioCtx.currentTime + 0.08) {
@@ -1625,8 +1572,7 @@
           queuedSceneIdx = null;
           activeSceneIdx = nextIdx;
           chainBarCounter = 0;
-          const delayMs = Math.max(0, (nextTickTime - audioCtx.currentTime) * 1000);
-          setTimeout(() => applySnapshot(solarScenes[nextIdx], true), delayMs);
+          applySnapshot(solarScenes[nextIdx], true);
         }
 
         const playTime = nextTickTime;
@@ -1637,14 +1583,12 @@
         const anySoloed = planets.some(pl => pl.soloed);
 
         planets.forEach(p => {
-          // Support 0.5x (half-time), 1x, 2x, and 4x orbit speeds
           const stepAdvance = p.speedMult === 0.5 ? (globalTick % 2 === 0 ? 1 : 0) : p.speedMult;
           const subTicks = Math.max(1, Math.floor(stepAdvance));
 
           for (let sub = 0; sub < subTicks; sub++) {
             if (stepAdvance === 0) break;
             const subTime = playTime + (sub / subTicks) * sixteenthDuration;
-            const prevStep = Math.floor(p.phaseSteps) % p.steps;
             p.phaseSteps = (p.phaseSteps + 1) % p.steps;
             const stepIdx = Math.floor(p.phaseSteps) % p.steps;
 
@@ -1657,21 +1601,10 @@
             if (isHit) {
               const targetAngle = (stepIdx / p.steps) * Math.PI * 2 - Math.PI / 2;
               triggerPlanetVoice(p, subTime, stepIdx, Math.cos(targetAngle));
+              p.pendingVisualHit = { time: subTime, stepIdx, angle: targetAngle };
+            } else {
+              p.pendingVisualStep = { time: subTime, angle: (stepIdx / p.steps) * Math.PI * 2 - Math.PI / 2 };
             }
-
-            const delayMs = Math.max(0, (subTime - audioCtx.currentTime) * 1000);
-            setTimeout(() => {
-              // Snap visual angle cleanly to the exact step node on trigger so pulse & sound never drift
-              p.visualAngle = (stepIdx / p.steps) * Math.PI * 2 - Math.PI / 2;
-              if (isHit) {
-                p.pulseFlash = 1.0;
-                p.nodeFlashes[stepIdx] = 1.0;
-                p.springVel += (p.type.startsWith("kick") ? 5.2 : 3.2);
-                if (p.type.startsWith("kick")) sunVel += 5.5;
-                const pos = getPlanetPosition(p);
-                shockwaves.push({ x: pos.x, y: pos.y, r: p.planetRadius, maxR: 72, color: p.color, alpha: 0.85 });
-              }
-            }, delayMs);
           }
         });
 
@@ -1918,15 +1851,9 @@
       if (!silent) showToast(`Loaded ${snap.label}`);
     }
 
-    function saveStudioState() {
-      try {
-        localStorage.setItem("pluvox_v13_state", JSON.stringify({ activeSceneIdx, solarScenes, current: captureCurrentSnapshot() }));
-      } catch (_) {}
-    }
-
     function loadStudioState() {
       try {
-        const raw = localStorage.getItem("pluvox_v13_state");
+        const raw = localStorage.getItem("pluvox_v14_fast");
         if (!raw) return;
         const data = JSON.parse(raw);
         if (Array.isArray(data.solarScenes)) data.solarScenes.forEach((s, i) => { solarScenes[i] = s; });
@@ -1976,9 +1903,12 @@
       initAudioEngine();
       if (!isRecordingWav) {
         wavLeftChunks = []; wavRightChunks = []; isRecordingWav = true;
+        compressorNode.connect(wavProcessor);
+        wavProcessor.connect(audioCtx.destination);
         showToast("Recording Stereo WAV...");
       } else {
         isRecordingWav = false;
+        try { compressorNode.disconnect(wavProcessor); wavProcessor.disconnect(); } catch (_) {}
         const total = wavLeftChunks.reduce((acc, c) => acc + c.length, 0);
         const buf = new ArrayBuffer(44 + total * 4);
         const view = new DataView(buf);
@@ -2006,17 +1936,17 @@
     }
 
     // =========================================================================
-    // 7. HIGH-DPI CRISP RETINA CANVAS + RING-CLICK ORBIT SELECTION
+    // 7. HIGH-SPEED CANVAS RENDERER (1.5x CAPPED DPR + ZERO-SETTIMEOUT SYNC)
     // =========================================================================
     const canvas = document.getElementById("cosmos");
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: false });
     const holdRing = document.getElementById("holdRing");
 
     let logicalW = window.innerWidth;
     let logicalH = window.innerHeight;
 
     function resizeCanvas() {
-      const dpr = Math.min(window.devicePixelRatio || 1, 3);
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       logicalW = window.innerWidth;
       logicalH = window.innerHeight;
       canvas.width = Math.floor(logicalW * dpr);
@@ -2026,8 +1956,8 @@
     window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
 
-    const stars = Array.from({ length: 180 }, () => ({ x: Math.random(), y: Math.random(), r: 0.6 + Math.random() * 1.4, tw: Math.random() * 6.28, sp: 0.01 + Math.random() * 0.025 }));
-    const particles = Array.from({ length: 80 }, () => ({ x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight, len: 12 + Math.random() * 20, size: 1.5 + Math.random() * 2.5, speed: 3 + Math.random() * 5, alpha: 0.15 + Math.random() * 0.3, wob: Math.random() * 6.28 }));
+    const stars = Array.from({ length: 120 }, () => ({ x: Math.random(), y: Math.random(), r: 0.7 + Math.random() * 1.2, tw: Math.random() * 6.28, sp: 0.01 + Math.random() * 0.02 }));
+    const particles = Array.from({ length: 55 }, () => ({ x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight, len: 12 + Math.random() * 18, size: 1.5 + Math.random() * 2.2, speed: 3 + Math.random() * 4.5, alpha: 0.16 + Math.random() * 0.28, wob: Math.random() * 6.28 }));
     const shockwaves = [];
     const waveData = new Uint8Array(64);
     let sunSpring = 0, sunVel = 0, reelAngle = 0, lastFrame = performance.now();
@@ -2042,7 +1972,7 @@
 
     function getPlanetPosition(p) {
       const cx = logicalW / 2, cy = logicalH / 2;
-      const r = getOrbitRadius(p.id) + p.springOffset + Math.sin(p.floatPhase) * 3.0;
+      const r = getOrbitRadius(p.id) + p.springOffset + Math.sin(p.floatPhase) * 2.5;
       return { x: cx + Math.cos(p.visualAngle) * r, y: cy + Math.sin(p.visualAngle) * r, orbitR: r };
     }
 
@@ -2077,12 +2007,11 @@
         });
       }
 
-      stars.forEach(s => {
-        s.tw += s.sp;
-        ctx.beginPath(); ctx.arc(s.x * w, s.y * h, s.r, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(${biome.streakColor}, ${(0.22 + (Math.sin(s.tw) + 1) * 0.34) * 0.65})`;
-        ctx.fill();
-      });
+      ctx.fillStyle = `rgba(${biome.streakColor}, 0.45)`;
+      for (let i = 0; i < stars.length; i++) {
+        const s = stars[i];
+        ctx.fillRect(s.x * w, s.y * h, s.r, s.r);
+      }
 
       const rainPct = rainLevel / 100;
       const activeP = Math.floor(particles.length * rainPct);
@@ -2093,7 +2022,7 @@
           p.x -= p.speed * 0.55; p.y += p.speed * 1.25;
           if (p.y > h + 20 || p.x < -20) { p.x = Math.random() * (w + 200); p.y = -20; }
           ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p.x + p.len * 0.45, p.y - p.len);
-          ctx.strokeStyle = `rgba(${biome.streakColor}, ${p.alpha * rainPct})`; ctx.lineWidth = 1.3; ctx.stroke();
+          ctx.strokeStyle = `rgba(${biome.streakColor}, ${p.alpha * rainPct})`; ctx.lineWidth = 1.2; ctx.stroke();
         } else {
           p.y -= p.speed * 0.3; p.x += Math.sin(p.wob) * 0.8;
           if (p.y < -20) { p.y = h + 20; p.x = Math.random() * w; }
@@ -2104,53 +2033,73 @@
 
       for (let i = shockwaves.length - 1; i >= 0; i--) {
         const sw = shockwaves[i];
-        sw.r += (sw.maxR - sw.r) * 0.11;
-        sw.alpha *= 0.91;
-        if (sw.alpha < 0.02) { shockwaves.splice(i, 1); continue; }
+        sw.r += (sw.maxR - sw.r) * 0.12;
+        sw.alpha *= 0.9;
+        if (sw.alpha < 0.03) { shockwaves.splice(i, 1); continue; }
         ctx.beginPath(); ctx.arc(sw.x, sw.y, sw.r, 0, Math.PI * 2);
-        ctx.strokeStyle = sw.color; ctx.globalAlpha = sw.alpha; ctx.lineWidth = 1.8; ctx.stroke();
+        ctx.strokeStyle = sw.color; ctx.globalAlpha = sw.alpha; ctx.lineWidth = 1.6; ctx.stroke();
         ctx.globalAlpha = 1;
       }
 
-      // Central Sun + Crisp Oscilloscope Ring
+      // Hardware-Friendly Layered Sun Glow (no per-frame gradient allocations)
       sunVel = (sunVel - sunSpring * 0.11) * 0.88;
       sunSpring += sunVel;
-      const sunR = Math.max(16, 25 + sunSpring);
-      const sunGrad = ctx.createRadialGradient(cx, cy, 4, cx, cy, sunR * 2.6);
-      sunGrad.addColorStop(0, "#ffffff");
-      sunGrad.addColorStop(0.32, isHumCapturing ? "#fb7185" : (isPlaying ? biome.sunCore : "#94a3b8"));
-      sunGrad.addColorStop(0.68, isHumCapturing ? "rgba(244,63,94,0.42)" : (isPlaying ? biome.sunHalo : "rgba(56,189,248,0.12)"));
-      sunGrad.addColorStop(1, "rgba(0,0,0,0)");
-      ctx.beginPath(); ctx.arc(cx, cy, sunR * 2.6, 0, Math.PI * 2); ctx.fillStyle = sunGrad; ctx.fill();
+      const sunR = Math.max(16, 24 + sunSpring);
+      const sunTint = isHumCapturing ? "#fb7185" : (isPlaying ? biome.sunCore : "#94a3b8");
+
+      ctx.beginPath(); ctx.arc(cx, cy, sunR * 2.1, 0, Math.PI * 2);
+      ctx.fillStyle = sunTint; ctx.globalAlpha = 0.12; ctx.fill();
+      ctx.beginPath(); ctx.arc(cx, cy, sunR * 1.35, 0, Math.PI * 2);
+      ctx.globalAlpha = 0.28; ctx.fill();
+      ctx.beginPath(); ctx.arc(cx, cy, sunR * 0.85, 0, Math.PI * 2);
+      ctx.fillStyle = "#ffffff"; ctx.globalAlpha = 0.95; ctx.fill();
+      ctx.globalAlpha = 1;
 
       if (masterAnalyser && isPlaying) {
         masterAnalyser.getByteTimeDomainData(waveData);
         ctx.beginPath();
         for (let i = 0; i < waveData.length; i++) {
           const a = (i / waveData.length) * Math.PI * 2;
-          const rW = sunR + 12 + ((waveData[i] - 128) / 128) * 15;
+          const rW = sunR + 12 + ((waveData[i] - 128) / 128) * 14;
           const wx = cx + Math.cos(a) * rW, wy = cy + Math.sin(a) * rW;
           if (i === 0) ctx.moveTo(wx, wy); else ctx.lineTo(wx, wy);
         }
-        ctx.closePath(); ctx.strokeStyle = `rgba(${biome.streakColor}, 0.52)`; ctx.lineWidth = 1.4; ctx.stroke();
+        ctx.closePath(); ctx.strokeStyle = `rgba(${biome.streakColor}, 0.5)`; ctx.lineWidth = 1.4; ctx.stroke();
       }
 
       const anySoloed = planets.some(pl => pl.soloed);
+      const audioNow = audioCtx ? audioCtx.currentTime : 0;
+
       planets.forEach(p => {
+        // Process scheduled visual hit directly against Web Audio clock
+        if (p.pendingVisualHit && audioNow >= p.pendingVisualHit.time) {
+          const hit = p.pendingVisualHit;
+          p.pendingVisualHit = null;
+          p.visualAngle = hit.angle;
+          p.pulseFlash = 1.0;
+          p.nodeFlashes[hit.stepIdx] = 1.0;
+          p.springVel += (p.type.startsWith("kick") ? 5.0 : 3.0);
+          if (p.type.startsWith("kick")) sunVel += 5.0;
+          const pos = getPlanetPosition(p);
+          shockwaves.push({ x: pos.x, y: pos.y, r: p.planetRadius, maxR: 68, color: p.color, alpha: 0.8 });
+        } else if (p.pendingVisualStep && audioNow >= p.pendingVisualStep.time) {
+          p.visualAngle = p.pendingVisualStep.angle;
+          p.pendingVisualStep = null;
+        }
+
         p.springVel = (p.springVel - p.springOffset * 0.09) * 0.89;
         p.springOffset += p.springVel;
         p.floatPhase += dt * (1.2 + p.id * 0.25);
-        p.pulseFlash *= 0.91;
+        p.pulseFlash *= 0.9;
 
         if (isPlaying) {
-          // Smooth forward motion scaled by exact p.speedMult, snapped cleanly on each step trigger
           const orbitPeriodSec = (p.steps * sixteenthSec) / p.speedMult;
           p.visualAngle += ((Math.PI * 2) / orbitPeriodSec) * dt;
         } else {
           p.visualAngle += 0.08 * dt * (p.id % 2 === 0 ? 1 : -1);
         }
 
-        const orbitR = getOrbitRadius(p.id) + p.springOffset + Math.sin(p.floatPhase) * 3.0;
+        const orbitR = getOrbitRadius(p.id) + p.springOffset + Math.sin(p.floatPhase) * 2.5;
         const isSel = p.id === selectedPlanetId;
         const dimmed = anySoloed ? !p.soloed : p.muted;
 
@@ -2166,14 +2115,13 @@
           const active = p.pattern[s];
           if (active) nodes.push({ x: nx, y: ny });
 
-          // Node flash ring when hit
-          if (p.nodeFlashes[s] > 0.03) {
-            p.nodeFlashes[s] *= 0.88;
+          if (p.nodeFlashes[s] > 0.04) {
+            p.nodeFlashes[s] *= 0.87;
             ctx.beginPath();
-            ctx.arc(nx, ny, 6 + (1 - p.nodeFlashes[s]) * 12, 0, Math.PI * 2);
+            ctx.arc(nx, ny, 6 + (1 - p.nodeFlashes[s]) * 11, 0, Math.PI * 2);
             ctx.strokeStyle = p.color;
             ctx.globalAlpha = p.nodeFlashes[s];
-            ctx.lineWidth = 1.6;
+            ctx.lineWidth = 1.5;
             ctx.stroke();
             ctx.globalAlpha = 1;
           }
@@ -2192,28 +2140,18 @@
           ctx.lineWidth = 1.3; ctx.stroke(); ctx.globalAlpha = 1;
         }
 
-        // Crisp High-DPI Planet Orb
         const px = cx + Math.cos(p.visualAngle) * orbitR;
         const py = cy + Math.sin(p.visualAngle) * orbitR;
         const pRad = p.planetRadius + p.pulseFlash * 4.5;
 
-        ctx.beginPath();
-        ctx.arc(px, py, pRad * 1.65, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = dimmed ? 0.08 : 0.18;
-        ctx.fill();
+        ctx.beginPath(); ctx.arc(px, py, pRad * 1.6, 0, Math.PI * 2);
+        ctx.fillStyle = p.color; ctx.globalAlpha = dimmed ? 0.08 : 0.18; ctx.fill();
 
-        ctx.beginPath();
-        ctx.arc(px, py, pRad * 0.85, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.globalAlpha = dimmed ? 0.35 : 0.95;
-        ctx.fill();
+        ctx.beginPath(); ctx.arc(px, py, pRad * 0.85, 0, Math.PI * 2);
+        ctx.globalAlpha = dimmed ? 0.35 : 0.95; ctx.fill();
 
-        ctx.beginPath();
-        ctx.arc(px, py, pRad * 0.38, 0, Math.PI * 2);
-        ctx.fillStyle = "#ffffff";
-        ctx.globalAlpha = dimmed ? 0.3 : 0.95;
-        ctx.fill();
+        ctx.beginPath(); ctx.arc(px, py, pRad * 0.38, 0, Math.PI * 2);
+        ctx.fillStyle = "#ffffff"; ctx.globalAlpha = dimmed ? 0.3 : 0.95; ctx.fill();
         ctx.globalAlpha = 1;
 
         if (isSel || p.locked) {
@@ -2225,7 +2163,7 @@
       requestAnimationFrame(renderCosmos);
     }
 
-    // Pointer Interaction: Tap Planet, Step Node, OR Any Orbit Ring Line to Select!
+    // Pointer Interaction
     let longPressTimer = null, pressStartPos = null, draggingOrb = null;
 
     canvas.addEventListener("pointerdown", e => {
@@ -2239,7 +2177,6 @@
         return;
       }
 
-      // 1. Check Planet Body Tap
       for (const p of planets) {
         const pos = getPlanetPosition(p);
         if (Math.hypot(mx - pos.x, my - pos.y) <= p.planetRadius + 16) {
@@ -2248,9 +2185,8 @@
         }
       }
 
-      // 2. Check Orbit Step Nodes
       for (const p of planets) {
-        const orbitR = getOrbitRadius(p.id) + p.springOffset + Math.sin(p.floatPhase) * 3.0;
+        const orbitR = getOrbitRadius(p.id) + p.springOffset + Math.sin(p.floatPhase) * 2.5;
         for (let s = 0; s < p.steps; s++) {
           const sa = (s / p.steps) * Math.PI * 2 - Math.PI / 2;
           const nx = cx + Math.cos(sa) * orbitR, ny = cy + Math.sin(sa) * orbitR;
@@ -2270,24 +2206,22 @@
         }
       }
 
-      // 3. Check if user tapped anywhere along an Orbit Ring Line (makes switching orbits effortless!)
       const distFromCenter = Math.hypot(mx - cx, my - cy);
       for (const p of planets) {
-        const orbitR = getOrbitRadius(p.id) + p.springOffset + Math.sin(p.floatPhase) * 3.0;
+        const orbitR = getOrbitRadius(p.id) + p.springOffset + Math.sin(p.floatPhase) * 2.5;
         if (Math.abs(distFromCenter - orbitR) <= 14) {
           selectPlanet(p.id, true);
           return;
         }
       }
 
-      // 4. Empty Space Long-Press -> Charge & Open GTA Weapon Wheel
       holdRing.style.left = `${mx}px`;
       holdRing.style.top = `${my}px`;
       holdRing.classList.add("charging");
       longPressTimer = setTimeout(() => {
         holdRing.classList.remove("charging");
         openGtaWeaponWheel(mx, my);
-      }, 380);
+      }, 360);
     });
 
     canvas.addEventListener("pointermove", e => {
@@ -2334,11 +2268,8 @@
     window.addEventListener("keydown", e => {
       if (document.activeElement.tagName === "INPUT") return;
       if (e.code === "Space") { e.preventDefault(); togglePlay(); }
-      else if (e.code === "ArrowRight" || e.code === "ArrowUp") {
-        selectPlanet((selectedPlanetId + 1) % planets.length, false);
-      } else if (e.code === "ArrowLeft" || e.code === "ArrowDown") {
-        selectPlanet((selectedPlanetId - 1 + planets.length) % planets.length, false);
-      }
+      else if (e.code === "ArrowRight" || e.code === "ArrowUp") selectPlanet((selectedPlanetId + 1) % planets.length, false);
+      else if (e.code === "ArrowLeft" || e.code === "ArrowDown") selectPlanet((selectedPlanetId - 1 + planets.length) % planets.length, false);
     });
 
     // Boot
