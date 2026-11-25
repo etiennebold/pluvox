@@ -38,7 +38,6 @@
       scrollbar-color: rgba(56, 189, 248, 0.35) rgba(255, 255, 255, 0.04);
     }
 
-    /* CUSTOM DARK-GLASS SCROLLBARS (NO WINDOWS DEFAULT BARS) */
     ::-webkit-scrollbar {
       width: 5px;
       height: 5px;
@@ -290,7 +289,7 @@
     /* PERSISTENT, DRAGGABLE, 80% TRANSPARENT LAYERABLE WIDGETS */
     .studio-widget {
       position: fixed;
-      width: 324px;
+      width: 326px;
       max-width: 92vw;
       background: var(--widget-bg);
       backdrop-filter: blur(12px);
@@ -549,7 +548,7 @@
       cursor: pointer;
     }
 
-    .p-white:active, .p-white.target-hint {
+    .p-white:active {
       background: rgba(56, 189, 248, 0.35);
       border-color: var(--cyan);
       color: #fff;
@@ -574,7 +573,7 @@
       color: var(--cyan);
     }
 
-    .p-black:active, .p-black.target-hint {
+    .p-black:active {
       background: var(--cyan);
       color: #03050a;
     }
@@ -684,7 +683,7 @@
     </div>
 
     <div class="top-cluster">
-      <button id="btnTopCelestial" class="hud-pill muse-pill" title="Open Celestial Study Jukebox & Ear Training">
+      <button id="btnTopCelestial" class="hud-pill muse-pill" title="Open Celestial Motif Jukebox">
         <svg viewBox="0 0 24 24"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg>
         <span>CELESTIAL</span>
       </button>
@@ -813,7 +812,7 @@
     })();
 
     // =========================================================================
-    // 2. 12 UNIVERSES, STUDENT GROOVES, ACOUSTIC/ELECTRIC INSTRUMENTS & MOTIFS
+    // 2. 12 UNIVERSES, ECHO'S PRESETS, EXPANDED INSTRUMENTS & MOTIFS
     // =========================================================================
     const SCALES = {
       minorPentatonic: [0, 3, 5, 7, 10, 12, 15, 17, 19, 22, 24],
@@ -839,43 +838,45 @@
       glacier: { label: "GLACIER", bgTrail: "rgba(4, 15, 24, 0.42)",  sunCore: "#bae6fd", streakColor: "186, 230, 253", particleMode: "lantern",  rainFreq: 1350, filterDefault: 8200 }
     };
 
-    // Student-Friendly Band & Acoustic Study Grooves (Non-EDM focus)
-    const BASIC_GROOVES = {
-      oneOrbit:  { label: "1-ORBIT START", bpm: 88,  tracks: [{ type: "kickAcoust", steps: 4, pulses: 2, speed: 50, pattern: [true, false, true, false] }] },
+    // ECHO'S Presets (Clean, rich rhythmic & harmonic templates)
+    const ECHOS_PRESETS = {
+      basic44:   { label: "BASIC 4/4",     bpm: 90,  tracks: [{ type: "kickAcoust", steps: 4, pulses: 2, speed: 50, pattern: [true, false, true, false] }, { type: "snareRock", steps: 4, pulses: 1, speed: 50, pattern: [false, false, true, false] }, { type: "hatClosed", steps: 8, pulses: 4, speed: 50, pattern: [false, true, false, true, false, true, false, true] }] },
+      oneOrbit:  { label: "SINGLE PULSE",  bpm: 88,  tracks: [{ type: "kickAcoust", steps: 4, pulses: 2, speed: 50, pattern: [true, false, true, false] }] },
       folkPop:   { label: "ACOUSTIC POP",  bpm: 96,  tracks: [{ type: "kickAcoust", steps: 4, pulses: 2, speed: 50 }, { type: "snareRock", steps: 4, pulses: 1, speed: 50, pattern: [false, false, true, false] }, { type: "pickedBass", steps: 8, pulses: 4, speed: 50 }, { type: "acousGtr", steps: 8, pulses: 5, speed: 50 }] },
       jazzTrio:  { label: "JAZZ TRIO",     bpm: 86,  tracks: [{ type: "uprightBass", steps: 4, pulses: 4, speed: 50 }, { type: "snareBrush", steps: 4, pulses: 2, speed: 50, pattern: [false, true, false, true] }, { type: "grandPiano", steps: 8, pulses: 4, speed: 50 }] },
       indieRock: { label: "INDIE ROCK",    bpm: 108, tracks: [{ type: "kickAcoust", steps: 4, pulses: 2, speed: 50 }, { type: "snareRock", steps: 4, pulses: 2, speed: 50, pattern: [false, true, false, true] }, { type: "pickedBass", steps: 8, pulses: 6, speed: 50 }, { type: "cleanChorus", steps: 8, pulses: 5, speed: 50 }] },
       waltz34:   { label: "3/4 WALTZ",     bpm: 84,  tracks: [{ type: "kickAcoust", steps: 3, pulses: 1, speed: 50, pattern: [true, false, false] }, { type: "rim", steps: 3, pulses: 2, speed: 50, pattern: [false, true, true] }, { type: "celloStrings", steps: 6, pulses: 3, speed: 50 }, { type: "grandPiano", steps: 6, pulses: 4, speed: 50 }] },
-      clave32:   { label: "AFRO 3:2 CLAVE",bpm: 102, tracks: [{ type: "taikoDrum", steps: 4, pulses: 2, speed: 50 }, { type: "rim", steps: 8, pulses: 5, speed: 50, pattern: [true, false, false, true, false, false, true, false] }, { type: "marimba", steps: 8, pulses: 4, speed: 50 }] }
+      clave32:   { label: "AFRO 3:2 CLAVE",bpm: 102, tracks: [{ type: "taikoDrum", steps: 4, pulses: 2, speed: 50 }, { type: "rim", steps: 8, pulses: 5, speed: 50, pattern: [true, false, false, true, false, false, true, false] }, { type: "marimba", steps: 8, pulses: 4, speed: 50 }] },
+      lofiChill: { label: "LO-FI CHILL",   bpm: 78,  tracks: [{ type: "kick808", steps: 8, pulses: 2, speed: 50, pattern: [true, false, false, false, false, true, false, false] }, { type: "snareBrush", steps: 4, pulses: 1, speed: 50, pattern: [false, false, true, false] }, { type: "warmKeys", steps: 8, pulses: 4, speed: 50 }, { type: "nylonGtr", steps: 8, pulses: 3, speed: 50 }] }
     };
 
     const MOTIF_TABLE = [
-      ["80s Upside-Down Arp",   "TV",    "stranger things 80s synth",       84,  "eclipse", "fmPluck",    [48,52,55,59,60,59,55,52], [1,1,1,1,1,1,1,1], 75],
-      ["Mechanical Waltz",      "TV",    "westworld piano waltz",           94,  "dune",    "grandPiano", [60,63,67,60,63,68],       [1,1,1,1,1,1],     50],
-      ["Iron Throne Cello",     "TV",    "game of thrones cello",           85,  "eclipse", "celloStrings",[55,48,51,53,55,48],      [1,1,1,1,1,1],     50],
-      ["Dynasty Piano",         "TV",    "succession classical piano",      86,  "lounge",  "grandPiano", [60,63,67,68,67,63,60,58], [1,1,1,1,1,1,1,1], 50],
-      ["Red Room Dream",        "TV",    "twin peaks warm keys",            74,  "kyoto",   "warmKeys",   [41,48,53,55,57,55,53,48], [1,1,1,1,1,1,1,1], 35],
-      ["Impossible 5/4",        "TV",    "mission impossible 5/4 spy",      120, "studio",  "pickedBass", [43,43,46,48,43],          [1,1,1,1,1],       50],
-      ["Space Clockwork",       "FILM",  "interstellar hans zimmer piano",  78,  "cosmos",  "grandPiano", [57,64,57,64,59,64],       [1,1,1,1,1,1],     50],
+      ["80s Upside-Down Arp",   "TV",    "stranger things 80s synth",       84,  "eclipse", "fmPluck",     [48,52,55,59,60,59,55,52], [1,1,1,1,1,1,1,1], 75],
+      ["Mechanical Waltz",      "TV",    "westworld piano waltz",           94,  "dune",    "grandPiano",  [60,63,67,60,63,68],       [1,1,1,1,1,1],     50],
+      ["Iron Throne Cello",     "TV",    "game of thrones cello",           85,  "eclipse", "celloStrings",[55,48,51,53,55,48],       [1,1,1,1,1,1],     50],
+      ["Dynasty Piano",         "TV",    "succession classical piano",      86,  "lounge",  "grandPiano",  [60,63,67,68,67,63,60,58], [1,1,1,1,1,1,1,1], 50],
+      ["Red Room Dream",        "TV",    "twin peaks warm keys",            74,  "kyoto",   "warmKeys",    [41,48,53,55,57,55,53,48], [1,1,1,1,1,1,1,1], 35],
+      ["Impossible 5/4",        "TV",    "mission impossible 5/4 spy",      120, "studio",  "pickedBass",  [43,43,46,48,43],          [1,1,1,1,1],       50],
+      ["Space Clockwork",       "FILM",  "interstellar hans zimmer piano",  78,  "cosmos",  "grandPiano",  [57,64,57,64,59,64],       [1,1,1,1,1,1],     50],
       ["Dream Layer Build",     "FILM",  "inception time strings",          72,  "glacier", "celloStrings",[45,52,55,50,45,52,55,50], [1,1,1,1,1,1,1,1], 35],
-      ["Secret Agent 007",      "FILM",  "james bond 007 spy guitar",       112, "lounge",  "cleanChorus",[52,53,54,53,52,52,55,54], [1,1,1,1,1,0,1,1], 50],
-      ["Surf Tremolo Riff",     "FILM",  "pulp fiction misirlou guitar",   126, "sahara",  "elecGuitar", [40,41,44,45,47,48,51,48], [1,1,1,1,1,1,1,1], 65],
-      ["Celesta Waltz 3/4",     "FILM",  "harry potter hedwig waltz",       110, "aurora",  "bell",       [59,64,67,66,64,71],       [1,1,1,1,1,1],     50],
-      ["Plumber Overworld",     "GAME",  "super mario bros marimba",        120, "cosmos",  "marimba",    [64,64,64,60,64,67,55,60], [1,1,0,1,1,1,0,1], 50],
-      ["Hyrule Storm Waltz",    "GAME",  "zelda song of storms waltz",      114, "kyoto",   "kalimba",    [50,53,62,50,53,62],       [1,1,1,1,1,1],     50],
-      ["Voxel Rain Lullaby",    "GAME",  "minecraft sweden calm piano",     70,  "kyoto",   "grandPiano", [57,61,64,66,64,61,57,54], [1,0,1,1,0,1,1,0], 35],
-      ["Crystal Harp Arp",      "GAME",  "final fantasy prelude bell",      94,  "glacier", "bell",       [48,50,52,55,60,62,64,67], [1,1,1,1,1,1,1,1], 65],
-      ["Foggy Town Acoustic",   "GAME",  "silent hill 2 theme of laura",    104, "kyoto",   "acousGtr",   [57,59,60,64,62,60,59,57], [1,1,1,1,1,1,1,1], 50],
-      ["In The End Piano",      "ROCK",  "linkin park in the end piano",    105, "studio",  "grandPiano", [63,70,70,66,65,65,65,66], [1,1,1,1,1,1,1,1], 50],
-      ["Hybrid Power Strum",    "ROCK",  "linkin park numb guitar",         108, "studio",  "powerStrum", [36,36,44,44,39,39,46,46], [1,0,1,1,1,0,1,1], 50],
-      ["Seattle Grunge Strum",  "ROCK",  "nirvana smells like teen spirit", 114, "studio",  "powerStrum", [41,41,46,46,44,44,49,49], [1,1,1,0,1,1,1,0], 50],
-      ["Seven Nation Bass",     "ROCK",  "white stripes seven nation 7",    120, "eclipse", "pickedBass", [52,52,55,52,50,48,47],    [1,1,1,1,1,1,1],   50],
-      ["Sandman Clean Arp",     "ROCK",  "metallica enter sandman guitar",  118, "eclipse", "cleanChorus",[40,52,55,46,45,52,55,46], [1,1,1,1,1,1,1,1], 50],
-      ["Drop-C 6/8 Arpeggio",   "ROCK",  "system of a down toxicity",       112, "eclipse", "cleanChorus",[36,43,48,49,48,43],       [1,1,1,1,1,1],     65],
-      ["Oxford 5-Pulse Keys",   "ROCK",  "radiohead everything right place",118, "glacier", "tineKeys",   [60,60,61,63,60],          [1,1,1,1,1],       50],
-      ["Samurai Bossa Guitar",  "JAZZ",  "nujabes aruarian dance acoustic", 84,  "kyoto",   "acousGtr",   [57,60,64,67,65,64,60,59], [1,1,1,0,1,1,1,0], 50],
-      ["West Coast Piano",      "JAZZ",  "dr dre still dre staccato piano", 93,  "studio",  "grandPiano", [60,60,60,60,59,59,59,59], [1,1,1,1,1,1,1,1], 50],
-      ["Detroit Swing Keys",    "JAZZ",  "j dilla neo soul tine keys",      92,  "lounge",  "tineKeys",   [53,57,60,64,55,59,62,65], [1,0,1,1,0,1,1,0], 50]
+      ["Secret Agent 007",      "FILM",  "james bond 007 spy guitar",       112, "lounge",  "cleanChorus", [52,53,54,53,52,52,55,54], [1,1,1,1,1,0,1,1], 50],
+      ["Surf Tremolo Riff",     "FILM",  "pulp fiction misirlou guitar",   126, "sahara",  "elecGuitar",  [40,41,44,45,47,48,51,48], [1,1,1,1,1,1,1,1], 65],
+      ["Celesta Waltz 3/4",     "FILM",  "harry potter hedwig waltz",       110, "aurora",  "bell",        [59,64,67,66,64,71],       [1,1,1,1,1,1],     50],
+      ["Plumber Overworld",     "GAME",  "super mario bros marimba",        120, "cosmos",  "marimba",     [64,64,64,60,64,67,55,60], [1,1,0,1,1,1,0,1], 50],
+      ["Hyrule Storm Waltz",    "GAME",  "zelda song of storms waltz",      114, "kyoto",   "kalimba",     [50,53,62,50,53,62],       [1,1,1,1,1,1],     50],
+      ["Voxel Rain Lullaby",    "GAME",  "minecraft sweden calm piano",     70,  "kyoto",   "grandPiano",  [57,61,64,66,64,61,57,54], [1,0,1,1,0,1,1,0], 35],
+      ["Crystal Harp Arp",      "GAME",  "final fantasy prelude bell",      94,  "glacier", "concertHarp", [48,50,52,55,60,62,64,67], [1,1,1,1,1,1,1,1], 65],
+      ["Foggy Town Acoustic",   "GAME",  "silent hill 2 theme of laura",    104, "kyoto",   "acousGtr",    [57,59,60,64,62,60,59,57], [1,1,1,1,1,1,1,1], 50],
+      ["In The End Piano",      "ROCK",  "linkin park in the end piano",    105, "studio",  "grandPiano",  [63,70,70,66,65,65,65,66], [1,1,1,1,1,1,1,1], 50],
+      ["Hybrid Power Strum",    "ROCK",  "linkin park numb guitar",         108, "studio",  "powerStrum",  [36,36,44,44,39,39,46,46], [1,0,1,1,1,0,1,1], 50],
+      ["Seattle Grunge Strum",  "ROCK",  "nirvana smells like teen spirit", 114, "studio",  "powerStrum",  [41,41,46,46,44,44,49,49], [1,1,1,0,1,1,1,0], 50],
+      ["Seven Nation Bass",     "ROCK",  "white stripes seven nation 7",    120, "eclipse", "pickedBass",  [52,52,55,52,50,48,47],    [1,1,1,1,1,1,1],   50],
+      ["Sandman Clean Arp",     "ROCK",  "metallica enter sandman guitar",  118, "eclipse", "cleanChorus", [40,52,55,46,45,52,55,46], [1,1,1,1,1,1,1,1], 50],
+      ["Drop-C 6/8 Arpeggio",   "ROCK",  "system of a down toxicity",       112, "eclipse", "cleanChorus", [36,43,48,49,48,43],       [1,1,1,1,1,1],     65],
+      ["Oxford 5-Pulse Keys",   "ROCK",  "radiohead everything right place",118, "glacier", "tineKeys",    [60,60,61,63,60],          [1,1,1,1,1],       50],
+      ["Samurai Bossa Guitar",  "JAZZ",  "nujabes aruarian dance acoustic", 84,  "kyoto",   "nylonGtr",    [57,60,64,67,65,64,60,59], [1,1,1,0,1,1,1,0], 50],
+      ["West Coast Piano",      "JAZZ",  "dr dre still dre staccato piano", 93,  "studio",  "grandPiano",  [60,60,60,60,59,59,59,59], [1,1,1,1,1,1,1,1], 50],
+      ["Detroit Swing Keys",    "JAZZ",  "j dilla neo soul tine keys",      92,  "lounge",  "tineKeys",    [53,57,60,64,55,59,62,65], [1,0,1,1,0,1,1,0], 50]
     ];
 
     function compileMotif(index) {
@@ -904,8 +905,9 @@
     let jukeboxFilterText = "";
     let jukeboxCatFilter = "ALL";
 
-    // Acoustic, Electric String, Keyboard & Percussion Voices
+    // Expanded Instruments in DRUM, STRINGS, and KEYS
     const VOICE_ENGINES = [
+      // DRUM (12)
       { id: "kickAcoust",   label: "PUNCH KICK",    cat: "drum",    band: "low" },
       { id: "kick808",      label: "WARM SUB",      cat: "drum",    band: "low" },
       { id: "snareRock",    label: "STUDIO SNARE",  cat: "drum",    band: "mid" },
@@ -913,8 +915,16 @@
       { id: "rim",          label: "WOOD RIM",      cat: "drum",    band: "high" },
       { id: "hatClosed",    label: "CLOSED HAT",    cat: "drum",    band: "high" },
       { id: "hatOpen",      label: "OPEN HAT",      cat: "drum",    band: "high" },
+      { id: "rideCym",      label: "RIDE CYMBAL",   cat: "drum",    band: "high" },
+      { id: "shaker",       label: "SHAKER",        cat: "drum",    band: "high" },
+      { id: "tomFloor",     label: "FLOOR TOM",     cat: "drum",    band: "low" },
       { id: "taikoDrum",    label: "TAIKO DRUM",    cat: "drum",    band: "low" },
-      { id: "acousGtr",     label: "ACOUSTIC GTR",  cat: "strings", band: "mid" },
+      { id: "woodBlock",    label: "WOODBLOCK",     cat: "drum",    band: "high" },
+
+      // STRINGS (12)
+      { id: "acousGtr",     label: "STEEL ACOUSTIC",cat: "strings", band: "mid" },
+      { id: "nylonGtr",     label: "NYLON GUITAR",  cat: "strings", band: "mid" },
+      { id: "twelveStr",    label: "12-STRING GTR", cat: "strings", band: "high" },
       { id: "cleanChorus",  label: "CLEAN ELECTRIC",cat: "strings", band: "high" },
       { id: "elecGuitar",   label: "OVERDRIVE GTR", cat: "strings", band: "mid" },
       { id: "powerStrum",   label: "POWER STRUM",   cat: "strings", band: "mid" },
@@ -922,18 +932,24 @@
       { id: "pickedBass",   label: "ELECTRIC BASS", cat: "strings", band: "low" },
       { id: "uprightBass",  label: "UPRIGHT BASS",  cat: "strings", band: "low" },
       { id: "celloStrings", label: "BOWED CELLO",   cat: "strings", band: "mid" },
+      { id: "violinSolo",   label: "SOLO VIOLIN",   cat: "strings", band: "high" },
+      { id: "concertHarp",  label: "CONCERT HARP",  cat: "strings", band: "high" },
+
+      // KEYS (12)
       { id: "grandPiano",   label: "GRAND PIANO",   cat: "keys",    band: "mid" },
       { id: "tineKeys",     label: "TINE PIANO",    cat: "keys",    band: "mid" },
       { id: "warmKeys",     label: "WARM RHODES",   cat: "keys",    band: "mid" },
+      { id: "clavinet",     label: "FUNK CLAVINET", cat: "keys",    band: "high" },
       { id: "rotaryOrgan",  label: "ROTARY ORGAN",  cat: "keys",    band: "mid" },
+      { id: "pipeOrgan",    label: "CHURCH ORGAN",  cat: "keys",    band: "low" },
+      { id: "vibraphone",   label: "VIBRAPHONE",    cat: "keys",    band: "high" },
       { id: "marimba",      label: "MARIMBA",       cat: "keys",    band: "mid" },
       { id: "kalimba",      label: "KALIMBA",       cat: "keys",    band: "high" },
       { id: "bell",         label: "CELESTA BELL",  cat: "keys",    band: "high" },
-      { id: "fmPluck",      label: "PLUCK HARP",    cat: "keys",    band: "high" }
+      { id: "fmPluck",      label: "PLUCK HARP",    cat: "keys",    band: "high" },
+      { id: "warmPad",      label: "WARM PAD",      cat: "keys",    band: "mid" }
     ];
 
-    // Progressive Band Order as Student Adds Orbits:
-    // 1. Kick -> 2. Snare -> 3. Electric Bass -> 4. Acoustic Guitar -> 5. Grand Piano -> 6. Clean Electric Guitar
     const PLANET_TEMPLATES = [
       { baseName: "KICK",    type: "kickAcoust",  color: "#f59e0b", radius: 15, steps: 4, pulses: 2, speed: 50, pitch: 0, vol: 0.78 },
       { baseName: "SNARE",   type: "snareRock",   color: "#fb7185", radius: 13, steps: 4, pulses: 1, speed: 50, pitch: 0, vol: 0.68 },
@@ -952,7 +968,6 @@
       return `${NOTE_NAMES[safe % 12]}${Math.floor(safe / 12) - 1}`;
     }
 
-    // Maps 0..100 Speed Slider -> Multiplier (0 = Paused, 50 = 1.0x Normal, 100 = 2.0x Double)
     function speedScaleToMultiplier(speed0to100) {
       if (speed0to100 <= 0) return 0;
       return speed0to100 / 50;
@@ -993,7 +1008,7 @@
     }
 
     // =========================================================================
-    // 3. STUDIO STATE (CALM 1-ORBIT KICKOFF FOR MUSIC STUDENTS)
+    // 3. STUDIO STATE
     // =========================================================================
     function createPlanetFromTemplate(idx, customCfg = null) {
       const tpl = PLANET_TEMPLATES[idx % PLANET_TEMPLATES.length];
@@ -1040,7 +1055,7 @@
         planetRadius: tpl.radius,
         steps,
         pulses: pattern.filter(Boolean).length,
-        speed, // 0..100 scale (50 = 1.0x)
+        speed,
         pitchOffset: customCfg?.pitchOffset ?? tpl.pitch,
         volume: customCfg?.volume ?? tpl.vol,
         muted: Boolean(customCfg?.muted),
@@ -1051,7 +1066,6 @@
         stepMidi,
         stepAccents,
         phaseAccum: 0,
-        lastTriggeredStep: -1,
         nodeFlashes: new Array(steps).fill(0),
         visualAngle: -Math.PI / 2,
         springOffset: 0,
@@ -1061,7 +1075,6 @@
       };
     }
 
-    // Start with 1 simple, clean Kick orbit so a student can build upward
     let planets = [createPlanetFromTemplate(0)];
     let selectedPlanetId = 0;
     function getSelectedPlanet() {
@@ -1074,15 +1087,9 @@
     let bpm = 88;
     let scaleKey = "minorPentatonic";
     let focusHz = 0;
-    let rainLevel = 0; // Zero background static/rain by default for crystal-clear tone
+    let rainLevel = 0;
     let filterCutoff = 7500;
     let delayAmount = 18;
-
-    // Ear-Training Call & Response Challenge State
-    let earChallengeNotes = [];
-    let earChallengeProgress = 0;
-    let isEarTrainingActive = false;
-    let liveHarmonyLabel = "ROOT PULSE";
 
     let camZoom = 1.0;
     let camPanX = 0;
@@ -1096,14 +1103,13 @@
       clearTimeout(saveDebounceTimer);
       saveDebounceTimer = setTimeout(() => {
         try {
-          localStorage.setItem("pluvox_v20_student", JSON.stringify({
+          localStorage.setItem("pluvox_v21_studio", JSON.stringify({
             activeSceneIdx, solarScenes, current: captureCurrentSnapshot()
           }));
         } catch (_) {}
       }, 350);
     }
 
-    // Compute exact MIDI note for any orbit step (never returns undefined or NaN)
     function getStepMidiNote(planet, stepIndex) {
       const intervals = SCALES[scaleKey] || SCALES.minorPentatonic;
       const custom = planet.stepMidi[stepIndex % planet.stepMidi.length];
@@ -1116,25 +1122,8 @@
       return baseOct + intervals[noteIdx];
     }
 
-    function updateLiveHarmonyReadout(midiNotes) {
-      if (!midiNotes || midiNotes.length === 0) return;
-      const uniquePcs = [...new Set(midiNotes.map(m => ((m % 12) + 12) % 12))].sort((a, b) => a - b);
-      const rootName = NOTE_NAMES[uniquePcs[0]];
-      if (uniquePcs.length === 1) {
-        liveHarmonyLabel = `${rootName} ROOT`;
-      } else if (uniquePcs.length === 2) {
-        const diff = (uniquePcs[1] - uniquePcs[0] + 12) % 12;
-        const intervalNames = { 3: "MINOR 3RD", 4: "MAJOR 3RD", 5: "4TH", 7: "5TH POWER", 10: "MIN 7TH" };
-        liveHarmonyLabel = `${rootName} ${intervalNames[diff] || "DYAD"}`;
-      } else {
-        const hasMin3 = uniquePcs.includes((uniquePcs[0] + 3) % 12);
-        const hasMaj3 = uniquePcs.includes((uniquePcs[0] + 4) % 12);
-        liveHarmonyLabel = `${rootName} ${hasMin3 ? "MINOR" : (hasMaj3 ? "MAJOR" : "CHORD")}`;
-      }
-    }
-
     // =========================================================================
-    // 4. BOTTOM-RISING "FIND THE NOTE" GLASS PIANO & GUITAR NECK + EAR TRAINING
+    // 4. BOTTOM-RISING "FIND THE NOTE" GLASS PIANO & GUITAR NECK
     // =========================================================================
     const noteFinderDock = document.getElementById("noteFinderDock");
     let isNoteFinderOpen = false;
@@ -1149,24 +1138,6 @@
       if (isNoteFinderOpen) renderNoteFinder();
     }
 
-    function startEarTrainingChallenge() {
-      initAudioEngine();
-      if (audioCtx.state === "suspended") audioCtx.resume();
-      const pool = [48, 50, 51, 53, 55, 58, 60]; // C minor pentatonic / Dorian
-      earChallengeNotes = Array.from({ length: 3 }, () => pool[Math.floor(Math.random() * pool.length)]);
-      earChallengeProgress = 0;
-      isEarTrainingActive = true;
-
-      // Play the 3-note melody for the student to find by ear
-      const now = audioCtx.currentTime;
-      earChallengeNotes.forEach((m, i) => {
-        triggerGrandPianoNote(now + i * 0.48, m, 0.72, 0, false);
-      });
-
-      toggleNoteFinder(true);
-      showToast("Ear Training: Find the 3 notes on the keys!");
-    }
-
     function playAuditionOrWriteNote(midi, forcePowerStrum = false) {
       initAudioEngine();
       if (audioCtx.state === "suspended") audioCtx.resume();
@@ -1176,26 +1147,10 @@
       const useStrum = forcePowerStrum || p.type === "powerStrum" || p.type === "chugStrum";
       if (useStrum) {
         triggerPowerChordStrum(now, midi, 0.68, p.type === "chugStrum", 0);
-      } else if (p.type === "acousGtr" || p.type === "cleanChorus" || p.type === "elecGuitar") {
+      } else if (["acousGtr", "nylonGtr", "twelveStr", "cleanChorus", "elecGuitar"].includes(p.type)) {
         triggerGuitarPluckNote(now, midi, 0.68, 0, p.type);
       } else {
         triggerGrandPianoNote(now, midi, 0.68, 0, p.type === "tineKeys");
-      }
-
-      // Check Ear-Training Call & Response match
-      if (isEarTrainingActive && earChallengeNotes.length > 0) {
-        const expected = earChallengeNotes[earChallengeProgress];
-        if (midi % 12 === expected % 12) {
-          earChallengeProgress++;
-          if (earChallengeProgress >= earChallengeNotes.length) {
-            isEarTrainingActive = false;
-            showToast(`Matched all 3 notes (${earChallengeNotes.map(midiToName).join(" - ")})!`);
-          } else {
-            showToast(`Correct (${midiToName(midi)})! Find note ${earChallengeProgress + 1} of 3...`);
-          }
-        } else {
-          showToast(`Played ${midiToName(midi)} — listen again & try another key`);
-        }
       }
 
       if (noteFinderMode === "write") {
@@ -1213,7 +1168,7 @@
         refreshAllOpenWidgets();
         saveStudioState();
         showToast(`Wrote ${midiToName(midi)} → ${p.baseName} Step ${targetStep + 1}`);
-      } else if (!isEarTrainingActive) {
+      } else {
         showToast(`Note: ${midiToName(midi)}${useStrum ? " Power Chord" : ""}`);
       }
     }
@@ -1292,14 +1247,13 @@
     }
 
     // =========================================================================
-    // 5. GTA-STYLE SEGMENTED WEDGE WEAPON WHEEL
+    // 5. GTA-STYLE SEGMENTED WEDGE WEAPON WHEEL (CELESTIAL REMOVED)
     // =========================================================================
     const WEDGE_DEFS = [
       { id: "vox",      label: "VOX",      svgPath: `<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/>` },
       { id: "rack",     label: "RACK",     svgPath: `<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/>` },
       { id: "keys",     label: "KEYS",     svgPath: `<rect x="2" y="5" width="20" height="14" rx="2"/><line x1="7" y1="5" x2="7" y2="19"/><line x1="12" y1="5" x2="12" y2="19"/><line x1="17" y1="5" x2="17" y2="19"/>` },
       { id: "orbit",    label: "ORBIT",    svgPath: `<circle cx="12" cy="12" r="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-25 12 12)"/>` },
-      { id: "muse",     label: "STUDY",    svgPath: `<path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/>` },
       { id: "universe", label: "UNIVERSE", svgPath: `<circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8"/><path d="M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>` },
       { id: "decks",    label: "DECKS",    svgPath: `<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>` },
       { id: "mix",      label: "MIX",      svgPath: `<line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>` }
@@ -1333,7 +1287,7 @@
 
       const cx = 155, cy = 155, innerR = 48, outerR = 148;
       const sliceDeg = 360 / WEDGE_DEFS.length;
-      const gapDeg = 2.4;
+      const gapDeg = 2.6;
 
       WEDGE_DEFS.forEach((w, idx) => {
         const startA = idx * sliceDeg - sliceDeg / 2 + gapDeg / 2;
@@ -1424,9 +1378,30 @@
       handleEl.addEventListener("pointerup", () => { dragging = false; });
     }
 
+    // Re-renders EVERY open widget so selecting another orbit updates all active panels
     function refreshAllOpenWidgets() {
       Object.keys(openWidgets).forEach(id => renderWidgetContent(id));
       if (isNoteFinderOpen) renderNoteFinder();
+    }
+
+    function renderOrbitTabsHtml() {
+      return `
+        <div class="orbit-switcher-bar">
+          ${planets.map(pl => `
+            <button class="orb-tab ${pl.id === selectedPlanetId ? "active" : ""}"
+                    style="${pl.id === selectedPlanetId ? `border-color:${pl.color}; color:${pl.color};` : ""}"
+                    data-switch-orb="${pl.id}">
+              ${pl.baseName}
+            </button>
+          `).join("")}
+        </div>
+      `;
+    }
+
+    function bindOrbitTabs(containerEl) {
+      containerEl.querySelectorAll("[data-switch-orb]").forEach(btn => {
+        btn.onclick = () => selectPlanet(Number(btn.dataset.switchOrb), false);
+      });
     }
 
     function renderJukeboxList(containerEl) {
@@ -1463,15 +1438,7 @@
             <button class="widget-close-btn">×</button>
           </div>
           <div class="widget-body">
-            <div class="orbit-switcher-bar">
-              ${planets.map(pl => `
-                <button class="orb-tab ${pl.id === selectedPlanetId ? "active" : ""}"
-                        style="${pl.id === selectedPlanetId ? `border-color:${pl.color}; color:${pl.color};` : ""}"
-                        data-switch-orb="${pl.id}">
-                  ${pl.baseName}
-                </button>
-              `).join("")}
-            </div>
+            ${renderOrbitTabsHtml()}
             <div class="w-grid-3" style="margin-bottom:0.5rem;">
               <button class="w-btn ${p.locked ? "active" : ""}" id="wLock">${p.locked ? "LOCKED" : "LOCK"}</button>
               <button class="w-btn ${p.muted ? "warn" : ""}" id="wMute">${p.muted ? "MUTED" : "MUTE"}</button>
@@ -1490,7 +1457,7 @@
           </div>
         `;
 
-        el.querySelectorAll("[data-switch-orb]").forEach(btn => btn.onclick = () => selectPlanet(Number(btn.dataset.switchOrb), false));
+        bindOrbitTabs(el);
         el.querySelector("#wLock").onclick = () => { p.locked = !p.locked; renderWidgetContent("orbit"); saveStudioState(); };
         el.querySelector("#wMute").onclick = () => { p.muted = !p.muted; renderWidgetContent("orbit"); saveStudioState(); };
         el.querySelector("#wFindNote").onclick = () => { toggleNoteFinder(); renderWidgetContent("orbit"); };
@@ -1504,7 +1471,7 @@
             saveStudioState();
             showToast(`Added ${newOrb.name}`);
           } else {
-            showToast("Full 6-piece band active");
+            showToast("All 6 orbits active");
           }
         };
         el.querySelector("#wRemOrb").onclick = () => {
@@ -1553,6 +1520,7 @@
             <button class="widget-close-btn">×</button>
           </div>
           <div class="widget-body">
+            ${renderOrbitTabsHtml()}
             <div style="display:flex; gap:4px; margin-bottom:0.5rem;">
               ${["all", "drum", "strings", "keys"].map(c =>
                 `<button class="w-btn ${activePadCat === c ? "active" : ""}" style="flex:1; padding:0.25rem;" data-cat="${c}">${c.toUpperCase()}</button>`
@@ -1563,6 +1531,7 @@
             </div>
           </div>
         `;
+        bindOrbitTabs(el);
         el.querySelectorAll("[data-cat]").forEach(b => b.onclick = () => { activePadCat = b.dataset.cat; renderWidgetContent("rack"); });
         el.querySelectorAll("[data-voice]").forEach(b => b.onclick = () => {
           initAudioEngine();
@@ -1577,34 +1546,31 @@
           refreshAllOpenWidgets();
         });
       } else if (id === "vox") {
+        const p = getSelectedPlanet();
         el.innerHTML = `
-          <div class="widget-drag-bar">
-            <span>HUM-TO-ORBIT</span>
+          <div class="widget-drag-bar" style="color:${p.color};">
+            <span>VOX → ${p.baseName}</span>
             <button class="widget-close-btn">×</button>
           </div>
           <div class="widget-body">
-            <div class="w-grid-2" style="margin-bottom:0.55rem;">
-              <button class="w-btn ${isHumCapturing ? "warn" : ""}" id="wHumBtn">${isHumCapturing ? "STOP HUM" : "HUM MELODY"}</button>
-              <button class="w-btn" id="wEarBtn">EAR CHALLENGE</button>
-            </div>
-            <div style="font-family:var(--mono); font-size:0.58rem; color:var(--dim); line-height:1.4;">
-              Hum a melody into your mic to capture it onto an orbit, or test your ear with <strong>EAR CHALLENGE</strong>.
+            ${renderOrbitTabsHtml()}
+            <button class="w-btn ${isHumCapturing ? "warn" : ""}" id="wHumBtn" style="width:100%; margin-bottom:0.45rem;">
+              ${isHumCapturing ? "STOP & WRITE TO " + p.baseName : "HUM MELODY → " + p.baseName}
+            </button>
+            <div style="font-family:var(--mono); font-size:0.56rem; color:var(--dim); line-height:1.4;">
+              Hum a rhythm or melody into your mic to capture it directly onto the active orbit.
             </div>
           </div>
         `;
+        bindOrbitTabs(el);
         el.querySelector("#wHumBtn").onclick = () => toggleHumToOrbit();
-        el.querySelector("#wEarBtn").onclick = () => startEarTrainingChallenge();
       } else if (id === "muse") {
         el.innerHTML = `
           <div class="widget-drag-bar" style="color:var(--violet);">
-            <span>CELESTIAL · STUDY & MOTIFS</span>
+            <span>CELESTIAL · MOTIF JUKEBOX</span>
             <button class="widget-close-btn">×</button>
           </div>
           <div class="widget-body">
-            <div class="w-grid-2" style="margin-bottom:0.5rem;">
-              <button class="w-btn" id="mEarTest" style="border-color:var(--cyan);">EAR CHALLENGE</button>
-              <button class="w-btn" id="mRandMotif" style="border-color:var(--violet);">RANDOM MOTIF</button>
-            </div>
             <div style="display:flex; gap:3px; margin-bottom:0.42rem;">
               ${["ALL", "TV", "FILM", "GAME", "ROCK", "JAZZ"].map(cat =>
                 `<button class="w-btn ${jukeboxCatFilter === cat ? "active" : ""}" style="flex:1; padding:0.22rem;" data-jcat="${cat}">${cat}</button>`
@@ -1612,6 +1578,7 @@
             </div>
             <div class="w-row" style="margin-bottom:0.45rem;">
               <input id="wJukeboxSearch" value="${jukeboxFilterText}" placeholder="Search motifs (Piano, Guitar, Waltz)..." style="flex:1; background:rgba(0,0,0,0.38); border:1px solid var(--border); border-radius:8px; padding:0.36rem 0.52rem; color:#fff; font-family:var(--mono); font-size:0.55rem; outline:none;" />
+              <button class="w-btn" id="mRandMotif" style="padding:0.36rem 0.55rem; border-color:var(--violet);">RANDOM</button>
             </div>
             <div class="jukebox-scroll" id="wJukeboxList"></div>
           </div>
@@ -1619,7 +1586,6 @@
         const listEl = el.querySelector("#wJukeboxList");
         renderJukeboxList(listEl);
 
-        el.querySelector("#mEarTest").onclick = () => startEarTrainingChallenge();
         el.querySelector("#mRandMotif").onclick = () => {
           loadCompiledMotif(Math.floor(Math.random() * COMPILED_MOTIFS.length));
         };
@@ -1635,26 +1601,26 @@
       } else if (id === "universe") {
         el.innerHTML = `
           <div class="widget-drag-bar">
-            <span>12 UNIVERSES & GROOVES</span>
+            <span>UNIVERSES & ECHO'S</span>
             <button class="widget-close-btn">×</button>
           </div>
           <div class="widget-body">
-            <div class="section-tag">VISUAL & ACOUSTIC UNIVERSE</div>
+            <div class="section-tag">12 VISUAL & ACOUSTIC UNIVERSES</div>
             <div class="w-grid-3" style="margin-bottom:0.65rem;">
               ${Object.entries(UNIVERSES).map(([k, u]) =>
                 `<button class="w-btn ${activeUniverseKey === k ? "active" : ""}" data-uni="${k}">${u.label}</button>`
               ).join("")}
             </div>
-            <div class="section-tag">BAND & STUDENT GROOVES</div>
+            <div class="section-tag">ECHO'S (RHYTHM & BAND PRESETS)</div>
             <div class="w-grid-2">
-              ${Object.entries(BASIC_GROOVES).map(([k, g]) =>
-                `<button class="w-btn" data-groove="${k}">${g.label}</button>`
+              ${Object.entries(ECHOS_PRESETS).map(([k, g]) =>
+                `<button class="w-btn" data-echo="${k}">${g.label}</button>`
               ).join("")}
             </div>
           </div>
         `;
         el.querySelectorAll("[data-uni]").forEach(b => b.onclick = () => { setUniverse(b.dataset.uni); renderWidgetContent("universe"); });
-        el.querySelectorAll("[data-groove]").forEach(b => b.onclick = () => applyBasicGroove(b.dataset.groove));
+        el.querySelectorAll("[data-echo]").forEach(b => b.onclick = () => applyEchoPreset(b.dataset.echo));
       } else if (id === "decks") {
         el.innerHTML = `
           <div class="widget-drag-bar">
@@ -1692,11 +1658,11 @@
         });
         el.querySelector("#sFastWav").onclick = () => bounceOfflineWavMaster();
         el.querySelector("#sMidi").onclick = () => exportMultiTrackMidi();
-        el.querySelector("#sReset").onclick = () => applyBasicGroove("oneOrbit");
+        el.querySelector("#sReset").onclick = () => applyEchoPreset("oneOrbit");
       } else if (id === "mix") {
         el.innerHTML = `
           <div class="widget-drag-bar">
-            <span>MASTER TONE & SCALE</span>
+            <span>MASTER TONE & FOCUS</span>
             <button class="widget-close-btn">×</button>
           </div>
           <div class="widget-body">
@@ -1717,8 +1683,12 @@
               <span>FOCUS</span>
               <select class="w-select" id="mFocus">
                 <option value="0" ${focusHz === 0 ? "selected" : ""}>Off</option>
-                <option value="10" ${focusHz === 10 ? "selected" : ""}>10.0 Hz Alpha</option>
-                <option value="12.5" ${focusHz === 12.5 ? "selected" : ""}>12.5 Hz SMR</option>
+                <option value="14" ${focusHz === 14 ? "selected" : ""}>14.0 Hz ADHD / SMR</option>
+                <option value="18" ${focusHz === 18 ? "selected" : ""}>18.0 Hz Active Focus (Beta)</option>
+                <option value="10" ${focusHz === 10 ? "selected" : ""}>10.0 Hz Calm Flow (Alpha)</option>
+                <option value="40" ${focusHz === 40 ? "selected" : ""}>40.0 Hz Peak Clarity (Gamma)</option>
+                <option value="6" ${focusHz === 6 ? "selected" : ""}>6.0 Hz Deep Ideation (Theta)</option>
+                <option value="2.5" ${focusHz === 2.5 ? "selected" : ""}>2.5 Hz Restorative (Delta)</option>
               </select>
             </div>
           </div>
@@ -1769,7 +1739,6 @@
       const nOut = sharedNoiseBuffer.getChannelData(0);
       for (let i = 0; i < noiseLen; i++) nOut[i] = Math.random() * 2 - 1;
 
-      // Clean headroom summing bus (zero distortion/static)
       masterGainBus = audioCtx.createGain();
       masterGainBus.gain.value = 0.65;
 
@@ -1815,7 +1784,7 @@
       const modGain = audioCtx.createGain();
       modGain.gain.value = 0.5;
       focusLfoOsc = audioCtx.createOscillator();
-      focusLfoOsc.frequency.value = focusHz || 10;
+      focusLfoOsc.frequency.value = focusHz || 14;
       const depth = audioCtx.createGain();
       depth.gain.value = 0.45;
       focusMasterGain = audioCtx.createGain();
@@ -1830,7 +1799,6 @@
       focusLfoOsc.start();
       updateBrainwaveCarrier();
 
-      // Gentle optional rain ambience (muted at 0% by default so there is zero static)
       const bufferSize = audioCtx.sampleRate * 2;
       const rainBuf = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
       const rd = rainBuf.getChannelData(0);
@@ -1873,7 +1841,6 @@
       if (!silent) showToast(`Universe: ${u.label}`);
     }
 
-    // Warm Acoustic / Clean Electric / Overdrive Guitar Pluck Synthesis
     function triggerGuitarPluckNote(time, midi, vol, panIdx = 0, mode = "acousGtr", targetCtx = audioCtx, targetDest = null, targetDelay = delayNode) {
       const dest = targetDest || planetPanners[panIdx % planetPanners.length];
       const freq = midiToFreq(midi);
@@ -1885,11 +1852,11 @@
       osc1.type = mode === "elecGuitar" ? "sawtooth" : "triangle";
       osc2.type = "sine";
       osc1.frequency.setValueAtTime(freq, time);
-      osc2.frequency.setValueAtTime(freq * 2.0, time);
+      osc2.frequency.setValueAtTime(mode === "twelveStr" ? freq * 2.004 : freq * 2.0, time);
 
       bodyFilter.type = "lowpass";
-      bodyFilter.Q.value = mode === "acousGtr" ? 2.4 : 1.4;
-      bodyFilter.frequency.setValueAtTime(mode === "elecGuitar" ? 2600 : 2100, time);
+      bodyFilter.Q.value = (mode === "acousGtr" || mode === "nylonGtr") ? 2.4 : 1.4;
+      bodyFilter.frequency.setValueAtTime(mode === "elecGuitar" ? 2600 : (mode === "nylonGtr" ? 1650 : 2100), time);
       bodyFilter.frequency.exponentialRampToValueAtTime(340, time + 0.45);
 
       gain.gain.setValueAtTime(0.0001, time);
@@ -1906,7 +1873,6 @@
       osc1.stop(time + 0.58); osc2.stop(time + 0.58);
     }
 
-    // Clean Power Chord Down-Strum (Root + 5th + Octave without static clipping)
     function triggerPowerChordStrum(time, rootMidi, vol, isPalmMute = false, panIdx = 0, targetCtx = audioCtx, targetDest = null, targetDelay = delayNode) {
       const dest = targetDest || planetPanners[panIdx % planetPanners.length];
       const cabFilter = targetCtx.createBiquadFilter();
@@ -1935,7 +1901,6 @@
       });
     }
 
-    // Grand Piano / Tine Electric Piano Synthesis
     function triggerGrandPianoNote(time, midi, vol, panIdx = 0, isTine = false, targetCtx = audioCtx, targetDest = null, targetDelay = delayNode) {
       const dest = targetDest || planetPanners[panIdx % planetPanners.length];
       const freq = midiToFreq(midi);
@@ -1986,62 +1951,63 @@
 
       if (t === "powerStrum" || t === "chugStrum") {
         triggerPowerChordStrum(time, midi, effectiveVol, t === "chugStrum", panIdx, targetCtx, targetDest, targetDelay);
-      } else if (t === "acousGtr" || t === "cleanChorus" || t === "elecGuitar") {
+      } else if (["acousGtr", "nylonGtr", "twelveStr", "cleanChorus", "elecGuitar"].includes(t)) {
         triggerGuitarPluckNote(time, midi, effectiveVol, panIdx, t, targetCtx, targetDest, targetDelay);
-      } else if (t === "grandPiano" || t === "tineKeys" || t === "warmKeys") {
-        triggerGrandPianoNote(time, midi, effectiveVol, panIdx, t === "tineKeys", targetCtx, targetDest, targetDelay);
-      } else if (t.startsWith("kick") || t === "taikoDrum") {
+      } else if (["grandPiano", "tineKeys", "warmKeys", "vibraphone"].includes(t)) {
+        triggerGrandPianoNote(time, midi, effectiveVol, panIdx, (t === "tineKeys" || t === "vibraphone"), targetCtx, targetDest, targetDelay);
+      } else if (t.startsWith("kick") || t === "taikoDrum" || t === "tomFloor") {
         const osc = targetCtx.createOscillator(), gain = targetCtx.createGain();
         osc.type = t === "kick808" ? "sine" : "triangle";
-        osc.frequency.setValueAtTime(t === "kick808" ? 128 : 165, time);
-        osc.frequency.exponentialRampToValueAtTime(42, time + 0.15);
+        const startF = t === "tomFloor" ? 115 : (t === "kick808" ? 128 : 165);
+        osc.frequency.setValueAtTime(startF, time);
+        osc.frequency.exponentialRampToValueAtTime(42, time + 0.16);
         gain.gain.setValueAtTime(effectiveVol * 0.85, time);
         gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.34);
         osc.connect(gain); gain.connect(panner);
         osc.start(time); osc.stop(time + 0.36);
-      } else if (t.startsWith("snare") || t === "rim") {
-        const dur = t === "rim" ? 0.09 : 0.19;
+      } else if (t.startsWith("snare") || t === "rim" || t === "woodBlock") {
+        const dur = (t === "rim" || t === "woodBlock") ? 0.08 : 0.19;
         const noise = targetCtx.createBufferSource();
         noise.buffer = noiseBuf;
         const filter = targetCtx.createBiquadFilter();
-        filter.type = t === "rim" ? "bandpass" : "highpass";
-        filter.frequency.value = t === "rim" ? 1600 : 1050;
+        filter.type = (t === "rim" || t === "woodBlock") ? "bandpass" : "highpass";
+        filter.frequency.value = t === "woodBlock" ? 1950 : (t === "rim" ? 1550 : 1050);
         const gain = targetCtx.createGain();
         gain.gain.setValueAtTime(effectiveVol * 0.52, time);
         gain.gain.exponentialRampToValueAtTime(0.0001, time + dur);
         noise.connect(filter); filter.connect(gain); gain.connect(panner);
         if (targetDelay) gain.connect(targetDelay);
         noise.start(time); noise.stop(time + dur + 0.01);
-      } else if (t.startsWith("hat")) {
-        const dur = t === "hatClosed" ? 0.045 : 0.18;
+      } else if (t.startsWith("hat") || t === "rideCym" || t === "shaker") {
+        const dur = t === "hatClosed" ? 0.045 : (t === "shaker" ? 0.07 : (t === "rideCym" ? 0.32 : 0.18));
         const noise = targetCtx.createBufferSource();
         noise.buffer = noiseBuf;
         const filter = targetCtx.createBiquadFilter();
-        filter.type = "highpass";
-        filter.frequency.value = 6800;
+        filter.type = t === "shaker" ? "bandpass" : "highpass";
+        filter.frequency.value = t === "shaker" ? 5200 : 6800;
         const gain = targetCtx.createGain();
         gain.gain.setValueAtTime(effectiveVol * 0.28, time);
         gain.gain.exponentialRampToValueAtTime(0.0001, time + dur);
         noise.connect(filter); filter.connect(gain); gain.connect(panner);
         noise.start(time); noise.stop(time + dur + 0.01);
       } else {
-        // Bowed Cello, Upright Bass, Electric Bass, Marimba, Kalimba, Celesta
+        // Bowed Cello, Violin, Harp, Upright/Electric Bass, Organs, Marimba, Kalimba, Warm Pad
         const freq = midiToFreq(midi);
         const osc1 = targetCtx.createOscillator(), osc2 = targetCtx.createOscillator();
         const filter = targetCtx.createBiquadFilter(), gain = targetCtx.createGain();
 
-        const isBowed = (t === "celloStrings" || t === "rotaryOrgan");
-        osc1.type = isBowed ? "sawtooth" : "triangle";
+        const isSustained = ["celloStrings", "violinSolo", "rotaryOrgan", "pipeOrgan", "warmPad", "clavinet"].includes(t);
+        osc1.type = ["celloStrings", "violinSolo", "clavinet", "pipeOrgan"].includes(t) ? "sawtooth" : "triangle";
         osc2.type = "sine";
         osc1.frequency.setValueAtTime(freq, time);
-        osc2.frequency.setValueAtTime(freq * 2.0, time);
+        osc2.frequency.setValueAtTime(t === "pipeOrgan" ? freq * 0.5 : freq * 2.0, time);
 
         filter.type = "lowpass";
-        filter.frequency.setValueAtTime(t.includes("Bass") ? 950 : 1850, time);
+        filter.frequency.setValueAtTime(t.includes("Bass") ? 950 : (t === "clavinet" ? 3100 : 1850), time);
         filter.frequency.exponentialRampToValueAtTime(280, time + 0.35);
 
-        const attack = isBowed ? 0.055 : 0.008;
-        const decay = isBowed ? 0.58 : 0.38;
+        const attack = (t === "warmPad" || t === "celloStrings" || t === "violinSolo") ? 0.055 : 0.008;
+        const decay = isSustained ? 0.58 : 0.38;
         gain.gain.setValueAtTime(0.0001, time);
         gain.gain.linearRampToValueAtTime(effectiveVol * 0.42, time + attack);
         gain.gain.exponentialRampToValueAtTime(0.0001, time + decay);
@@ -2106,13 +2072,11 @@
       showToast("Bounced 4-Bar .WAV Master!");
     }
 
-    // Continuous Phase Accumulator Scheduler supporting smooth 0..100 Speed Slider
     function schedulerLoop() {
       const sixteenthDuration = (60 / bpm) / 4;
       while (nextTickTime < audioCtx.currentTime + 0.08) {
         const playTime = nextTickTime;
         const anySoloed = planets.some(pl => pl.soloed);
-        const activeChordNotes = [];
 
         planets.forEach(p => {
           const mult = speedScaleToMultiplier(p.speed);
@@ -2130,17 +2094,11 @@
             if (isHit) {
               const targetAngle = (stepIdx / p.steps) * Math.PI * 2 - Math.PI / 2;
               triggerPlanetVoice(p, playTime, stepIdx, Math.cos(targetAngle));
-              p.pendingVisualHit = { time: playTime, stepIdx, angle: targetAngle };
-              if (!p.type.startsWith("kick") && !p.type.startsWith("snare") && !p.type.startsWith("hat")) {
-                activeChordNotes.push(getStepMidiNote(p, stepIdx));
-              }
-            } else {
-              p.pendingVisualStep = { time: playTime, angle: (stepIdx / p.steps) * Math.PI * 2 - Math.PI / 2 };
+              p.pendingVisualHit = { time: playTime, stepIdx };
             }
           }
         });
 
-        if (activeChordNotes.length > 0) updateLiveHarmonyReadout(activeChordNotes);
         nextTickTime += sixteenthDuration;
         globalTick++;
       }
@@ -2156,7 +2114,10 @@
       if (!isPlaying) {
         isPlaying = true;
         globalTick = 0;
-        planets.forEach(p => { p.phaseAccum = p.steps - 0.01; });
+        planets.forEach(p => {
+          p.phaseAccum = p.steps - 0.01;
+          p.visualAngle = -Math.PI / 2;
+        });
         nextTickTime = audioCtx.currentTime + 0.04;
         schedulerTimer = setInterval(schedulerLoop, 20);
         updateBrainwaveCarrier();
@@ -2194,24 +2155,27 @@
     async function toggleHumToOrbit() {
       initAudioEngine();
       if (audioCtx.state === "suspended") await audioCtx.resume();
+      const targetP = getSelectedPlanet();
+
       if (isHumCapturing) {
         isHumCapturing = false;
-        if (openWidgets.vox) renderWidgetContent("vox");
-        const steps = 8;
+        const steps = targetP.steps;
         const pat = humCapturedSteps.slice(0, steps);
         const notes = humCapturedNotes.slice(0, steps);
         const hits = pat.filter(Boolean).length;
-        if (hits === 0) { showToast("No hum detected"); return; }
-
-        const targetIdx = planets.length < 6 ? planets.length : 0;
-        const orbit = createPlanetFromTemplate(targetIdx, { type: "grandPiano", steps, pulses: hits, pattern: pat, stepNotes: notes, volume: 0.68 });
-        orbit.name = `${orbit.baseName} · HUM MELODY`;
-        orbit.springVel = 6.5;
-        if (planets.length < 6) planets.push(orbit);
-        else planets[targetIdx] = orbit;
-        selectPlanet(targetIdx, true);
+        if (hits === 0) {
+          if (openWidgets.vox) renderWidgetContent("vox");
+          showToast("No hum detected");
+          return;
+        }
+        targetP.pattern = pat;
+        targetP.pulses = hits;
+        targetP.stepNotes = notes;
+        targetP.stepMidi.fill(null);
+        targetP.springVel = 6.5;
+        refreshAllOpenWidgets();
         saveStudioState();
-        showToast(`Captured ${hits}-note Hum Melody!`);
+        showToast(`Wrote ${hits}-note Hum Melody to ${targetP.baseName}!`);
         return;
       }
 
@@ -2227,7 +2191,7 @@
         humCapturedSteps = new Array(16).fill(false);
         humCapturedNotes = new Array(16).fill(0);
         if (openWidgets.vox) renderWidgetContent("vox");
-        showToast("Hum 'na-na-na' now!");
+        showToast(`Hum melody for ${targetP.baseName} now!`);
         if (!isPlaying) togglePlay();
 
         const timeData = new Float32Array(analyserNode.fftSize);
@@ -2254,13 +2218,13 @@
       }
     }
 
-    function applyBasicGroove(key) {
-      if (BASIC_GROOVES[key]) {
-        const g = BASIC_GROOVES[key];
+    function applyEchoPreset(key) {
+      if (ECHOS_PRESETS[key]) {
+        const g = ECHOS_PRESETS[key];
         bpm = g.bpm;
         planets = g.tracks.map((tr, idx) => createPlanetFromTemplate(idx, tr));
         selectedPlanetId = 0;
-        showToast(`Loaded: ${g.label}`);
+        showToast(`Echo: ${g.label}`);
       }
       updateTopLabel();
       refreshAllOpenWidgets();
@@ -2273,7 +2237,7 @@
       bpm = motif.bpm;
       if (motif.universe) setUniverse(motif.universe, true);
       planets = motif.tracks.map((tr, idx) => createPlanetFromTemplate(idx, tr));
-      planets.forEach(p => { p.phaseAccum = p.steps - 0.01; p.springVel = 4.5; });
+      planets.forEach(p => { p.phaseAccum = p.steps - 0.01; p.visualAngle = -Math.PI / 2; p.springVel = 4.5; });
       selectedPlanetId = 0;
       updateTopLabel();
       refreshAllOpenWidgets();
@@ -2310,7 +2274,7 @@
 
     function loadStudioState() {
       try {
-        const raw = localStorage.getItem("pluvox_v20_student");
+        const raw = localStorage.getItem("pluvox_v21_studio");
         if (!raw) return;
         const data = JSON.parse(raw);
         if (Array.isArray(data.solarScenes)) data.solarScenes.forEach((s, i) => { solarScenes[i] = s; });
@@ -2351,7 +2315,7 @@
     }
 
     // =========================================================================
-    // 8. CLEAN SINGLE-SYSTEM CANVAS RENDERER (ZERO undefinedNaN + HARMONY HUD)
+    // 8. BUTTER-SMOOTH 60FPS CANVAS RENDERER (NO ANGULAR SNAPPING GLITCHES)
     // =========================================================================
     const canvas = document.getElementById("cosmos");
     const ctx = canvas.getContext("2d", { alpha: false });
@@ -2417,9 +2381,9 @@
       p.springVel += 3.5;
       if (autoOpenInspector) {
         togglePersistentWidget("orbit", true);
-      } else {
-        refreshAllOpenWidgets();
       }
+      // Always update ALL open orbit-sensitive widgets on screen!
+      refreshAllOpenWidgets();
     }
 
     function renderCosmos(now) {
@@ -2471,7 +2435,7 @@
         ctx.globalAlpha = 1;
       }
 
-      // Central Sun
+      // Central Sun (clean, no note text underneath)
       sunVel = (sunVel - sunSpring * 0.11) * 0.88;
       sunSpring += sunVel;
       const sunR = Math.max(16, 24 + sunSpring);
@@ -2484,15 +2448,6 @@
       ctx.beginPath(); ctx.arc(cx, cy, sunR * 0.85, 0, Math.PI * 2);
       ctx.fillStyle = "#ffffff"; ctx.globalAlpha = 0.95; ctx.fill();
       ctx.globalAlpha = 1;
-
-      // Live Music-Theory Harmony Readout beneath the Sun
-      if (isPlaying) {
-        ctx.font = "700 10px monospace";
-        ctx.fillStyle = "rgba(248, 250, 252, 0.72)";
-        ctx.textAlign = "center";
-        ctx.fillText(liveHarmonyLabel, cx, cy + sunR + 22);
-        ctx.textAlign = "left";
-      }
 
       if (masterAnalyser && isPlaying) {
         masterAnalyser.getByteTimeDomainData(waveData);
@@ -2513,16 +2468,12 @@
         if (p.pendingVisualHit && audioNow >= p.pendingVisualHit.time) {
           const hit = p.pendingVisualHit;
           p.pendingVisualHit = null;
-          p.visualAngle = hit.angle;
           p.pulseFlash = 1.0;
           p.nodeFlashes[hit.stepIdx] = 1.0;
           p.springVel += (p.type.startsWith("kick") ? 4.5 : 2.8);
           if (p.type.startsWith("kick")) sunVel += 5.0;
           const pos = getPlanetPosition(p);
           shockwaves.push({ x: pos.x, y: pos.y, r: p.planetRadius, maxR: 68, color: p.color, alpha: 0.78 });
-        } else if (p.pendingVisualStep && audioNow >= p.pendingVisualStep.time) {
-          p.visualAngle = p.pendingVisualStep.angle;
-          p.pendingVisualStep = null;
         }
 
         p.springVel = (p.springVel - p.springOffset * 0.09) * 0.89;
@@ -2530,12 +2481,21 @@
         p.floatPhase += dt * (1.2 + p.id * 0.25);
         p.pulseFlash *= 0.9;
 
+        // Continuous, butter-smooth rotation (no jarring angle jumps)
         const mult = speedScaleToMultiplier(p.speed);
         if (isPlaying && mult > 0) {
           const orbitPeriodSec = (p.steps * sixteenthSec) / mult;
-          p.visualAngle += ((Math.PI * 2) / orbitPeriodSec) * dt;
+          const angularVel = (Math.PI * 2) / orbitPeriodSec;
+          p.visualAngle += angularVel * dt;
+
+          // Gentle phase-lock correction (only nudges smoothly if clock drifts)
+          const targetPhaseAngle = ((p.phaseAccum % p.steps) / p.steps) * Math.PI * 2 - Math.PI / 2;
+          let diff = (targetPhaseAngle - p.visualAngle) % (Math.PI * 2);
+          if (diff > Math.PI) diff -= Math.PI * 2;
+          if (diff < -Math.PI) diff += Math.PI * 2;
+          p.visualAngle += diff * Math.min(1, dt * 8);
         } else if (!isPlaying) {
-          p.visualAngle += 0.07 * dt * (p.id % 2 === 0 ? 1 : -1);
+          p.visualAngle += 0.06 * dt * (p.id % 2 === 0 ? 1 : -1);
         }
 
         const muteDrift = p.muted ? 14 : 0;
@@ -2578,7 +2538,6 @@
             ctx.stroke();
           }
 
-          // Safe Note Labels around selected orbit when Find-the-Note dock is open
           if (active && isSel && isNoteFinderOpen) {
             const labelMidi = getStepMidiNote(p, s);
             ctx.font = "700 9px monospace";
@@ -2658,7 +2617,6 @@
         return;
       }
 
-      // 1. Tap Planet Body -> Auto-Popup Orbit Inspector
       for (const p of planets) {
         const pos = getPlanetPosition(p);
         if (Math.hypot(wPos.x - pos.x, wPos.y - pos.y) <= p.planetRadius + 15) {
@@ -2668,7 +2626,6 @@
         }
       }
 
-      // 2. Tap or Double-Tap Step Node (Double-tap toggles dynamic accent)
       for (const p of planets) {
         const muteDrift = p.muted ? 14 : 0;
         const orbitR = getOrbitRadius(p.id) + p.springOffset + muteDrift + Math.sin(p.floatPhase) * 2.0;
@@ -2700,7 +2657,6 @@
         }
       }
 
-      // 3. Tap Orbit Ring Line -> Easy Orbit Selection
       const dist = Math.hypot(wPos.x - cx, wPos.y - cy);
       for (const p of planets) {
         const muteDrift = p.muted ? 14 : 0;
@@ -2711,7 +2667,6 @@
         }
       }
 
-      // 4. Long-Press Open Space -> GTA Radial Weapon Wheel
       holdRing.style.left = `${sx}px`;
       holdRing.style.top = `${sy}px`;
       holdRing.classList.add("charging");
