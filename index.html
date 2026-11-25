@@ -838,16 +838,16 @@
       glacier: { label: "GLACIER", bgTrail: "rgba(4, 15, 24, 0.42)",  sunCore: "#bae6fd", streakColor: "186, 230, 253", particleMode: "lantern",  rainFreq: 1350, filterDefault: 8200 }
     };
 
-    // ECHO'S Presets (Clean, rich rhythmic & harmonic templates)
+    // ECHO'S Presets (Space-themed acoustic & band arrangements)
     const ECHOS_PRESETS = {
-      basic44:   { label: "BASIC 4/4",     bpm: 90,  tracks: [{ type: "kickAcoust", steps: 4, pulses: 2, speed: 50, pattern: [true, false, true, false] }, { type: "snareRock", steps: 4, pulses: 1, speed: 50, pattern: [false, false, true, false] }, { type: "hatClosed", steps: 8, pulses: 4, speed: 50, pattern: [false, true, false, true, false, true, false, true] }] },
-      oneOrbit:  { label: "SINGLE PULSE",  bpm: 88,  tracks: [{ type: "kickAcoust", steps: 4, pulses: 2, speed: 50, pattern: [true, false, true, false] }] },
-      folkPop:   { label: "ACOUSTIC POP",  bpm: 96,  tracks: [{ type: "kickAcoust", steps: 4, pulses: 2, speed: 50 }, { type: "snareRock", steps: 4, pulses: 1, speed: 50, pattern: [false, false, true, false] }, { type: "pickedBass", steps: 8, pulses: 4, speed: 50 }, { type: "acousGtr", steps: 8, pulses: 5, speed: 50 }] },
-      jazzTrio:  { label: "JAZZ TRIO",     bpm: 86,  tracks: [{ type: "uprightBass", steps: 4, pulses: 4, speed: 50 }, { type: "snareBrush", steps: 4, pulses: 2, speed: 50, pattern: [false, true, false, true] }, { type: "grandPiano", steps: 8, pulses: 4, speed: 50 }] },
-      indieRock: { label: "INDIE ROCK",    bpm: 108, tracks: [{ type: "kickAcoust", steps: 4, pulses: 2, speed: 50 }, { type: "snareRock", steps: 4, pulses: 2, speed: 50, pattern: [false, true, false, true] }, { type: "pickedBass", steps: 8, pulses: 6, speed: 50 }, { type: "cleanChorus", steps: 8, pulses: 5, speed: 50 }] },
-      waltz34:   { label: "3/4 WALTZ",     bpm: 84,  tracks: [{ type: "kickAcoust", steps: 3, pulses: 1, speed: 50, pattern: [true, false, false] }, { type: "rim", steps: 3, pulses: 2, speed: 50, pattern: [false, true, true] }, { type: "celloStrings", steps: 6, pulses: 3, speed: 50 }, { type: "grandPiano", steps: 6, pulses: 4, speed: 50 }] },
-      clave32:   { label: "AFRO 3:2 CLAVE",bpm: 102, tracks: [{ type: "taikoDrum", steps: 4, pulses: 2, speed: 50 }, { type: "rim", steps: 8, pulses: 5, speed: 50, pattern: [true, false, false, true, false, false, true, false] }, { type: "marimba", steps: 8, pulses: 4, speed: 50 }] },
-      lofiChill: { label: "LO-FI CHILL",   bpm: 78,  tracks: [{ type: "kick808", steps: 8, pulses: 2, speed: 50, pattern: [true, false, false, false, false, true, false, false] }, { type: "snareBrush", steps: 4, pulses: 1, speed: 50, pattern: [false, false, true, false] }, { type: "warmKeys", steps: 8, pulses: 4, speed: 50 }, { type: "nylonGtr", steps: 8, pulses: 3, speed: 50 }] }
+      orbital44:     { label: "ORBITAL 4/4",     bpm: 90,  tracks: [{ type: "kickAcoust", steps: 4, pulses: 2, speed: 50, pattern: [true, false, true, false] }, { type: "snareRock", steps: 4, pulses: 1, speed: 50, pattern: [false, false, true, false] }, { type: "hatClosed", steps: 8, pulses: 4, speed: 50, pattern: [false, true, false, true, false, true, false, true] }] },
+      singlePulse:   { label: "SINGLE PULSE",    bpm: 88,  tracks: [{ type: "kickAcoust", steps: 4, pulses: 2, speed: 50, pattern: [true, false, true, false] }] },
+      solarFolk:     { label: "SOLAR FOLK",      bpm: 96,  tracks: [{ type: "kickAcoust", steps: 4, pulses: 2, speed: 50 }, { type: "snareRock", steps: 4, pulses: 1, speed: 50, pattern: [false, false, true, false] }, { type: "pickedBass", steps: 8, pulses: 4, speed: 50 }, { type: "acousGtr", steps: 8, pulses: 5, speed: 50 }] },
+      nebulaJazz:    { label: "NEBULA JAZZ",     bpm: 86,  tracks: [{ type: "uprightBass", steps: 4, pulses: 4, speed: 50 }, { type: "snareBrush", steps: 4, pulses: 2, speed: 50, pattern: [false, true, false, true] }, { type: "grandPiano", steps: 8, pulses: 4, speed: 50 }] },
+      supernovaRock: { label: "SUPERNOVA ROCK",  bpm: 108, tracks: [{ type: "kickAcoust", steps: 4, pulses: 2, speed: 50 }, { type: "snareRock", steps: 4, pulses: 2, speed: 50, pattern: [false, true, false, true] }, { type: "pickedBass", steps: 8, pulses: 6, speed: 50 }, { type: "cleanChorus", steps: 8, pulses: 5, speed: 50 }] },
+      eclipseWaltz:  { label: "ECLIPSE 3/4",     bpm: 84,  tracks: [{ type: "kickAcoust", steps: 3, pulses: 1, speed: 50, pattern: [true, false, false] }, { type: "rim", steps: 3, pulses: 2, speed: 50, pattern: [false, true, true] }, { type: "celloStrings", steps: 6, pulses: 3, speed: 50 }, { type: "grandPiano", steps: 6, pulses: 4, speed: 50 }] },
+      binaryClave:   { label: "BINARY CLAVE",    bpm: 102, tracks: [{ type: "taikoDrum", steps: 4, pulses: 2, speed: 50 }, { type: "rim", steps: 8, pulses: 5, speed: 50, pattern: [true, false, false, true, false, false, true, false] }, { type: "marimba", steps: 8, pulses: 4, speed: 50 }] },
+      starlightLofi: { label: "STARLIGHT LO-FI", bpm: 78,  tracks: [{ type: "kick808", steps: 8, pulses: 2, speed: 50, pattern: [true, false, false, false, false, true, false, false] }, { type: "snareBrush", steps: 4, pulses: 1, speed: 50, pattern: [false, false, true, false] }, { type: "warmKeys", steps: 8, pulses: 4, speed: 50 }, { type: "nylonGtr", steps: 8, pulses: 3, speed: 50 }] }
     };
 
     const MOTIF_TABLE = [
@@ -950,13 +950,14 @@
       { id: "warmPad",      label: "WARM PAD",      cat: "keys",    band: "mid" }
     ];
 
+    // Space-themed Orbit Ring Identities
     const PLANET_TEMPLATES = [
-      { baseName: "KICK",    type: "kickAcoust",  color: "#f59e0b", radius: 15, steps: 4, pulses: 2, speed: 50, pitch: 0, vol: 0.78 },
-      { baseName: "SNARE",   type: "snareRock",   color: "#fb7185", radius: 13, steps: 4, pulses: 1, speed: 50, pitch: 0, vol: 0.68 },
-      { baseName: "BASS",    type: "pickedBass",  color: "#34d399", radius: 13, steps: 8, pulses: 4, speed: 50, pitch: 0, vol: 0.70 },
-      { baseName: "GUITAR",  type: "acousGtr",    color: "#38bdf8", radius: 14, steps: 8, pulses: 5, speed: 50, pitch: 2, vol: 0.64 },
-      { baseName: "PIANO",   type: "grandPiano",  color: "#c084fc", radius: 12, steps: 8, pulses: 4, speed: 50, pitch: 4, vol: 0.62 },
-      { baseName: "LEAD",    type: "cleanChorus", color: "#fbbf24", radius: 11, steps: 8, pulses: 3, speed: 50, pitch: 5, vol: 0.58 }
+      { baseName: "CORE",    type: "kickAcoust",  color: "#f59e0b", radius: 15, steps: 4, pulses: 2, speed: 50, pitch: 0, vol: 0.78 },
+      { baseName: "FLARE",   type: "snareRock",   color: "#fb7185", radius: 13, steps: 4, pulses: 1, speed: 50, pitch: 0, vol: 0.68 },
+      { baseName: "TIDE",    type: "pickedBass",  color: "#34d399", radius: 13, steps: 8, pulses: 4, speed: 50, pitch: 0, vol: 0.70 },
+      { baseName: "STRINGS", type: "acousGtr",    color: "#38bdf8", radius: 14, steps: 8, pulses: 5, speed: 50, pitch: 2, vol: 0.64 },
+      { baseName: "PRISM",   type: "grandPiano",  color: "#c084fc", radius: 12, steps: 8, pulses: 4, speed: 50, pitch: 4, vol: 0.62 },
+      { baseName: "COMET",   type: "cleanChorus", color: "#fbbf24", radius: 11, steps: 8, pulses: 3, speed: 50, pitch: 5, vol: 0.58 }
     ];
 
     const NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
@@ -1103,7 +1104,7 @@
       clearTimeout(saveDebounceTimer);
       saveDebounceTimer = setTimeout(() => {
         try {
-          localStorage.setItem("pluvox_v21_studio", JSON.stringify({
+          localStorage.setItem("pluvox_v22_cosmic", JSON.stringify({
             activeSceneIdx, solarScenes, current: captureCurrentSnapshot()
           }));
         } catch (_) {}
@@ -1247,16 +1248,16 @@
     }
 
     // =========================================================================
-    // 5. GTA-STYLE SEGMENTED WEDGE WEAPON WHEEL (CELESTIAL REMOVED)
+    // 5. GTA-STYLE SEGMENTED WEDGE WEAPON WHEEL (SPACE-THEMED LABELS)
     // =========================================================================
     const WEDGE_DEFS = [
-      { id: "vox",      label: "VOX",      svgPath: `<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/>` },
-      { id: "rack",     label: "RACK",     svgPath: `<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/>` },
-      { id: "keys",     label: "KEYS",     svgPath: `<rect x="2" y="5" width="20" height="14" rx="2"/><line x1="7" y1="5" x2="7" y2="19"/><line x1="12" y1="5" x2="12" y2="19"/><line x1="17" y1="5" x2="17" y2="19"/>` },
+      { id: "vox",      label: "SIGNAL",   svgPath: `<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/>` },
+      { id: "rack",     label: "FORGE",    svgPath: `<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/>` },
+      { id: "keys",     label: "FRETS",    svgPath: `<rect x="2" y="5" width="20" height="14" rx="2"/><line x1="7" y1="5" x2="7" y2="19"/><line x1="12" y1="5" x2="12" y2="19"/><line x1="17" y1="5" x2="17" y2="19"/>` },
       { id: "orbit",    label: "ORBIT",    svgPath: `<circle cx="12" cy="12" r="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-25 12 12)"/>` },
       { id: "universe", label: "UNIVERSE", svgPath: `<circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8"/><path d="M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>` },
-      { id: "decks",    label: "DECKS",    svgPath: `<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>` },
-      { id: "mix",      label: "MIX",      svgPath: `<line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>` }
+      { id: "decks",    label: "STATIONS", svgPath: `<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>` },
+      { id: "mix",      label: "CONSOLE",  svgPath: `<line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>` }
     ];
 
     const wheelBackdrop = document.getElementById("wheelBackdrop");
@@ -1378,7 +1379,6 @@
       handleEl.addEventListener("pointerup", () => { dragging = false; });
     }
 
-    // Re-renders EVERY open widget so selecting another orbit updates all active panels
     function refreshAllOpenWidgets() {
       Object.keys(openWidgets).forEach(id => renderWidgetContent(id));
       if (isNoteFinderOpen) renderNoteFinder();
@@ -1516,7 +1516,7 @@
         const list = activePadCat === "all" ? VOICE_ENGINES : VOICE_ENGINES.filter(v => v.cat === activePadCat);
         el.innerHTML = `
           <div class="widget-drag-bar" style="color:${p.color};">
-            <span>INSTRUMENTS → ${p.baseName}</span>
+            <span>FORGE → ${p.baseName}</span>
             <button class="widget-close-btn">×</button>
           </div>
           <div class="widget-body">
@@ -1549,13 +1549,13 @@
         const p = getSelectedPlanet();
         el.innerHTML = `
           <div class="widget-drag-bar" style="color:${p.color};">
-            <span>VOX → ${p.baseName}</span>
+            <span>SIGNAL → ${p.baseName}</span>
             <button class="widget-close-btn">×</button>
           </div>
           <div class="widget-body">
             ${renderOrbitTabsHtml()}
             <button class="w-btn ${isHumCapturing ? "warn" : ""}" id="wHumBtn" style="width:100%; margin-bottom:0.45rem;">
-              ${isHumCapturing ? "STOP & WRITE TO " + p.baseName : "HUM MELODY → " + p.baseName}
+              ${isHumCapturing ? "STOP & WRITE TO " + p.baseName : "CAPTURE SIGNAL → " + p.baseName}
             </button>
             <div style="font-family:var(--mono); font-size:0.56rem; color:var(--dim); line-height:1.4;">
               Hum a rhythm or melody into your mic to capture it directly onto the active orbit.
@@ -1611,7 +1611,7 @@
                 `<button class="w-btn ${activeUniverseKey === k ? "active" : ""}" data-uni="${k}">${u.label}</button>`
               ).join("")}
             </div>
-            <div class="section-tag">ECHO'S (RHYTHM & BAND PRESETS)</div>
+            <div class="section-tag">ECHO'S (COSMIC BAND PRESETS)</div>
             <div class="w-grid-2">
               ${Object.entries(ECHOS_PRESETS).map(([k, g]) =>
                 `<button class="w-btn" data-echo="${k}">${g.label}</button>`
@@ -1624,7 +1624,7 @@
       } else if (id === "decks") {
         el.innerHTML = `
           <div class="widget-drag-bar">
-            <span>SONG DECKS & EXPORT</span>
+            <span>STATIONS & EXPORT</span>
             <button class="widget-close-btn">×</button>
           </div>
           <div class="widget-body">
@@ -1632,23 +1632,23 @@
               ${solarScenes.map((sc, i) => `
                 <div style="display:flex; gap:2px;">
                   <button class="w-btn ${i === activeSceneIdx ? "active" : ""}" style="flex:1;" data-sc="${i}">
-                    ${sc ? sc.label : `DECK 0${i + 1}`}
+                    ${sc ? sc.label : `STN 0${i + 1}`}
                   </button>
                   ${sc ? `<button class="w-btn" style="padding:0.25rem;" data-del="${i}">×</button>` : ""}
                 </div>
               `).join("")}
             </div>
-            <div class="section-tag">CLEAN STUDIO EXPORT</div>
+            <div class="section-tag">STUDIO TELEMETRY EXPORT</div>
             <div class="w-grid-3">
               <button class="w-btn" id="sFastWav">BOUNCE .WAV</button>
               <button class="w-btn" id="sMidi">EXPORT .MID</button>
-              <button class="w-btn" id="sReset">RESET 1-ORB</button>
+              <button class="w-btn" id="sReset">RESET CORE</button>
             </div>
           </div>
         `;
         el.querySelectorAll("[data-sc]").forEach(b => b.onclick = () => {
           const i = Number(b.dataset.sc);
-          if (!solarScenes[i]) { solarScenes[i] = captureCurrentSnapshot(`DECK 0${i + 1}`); activeSceneIdx = i; }
+          if (!solarScenes[i]) { solarScenes[i] = captureCurrentSnapshot(`STN 0${i + 1}`); activeSceneIdx = i; }
           else { activeSceneIdx = i; applySnapshot(solarScenes[i]); }
           renderWidgetContent("decks");
           saveStudioState();
@@ -1658,19 +1658,19 @@
         });
         el.querySelector("#sFastWav").onclick = () => bounceOfflineWavMaster();
         el.querySelector("#sMidi").onclick = () => exportMultiTrackMidi();
-        el.querySelector("#sReset").onclick = () => applyEchoPreset("oneOrbit");
+        el.querySelector("#sReset").onclick = () => applyEchoPreset("singlePulse");
       } else if (id === "mix") {
         el.innerHTML = `
           <div class="widget-drag-bar">
-            <span>MASTER TONE & FOCUS</span>
+            <span>MASTER CONSOLE</span>
             <button class="widget-close-btn">×</button>
           </div>
           <div class="widget-body">
-            <div class="w-row"><span>TEMPO</span><input type="range" id="mBpm" min="55" max="150" value="${bpm}" /><span class="w-val" id="mBpmV">${bpm}</span></div>
-            <div class="w-row"><span>BRIGHTNESS</span><input type="range" id="mTone" min="800" max="12000" value="${filterCutoff}" /><span class="w-val" id="mToneV">${(filterCutoff / 1000).toFixed(1)}k</span></div>
-            <div class="w-row"><span>AMBIENCE</span><input type="range" id="mRain" min="0" max="100" value="${rainLevel}" /><span class="w-val" id="mRainV">${rainLevel}%</span></div>
+            <div class="w-row"><span>VELOCITY</span><input type="range" id="mBpm" min="55" max="150" value="${bpm}" /><span class="w-val" id="mBpmV">${bpm}</span></div>
+            <div class="w-row"><span>PRISM CUTOFF</span><input type="range" id="mTone" min="800" max="12000" value="${filterCutoff}" /><span class="w-val" id="mToneV">${(filterCutoff / 1000).toFixed(1)}k</span></div>
+            <div class="w-row"><span>SOLAR WIND</span><input type="range" id="mRain" min="0" max="100" value="${rainLevel}" /><span class="w-val" id="mRainV">${rainLevel}%</span></div>
             <div class="w-row">
-              <span>SCALE</span>
+              <span>CONSTELLATION</span>
               <select class="w-select" id="mScale">
                 <option value="minorPentatonic" ${scaleKey === "minorPentatonic" ? "selected" : ""}>Minor Pentatonic</option>
                 <option value="majorScale" ${scaleKey === "majorScale" ? "selected" : ""}>Major Scale</option>
@@ -1680,15 +1680,15 @@
               </select>
             </div>
             <div class="w-row">
-              <span>FOCUS</span>
+              <span>SPECTRUM</span>
               <select class="w-select" id="mFocus">
                 <option value="0" ${focusHz === 0 ? "selected" : ""}>Off</option>
-                <option value="14" ${focusHz === 14 ? "selected" : ""}>14.0 Hz ADHD / SMR</option>
-                <option value="18" ${focusHz === 18 ? "selected" : ""}>18.0 Hz Active Focus (Beta)</option>
-                <option value="10" ${focusHz === 10 ? "selected" : ""}>10.0 Hz Calm Flow (Alpha)</option>
-                <option value="40" ${focusHz === 40 ? "selected" : ""}>40.0 Hz Peak Clarity (Gamma)</option>
-                <option value="6" ${focusHz === 6 ? "selected" : ""}>6.0 Hz Deep Ideation (Theta)</option>
-                <option value="2.5" ${focusHz === 2.5 ? "selected" : ""}>2.5 Hz Restorative (Delta)</option>
+                <option value="14" ${focusHz === 14 ? "selected" : ""}>Ultraviolet (14.0 Hz)</option>
+                <option value="18" ${focusHz === 18 ? "selected" : ""}>Gamma Ray (18.0 Hz)</option>
+                <option value="40" ${focusHz === 40 ? "selected" : ""}>X-Ray Pulse (40.0 Hz)</option>
+                <option value="10" ${focusHz === 10 ? "selected" : ""}>Cyan Solar (10.0 Hz)</option>
+                <option value="6" ${focusHz === 6 ? "selected" : ""}>Amber Nebula (6.0 Hz)</option>
+                <option value="2.5" ${focusHz === 2.5 ? "selected" : ""}>Infrared Void (2.5 Hz)</option>
               </select>
             </div>
           </div>
@@ -1991,7 +1991,6 @@
         noise.connect(filter); filter.connect(gain); gain.connect(panner);
         noise.start(time); noise.stop(time + dur + 0.01);
       } else {
-        // Bowed Cello, Violin, Harp, Upright/Electric Bass, Organs, Marimba, Kalimba, Warm Pad
         const freq = midiToFreq(midi);
         const osc1 = targetCtx.createOscillator(), osc2 = targetCtx.createOscillator();
         const filter = targetCtx.createBiquadFilter(), gain = targetCtx.createGain();
@@ -2165,7 +2164,7 @@
         const hits = pat.filter(Boolean).length;
         if (hits === 0) {
           if (openWidgets.vox) renderWidgetContent("vox");
-          showToast("No hum detected");
+          showToast("No signal detected");
           return;
         }
         targetP.pattern = pat;
@@ -2175,7 +2174,7 @@
         targetP.springVel = 6.5;
         refreshAllOpenWidgets();
         saveStudioState();
-        showToast(`Wrote ${hits}-note Hum Melody to ${targetP.baseName}!`);
+        showToast(`Captured ${hits}-note signal to ${targetP.baseName}!`);
         return;
       }
 
@@ -2248,7 +2247,7 @@
 
     function captureCurrentSnapshot(label = "") {
       return {
-        label: label || `DECK 0${activeSceneIdx + 1}`,
+        label: label || `STN 0${activeSceneIdx + 1}`,
         universe: activeUniverseKey,
         bpm, focusHz, scale: scaleKey,
         planets: planets.map(p => ({
@@ -2274,7 +2273,7 @@
 
     function loadStudioState() {
       try {
-        const raw = localStorage.getItem("pluvox_v21_studio");
+        const raw = localStorage.getItem("pluvox_v22_cosmic");
         if (!raw) return;
         const data = JSON.parse(raw);
         if (Array.isArray(data.solarScenes)) data.solarScenes.forEach((s, i) => { solarScenes[i] = s; });
@@ -2315,7 +2314,7 @@
     }
 
     // =========================================================================
-    // 8. BUTTER-SMOOTH 60FPS CANVAS RENDERER (NO ANGULAR SNAPPING GLITCHES)
+    // 8. BUTTER-SMOOTH 60FPS CANVAS RENDERER
     // =========================================================================
     const canvas = document.getElementById("cosmos");
     const ctx = canvas.getContext("2d", { alpha: false });
@@ -2382,7 +2381,6 @@
       if (autoOpenInspector) {
         togglePersistentWidget("orbit", true);
       }
-      // Always update ALL open orbit-sensitive widgets on screen!
       refreshAllOpenWidgets();
     }
 
@@ -2435,7 +2433,6 @@
         ctx.globalAlpha = 1;
       }
 
-      // Central Sun (clean, no note text underneath)
       sunVel = (sunVel - sunSpring * 0.11) * 0.88;
       sunSpring += sunVel;
       const sunR = Math.max(16, 24 + sunSpring);
@@ -2481,14 +2478,12 @@
         p.floatPhase += dt * (1.2 + p.id * 0.25);
         p.pulseFlash *= 0.9;
 
-        // Continuous, butter-smooth rotation (no jarring angle jumps)
         const mult = speedScaleToMultiplier(p.speed);
         if (isPlaying && mult > 0) {
           const orbitPeriodSec = (p.steps * sixteenthSec) / mult;
           const angularVel = (Math.PI * 2) / orbitPeriodSec;
           p.visualAngle += angularVel * dt;
 
-          // Gentle phase-lock correction (only nudges smoothly if clock drifts)
           const targetPhaseAngle = ((p.phaseAccum % p.steps) / p.steps) * Math.PI * 2 - Math.PI / 2;
           let diff = (targetPhaseAngle - p.visualAngle) % (Math.PI * 2);
           if (diff > Math.PI) diff -= Math.PI * 2;
@@ -2764,7 +2759,7 @@
     });
 
     // Boot
-    solarScenes[0] = captureCurrentSnapshot("DECK 01");
+    solarScenes[0] = captureCurrentSnapshot("STN 01");
     loadStudioState();
     updateTopLabel();
     requestAnimationFrame(renderCosmos);
