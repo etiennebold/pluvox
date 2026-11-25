@@ -10,7 +10,7 @@
   <link id="appleTouchIcon" rel="apple-touch-icon" />
   <link id="faviconIcon" rel="icon" type="image/png" />
   <link id="pwaManifest" rel="manifest" />
-  <title>PLUVOX — Dual-Universe Orbital Groovebox & Note Studio</title>
+  <title>PLUVOX — Dual-Universe Orbital Groovebox & 100-Motif Jukebox</title>
   <style>
     :root {
       --void: #03050a;
@@ -266,8 +266,8 @@
     /* PERSISTENT, DRAGGABLE, 80% TRANSPARENT LAYERABLE WIDGETS */
     .studio-widget {
       position: fixed;
-      width: 312px;
-      max-width: 90vw;
+      width: 320px;
+      max-width: 92vw;
       background: var(--widget-bg);
       backdrop-filter: blur(12px);
       -webkit-backdrop-filter: blur(12px);
@@ -312,7 +312,7 @@
 
     .widget-body {
       padding: 0.65rem;
-      max-height: 60vh;
+      max-height: 62vh;
       overflow-y: auto;
     }
 
@@ -387,11 +387,52 @@
       color: var(--text);
       cursor: pointer;
       text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
     }
 
     .w-btn:hover { border-color: var(--cyan); background: rgba(56, 189, 248, 0.18); }
     .w-btn.active { border-color: var(--emerald); background: rgba(16, 185, 129, 0.28); color: #a7f3d0; }
     .w-btn.warn { border-color: var(--rose); background: rgba(244, 63, 94, 0.28); color: #ffe4e6; animation: pulseW 1s infinite; }
+
+    /* SEARCHABLE 100-MOTIF JUKEBOX LIST */
+    .jukebox-scroll {
+      max-height: 175px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 0.55rem;
+      padding-right: 2px;
+    }
+
+    .motif-row-btn {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      border-radius: 8px;
+      padding: 0.34rem 0.52rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--mono);
+      font-size: 0.54rem;
+      color: var(--text);
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .motif-row-btn:hover {
+      border-color: var(--violet);
+      background: rgba(192, 132, 252, 0.18);
+    }
+
+    .motif-cat-tag {
+      font-size: 0.46rem;
+      color: var(--cyan);
+      opacity: 0.85;
+      margin-left: 6px;
+    }
 
     @keyframes pulseW { 0%,100% { opacity: 1; } 50% { opacity: 0.65; } }
 
@@ -613,7 +654,7 @@
     </div>
 
     <div class="top-cluster">
-      <button id="btnTopCelestial" class="hud-pill muse-pill" title="Open Celestial AI Co-Pilot, Mashups & Song Decks">
+      <button id="btnTopCelestial" class="hud-pill muse-pill" title="Open Celestial 100-Theme Jukebox & Mashups">
         <svg viewBox="0 0 24 24"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg>
         <span>CELESTIAL</span>
       </button>
@@ -742,7 +783,7 @@
     })();
 
     // =========================================================================
-    // 2. 12 UNIVERSES, BASIC GROOVES, VOICES & POP-CULTURE MASHUPS
+    // 2. 12 UNIVERSES, BASIC GROOVES & 100-THEME POP-CULTURE MOTIF COMPILER
     // =========================================================================
     const SCALES = {
       minorPentatonic: [0, 3, 5, 7, 10, 12, 15, 17, 19, 22, 24],
@@ -786,91 +827,147 @@
       waltz34:   { label: "WALTZ 3/4",  bpm: 82,  tracks: [{ type: "kick808", steps: 3, pulses: 1, speedMult: 1, pattern: [true, false, false] }, { type: "rim", steps: 3, pulses: 2, speedMult: 1, pattern: [false, true, true] }, { type: "grandPiano", steps: 6, pulses: 4, speedMult: 1 }] }
     };
 
-    const ICONIC_TUNES = {
-      stranger: {
-        label: "80S UPSIDE-DOWN",
-        keywords: ["stranger", "80s", "upside", "hawkins", "synth"],
-        bpm: 84, universe: "eclipse", scale: "minorPentatonic", chords: "none",
+    // Compact 100-Theme Pop-Culture Motif Library:
+    // [title, category, searchKeywords, bpm, universe, leadVoice, bassVoice, midiSequence, stepMask, speedMult]
+    const MOTIF_TABLE = [
+      // 1-20: Sci-Fi TV & Synth Arpeggios
+      ["80s Upside-Down Arp",   "TV",    "stranger things 80s hawkins synth",     84,  "eclipse", "fmPluck",    "acidBass",   [48,52,55,59,60,59,55,52], [1,1,1,1,1,1,1,1], 2],
+      ["Paranormal Whistle",    "TV",    "x-files scully mulder whistle alien",   92,  "abyss",   "leadSynth",  "atmosPad",   [57,64,62,64,67,64],       [1,1,1,1,1,1],     1],
+      ["Time-Lord Gallop",      "TV",    "doctor who tardis gallop triplet",      124, "cosmos",  "leadSynth",  "acidBass",   [40,40,40,43,40,40,40,45], [1,1,1,1,1,1,1,1], 2],
+      ["Turbo Cruiser 80s",     "TV",    "knight rider kitt hasselhoff 80s",      116, "neon",    "brassLead",  "acidBass",   [42,43,42,47,42,43,42,49], [1,1,1,1,1,1,1,1], 2],
+      ["Pastel Sunset Theme",   "TV",    "miami vice crockett 80s sunset",        104, "sahara",  "tineKeys",   "pickedBass", [60,62,64,67,64,62,60,55], [1,0,1,1,1,0,1,0], 1],
+      ["Supersonic Chopper",    "TV",    "airwolf helicopter 80s synth",          128, "neon",    "fmPluck",    "acidBass",   [48,55,60,63,60,55,48,55], [1,1,1,1,1,1,1,1], 2],
+      ["Mechanical Waltz",      "TV",    "westworld piano waltz robot",           94,  "dune",    "grandPiano", "uprightBass",[60,63,67,60,63,68],       [1,1,1,1,1,1],     1],
+      ["Iron Throne Cello",     "TV",    "game of thrones got winter westeros",   85,  "eclipse", "tapeStrings","taikoDrum",  [55,48,51,53,55,48],       [1,1,1,1,1,1],     1],
+      ["Dynasty Hip-Hop",       "TV",    "succession roy classical piano",        86,  "lounge",  "grandPiano", "kick808",    [60,63,67,68,67,63,60,58], [1,1,1,1,1,1,1,1], 1],
+      ["Severed Floor",         "TV",    "severance lumon minimalist piano",      90,  "glacier", "grandPiano", "acidBass",   [60,67,63,62,60,55],       [1,0,1,1,1,0],     1],
+      ["Bounty Flute",          "TV",    "mandalorian star wars grogu flute",     96,  "dune",    "brassLead",  "taikoDrum",  [50,53,57,62,60,57],       [1,0,1,1,1,0],     1],
+      ["Red Light Recorder",    "TV",    "squid game way back then recorder",     112, "eclipse", "kalimba",    "kick808",    [59,64,64,64,62,64,67,64], [1,1,1,1,1,1,1,1], 1],
+      ["Red Room Dream",        "TV",    "twin peaks laura palmer lynch",         74,  "kyoto",   "warmKeys",   "pickedBass", [41,48,53,55,57,55,53,48], [1,1,1,1,1,1,1,1], 0.5],
+      ["Fsociety Modular",      "TV",    "mr robot elliot modular synth",         108, "matrix",  "fmPluck",    "acidBass",   [48,51,55,48,51,56,55,51], [1,1,1,1,1,1,1,1], 2],
+      ["Time Loop Wind",        "TV",    "dark netflix winden goodbye",           72,  "abyss",   "acousGtr",   "atmosPad",   [52,55,59,60,59,55],       [1,0,1,1,0,1],     1],
+      ["Night City Romance",    "TV",    "cyberpunk edgerunners stay at your house",125,"neon",    "leadSynth",  "acidBass",   [63,67,70,68,67,63,60,63], [1,1,1,1,1,1,1,1], 1],
+      ["Portal Gun Theremin",   "TV",    "rick and morty sci fi theremin",        122, "cosmos",  "leadSynth",  "fmPluck",    [50,53,57,58,57,53,50,45], [1,1,1,1,1,1,1,1], 1],
+      ["Springfield Lydian",    "TV",    "simpsons danny elfman marimba",         132, "cosmos",  "marimba",    "brassLead",  [60,64,66,69,67,64,60,57], [1,1,1,1,1,1,1,1], 1],
+      ["Trenchcoat Spy",        "TV",    "inspector gadget cartoon spy",          115, "lounge",  "brassLead",  "uprightBass",[48,50,51,53,55,51,53,48], [1,1,1,1,1,1,1,1], 1],
+      ["Impossible 5/4",        "TV",    "mission impossible 5/4 spy tom cruise", 136, "studio",  "brassLead",  "pickedBass", [43,43,46,48,43],          [1,1,1,1,1],       1],
+
+      // 21-40: Legendary Film Scores
+      ["Space Clockwork",       "FILM",  "interstellar hans zimmer cornfield",    78,  "cosmos",  "grandPiano", "tapeStrings",[57,64,57,64,59,64],       [1,1,1,1,1,1],     1],
+      ["Tears in Rain Brass",   "FILM",  "blade runner vangelis 2049 synth",      76,  "neon",    "brassLead",  "atmosPad",   [48,55,60,62,63,62,60,55], [1,0,1,1,1,0,1,0], 0.5],
+      ["Cyborg Anvil 5-Beat",   "FILM",  "terminator arnold judgment day",        94,  "eclipse", "brassLead",  "taikoDrum",  [52,55,57,55,52],          [1,1,1,1,1],       1],
+      ["Haddonfield 5/4",       "FILM",  "halloween michael myers horror 5/4",    134, "eclipse", "grandPiano", "acidBass",   [61,54,54,61,54],          [1,1,1,1,1],       2],
+      ["Grid Derezzed",         "FILM",  "tron legacy daft punk derezzed",        126, "neon",    "acidBass",   "kickAcoust", [48,60,55,58,48,60,53,55], [1,1,1,1,1,1,1,1], 2],
+      ["Midnight Kavinsky",     "FILM",  "drive nightcall kavinsky gosling",      92,  "neon",    "fmPluck",    "acidBass",   [45,45,57,45,48,48,60,48], [1,1,1,1,1,1,1,1], 1],
+      ["Dream Layer Build",     "FILM",  "inception time hans zimmer",            72,  "glacier", "tapeStrings","grandPiano", [45,52,55,50,45,52,55,50], [1,1,1,1,1,1,1,1], 0.5],
+      ["Zion Breakbeat",        "FILM",  "matrix clubbed to death neo",           118, "matrix",  "tapeStrings","kickAcoust", [55,58,62,63,62,58,55,50], [1,1,1,1,1,1,1,1], 1],
+      ["Detroit Synth Lead",    "FILM",  "beverly hills cop axel f eddie murphy", 118, "neon",    "brassLead",  "acidBass",   [53,56,53,53,58,53,51,53], [1,1,1,1,1,1,1,1], 1],
+      ["Ecto Funk Riff",        "FILM",  "ghostbusters ray parker funk",          115, "neon",    "brassLead",  "pickedBass", [47,47,51,47,49,45,47,47], [1,1,1,1,1,1,0,0], 1],
+      ["Olympic Synth",         "FILM",  "chariots of fire vangelis slow",        84,  "aurora",  "brassLead",  "fmPluck",    [48,53,55,57,55,52,48,53], [1,1,1,1,1,0,1,0], 1],
+      ["Imperial March",        "FILM",  "star wars darth vader march",           102, "eclipse", "brassLead",  "taikoDrum",  [55,55,55,51,58,55,51,58], [1,1,1,1,1,1,1,1], 1],
+      ["Amber Island Horn",     "FILM",  "jurassic park dinosaur john williams",  76,  "aurora",  "brassLead",  "tapeStrings",[58,57,58,53,51,58,57,58], [1,1,1,1,1,1,1,1], 0.5],
+      ["Desert Coyote Call",    "FILM",  "good bad ugly morricone western",       86,  "sahara",  "leadSynth",  "acousGtr",   [57,62,57,62,57,53,55,50], [1,1,1,1,1,0,1,0], 1],
+      ["Surf Tremolo Riff",     "FILM",  "pulp fiction misirlou tarantino",       138, "sahara",  "elecGuitar", "pickedBass", [40,41,44,45,47,48,51,48], [1,1,1,1,1,1,1,1], 2],
+      ["Secret Agent 007",      "FILM",  "james bond 007 spy guitar",             112, "lounge",  "cleanChorus","uprightBass",[52,53,54,53,52,52,55,54], [1,1,1,1,1,0,1,1], 1],
+      ["Danger Zone Chime",     "FILM",  "top gun anthem maverick bell",          92,  "sahara",  "bell",       "powerStrum", [48,55,55,53,52,53,55,48], [1,1,0,1,1,1,1,0], 1],
+      ["Philadelphia Fanfare",  "FILM",  "rocky gonna fly now balboa",            108, "studio",  "brassLead",  "pickedBass", [52,55,57,57,59,52,55,57], [1,1,1,0,1,1,1,1], 1],
+      ["Celesta Waltz 3/4",     "FILM",  "harry potter hedwig waltz magic",       110, "aurora",  "bell",       "tapeStrings",[59,64,67,66,64,71],       [1,1,1,1,1,1],     1],
+      ["Ostinato Strings",      "FILM",  "requiem for a dream lux aeterna",       128, "eclipse", "tapeStrings","kickAcoust", [55,54,55,50,55,54,55,50], [1,1,1,1,1,1,1,1], 2],
+
+      // 41-60: Video Game Loops
+      ["Plumber Overworld",     "GAME",  "super mario bros nintendo jump",        126, "cosmos",  "marimba",    "pickedBass", [64,64,64,60,64,67,55,60], [1,1,0,1,1,1,0,1], 1],
+      ["Hyrule Storm Waltz",    "GAME",  "zelda song of storms ocarina waltz",    120, "kyoto",   "kalimba",    "uprightBass",[50,53,62,50,53,62],       [1,1,1,1,1,1],     1],
+      ["Block Stacker Folk",    "GAME",  "tetris korobeiniki russian",            136, "matrix",  "fmPluck",    "acidBass",   [64,59,60,62,60,59,57,57], [1,1,1,1,1,1,1,1], 2],
+      ["Voxel Rain Lullaby",    "GAME",  "minecraft sweden c418 calm",            70,  "kyoto",   "grandPiano", "atmosPad",   [57,61,64,66,64,61,57,54], [1,0,1,1,0,1,1,0], 0.5],
+      ["Ringworld Chant",       "GAME",  "halo master chief choir monk",          88,  "cosmos",  "atmosPad",   "taikoDrum",  [52,54,55,54,57,55,54,52], [1,1,1,1,1,1,1,1], 0.5],
+      ["Mars Hell Chug",        "GAME",  "doom e1m1 metal riff slayer",           142, "eclipse", "chugStrum",  "pickedBass", [40,40,52,40,40,50,40,40], [1,1,1,1,1,1,1,1], 2],
+      ["Arcade Kombat Rave",    "GAME",  "mortal kombat techno syndrome",          138, "neon",    "leadSynth",  "acidBass",   [57,57,60,57,62,57,64,62], [1,1,1,1,1,1,1,1], 2],
+      ["Emerald Loop Zone",     "GAME",  "sonic green hill zone sega",            130, "aurora",  "fmPluck",    "pickedBass", [60,57,60,59,60,59,55,52], [1,1,1,1,1,1,1,1], 1],
+      ["Ghost Tower Bell",      "GAME",  "pokemon lavender town eerie",           96,  "abyss",   "bell",       "atmosPad",   [60,67,71,66,60,67,71,66], [1,1,1,1,1,1,1,1], 1],
+      ["Skeleton Boss Riff",    "GAME",  "undertale megalovania sans",            120, "matrix",  "elecGuitar", "acidBass",   [50,50,62,57,56,55,53,50], [1,1,1,1,1,1,1,1], 2],
+      ["Vampire Harpsichord",   "GAME",  "castlevania bloody tears dracula",      132, "eclipse", "fmPluck",    "powerStrum", [50,53,57,58,57,53,52,55], [1,1,1,1,1,1,1,1], 2],
+      ["Crystal Harp Arp",      "GAME",  "final fantasy prelude crystal",         94,  "glacier", "bell",       "atmosPad",   [48,50,52,55,60,62,64,67], [1,1,1,1,1,1,1,1], 2],
+      ["Air Force Fusion",      "GAME",  "street fighter guile theme",            124, "studio",  "brassLead",  "pickedBass", [62,62,60,60,62,60,62,65], [1,1,1,1,1,1,1,1], 1],
+      ["Rebel Cello Bass",      "GAME",  "cyberpunk 2077 v rebel path",           116, "matrix",  "tapeStrings","acidBass",   [40,40,43,40,45,40,47,45], [1,1,1,1,1,1,1,1], 2],
+      ["Neon Mask Synth",       "GAME",  "hotline miami hydrogen moon",           128, "neon",    "acidBass",   "kickAcoust", [45,45,48,45,50,45,52,48], [1,1,1,1,1,1,1,1], 2],
+      ["Maze Pellet Jingle",    "GAME",  "pac-man arcade retro intro",            128, "cosmos",  "fmPluck",    "marimba",    [59,71,66,63,71,66,63,60], [1,1,1,1,1,1,1,1], 2],
+      ["Aperture Pop",          "GAME",  "portal still alive glados",             112, "glacier", "acousGtr",   "pickedBass", [67,66,64,64,66,62,64,57], [1,1,1,1,1,0,1,0], 1],
+      ["Dovahkiin Chant",       "GAME",  "skyrim dragonborn elder scrolls",       98,  "aurora",  "choirPad",   "taikoDrum",  [50,52,53,50,52,53,57,55], [1,1,1,1,1,1,1,1], 1],
+      ["Alert Phase Synth",     "GAME",  "metal gear solid encounter snake",      134, "matrix",  "brassLead",  "acidBass",   [40,43,45,47,48,47,45,43], [1,1,1,1,1,1,1,1], 2],
+      ["Foggy Town Rock",       "GAME",  "silent hill 2 theme of laura",          104, "kyoto",   "acousGtr",   "elecGuitar", [57,59,60,64,62,60,59,57], [1,1,1,1,1,1,1,1], 1],
+
+      // 61-80: Rock, Nu-Metal & Guitar Anthems
+      ["In The End Piano",      "ROCK",  "linkin park in the end chester piano",  105, "studio",  "grandPiano", "powerStrum", [63,70,70,66,65,65,65,66], [1,1,1,1,1,1,1,1], 1],
+      ["Hybrid Drop-C Strum",   "ROCK",  "linkin park numb meteora rock",        110, "studio",  "powerStrum", "pickedBass", [36,36,44,44,39,39,46,46], [1,0,1,1,1,0,1,1], 1],
+      ["Faint Break Strings",   "ROCK",  "linkin park faint fast strings",        135, "studio",  "tapeStrings","powerStrum", [64,67,66,64,67,66,64,71], [1,1,1,1,1,1,1,1], 2],
+      ["Seattle Grunge Strum",  "ROCK",  "nirvana smells like teen spirit cobain",117, "studio",  "powerStrum", "pickedBass", [41,41,46,46,44,44,49,49], [1,1,1,0,1,1,1,0], 1],
+      ["Seven Nation Riff",     "ROCK",  "white stripes seven nation army 7",     124, "eclipse", "pickedBass", "kickAcoust", [52,52,55,52,50,48,47],    [1,1,1,1,1,1,1],   1],
+      ["Sandman Tritone",       "ROCK",  "metallica enter sandman hetfield",      123, "eclipse", "cleanChorus","chugStrum",  [40,52,55,46,45,52,55,46], [1,1,1,1,1,1,1,1], 1],
+      ["Heavy Metal March",     "ROCK",  "black sabbath iron man ozzy",           96,  "eclipse", "powerStrum", "pickedBass", [47,50,50,52,52,55,54,55], [1,1,1,1,1,1,1,1], 1],
+      ["Lake Geneva Fourths",   "ROCK",  "deep purple smoke on the water",        114, "studio",  "elecGuitar", "rotaryOrgan",[43,46,48,43,46,49,48,43], [1,1,1,1,1,1,1,0], 1],
+      ["High Voltage Riff",     "ROCK",  "acdc back in black angus",              94,  "studio",  "elecGuitar", "pickedBass", [40,38,38,33,33,43,42,40], [1,1,1,1,1,1,1,1], 1],
+      ["Drop-D Octave Revolt",  "ROCK",  "rage against machine killing in name",  102, "studio",  "elecGuitar", "pickedBass", [38,50,38,50,44,43,41,38], [1,1,1,1,1,1,1,1], 1],
+      ["Drop-C 6/8 Arpeggio",   "ROCK",  "system of a down toxicity soad",        116, "eclipse", "cleanChorus","powerStrum", [36,43,48,49,48,43],       [1,1,1,1,1,1],     2],
+      ["Shove It Drop-C",       "ROCK",  "deftones my own summer chino",          98,  "eclipse", "powerStrum", "pickedBass", [37,37,36,36,37,37,44,44], [1,0,1,0,1,0,1,0], 1],
+      ["Oxford 5-Pulse Rhodes", "ROCK",  "radiohead everything right place 5",    124, "glacier", "tineKeys",   "acidBass",   [60,60,61,63,60],          [1,1,1,1,1],       1],
+      ["Sheffield Stomp Riff",  "ROCK",  "arctic monkeys do i wanna know",        85,  "lounge",  "elecGuitar", "kick808",    [41,43,46,43,41,43,46,50], [1,1,1,0,1,1,1,0], 1],
+      ["Windmill Bass Groove",  "ROCK",  "gorillaz feel good inc bass",           138, "cosmos",  "pickedBass", "acousGtr",   [51,51,54,56,61,59,56,51], [1,0,1,1,1,1,0,1], 1],
+      ["Psych Disco Bass",      "ROCK",  "tame impala less i know better",        117, "neon",    "pickedBass", "warmKeys",   [49,52,56,54,52,49,47,49], [1,1,1,1,1,1,1,1], 1],
+      ["Stadium Funk Bass",     "ROCK",  "queen another one bites dust",          110, "studio",  "pickedBass", "kickAcoust", [40,40,40,40,43,40,45,40], [1,1,1,0,1,1,1,0], 1],
+      ["Dark Side Clock Arp",   "ROCK",  "pink floyd on the run time",            120, "cosmos",  "fmPluck",    "acidBass",   [52,55,57,55,62,60,62,64], [1,1,1,1,1,1,1,1], 2],
+      ["1984 Synth Brass",      "ROCK",  "van halen jump eddie synth",            130, "studio",  "brassLead",  "pickedBass", [60,64,67,60,65,69,62,67], [1,0,1,1,0,1,1,0], 1],
+      ["Canadian 7/8 Sweep",    "ROCK",  "rush tom sawyer 7/8 prog",              88,  "cosmos",  "leadSynth",  "pickedBass", [40,40,43,45,47,50,52],    [1,1,1,1,1,1,1],   1],
+
+      // 81-100: Electronic, Synth-Pop & Hip-Hop Classics
+      ["Robot Octave Disco",    "CLUB",  "daft punk around the world funk",       121, "neon",    "acidBass",   "kickAcoust", [36,48,36,39,41,43,41,39], [1,1,1,1,1,1,1,1], 2],
+      ["Homework 303 Squelch",  "CLUB",  "daft punk da funk acid",               111, "neon",    "acidBass",   "snareRock",  [43,46,48,43,50,48,46,43], [1,1,1,1,1,1,1,1], 1],
+      ["Baroque Robot Arp",     "CLUB",  "daft punk veridis quo organ",           113, "cosmos",  "rotaryOrgan","acidBass",   [62,65,69,67,65,64,62,57], [1,1,1,1,1,1,1,1], 1],
+      ["80s Sketchbook Hook",   "CLUB",  "a-ha take on me 80s synth pop",         160, "neon",    "fmPluck",    "pickedBass", [66,66,62,59,59,64,64,64], [1,1,1,1,0,1,0,1], 1],
+      ["Sweet Minor Ostinato",  "CLUB",  "eurythmics sweet dreams annie lennox",  126, "eclipse", "acidBass",   "snareRock",  [48,48,60,60,63,63,60,60], [1,1,1,1,1,1,1,1], 1],
+      ["Manchester Octaves",    "CLUB",  "new order blue monday 80s",             130, "matrix",  "acidBass",   "kickAcoust", [41,53,41,53,43,55,48,60], [1,1,1,1,1,1,1,1], 2],
+      ["Basildon Bounce",       "CLUB",  "depeche mode just cant get enough",     128, "neon",    "fmPluck",    "acidBass",   [55,55,59,62,64,62,59,55], [1,1,1,1,1,1,1,1], 1],
+      ["Midnight Sax Echo",     "CLUB",  "m83 midnight city synth",               105, "neon",    "leadSynth",  "atmosPad",   [64,64,63,59,64,64,63,66], [1,0,1,1,1,0,1,1], 1],
+      ["Outrun Electro Bass",   "CLUB",  "kavinsky outrun nightcall",             95,  "neon",    "acidBass",   "snareRock",  [45,48,52,57,52,48,45,40], [1,1,1,1,1,1,1,1], 1],
+      ["Helsinki Trance Stutter","CLUB", "darude sandstorm rave trance",          136, "matrix",  "leadSynth",  "kickAcoust", [59,59,59,59,59,64,64,62], [1,1,1,1,1,1,1,1], 2],
+      ["Progressive Pluck",     "CLUB",  "deadmau5 strobe marimba build",         128, "glacier", "marimba",    "atmosPad",   [59,63,66,71,66,63,59,56], [1,1,1,1,1,1,1,1], 1],
+      ["Stockholm Festival",    "CLUB",  "avicii levels house chord",             126, "aurora",  "warmKeys",   "kickAcoust", [61,59,56,54,52,54,56,59], [1,0,1,1,1,0,1,1], 1],
+      ["West Coast Staccato",   "CLUB",  "dr dre still dre piano riff",           93,  "studio",  "grandPiano", "kick808",    [60,60,60,60,59,59,59,59], [1,1,1,1,1,1,1,1], 1],
+      ["G-Funk Worm Glide",     "CLUB",  "dr dre snoop dogg g funk whistle",      95,  "sahara",  "leadSynth",  "kick808",    [67,65,63,60,58,60,63,67], [1,0,1,1,1,0,1,1], 1],
+      ["Queensbridge Chimes",   "CLUB",  "mobb deep shook ones pt 2",             94,  "lounge",  "tineKeys",   "kickAcoust", [58,53,58,53,56,53,58,53], [1,0,1,0,1,0,1,0], 1],
+      ["Detroit Swing Chords",  "CLUB",  "j dilla donuts neo soul swing",         92,  "lounge",  "tineKeys",   "kick808",    [53,57,60,64,55,59,62,65], [1,0,1,1,0,1,1,0], 1],
+      ["Samurai Bossa Guitar",  "CLUB",  "nujabes aruarian dance anime lofi",     84,  "kyoto",   "acousGtr",   "uprightBass",[57,60,64,67,65,64,60,59], [1,1,1,0,1,1,1,0], 1],
+      ["Analog Symphony No.9",  "CLUB",  "clockwork orange wendy carlos synth",   112, "cosmos",  "leadSynth",  "acidBass",   [64,64,65,67,67,65,64,62], [1,1,1,1,1,1,1,1], 1],
+      ["Dusseldorf Man-Machine","CLUB",  "kraftwerk the model numbers robot",     122, "matrix",  "fmPluck",    "acidBass",   [55,58,60,58,55,53,55,58], [1,1,1,1,1,1,1,1], 1],
+      ["Munich Rolling Bass",   "CLUB",  "donna summer giorgio moroder feel love",126, "neon",    "acidBass",   "kickAcoust", [48,48,55,55,58,58,60,58], [1,1,1,1,1,1,1,1], 2]
+    ];
+
+    function compileMotif(index) {
+      const row = MOTIF_TABLE[index % MOTIF_TABLE.length];
+      const [label, cat, keywords, bpmVal, uni, leadVoice, bassVoice, midiSeq, mask, speedMult] = row;
+      const steps = midiSeq.length;
+      const pattern = mask.map(v => Boolean(v));
+      const pulses = pattern.filter(Boolean).length;
+      return {
+        index,
+        label,
+        cat,
+        keywords: `${label.toLowerCase()} ${cat.toLowerCase()} ${keywords}`,
+        bpm: bpmVal,
+        universe: uni,
         tracks: [
-          { type: "kick808", steps: 4, pulses: 2, speedMult: 1, pattern: [true, true, false, false] },
-          { type: "fmPluck", steps: 8, pulses: 8, speedMult: 2, pattern: [true,true,true,true,true,true,true,true], stepMidi: [48, 52, 55, 59, 60, 59, 55, 52], volume: 0.76 },
-          { type: "atmosPad", steps: 8, pulses: 2, speedMult: 0.5, stepMidi: [36, 36, 36, 36, 36, 36, 36, 36], volume: 0.55 }
+          { type: "kick808", steps: steps === 5 || steps === 7 ? steps : 4, pulses: 2, speedMult: 1 },
+          { type: "snareBreak", steps: steps === 5 || steps === 7 ? steps : 4, pulses: 1, speedMult: 1, pattern: steps === 4 ? [false, false, true, false] : generateEuclidean(steps === 5 || steps === 7 ? steps : 4, 1) },
+          { type: leadVoice, steps, pulses, speedMult, pattern, stepMidi: [...midiSeq], volume: 0.74 }
         ],
         parallelTracks: [
-          { type: "acidBass", steps: 8, pulses: 4, speedMult: 1, stepMidi: [36, 36, 40, 40, 43, 43, 47, 47], volume: 0.58 },
-          { type: "snareBreak", steps: 4, pulses: 1, speedMult: 1, pattern: [false, false, true, false], volume: 0.52 }
+          { type: bassVoice, steps, pulses: Math.max(2, Math.floor(steps / 2)), speedMult: 1, stepMidi: midiSeq.map(m => Math.max(32, m - 12)), volume: 0.62 },
+          { type: "hatClosed", steps: 8, pulses: 4, speedMult: 1, volume: 0.44 }
         ]
-      },
-      interstellar: {
-        label: "SPACE CLOCKWORK",
-        keywords: ["interstellar", "hans", "clock", "space", "movie", "cinematic"],
-        bpm: 78, universe: "cosmos", scale: "dorian", chords: "drift",
-        tracks: [
-          { type: "rim", steps: 4, pulses: 4, speedMult: 2, pattern: [true, true, true, true], volume: 0.45 },
-          { type: "grandPiano", steps: 6, pulses: 6, speedMult: 1, pattern: [true,true,true,true,true,true], stepMidi: [57, 64, 57, 64, 59, 64], volume: 0.74 },
-          { type: "tapeStrings", steps: 8, pulses: 2, speedMult: 0.5, stepMidi: [45, 45, 45, 45, 47, 47, 47, 47], volume: 0.62 }
-        ],
-        parallelTracks: [
-          { type: "kickAcoust", steps: 8, pulses: 3, speedMult: 1, pattern: [true, false, false, true, false, false, true, false], volume: 0.65 },
-          { type: "snareRock", steps: 8, pulses: 2, speedMult: 1, pattern: [false, false, true, false, false, false, true, false], volume: 0.58 }
-        ]
-      },
-      hybridrock: {
-        label: "HYBRID ANTHEM",
-        keywords: ["linkin", "numb", "in the end", "rock", "metal", "hybrid", "meteora"],
-        bpm: 105, universe: "studio", scale: "dropC", chords: "numetal",
-        tracks: [
-          { type: "kickAcoust", steps: 4, pulses: 2, speedMult: 1 },
-          { type: "snareBreak", steps: 4, pulses: 2, speedMult: 1, pattern: [false, true, false, true] },
-          { type: "powerStrum", steps: 8, pulses: 5, speedMult: 1, pattern: [true, false, true, true, false, true, false, true], stepMidi: [36, 36, 36, 44, 44, 39, 39, 46], volume: 0.75 },
-          { type: "grandPiano", steps: 8, pulses: 4, speedMult: 1, pattern: [true, false, true, false, true, false, true, false], stepMidi: [67, 67, 70, 70, 67, 67, 63, 63], volume: 0.62 }
-        ],
-        parallelTracks: [
-          { type: "vinylScratch", steps: 8, pulses: 3, speedMult: 2, volume: 0.55 },
-          { type: "atmosPad", steps: 8, pulses: 2, speedMult: 0.5, stepMidi: [48, 48, 48, 48, 51, 51, 51, 51], volume: 0.5 }
-        ]
-      },
-      frenchfunk: {
-        label: "ROBOT DISCO",
-        keywords: ["daft", "punk", "around", "funk", "disco", "robot"],
-        bpm: 121, universe: "neon", scale: "dorian", chords: "neosoul",
-        tracks: [
-          { type: "kickAcoust", steps: 4, pulses: 4, speedMult: 1 },
-          { type: "snareRock", steps: 4, pulses: 2, speedMult: 1, pattern: [false, true, false, true] },
-          { type: "acidBass", steps: 8, pulses: 6, speedMult: 2, pattern: [true, true, false, true, true, true, false, true], stepMidi: [36, 48, 36, 39, 41, 43, 41, 39], volume: 0.74 }
-        ],
-        parallelTracks: [
-          { type: "tineKeys", steps: 8, pulses: 4, speedMult: 1, stepMidi: [60, 63, 67, 70, 60, 63, 67, 70], volume: 0.56 }
-        ]
-      },
-      animerain: {
-        label: "NOCTURNE RAIN",
-        keywords: ["zelda", "anime", "ghibli", "lofi", "sad", "rain", "piano"],
-        bpm: 76, universe: "kyoto", scale: "lydian", chords: "lofi1",
-        tracks: [
-          { type: "kick808", steps: 8, pulses: 2, speedMult: 1, pattern: [true, false, false, false, false, true, false, false] },
-          { type: "snareBrush", steps: 4, pulses: 1, speedMult: 1, pattern: [false, false, true, false] },
-          { type: "tineKeys", steps: 8, pulses: 5, speedMult: 1, pattern: [true, false, true, true, false, true, true, false], stepMidi: [64, 64, 67, 69, 69, 67, 64, 60], volume: 0.72 }
-        ],
-        parallelTracks: [
-          { type: "kalimba", steps: 6, pulses: 4, speedMult: 1, stepMidi: [72, 76, 79, 76, 72, 67], volume: 0.52 }
-        ]
-      },
-      nightcity: {
-        label: "CYBER CHASE",
-        keywords: ["cyber", "blade", "runner", "drive", "kavinsky", "synthwave"],
-        bpm: 114, universe: "matrix", scale: "minorPentatonic", chords: "drift",
-        tracks: [
-          { type: "kick808", steps: 4, pulses: 4, speedMult: 1 },
-          { type: "snareRock", steps: 4, pulses: 2, speedMult: 1, pattern: [false, true, false, true] },
-          { type: "acidBass", steps: 8, pulses: 8, speedMult: 2, pattern: [true,true,true,true,true,true,true,true], stepMidi: [36,36,36,36,41,41,43,43], volume: 0.74 },
-          { type: "leadSynth", steps: 8, pulses: 4, speedMult: 1, stepMidi: [60, 67, 65, 63, 60, 67, 70, 67], volume: 0.62 }
-        ],
-        parallelTracks: [
-          { type: "powerStrum", steps: 8, pulses: 3, speedMult: 1, stepMidi: [36, 36, 36, 41, 41, 43, 43, 36], volume: 0.6 }
-        ]
-      }
-    };
+      };
+    }
+
+    const COMPILED_MOTIFS = MOTIF_TABLE.map((_, i) => compileMotif(i));
+    let jukeboxFilterText = "";
 
     const VOICE_ENGINES = [
       { id: "kick808",     label: "SUB KICK",     cat: "drum",  band: "low" },
@@ -894,9 +991,9 @@
       { id: "warmKeys",    label: "WARM KEYS",    cat: "synth", band: "mid" },
       { id: "bell",        label: "GLASS BELL",   cat: "synth", band: "high" },
       { id: "atmosPad",    label: "ATMOS PAD",    cat: "synth", band: "high" },
-      { id: "leadSynth",   label: "LEAD SYNTH",   cat: "synth", band: "high" },
+      { id: "leadSynth",   label: "GLIDE LEAD",   cat: "synth", band: "high" },
       { id: "fmPluck",     label: "ARP PLUCK",    cat: "synth", band: "high" },
-      { id: "acidBass",    label: "ACID BASS",    cat: "synth", band: "low" },
+      { id: "acidBass",    label: "ACID 303",     cat: "synth", band: "low" },
       { id: "uprightBass", label: "UPRIGHT BASS", cat: "world", band: "low" },
       { id: "snareBrush",  label: "BRUSH SNARE",  cat: "world", band: "high" },
       { id: "brassLead",   label: "VELVET BRASS", cat: "world", band: "mid" },
@@ -904,7 +1001,7 @@
       { id: "marimba",     label: "MARIMBA",      cat: "world", band: "mid" },
       { id: "taikoDrum",   label: "TAIKO DRUM",   cat: "world", band: "low" },
       { id: "tomFloor",    label: "FLOOR TOM",    cat: "world", band: "low" },
-      { id: "woodPerc",    label: "WOODBLOCK",    cat: "world", band: "high" }
+      { id: "rotaryOrgan", label: "ROTARY ORGAN", cat: "world", band: "mid" }
     ];
 
     const PLANET_TEMPLATES = [
@@ -963,7 +1060,7 @@
     }
 
     // =========================================================================
-    // 3. STUDIO STATE + CAMERA VIEWPORT (PINCH-ZOOM / PAN) + SUN SLINGSHOT
+    // 3. STUDIO STATE + CAMERA VIEWPORT + PORTAMENTO GLIDE STATE
     // =========================================================================
     function createPlanetFromTemplate(idx, customCfg = null, isParallel = false) {
       const bank = isParallel ? PARALLEL_TEMPLATES : PLANET_TEMPLATES;
@@ -1012,6 +1109,7 @@
         pattern,
         stepNotes,
         stepMidi,
+        lastFreq: 0,
         phaseSteps: 0,
         pendingVisualHit: null,
         pendingVisualStep: null,
@@ -1053,7 +1151,6 @@
     let delayAmount = 28;
     let hybridXfade = 0;
 
-    // Tactile Camera Zoom/Pan + Sun Gravity Slingshot FX
     let camZoom = 1.0;
     let camPanX = 0;
     let camPanY = 0;
@@ -1078,7 +1175,7 @@
       clearTimeout(saveDebounceTimer);
       saveDebounceTimer = setTimeout(() => {
         try {
-          localStorage.setItem("pluvox_v17_master", JSON.stringify({
+          localStorage.setItem("pluvox_v18_jukebox", JSON.stringify({
             activeSceneIdx, solarScenes, parallelVisible, parallelActive, parallelBpmRatio, universeBalance,
             current: captureCurrentSnapshot()
           }));
@@ -1310,7 +1407,7 @@
         const el = document.createElement("div");
         el.className = "studio-widget";
         const count = Object.keys(openWidgets).length;
-        el.style.left = `${Math.min(logicalW - 320, Math.max(14, 20 + (count % 3) * 32))}px`;
+        el.style.left = `${Math.min(logicalW - 328, Math.max(14, 20 + (count % 3) * 32))}px`;
         el.style.top = `${Math.min(logicalH - 300, Math.max(64, 70 + (count % 4) * 36))}px`;
         bringWidgetToFront(el);
         el.addEventListener("pointerdown", () => bringWidgetToFront(el));
@@ -1344,6 +1441,26 @@
     function refreshAllOpenWidgets() {
       Object.keys(openWidgets).forEach(id => renderWidgetContent(id));
       if (isNoteFinderOpen) renderNoteFinder();
+    }
+
+    function renderJukeboxList(containerEl) {
+      const q = jukeboxFilterText.trim().toLowerCase();
+      const matches = q
+        ? COMPILED_MOTIFS.filter(m => m.keywords.includes(q))
+        : COMPILED_MOTIFS;
+
+      containerEl.innerHTML = matches.length === 0
+        ? `<div style="font-family:var(--mono); font-size:0.55rem; color:var(--dim); padding:0.4rem;">No matching motif—try '80s', 'rock', 'game', or '5/4'</div>`
+        : matches.map(m => `
+            <button class="motif-row-btn" data-motif-idx="${m.index}">
+              <span>${m.label}</span>
+              <span class="motif-cat-tag">${m.cat} · ${m.bpm}</span>
+            </button>
+          `).join("");
+
+      containerEl.querySelectorAll("[data-motif-idx]").forEach(btn => {
+        btn.onclick = () => loadCompiledMotif(Number(btn.dataset.motifIdx));
+      });
     }
 
     function renderWidgetContent(id) {
@@ -1554,28 +1671,18 @@
         el.querySelector("#wHumBtn").onclick = () => toggleHumToOrbit();
         el.querySelector("#wRetroBtn").onclick = () => captureRetroBuffer();
       } else if (id === "muse") {
-        // CELESTIAL MUSE: ICONIC TUNES + DUAL-UNIVERSE MASHUPS
+        // CELESTIAL MUSE: LIVE SEARCHABLE 100-THEME JUKEBOX + RANDOMIZER + MASHUPS
         el.innerHTML = `
           <div class="widget-drag-bar" style="color:var(--violet);">
-            <span>CELESTIAL · TUNES & MASHUPS</span>
+            <span>CELESTIAL · 100 POP MOTIFS</span>
             <button class="widget-close-btn">×</button>
           </div>
           <div class="widget-body">
-            <div class="section-tag">POP-CULTURE & FILM MOTIFS</div>
-            <div class="w-grid-2" style="margin-bottom:0.55rem;">
-              ${Object.entries(ICONIC_TUNES).map(([k, tune]) =>
-                `<button class="w-btn" data-tune="${k}">${tune.label}</button>`
-              ).join("")}
+            <div class="w-row" style="margin-bottom:0.45rem;">
+              <input id="wJukeboxSearch" value="${jukeboxFilterText}" placeholder="Search 100 themes (Stranger Things, Mario, Linkin)..." style="flex:1; background:rgba(0,0,0,0.38); border:1px solid var(--border); border-radius:8px; padding:0.36rem 0.52rem; color:#fff; font-family:var(--mono); font-size:0.55rem; outline:none;" />
+              <button class="w-btn" id="wRandMotif" style="padding:0.36rem 0.55rem; border-color:var(--violet);">RANDOM</button>
             </div>
-            <div class="section-tag">DUAL-UNIVERSE MASHUP</div>
-            <div class="w-grid-2" style="margin-bottom:0.55rem;">
-              <button class="w-btn" data-mashup="stranger+hybridrock">80S ARP + ROCK</button>
-              <button class="w-btn" data-mashup="interstellar+animerain">SPACE + LO-FI</button>
-            </div>
-            <div class="w-row" style="margin-bottom:0.55rem;">
-              <input id="wMuseInput" placeholder="e.g. 'Stranger Things + Rock'..." style="flex:1; background:rgba(0,0,0,0.35); border:1px solid var(--border); border-radius:8px; padding:0.35rem 0.5rem; color:#fff; font-family:var(--mono); font-size:0.56rem; outline:none;" />
-              <button class="w-btn" id="wMuseGo" style="padding:0.35rem 0.6rem;">GO</button>
-            </div>
+            <div class="jukebox-scroll" id="wJukeboxList"></div>
             <div class="w-grid-3">
               <button class="w-btn ${jamPartnerEnabled ? "active" : ""}" id="wJam">JAM: ${jamPartnerEnabled ? "ON" : "OFF"}</button>
               <button class="w-btn ${autoFillsEnabled ? "active" : ""}" id="wFills">FILLS: ${autoFillsEnabled ? "ON" : "OFF"}</button>
@@ -1583,15 +1690,27 @@
             </div>
           </div>
         `;
-        el.querySelectorAll("[data-tune]").forEach(btn => btn.onclick = () => loadIconicTune(btn.dataset.tune, false));
-        el.querySelectorAll("[data-mashup]").forEach(btn => btn.onclick = () => {
-          const [leadK, dualK] = btn.dataset.mashup.split("+");
-          loadDualMashup(leadK, dualK);
-        });
+        const listEl = el.querySelector("#wJukeboxList");
+        renderJukeboxList(listEl);
+
+        const searchInput = el.querySelector("#wJukeboxSearch");
+        searchInput.oninput = e => {
+          jukeboxFilterText = e.target.value;
+          renderJukeboxList(listEl);
+        };
+        searchInput.onkeydown = e => {
+          if (e.key === "Enter") {
+            const firstBtn = listEl.querySelector("[data-motif-idx]");
+            if (firstBtn) loadCompiledMotif(Number(firstBtn.dataset.motifIdx));
+          }
+        };
+        el.querySelector("#wRandMotif").onclick = () => {
+          const randIdx = Math.floor(Math.random() * COMPILED_MOTIFS.length);
+          loadCompiledMotif(randIdx);
+        };
         el.querySelector("#wJam").onclick = () => { jamPartnerEnabled = !jamPartnerEnabled; renderWidgetContent("muse"); };
         el.querySelector("#wFills").onclick = () => { autoFillsEnabled = !autoFillsEnabled; renderWidgetContent("muse"); };
         el.querySelector("#wMutate").onclick = () => applyBasicGroove("mutate");
-        el.querySelector("#wMuseGo").onclick = () => runCelestialPrompt(el.querySelector("#wMuseInput").value);
       } else if (id === "universe") {
         el.innerHTML = `
           <div class="widget-drag-bar">
@@ -1616,7 +1735,6 @@
         el.querySelectorAll("[data-uni]").forEach(b => b.onclick = () => { setUniverse(b.dataset.uni); renderWidgetContent("universe"); });
         el.querySelectorAll("[data-groove]").forEach(b => b.onclick = () => applyBasicGroove(b.dataset.groove));
       } else if (id === "decks") {
-        // SONG ARRANGEMENT DECKS & INSTANT OFFLINE .WAV RENDER
         el.innerHTML = `
           <div class="widget-drag-bar">
             <span>ARRANGEMENT DECKS & EXPORT</span>
@@ -1670,7 +1788,7 @@
             <button class="widget-close-btn">×</button>
           </div>
           <div class="widget-body">
-            <div class="w-row"><span>TEMPO</span><input type="range" id="mBpm" min="60" max="160" value="${bpm}" /><span class="w-val" id="mBpmV">${bpm}</span></div>
+            <div class="w-row"><span>TEMPO</span><input type="range" id="mBpm" min="60" max="165" value="${bpm}" /><span class="w-val" id="mBpmV">${bpm}</span></div>
             <div class="w-row"><span>XFADE</span><input type="range" id="mXfade" min="-100" max="100" value="${hybridXfade}" /><span class="w-val" id="mXfadeV">${hybridXfade}</span></div>
             <div class="w-row"><span>RAIN</span><input type="range" id="mRain" min="0" max="100" value="${rainLevel}" /><span class="w-val" id="mRainV">${rainLevel}%</span></div>
             <div class="w-row"><span>STATIC</span><input type="range" id="mVinyl" min="0" max="100" value="${vinylLevel}" /><span class="w-val" id="mVinylV">${vinylLevel}%</span></div>
@@ -1730,7 +1848,7 @@
     }
 
     // =========================================================================
-    // 7. ZERO-ALLOCATION WEB AUDIO ENGINE + INSTANT OFFLINE .WAV RENDERER
+    // 7. ZERO-ALLOCATION WEB AUDIO ENGINE (WITH PORTAMENTO GLIDE + OFFLINE WAV)
     // =========================================================================
     let audioCtx = null, masterFilter = null, masterAnalyser = null, tapeSaturator = null;
     let compressorNode = null, delayNode = null, delayFeedback = null, delayWet = null, rainBandFilter = null, rainGain = null, vinylGain = null;
@@ -1790,8 +1908,8 @@
       delayWet = audioCtx.createGain();
       delayWet.gain.value = delayAmount / 100;
 
-      delayNode.connect(delayFeedback);
-      delayFeedback.connect(delayNode);
+      delayNode.connect(fb = delayFeedback);
+      fb.connect(delayNode);
       delayNode.connect(delayWet);
       delayWet.connect(tapeSaturator);
 
@@ -2076,14 +2194,24 @@
         const osc1 = targetCtx.createOscillator(), osc2 = targetCtx.createOscillator();
         const filter = targetCtx.createBiquadFilter(), gain = targetCtx.createGain();
 
-        osc1.type = (t === "nuMetalGtr" || t === "elecGuitar" || t === "leadSynth" || t === "brassLead") ? "sawtooth" : "triangle";
+        const isGlideVoice = (t === "leadSynth" || t === "acidBass");
+        osc1.type = (t === "nuMetalGtr" || t === "elecGuitar" || t === "leadSynth" || t === "acidBass" || t === "brassLead") ? "sawtooth" : "triangle";
         osc2.type = "sine";
-        osc1.frequency.setValueAtTime(freq, time);
+
+        // Portamento pitch-glide for G-Funk, Theremin & Acid 303 leads
+        if (isGlideVoice && planet.lastFreq > 0) {
+          osc1.frequency.setValueAtTime(planet.lastFreq, time);
+          osc1.frequency.exponentialRampToValueAtTime(freq, time + 0.085);
+        } else {
+          osc1.frequency.setValueAtTime(freq, time);
+        }
+        planet.lastFreq = freq;
         osc2.frequency.setValueAtTime(freq * (t === "nuMetalGtr" ? 1.498 : 2.0), time);
 
         filter.type = "lowpass";
-        filter.frequency.setValueAtTime(t === "nuMetalGtr" ? 2600 : 1750, time);
-        filter.frequency.exponentialRampToValueAtTime(320, time + 0.32);
+        filter.frequency.setValueAtTime(t === "nuMetalGtr" ? 2600 : (t === "acidBass" ? 1400 : 1750), time);
+        filter.Q.value = t === "acidBass" ? 5.5 : 1.2;
+        filter.frequency.exponentialRampToValueAtTime(280, time + 0.32);
 
         gain.gain.setValueAtTime(0.001, time);
         gain.gain.linearRampToValueAtTime(effectiveVol * 0.46, time + 0.012);
@@ -2096,7 +2224,6 @@
       }
     }
 
-    // Instant OfflineAudioContext 4-Bar Stereo WAV Master Bounce (< 0.2s)
     async function bounceOfflineWavMaster() {
       showToast("Rendering 4-Bar Studio Master...");
       const sampleRate = 44100;
@@ -2121,24 +2248,19 @@
         planets.forEach(p => {
           if (p.muted) return;
           const sIdx = Math.floor(tick * p.speedMult) % p.steps;
-          if (p.pattern[sIdx]) {
-            triggerPlanetVoice(p, t, sIdx, 0, offline, sat, null, nBuf);
-          }
+          if (p.pattern[sIdx]) triggerPlanetVoice(p, t, sIdx, 0, offline, sat, null, nBuf);
         });
         if (parallelVisible && parallelActive) {
           parallelPlanets.forEach(p => {
             if (p.muted) return;
             const sIdx = Math.floor(tick * p.speedMult * parallelBpmRatio) % p.steps;
-            if (p.pattern[sIdx]) {
-              triggerPlanetVoice(p, t, sIdx, 0, offline, sat, null, nBuf);
-            }
+            if (p.pattern[sIdx]) triggerPlanetVoice(p, t, sIdx, 0, offline, sat, null, nBuf);
           });
         }
       }
 
       const rendered = await offline.startRendering();
-      const L = rendered.getChannelData(0);
-      const R = rendered.getChannelData(1);
+      const L = rendered.getChannelData(0), R = rendered.getChannelData(1);
       const buf = new ArrayBuffer(44 + L.length * 4);
       const view = new DataView(buf);
       const ws = (o, s) => { for (let i = 0; i < s.length; i++) view.setUint8(o + i, s.charCodeAt(i)); };
@@ -2252,8 +2374,8 @@
         isPlaying = true;
         globalTick = 0;
         currentChordIndex = 0;
-        planets.forEach(p => { p.phaseSteps = p.steps - 1; });
-        parallelPlanets.forEach(p => { p.phaseSteps = p.steps - 1; });
+        planets.forEach(p => { p.phaseSteps = p.steps - 1; p.lastFreq = 0; });
+        parallelPlanets.forEach(p => { p.phaseSteps = p.steps - 1; p.lastFreq = 0; });
         nextTickTime = audioCtx.currentTime + 0.04;
         nextParallelTickTime = audioCtx.currentTime + 0.04;
         schedulerTimer = setInterval(schedulerLoop, 20);
@@ -2390,53 +2512,24 @@
       saveStudioState();
     }
 
-    function loadIconicTune(tuneKey, keepParallel = false) {
-      const tune = ICONIC_TUNES[tuneKey];
-      if (!tune) return;
-      bpm = tune.bpm;
-      scaleKey = tune.scale;
-      chordProgKey = tune.chords;
-      if (tune.universe) setUniverse(tune.universe, true);
-      planets = tune.tracks.map((tr, idx) => createPlanetFromTemplate(idx, tr, false));
+    function loadCompiledMotif(motifIdx) {
+      const motif = COMPILED_MOTIFS[motifIdx];
+      if (!motif) return;
+      bpm = motif.bpm;
+      if (motif.universe) setUniverse(motif.universe, true);
+      planets = motif.tracks.map((tr, idx) => createPlanetFromTemplate(idx, tr, false));
       planets.forEach(p => { p.phaseSteps = p.steps - 1; p.springVel = 4.5; });
-      if (!keepParallel) activeTarget = { universe: "main", id: 0 };
+
+      // Populate Parallel Universe accompaniment so toggling DUAL layers it immediately
+      parallelPlanets = motif.parallelTracks.map((tr, idx) => createPlanetFromTemplate(idx, tr, true));
+      parallelPlanets.forEach(p => { p.phaseSteps = p.steps - 1; });
+
+      activeTarget = { universe: "main", id: 0 };
       updateTopLabel();
       refreshAllOpenWidgets();
       saveStudioState();
       if (!isPlaying) togglePlay();
-      showToast(`Loaded Motif: ${tune.label}`);
-    }
-
-    function loadDualMashup(leadKey, dualKey) {
-      const lead = ICONIC_TUNES[leadKey];
-      const dual = ICONIC_TUNES[dualKey];
-      if (!lead || !dual) return;
-      loadIconicTune(leadKey, true);
-      parallelVisible = true;
-      parallelActive = true;
-      parallelPlanets = (dual.parallelTracks || dual.tracks.slice(0, 2)).map((tr, idx) =>
-        createPlanetFromTemplate(idx, tr, true)
-      );
-      parallelPlanets.forEach(p => { p.phaseSteps = p.steps - 1; p.springVel = 4.0; });
-      updateTopLabel();
-      refreshAllOpenWidgets();
-      saveStudioState();
-      showToast(`Mashup: ${lead.label} × ${dual.label}`);
-    }
-
-    function runCelestialPrompt(raw) {
-      const q = raw.trim().toLowerCase();
-      if (!q) return;
-      const matched = Object.keys(ICONIC_TUNES).filter(k => ICONIC_TUNES[k].keywords.some(kw => q.includes(kw)));
-      if (matched.length >= 2) {
-        loadDualMashup(matched[0], matched[1]);
-        return;
-      }
-      if (matched.length === 1) {
-        loadIconicTune(matched[0]);
-        return;
-      }
-      applyBasicGroove("mutate");
+      showToast(`Loaded: ${motif.label}`);
     }
 
     function captureCurrentSnapshot(label = "") {
@@ -2478,7 +2571,7 @@
 
     function loadStudioState() {
       try {
-        const raw = localStorage.getItem("pluvox_v17_master");
+        const raw = localStorage.getItem("pluvox_v18_jukebox");
         if (!raw) return;
         const data = JSON.parse(raw);
         if (typeof data.parallelVisible === "boolean") parallelVisible = data.parallelVisible;
@@ -2692,7 +2785,6 @@
             ctx.stroke();
           }
 
-          // Display Note Labels around selected orbit when Find-the-Note dock is open
           if (active && isSel && isNoteFinderOpen && !isParallel) {
             const labelMidi = hasCustomNote ? p.stepMidi[s] : (48 + (p.stepNotes[s] || 0));
             ctx.font = "700 9px monospace";
@@ -2768,7 +2860,6 @@
         }
       }
 
-      // Apply Camera Pinch-Zoom & Pan Transform
       ctx.save();
       ctx.translate(w / 2 + camPanX, h / 2 + camPanY);
       ctx.scale(camZoom, camZoom);
@@ -2784,7 +2875,6 @@
         ctx.globalAlpha = 1;
       }
 
-      // Elastic Sun Gravity Slingshot Recovery
       if (!isDraggingSun) {
         sunPullX *= 0.82;
         sunPullY *= 0.82;
@@ -2923,7 +3013,6 @@
       const sx = e.clientX - rect.left, sy = e.clientY - rect.top;
       activePointers.set(e.pointerId, { x: sx, y: sy });
 
-      // Two-Finger Pinch-to-Zoom & Pan
       if (activePointers.size === 2) {
         clearTimeout(longPressTimer);
         holdRing.classList.remove("charging");
@@ -2938,7 +3027,6 @@
       const parC = getParallelCenter();
       pressStartPos = { x: sx, y: sy };
 
-      // Main Sun -> Tap to Play/Stop OR Drag for Gravity Slingshot FX
       if (Math.hypot(wPos.x - mainC.cx, wPos.y - mainC.cy) <= 40) {
         isDraggingSun = true;
         sunDragMoved = false;
@@ -2996,7 +3084,6 @@
         holdRing.classList.remove("charging");
       }
 
-      // Sun Gravity Slingshot FX (X -> Filter, Y -> Pitch & Echo)
       if (isDraggingSun) {
         const mainC = getMainCenter();
         const dx = wPos.x - mainC.cx;
@@ -3016,7 +3103,6 @@
         return;
       }
 
-      // Flick-to-Mute outward gesture
       if (flickCandidate) {
         const dist = Math.hypot(wPos.x - flickCandidate.startX, wPos.y - flickCandidate.startY);
         if (dist > 38) {
