@@ -204,9 +204,9 @@
 
     .wheel-wedge-content {
       position: absolute;
-      width: 64px;
+      width: 68px;
       height: 46px;
-      margin-left: -32px;
+      margin-left: -34px;
       margin-top: -23px;
       pointer-events: none;
       display: flex;
@@ -228,9 +228,9 @@
 
     .wheel-wedge-label {
       font-family: var(--mono);
-      font-size: 0.54rem;
+      font-size: 0.51rem;
       font-weight: 800;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.06em;
       color: #f8fafc;
     }
 
@@ -256,7 +256,7 @@
     /* PERSISTENT, DRAGGABLE, 80% TRANSPARENT LAYERABLE WIDGETS */
     .studio-widget {
       position: fixed;
-      width: 304px;
+      width: 312px;
       max-width: 90vw;
       background: var(--widget-bg);
       backdrop-filter: blur(12px);
@@ -302,8 +302,18 @@
 
     .widget-body {
       padding: 0.65rem;
-      max-height: 58vh;
+      max-height: 60vh;
       overflow-y: auto;
+    }
+
+    .section-tag {
+      font-family: var(--mono);
+      font-size: 0.52rem;
+      font-weight: 800;
+      color: var(--dim);
+      letter-spacing: 0.08em;
+      margin-bottom: 0.35rem;
+      text-transform: uppercase;
     }
 
     .orbit-switcher-bar {
@@ -360,9 +370,9 @@
       background: rgba(255, 255, 255, 0.07);
       border: 1px solid rgba(255, 255, 255, 0.14);
       border-radius: 8px;
-      padding: 0.35rem 0.25rem;
+      padding: 0.36rem 0.26rem;
       font-family: var(--mono);
-      font-size: 0.54rem;
+      font-size: 0.53rem;
       font-weight: 700;
       color: var(--text);
       cursor: pointer;
@@ -426,9 +436,7 @@
       box-shadow: 0 -16px 48px rgba(0, 0, 0, 0.65);
     }
 
-    .note-finder-dock.open {
-      transform: translateX(-50%) translateY(0);
-    }
+    .note-finder-dock.open { transform: translateX(-50%) translateY(0); }
 
     .nf-header {
       display: flex;
@@ -443,7 +451,6 @@
 
     .nf-group { display: flex; align-items: center; gap: 0.3rem; flex-wrap: wrap; }
 
-    /* GLASS PIANO KEYS */
     .piano-bed {
       position: relative;
       height: 112px;
@@ -466,14 +473,9 @@
       font-size: 0.52rem;
       color: var(--dim);
       cursor: pointer;
-      transition: background 0.08s ease;
     }
 
-    .p-white:active, .p-white.lit {
-      background: rgba(56, 189, 248, 0.38);
-      border-color: var(--cyan);
-      color: #fff;
-    }
+    .p-white:active { background: rgba(56, 189, 248, 0.38); border-color: var(--cyan); color: #fff; }
 
     .p-black {
       position: absolute;
@@ -494,12 +496,8 @@
       color: var(--cyan);
     }
 
-    .p-black:active, .p-black.lit {
-      background: var(--cyan);
-      color: #03050a;
-    }
+    .p-black:active { background: var(--cyan); color: #03050a; }
 
-    /* GLASS GUITAR NECK (6 STRINGS x 12 FRETS) */
     .guitar-neck {
       display: flex;
       flex-direction: column;
@@ -550,11 +548,7 @@
       bottom: 2px;
     }
 
-    .g-fret:active, .g-fret.lit {
-      background: rgba(245, 158, 11, 0.42);
-      border-color: var(--amber);
-      color: #fff;
-    }
+    .g-fret:active { background: rgba(245, 158, 11, 0.42); border-color: var(--amber); color: #fff; }
 
     .hold-ring {
       position: fixed;
@@ -609,7 +603,7 @@
     </div>
 
     <div class="top-cluster">
-      <button id="btnTopCelestial" class="hud-pill muse-pill" title="Open Celestial AI Co-Pilot">
+      <button id="btnTopCelestial" class="hud-pill muse-pill" title="Open Celestial AI Co-Pilot & Pop-Culture Tune Generator">
         <svg viewBox="0 0 24 24"><path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/></svg>
         <span>CELESTIAL</span>
       </button>
@@ -736,7 +730,7 @@
     })();
 
     // =========================================================================
-    // 2. COPYRIGHT-CLEAN STUDIO VOICES (INCL. POWER STRUM & PIANO KEYS)
+    // 2. 12 UNIVERSES, SEPARATE BASIC GROOVES, VOICES & POP-CULTURE TUNES
     // =========================================================================
     const SCALES = {
       minorPentatonic: [0, 3, 5, 7, 10, 12, 15, 17, 19, 22, 24],
@@ -756,15 +750,114 @@
       jazz251:  [[50, 57, 60, 64, 67], [55, 59, 65, 69, 72], [48, 55, 59, 62, 67], [45, 52, 55, 60, 64]]
     };
 
-    const BIOMES = {
-      cosmos: { label: "COSMOS", bgTrail: "rgba(3, 5, 10, 0.38)",   sunCore: "#fde047", sunHalo: "rgba(245, 158, 11, 0.32)", streakColor: "56, 189, 248",  particleMode: "rain",     rainFreq: 1050, filterDefault: 4200, driveDefault: 15 },
-      kyoto:  { label: "KYOTO",  bgTrail: "rgba(4, 13, 16, 0.38)",  sunCore: "#34d399", sunHalo: "rgba(16, 185, 129, 0.30)", streakColor: "52, 211, 153",  particleMode: "lantern",  rainFreq: 820,  filterDefault: 2800, driveDefault: 10 },
-      abyss:  { label: "ABYSS",  bgTrail: "rgba(2, 8, 18, 0.38)",   sunCore: "#38bdf8", sunHalo: "rgba(14, 165, 233, 0.35)", streakColor: "125, 211, 252", particleMode: "bubbles",  rainFreq: 520,  filterDefault: 2100, driveDefault: 12 },
-      dune:   { label: "DUNE",   bgTrail: "rgba(16, 9, 5, 0.38)",   sunCore: "#fb923c", sunHalo: "rgba(234, 88, 12, 0.35)",  streakColor: "251, 146, 60",  particleMode: "wind",     rainFreq: 1450, filterDefault: 4800, driveDefault: 22 },
-      rock:   { label: "STUDIO", bgTrail: "rgba(19, 10, 5, 0.40)",  sunCore: "#f59e0b", sunHalo: "rgba(217, 119, 6, 0.44)",  streakColor: "245, 158, 11",  particleMode: "studio",   rainFreq: 2400, filterDefault: 6800, driveDefault: 58 },
-      jazz:   { label: "LOUNGE", bgTrail: "rgba(18, 6, 12, 0.40)",  sunCore: "#fb7185", sunHalo: "rgba(225, 29, 72, 0.38)",  streakColor: "251, 113, 133", particleMode: "smoke",    rainFreq: 920,  filterDefault: 3200, driveDefault: 26 },
-      cyber:  { label: "NEON",   bgTrail: "rgba(10, 4, 22, 0.38)",  sunCore: "#e879f9", sunHalo: "rgba(192, 132, 252, 0.44)",streakColor: "232, 121, 249", particleMode: "neonrain", rainFreq: 1650, filterDefault: 7200, driveDefault: 36 },
-      nordic: { label: "AURORA", bgTrail: "rgba(3, 14, 18, 0.38)",  sunCore: "#6ee7b7", sunHalo: "rgba(52, 211, 153, 0.38)", streakColor: "110, 231, 183", particleMode: "aurora",   rainFreq: 740,  filterDefault: 4400, driveDefault: 8 }
+    // 12 Visual & Acoustic Universes (Pure Atmosphere — does NOT overwrite user's beat)
+    const UNIVERSES = {
+      cosmos:  { label: "COSMOS",  bgTrail: "rgba(3, 5, 10, 0.38)",   sunCore: "#fde047", streakColor: "56, 189, 248",  particleMode: "rain",     rainFreq: 1050, filterDefault: 4400, driveDefault: 15 },
+      kyoto:   { label: "KYOTO",   bgTrail: "rgba(4, 13, 16, 0.38)",  sunCore: "#34d399", streakColor: "52, 211, 153",  particleMode: "lantern",  rainFreq: 820,  filterDefault: 2900, driveDefault: 10 },
+      abyss:   { label: "ABYSS",   bgTrail: "rgba(2, 8, 18, 0.38)",   sunCore: "#38bdf8", streakColor: "125, 211, 252", particleMode: "bubbles",  rainFreq: 520,  filterDefault: 2200, driveDefault: 12 },
+      dune:    { label: "DUNE",    bgTrail: "rgba(16, 9, 5, 0.38)",   sunCore: "#fb923c", streakColor: "251, 146, 60",  particleMode: "wind",     rainFreq: 1450, filterDefault: 4800, driveDefault: 22 },
+      studio:  { label: "STUDIO",  bgTrail: "rgba(19, 10, 5, 0.40)",  sunCore: "#f59e0b", streakColor: "245, 158, 11",  particleMode: "studio",   rainFreq: 2400, filterDefault: 6800, driveDefault: 55 },
+      lounge:  { label: "LOUNGE",  bgTrail: "rgba(18, 6, 12, 0.40)",  sunCore: "#fb7185", streakColor: "251, 113, 133", particleMode: "smoke",    rainFreq: 920,  filterDefault: 3200, driveDefault: 26 },
+      neon:    { label: "NEON",    bgTrail: "rgba(10, 4, 22, 0.38)",  sunCore: "#e879f9", streakColor: "232, 121, 249", particleMode: "neonrain", rainFreq: 1650, filterDefault: 7200, driveDefault: 36 },
+      aurora:  { label: "AURORA",  bgTrail: "rgba(3, 14, 18, 0.38)",  sunCore: "#6ee7b7", streakColor: "110, 231, 183", particleMode: "aurora",   rainFreq: 740,  filterDefault: 4600, driveDefault: 8 },
+      eclipse: { label: "ECLIPSE", bgTrail: "rgba(20, 4, 8, 0.38)",   sunCore: "#f43f5e", streakColor: "251, 113, 133", particleMode: "embers",   rainFreq: 680,  filterDefault: 3600, driveDefault: 42 },
+      matrix:  { label: "MATRIX",  bgTrail: "rgba(2, 14, 6, 0.38)",   sunCore: "#10b981", streakColor: "16, 185, 129",  particleMode: "neonrain", rainFreq: 1950, filterDefault: 6400, driveDefault: 24 },
+      sahara:  { label: "SAHARA",  bgTrail: "rgba(22, 13, 4, 0.38)",  sunCore: "#fbbf24", streakColor: "251, 191, 36",  particleMode: "wind",     rainFreq: 1200, filterDefault: 4100, driveDefault: 18 },
+      glacier: { label: "GLACIER", bgTrail: "rgba(4, 15, 24, 0.38)",  sunCore: "#bae6fd", streakColor: "186, 230, 253", particleMode: "lantern",  rainFreq: 1350, filterDefault: 5800, driveDefault: 6 }
+    };
+
+    // Separate Basic Rhythmic Grooves (Independent of Universe!)
+    const BASIC_GROOVES = {
+      fourFloor: { label: "4/4 CLEAN",  bpm: 96,  tracks: [{ type: "kick808", steps: 4, pulses: 4, speedMult: 1 }, { type: "snareBreak", steps: 4, pulses: 2, speedMult: 1, pattern: [false, true, false, true] }, { type: "hatClosed", steps: 8, pulses: 4, speedMult: 1, pattern: [false, true, false, true, false, true, false, true] }] },
+      boombap:   { label: "BOOM-BAP",   bpm: 88,  tracks: [{ type: "kickAcoust", steps: 8, pulses: 3, speedMult: 1, pattern: [true, false, false, true, false, false, true, false] }, { type: "snareRock", steps: 8, pulses: 2, speedMult: 1, pattern: [false, false, true, false, false, false, true, false] }, { type: "warmKeys", steps: 8, pulses: 3, speedMult: 1 }] },
+      halftime:  { label: "HALF-TIME",  bpm: 92,  tracks: [{ type: "kick808", steps: 8, pulses: 2, speedMult: 1, pattern: [true, false, false, false, false, true, false, false] }, { type: "snareRock", steps: 8, pulses: 1, speedMult: 1, pattern: [false, false, false, false, true, false, false, false] }, { type: "powerStrum", steps: 8, pulses: 4, speedMult: 1 }] },
+      afropulse: { label: "AFRO 3:4:8", bpm: 104, tracks: [{ type: "kick808", steps: 3, pulses: 2, speedMult: 1 }, { type: "rim", steps: 4, pulses: 2, speedMult: 1 }, { type: "kalimba", steps: 8, pulses: 5, speedMult: 1 }] },
+      breakbeat: { label: "BREAKBEAT",  bpm: 118, tracks: [{ type: "kickAcoust", steps: 8, pulses: 3, speedMult: 1, pattern: [true, false, false, false, false, false, true, false] }, { type: "snareBreak", steps: 8, pulses: 2, speedMult: 1, pattern: [false, false, true, false, false, true, false, false] }, { type: "hatClosed", steps: 8, pulses: 6, speedMult: 2 }] },
+      waltz34:   { label: "WALTZ 3/4",  bpm: 82,  tracks: [{ type: "kick808", steps: 3, pulses: 1, speedMult: 1, pattern: [true, false, false] }, { type: "rim", steps: 3, pulses: 2, speedMult: 1, pattern: [false, true, true] }, { type: "grandPiano", steps: 6, pulses: 4, speedMult: 1 }] }
+    };
+
+    // Pop-Culture & Iconic Tune Blueprints for Celestial Muse
+    const ICONIC_TUNES = {
+      stranger: {
+        label: "80S UPSIDE-DOWN",
+        keywords: ["stranger", "80s", "upside", "hawkins", "synth"],
+        bpm: 84,
+        universe: "eclipse",
+        scale: "minorPentatonic",
+        chords: "none",
+        tracks: [
+          { type: "kick808", steps: 4, pulses: 2, speedMult: 1, pattern: [true, true, false, false] }, // Heartbeat thump
+          { type: "fmPluck", steps: 8, pulses: 8, speedMult: 2, pattern: [true,true,true,true,true,true,true,true], stepMidi: [48, 52, 55, 59, 60, 59, 55, 52], volume: 0.76 }, // C3-E3-G3-B3-C4-B3-G3-E3
+          { type: "atmosPad", steps: 8, pulses: 2, speedMult: 0.5, stepMidi: [36, 36, 36, 36, 36, 36, 36, 36], volume: 0.55 }
+        ]
+      },
+      interstellar: {
+        label: "SPACE CLOCKWORK",
+        keywords: ["interstellar", "hans", "clock", "space", "movie", "cinematic"],
+        bpm: 78,
+        universe: "cosmos",
+        scale: "dorian",
+        chords: "drift",
+        tracks: [
+          { type: "rim", steps: 4, pulses: 4, speedMult: 2, pattern: [true, true, true, true], volume: 0.45 },
+          { type: "grandPiano", steps: 6, pulses: 6, speedMult: 1, pattern: [true,true,true,true,true,true], stepMidi: [57, 64, 57, 64, 59, 64], volume: 0.74 },
+          { type: "tapeStrings", steps: 8, pulses: 2, speedMult: 0.5, stepMidi: [45, 45, 45, 45, 47, 47, 47, 47], volume: 0.62 }
+        ]
+      },
+      hybridrock: {
+        label: "HYBRID ANTHEM",
+        keywords: ["linkin", "numb", "in the end", "rock", "metal", "hybrid", "meteora"],
+        bpm: 105,
+        universe: "studio",
+        scale: "dropC",
+        chords: "numetal",
+        tracks: [
+          { type: "kickAcoust", steps: 4, pulses: 2, speedMult: 1 },
+          { type: "snareBreak", steps: 4, pulses: 2, speedMult: 1, pattern: [false, true, false, true] },
+          { type: "powerStrum", steps: 8, pulses: 5, speedMult: 1, pattern: [true, false, true, true, false, true, false, true], stepMidi: [36, 36, 36, 44, 44, 39, 39, 46], volume: 0.75 },
+          { type: "grandPiano", steps: 8, pulses: 4, speedMult: 1, pattern: [true, false, true, false, true, false, true, false], stepMidi: [67, 67, 70, 70, 67, 67, 63, 63], volume: 0.62 }
+        ]
+      },
+      frenchfunk: {
+        label: "ROBOT DISCO",
+        keywords: ["daft", "punk", "around", "funk", "disco", "robot"],
+        bpm: 121,
+        universe: "neon",
+        scale: "dorian",
+        chords: "neosoul",
+        tracks: [
+          { type: "kickAcoust", steps: 4, pulses: 4, speedMult: 1 },
+          { type: "snareRock", steps: 4, pulses: 2, speedMult: 1, pattern: [false, true, false, true] },
+          { type: "acidBass", steps: 8, pulses: 6, speedMult: 2, pattern: [true, true, false, true, true, true, false, true], stepMidi: [36, 48, 36, 39, 41, 43, 41, 39], volume: 0.74 }
+        ]
+      },
+      animerain: {
+        label: "NOCTURNE RAIN",
+        keywords: ["zelda", "anime", "ghibli", "lofi", "sad", "rain", "piano"],
+        bpm: 76,
+        universe: "kyoto",
+        scale: "lydian",
+        chords: "lofi1",
+        tracks: [
+          { type: "kick808", steps: 8, pulses: 2, speedMult: 1, pattern: [true, false, false, false, false, true, false, false] },
+          { type: "snareBrush", steps: 4, pulses: 1, speedMult: 1, pattern: [false, false, true, false] },
+          { type: "tineKeys", steps: 8, pulses: 5, speedMult: 1, pattern: [true, false, true, true, false, true, true, false], stepMidi: [64, 64, 67, 69, 69, 67, 64, 60], volume: 0.72 }
+        ]
+      },
+      nightcity: {
+        label: "CYBER CHASE",
+        keywords: ["cyber", "blade", "runner", "drive", "kavinsky", "synthwave"],
+        bpm: 114,
+        universe: "matrix",
+        scale: "minorPentatonic",
+        chords: "drift",
+        tracks: [
+          { type: "kick808", steps: 4, pulses: 4, speedMult: 1 },
+          { type: "snareRock", steps: 4, pulses: 2, speedMult: 1, pattern: [false, true, false, true] },
+          { type: "acidBass", steps: 8, pulses: 8, speedMult: 2, pattern: [true,true,true,true,true,true,true,true], stepMidi: [36,36,36,36,41,41,43,43], volume: 0.74 },
+          { type: "leadSynth", steps: 8, pulses: 4, speedMult: 1, stepMidi: [60, 67, 65, 63, 60, 67, 70, 67], volume: 0.62 }
+        ]
+      }
     };
 
     const VOICE_ENGINES = [
@@ -790,8 +883,8 @@
       { id: "bell",        label: "GLASS BELL",   cat: "synth", band: "high" },
       { id: "atmosPad",    label: "ATMOS PAD",    cat: "synth", band: "high" },
       { id: "leadSynth",   label: "LEAD SYNTH",   cat: "synth", band: "high" },
+      { id: "fmPluck",     label: "ARP PLUCK",    cat: "synth", band: "high" },
       { id: "acidBass",    label: "ACID BASS",    cat: "synth", band: "low" },
-      { id: "rotaryOrgan", label: "ROTARY ORGAN", cat: "synth", band: "mid" },
       { id: "uprightBass", label: "UPRIGHT BASS", cat: "world", band: "low" },
       { id: "snareBrush",  label: "BRUSH SNARE",  cat: "world", band: "high" },
       { id: "brassLead",   label: "VELVET BRASS", cat: "world", band: "mid" },
@@ -858,7 +951,7 @@
     }
 
     // =========================================================================
-    // 3. DUAL-UNIVERSE STUDIO STATE (MAIN + PARALLEL SOLAR SYSTEM)
+    // 3. STUDIO STATE (MAIN UNIVERSE + OPTIONAL PARALLEL SOLAR SYSTEM)
     // =========================================================================
     function createPlanetFromTemplate(idx, customCfg = null, isParallel = false) {
       const bank = isParallel ? PARALLEL_TEMPLATES : PLANET_TEMPLATES;
@@ -882,7 +975,6 @@
         ? [...customCfg.stepNotes]
         : Array.from({ length: steps }, (_, s) => [0, 2, 4, 3, 5, 4, 2, 0][s % 8]);
 
-      // Exact MIDI overrides set via the "Find the Note" Piano / Guitar Neck
       const stepMidi = customCfg && Array.isArray(customCfg.stepMidi)
         ? [...customCfg.stepMidi]
         : new Array(steps).fill(null);
@@ -923,20 +1015,20 @@
     let planets = [0, 1, 2].map(i => createPlanetFromTemplate(i, null, false));
     let parallelPlanets = [0, 1].map(i => createPlanetFromTemplate(i, null, true));
 
-    // Active Selection Target: { universe: 'main' | 'parallel', id: number }
     let activeTarget = { universe: "main", id: 0 };
     function getSelectedPlanet() {
       const list = activeTarget.universe === "parallel" ? parallelPlanets : planets;
       return list[activeTarget.id] || list[0];
     }
 
-    // Parallel Universe Independent Engine State
+    // Parallel Solar System is OPTIONAL (hidden until toggled on in DUAL)
+    let parallelVisible = false;
     let parallelActive = false;
-    let parallelBpmRatio = 1.0; // 0.75 (3:4 polytempo), 1.0, 1.25 (5:4), 1.5
-    let universeBalance = 0;    // -100 Main only <-> 0 Equal <-> +100 Parallel only
+    let parallelBpmRatio = 1.0;
+    let universeBalance = 0;
     let parallelSunSpring = 0, parallelSunVel = 0;
 
-    let activeBiomeKey = "cosmos";
+    let activeUniverseKey = "cosmos";
     let activePadCat = "all";
 
     let bpm = 90;
@@ -967,8 +1059,8 @@
       clearTimeout(saveDebounceTimer);
       saveDebounceTimer = setTimeout(() => {
         try {
-          localStorage.setItem("pluvox_v15_dual", JSON.stringify({
-            activeSceneIdx, solarScenes, parallelActive, parallelBpmRatio, universeBalance,
+          localStorage.setItem("pluvox_v16_uni", JSON.stringify({
+            activeSceneIdx, solarScenes, parallelVisible, parallelActive, parallelBpmRatio, universeBalance,
             current: captureCurrentSnapshot()
           }));
         } catch (_) {}
@@ -980,10 +1072,10 @@
     // =========================================================================
     const noteFinderDock = document.getElementById("noteFinderDock");
     let isNoteFinderOpen = false;
-    let noteFinderInstrument = "piano"; // 'piano' | 'guitar'
-    let noteFinderMode = "audition";    // 'audition' | 'write'
-    let noteFinderWriteCursor = 0;      // Which step index gets written next
-    let guitarPowerChordMode = true;    // 1-finger power chord down-strum on guitar neck
+    let noteFinderInstrument = "piano";
+    let noteFinderMode = "audition";
+    let noteFinderWriteCursor = 0;
+    let guitarPowerChordMode = true;
 
     function toggleNoteFinder(forceState = null) {
       isNoteFinderOpen = forceState !== null ? forceState : !isNoteFinderOpen;
@@ -997,7 +1089,6 @@
       const p = getSelectedPlanet();
       const now = audioCtx.currentTime;
 
-      // Audition sound immediately so user hears the exact note/chord they tapped
       const useStrum = forcePowerStrum || p.type === "powerStrum" || p.type === "chugStrum";
       if (useStrum) {
         triggerPowerChordStrum(now, midi, 0.72, p.type === "chugStrum", 0);
@@ -1006,7 +1097,6 @@
       }
 
       if (noteFinderMode === "write") {
-        // Find active pulse steps on selected orbit, or write to current cursor
         const activeSteps = p.pattern.map((v, i) => (v ? i : -1)).filter(i => i !== -1);
         const targetStep = activeSteps.length > 0
           ? activeSteps[noteFinderWriteCursor % activeSteps.length]
@@ -1028,7 +1118,7 @@
 
     function renderNoteFinder() {
       const p = getSelectedPlanet();
-      const whiteNotes = [48, 50, 52, 53, 55, 57, 59, 60, 62, 64, 65, 67, 69, 71]; // C3 to B4
+      const whiteNotes = [48, 50, 52, 53, 55, 57, 59, 60, 62, 64, 65, 67, 69, 71];
       const blackDefs = [
         { midi: 49, leftPct: 4.8 }, { midi: 51, leftPct: 12.0 },
         { midi: 54, leftPct: 26.3 }, { midi: 56, leftPct: 33.4 }, { midi: 58, leftPct: 40.6 },
@@ -1036,7 +1126,6 @@
         { midi: 66, leftPct: 76.3 }, { midi: 68, leftPct: 83.4 }, { midi: 70, leftPct: 90.6 }
       ];
 
-      // Drop-C Guitar Tuning (Low to High): C2(36), G2(43), C3(48), F3(53), A3(57), D4(62)
       const guitarStrings = [
         { label: "D4", openMidi: 62 },
         { label: "A3", openMidi: 57 },
@@ -1101,7 +1190,7 @@
     }
 
     // =========================================================================
-    // 5. GTA-STYLE SEGMENTED WEDGE WEAPON WHEEL (WITH KEYS & PARALLEL UNIVERSE)
+    // 5. GTA-STYLE SEGMENTED WEDGE WEAPON WHEEL (WITH UNIVERSE WEDGE)
     // =========================================================================
     const WEDGE_DEFS = [
       { id: "vox",      label: "VOX",      svgPath: `<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/>` },
@@ -1109,7 +1198,7 @@
       { id: "keys",     label: "KEYS",     svgPath: `<rect x="2" y="5" width="20" height="14" rx="2"/><line x1="7" y1="5" x2="7" y2="19"/><line x1="12" y1="5" x2="12" y2="19"/><line x1="17" y1="5" x2="17" y2="19"/>` },
       { id: "orbit",    label: "ORBIT",    svgPath: `<circle cx="12" cy="12" r="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-25 12 12)"/>` },
       { id: "parallel", label: "DUAL",     svgPath: `<circle cx="9" cy="12" r="5"/><circle cx="17" cy="9" r="3"/>` },
-      { id: "world",    label: "WORLD",    svgPath: `<circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8"/><path d="M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>` },
+      { id: "universe", label: "UNIVERSE", svgPath: `<circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8"/><path d="M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>` },
       { id: "mix",      label: "MIX",      svgPath: `<line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>` },
       { id: "save",     label: "SAVE",     svgPath: `<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>` }
     ];
@@ -1202,7 +1291,7 @@
         const el = document.createElement("div");
         el.className = "studio-widget";
         const count = Object.keys(openWidgets).length;
-        el.style.left = `${Math.min(logicalW - 314, Math.max(14, 20 + (count % 3) * 32))}px`;
+        el.style.left = `${Math.min(logicalW - 320, Math.max(14, 20 + (count % 3) * 32))}px`;
         el.style.top = `${Math.min(logicalH - 300, Math.max(64, 70 + (count % 4) * 36))}px`;
         bringWidgetToFront(el);
         el.addEventListener("pointerdown", () => bringWidgetToFront(el));
@@ -1249,7 +1338,7 @@
 
         el.innerHTML = `
           <div class="widget-drag-bar" style="color:${p.color};">
-            <span>${isPar ? "DUAL" : "MAIN"} · ${p.name}</span>
+            <span>ORBIT · ${p.name}</span>
             <button class="widget-close-btn">×</button>
           </div>
           <div class="widget-body">
@@ -1301,7 +1390,7 @@
             selectPlanet(list.length - 1, false, activeTarget.universe);
             saveStudioState();
           } else {
-            showToast(isPar ? "Parallel Universe max 3 orbits" : "Max 7 orbits");
+            showToast(isPar ? "Parallel System max 3 orbits" : "Max 7 orbits");
           }
         };
         el.querySelector("#wRemOrb").onclick = () => {
@@ -1334,16 +1423,16 @@
         el.querySelector("#wPitch").oninput = e => { p.pitchOffset = Number(e.target.value); el.querySelector("#wPitchV").textContent = `+${p.pitchOffset}`; saveStudioState(); };
         el.querySelector("#wVol").oninput = e => { p.volume = Number(e.target.value) / 100; el.querySelector("#wVolV").textContent = `${e.target.value}%`; saveStudioState(); };
       } else if (id === "parallel") {
-        // PARALLEL UNIVERSE INDEPENDENT ENGINE CONTROLLER
+        // OPTIONAL PARALLEL SOLAR SYSTEM WIDGET
         el.innerHTML = `
           <div class="widget-drag-bar" style="color:var(--violet);">
-            <span>PARALLEL UNIVERSE</span>
+            <span>PARALLEL SYSTEM (OPTIONAL)</span>
             <button class="widget-close-btn">×</button>
           </div>
           <div class="widget-body">
-            <div class="w-grid-2" style="margin-bottom:0.55rem;">
-              <button class="w-btn ${parallelActive ? "active" : ""}" id="pToggle">${parallelActive ? "ENGINE: LIVE" : "ENGINE: OFF"}</button>
-              <button class="w-btn" id="pEditOrbit">EDIT ORBITS</button>
+            <div class="w-grid-2" style="margin-bottom:0.5rem;">
+              <button class="w-btn ${parallelVisible ? "active" : ""}" id="pVisToggle">${parallelVisible ? "SYSTEM: SHOWN" : "ADD SYSTEM"}</button>
+              <button class="w-btn ${parallelActive ? "active" : ""}" id="pRunToggle">${parallelActive ? "ENGINE: LIVE" : "ENGINE: OFF"}</button>
             </div>
             <div class="w-row">
               <span>POLY-TEMPO</span>
@@ -1358,18 +1447,34 @@
               <input type="range" id="pBal" min="-100" max="100" value="${universeBalance}" />
               <span class="w-val" id="pBalV">${universeBalance}</span>
             </div>
-            <div style="font-family:var(--mono); font-size:0.55rem; color:var(--dim); line-height:1.4; margin-top:0.4rem;">
-              Tap the mini-sun on the right or any mini-orbit to sculpt its independent 3-orbit counter-universe.
-            </div>
+            <button class="w-btn" id="pEditOrbit" style="width:100%; margin-top:0.35rem;">EDIT PARALLEL ORBITS</button>
           </div>
         `;
-        el.querySelector("#pToggle").onclick = () => {
-          parallelActive = !parallelActive;
+        el.querySelector("#pVisToggle").onclick = () => {
+          parallelVisible = !parallelVisible;
+          if (!parallelVisible) {
+            parallelActive = false;
+            if (activeTarget.universe === "parallel") activeTarget = { universe: "main", id: 0 };
+          } else {
+            parallelActive = true;
+          }
+          updateTopLabel();
           renderWidgetContent("parallel");
           saveStudioState();
-          showToast(parallelActive ? "Parallel Universe IGNITED" : "Parallel Universe Muted");
+          showToast(parallelVisible ? "Parallel Solar System spawned" : "Parallel System hidden");
         };
-        el.querySelector("#pEditOrbit").onclick = () => selectPlanet(0, true, "parallel");
+        el.querySelector("#pRunToggle").onclick = () => {
+          if (!parallelVisible) parallelVisible = true;
+          parallelActive = !parallelActive;
+          updateTopLabel();
+          renderWidgetContent("parallel");
+          saveStudioState();
+        };
+        el.querySelector("#pEditOrbit").onclick = () => {
+          parallelVisible = true;
+          selectPlanet(0, true, "parallel");
+          renderWidgetContent("parallel");
+        };
         el.querySelectorAll("[data-pratio]").forEach(btn => btn.onclick = () => {
           parallelBpmRatio = Number(btn.dataset.pratio);
           renderWidgetContent("parallel");
@@ -1431,53 +1536,59 @@
         el.querySelector("#wHumBtn").onclick = () => toggleHumToOrbit();
         el.querySelector("#wRetroBtn").onclick = () => captureRetroBuffer();
       } else if (id === "muse") {
+        // CELESTIAL MUSE + POP-CULTURE & ICONIC TUNE GENERATOR
         el.innerHTML = `
           <div class="widget-drag-bar" style="color:var(--violet);">
-            <span>CELESTIAL MUSE</span>
+            <span>CELESTIAL · ICONIC TUNES</span>
             <button class="widget-close-btn">×</button>
           </div>
           <div class="widget-body">
-            <div class="w-grid-2" style="margin-bottom:0.5rem;">
-              <button class="w-btn ${jamPartnerEnabled ? "active" : ""}" id="wJam">JAM: ${jamPartnerEnabled ? "ON" : "OFF"}</button>
-              <button class="w-btn ${autoFillsEnabled ? "active" : ""}" id="wFills">FILLS: ${autoFillsEnabled ? "ON" : "OFF"}</button>
-            </div>
+            <div class="section-tag">POP-CULTURE & FILM MOTIFS</div>
             <div class="w-grid-2" style="margin-bottom:0.55rem;">
-              <button class="w-btn" id="wForge">FORGE DROP</button>
-              <button class="w-btn" id="wMutate">EVOLVE</button>
-            </div>
-            <div class="w-row">
-              <input id="wMuseInput" placeholder="e.g. 'heavy drop' or 'calm'..." style="flex:1; background:rgba(0,0,0,0.35); border:1px solid var(--border); border-radius:8px; padding:0.35rem 0.5rem; color:#fff; font-family:var(--mono); font-size:0.58rem; outline:none;" />
-              <button class="w-btn" id="wMuseGo" style="padding:0.35rem 0.6rem;">GO</button>
-            </div>
-          </div>
-        `;
-        el.querySelector("#wJam").onclick = () => { jamPartnerEnabled = !jamPartnerEnabled; renderWidgetContent("muse"); };
-        el.querySelector("#wFills").onclick = () => { autoFillsEnabled = !autoFillsEnabled; renderWidgetContent("muse"); };
-        el.querySelector("#wForge").onclick = () => forgeDropScene();
-        el.querySelector("#wMutate").onclick = () => applyPreset("mutate");
-        el.querySelector("#wMuseGo").onclick = () => runCelestialPrompt(el.querySelector("#wMuseInput").value);
-      } else if (id === "world") {
-        el.innerHTML = `
-          <div class="widget-drag-bar">
-            <span>WORLD & GROOVES</span>
-            <button class="widget-close-btn">×</button>
-          </div>
-          <div class="widget-body">
-            <div class="w-grid-2" style="margin-bottom:0.55rem;">
-              ${Object.entries(BIOMES).map(([k, b]) =>
-                `<button class="w-btn ${activeBiomeKey === k ? "active" : ""}" data-biome="${k}">${b.label}</button>`
+              ${Object.entries(ICONIC_TUNES).map(([k, tune]) =>
+                `<button class="w-btn" data-tune="${k}">${tune.label}</button>`
               ).join("")}
             </div>
-            <div class="w-grid-2">
-              <button class="w-btn" data-preset="starter">CLEAN BEAT</button>
-              <button class="w-btn" data-preset="hybridmetal">POWER ROCK</button>
-              <button class="w-btn" data-preset="midnightjazz">JAZZ CLUB</button>
-              <button class="w-btn" data-preset="hyperfocus">DEEP FOCUS</button>
+            <div class="w-row" style="margin-bottom:0.55rem;">
+              <input id="wMuseInput" placeholder="e.g. 'Stranger Things', 'Daft Punk'..." style="flex:1; background:rgba(0,0,0,0.35); border:1px solid var(--border); border-radius:8px; padding:0.35rem 0.5rem; color:#fff; font-family:var(--mono); font-size:0.56rem; outline:none;" />
+              <button class="w-btn" id="wMuseGo" style="padding:0.35rem 0.6rem;">GO</button>
+            </div>
+            <div class="w-grid-3">
+              <button class="w-btn ${jamPartnerEnabled ? "active" : ""}" id="wJam">JAM: ${jamPartnerEnabled ? "ON" : "OFF"}</button>
+              <button class="w-btn ${autoFillsEnabled ? "active" : ""}" id="wFills">FILLS: ${autoFillsEnabled ? "ON" : "OFF"}</button>
+              <button class="w-btn" id="wMutate">REMIX</button>
             </div>
           </div>
         `;
-        el.querySelectorAll("[data-biome]").forEach(b => b.onclick = () => { setBiome(b.dataset.biome); renderWidgetContent("world"); });
-        el.querySelectorAll("[data-preset]").forEach(b => b.onclick = () => applyPreset(b.dataset.preset));
+        el.querySelectorAll("[data-tune]").forEach(btn => btn.onclick = () => loadIconicTune(btn.dataset.tune));
+        el.querySelector("#wJam").onclick = () => { jamPartnerEnabled = !jamPartnerEnabled; renderWidgetContent("muse"); };
+        el.querySelector("#wFills").onclick = () => { autoFillsEnabled = !autoFillsEnabled; renderWidgetContent("muse"); };
+        el.querySelector("#wMutate").onclick = () => applyBasicGroove("mutate");
+        el.querySelector("#wMuseGo").onclick = () => runCelestialPrompt(el.querySelector("#wMuseInput").value);
+      } else if (id === "universe") {
+        // 12 UNIVERSES (Visual/Acoustic) + SEPARATE BASIC GROOVES
+        el.innerHTML = `
+          <div class="widget-drag-bar">
+            <span>12 UNIVERSES & GROOVES</span>
+            <button class="widget-close-btn">×</button>
+          </div>
+          <div class="widget-body">
+            <div class="section-tag">VISUAL & ACOUSTIC UNIVERSE</div>
+            <div class="w-grid-3" style="margin-bottom:0.65rem;">
+              ${Object.entries(UNIVERSES).map(([k, u]) =>
+                `<button class="w-btn ${activeUniverseKey === k ? "active" : ""}" data-uni="${k}">${u.label}</button>`
+              ).join("")}
+            </div>
+            <div class="section-tag">BASIC GROOVES (RHYTHM ONLY)</div>
+            <div class="w-grid-2">
+              ${Object.entries(BASIC_GROOVES).map(([k, g]) =>
+                `<button class="w-btn" data-groove="${k}">${g.label}</button>`
+              ).join("")}
+            </div>
+          </div>
+        `;
+        el.querySelectorAll("[data-uni]").forEach(b => b.onclick = () => { setUniverse(b.dataset.uni); renderWidgetContent("universe"); });
+        el.querySelectorAll("[data-groove]").forEach(b => b.onclick = () => applyBasicGroove(b.dataset.groove));
       } else if (id === "mix") {
         el.innerHTML = `
           <div class="widget-drag-bar">
@@ -1497,6 +1608,7 @@
                 <option value="none" ${chordProgKey === "none" ? "selected" : ""}>Off (Pure Orbits)</option>
                 <option value="lofi1" ${chordProgKey === "lofi1" ? "selected" : ""}>Rain Minor</option>
                 <option value="neosoul" ${chordProgKey === "neosoul" ? "selected" : ""}>Velvet Jazz</option>
+                <option value="drift" ${chordProgKey === "drift" ? "selected" : ""}>Space Drift</option>
                 <option value="numetal" ${chordProgKey === "numetal" ? "selected" : ""}>Drop-C Power</option>
               </select>
             </div>
@@ -1568,11 +1680,11 @@
     }
 
     function updateTopLabel() {
-      document.getElementById("topMetaLabel").textContent = `${BIOMES[activeBiomeKey].label} · ${bpm} BPM${parallelActive ? " · DUAL" : ""}`;
+      document.getElementById("topMetaLabel").textContent = `${UNIVERSES[activeUniverseKey].label} · ${bpm} BPM${parallelVisible ? " · DUAL" : ""}`;
     }
 
     // =========================================================================
-    // 7. ZERO-ALLOCATION WEB AUDIO ENGINE (POWER CHORD STRUMS + GRAND PIANO)
+    // 7. ZERO-ALLOCATION WEB AUDIO ENGINE
     // =========================================================================
     let audioCtx = null, masterFilter = null, masterAnalyser = null, tapeSaturator = null;
     let compressorNode = null, delayNode = null, delayWet = null, rainBandFilter = null, rainGain = null, vinylGain = null;
@@ -1696,7 +1808,7 @@
       rainSrc.loop = true;
       rainBandFilter = audioCtx.createBiquadFilter();
       rainBandFilter.type = "bandpass";
-      rainBandFilter.frequency.value = BIOMES[activeBiomeKey].rainFreq;
+      rainBandFilter.frequency.value = UNIVERSES[activeUniverseKey].rainFreq;
       rainGain = audioCtx.createGain();
       rainGain.gain.value = (rainLevel / 100) * 0.55;
       rainSrc.connect(rainBandFilter);
@@ -1729,20 +1841,20 @@
       else { focusLfoOsc.frequency.setTargetAtTime(focusHz, audioCtx.currentTime, 0.08); focusMasterGain.gain.setTargetAtTime(0.03, audioCtx.currentTime, 0.12); }
     }
 
-    function setBiome(key, silent = false) {
-      if (!BIOMES[key]) return;
-      activeBiomeKey = key;
-      const b = BIOMES[key];
-      filterCutoff = b.filterDefault;
-      driveLevel = b.driveDefault;
-      if (rainBandFilter && audioCtx) rainBandFilter.frequency.setTargetAtTime(b.rainFreq, audioCtx.currentTime, 0.12);
+    // Pure Universe Switcher: transforms visual theme & acoustic room WITHOUT resetting user's beat
+    function setUniverse(key, silent = false) {
+      if (!UNIVERSES[key]) return;
+      activeUniverseKey = key;
+      const u = UNIVERSES[key];
+      filterCutoff = u.filterDefault;
+      driveLevel = u.driveDefault;
+      if (rainBandFilter && audioCtx) rainBandFilter.frequency.setTargetAtTime(u.rainFreq, audioCtx.currentTime, 0.12);
       if (masterFilter && audioCtx) masterFilter.frequency.setTargetAtTime(filterCutoff, audioCtx.currentTime, 0.12);
       updateTapeDrive(driveLevel);
       updateTopLabel();
-      if (!silent) showToast(`World: ${b.label}`);
+      if (!silent) showToast(`Universe: ${u.label}`);
     }
 
-    // Physical-Style Power Chord Down-Strum (staggered root -> 5th -> octave)
     function triggerPowerChordStrum(time, rootMidi, vol, isPalmMute = false, panIdx = 0) {
       const panner = planetPanners[panIdx % planetPanners.length];
       const dist = audioCtx.createWaveShaper();
@@ -1756,9 +1868,8 @@
       cabFilter.connect(panner);
       if (!isPalmMute) cabFilter.connect(delayNode);
 
-      const chordIntervals = [0, 7, 12]; // Root, 5th, Octave
-      chordIntervals.forEach((semi, idx) => {
-        const strumDelay = idx * 0.015; // 15ms downward pick sweep across strings
+      [0, 7, 12].forEach((semi, idx) => {
+        const strumDelay = idx * 0.015;
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.type = "sawtooth";
@@ -1775,7 +1886,6 @@
       });
     }
 
-    // Multi-Harmonic Grand Piano / Tine Key Voice
     function triggerGrandPianoNote(time, midi, vol, panIdx = 0, isTine = false) {
       const panner = planetPanners[panIdx % planetPanners.length];
       const freq = midiToFreq(midi);
@@ -1820,12 +1930,12 @@
         const freq = midiToFreq(midi);
         const osc1 = audioCtx.createOscillator(), osc2 = audioCtx.createOscillator();
         const filter = audioCtx.createBiquadFilter(), gain = audioCtx.createGain();
-        osc1.type = activeBiomeKey === "rock" ? "sawtooth" : "triangle";
+        osc1.type = activeUniverseKey === "studio" ? "sawtooth" : "triangle";
         osc2.type = "sine";
         osc1.frequency.setValueAtTime(freq, time);
         osc2.frequency.setValueAtTime(freq * 1.003, time);
         filter.type = "lowpass";
-        filter.frequency.setValueAtTime(activeBiomeKey === "rock" ? 1350 : 950, time);
+        filter.frequency.setValueAtTime(activeUniverseKey === "studio" ? 1350 : 950, time);
 
         const peak = 0.05 / Math.sqrt(notes.length);
         gain.gain.setValueAtTime(0.0001, time);
@@ -1849,7 +1959,6 @@
       if (planet.layer === "rock" && hybridXfade > 0) layerGain = Math.max(0.08, 1 - hybridXfade / 105);
       if (planet.layer === "synth" && hybridXfade < 0) layerGain = Math.max(0.08, 1 + hybridXfade / 105);
 
-      // Universe balance (-100 Main only <-> +100 Parallel only)
       let uniGain = 1.0;
       if (!planet.isParallel && universeBalance > 0) uniGain = Math.max(0.05, 1 - universeBalance / 102);
       if (planet.isParallel && universeBalance < 0) uniGain = Math.max(0.05, 1 + universeBalance / 102);
@@ -1860,7 +1969,6 @@
       const vMeta = VOICE_ENGINES.find(v => v.id === t);
       panner.pan.setValueAtTime(Math.max(-1, Math.min(1, panVal * (vMeta?.band === "low" ? 0.22 : 0.85))), time);
 
-      // Check if user wrote an explicit MIDI note via the "Find the Note" Piano/Guitar Neck
       const customMidi = planet.stepMidi ? planet.stepMidi[stepIndex % planet.stepMidi.length] : null;
       const stepDegree = planet.stepNotes[stepIndex % planet.stepNotes.length] || 0;
       const noteIdx = (stepDegree + planet.pitchOffset) % intervals.length;
@@ -1984,7 +2092,6 @@
         const barTick64 = globalTick % 64;
         const isFillWindow = autoFillsEnabled && (barTick64 >= 60);
 
-        // Schedule Main Universe
         scheduleSystemOrbits(planets, playTime, sixteenthDuration, isFillWindow);
 
         if (jamPartnerEnabled && globalTick % 2 === 1) {
@@ -2000,8 +2107,7 @@
         globalTick++;
       }
 
-      // Independent Parallel Universe Clock (supports separate poly-tempo ratios)
-      if (parallelActive) {
+      if (parallelVisible && parallelActive) {
         const parSixteenth = ((60 / (bpm * parallelBpmRatio)) / 4);
         while (nextParallelTickTime < audioCtx.currentTime + 0.08) {
           scheduleSystemOrbits(parallelPlanets, nextParallelTickTime, parSixteenth, false);
@@ -2137,39 +2243,8 @@
       showToast(`Captured ${hits}-note phrase!`);
     }
 
-    function forgeDropScene() {
-      const emptyIdx = solarScenes.findIndex(s => s === null);
-      const idx = emptyIdx !== -1 ? emptyIdx : (activeSceneIdx + 1) % 8;
-      const forged = captureCurrentSnapshot(`DROP 0${idx + 1}`);
-      forged.drive = Math.min(90, forged.drive + 25);
-      forged.planets.forEach((pl, i) => {
-        if (planets[i]?.locked) return;
-        pl.pulses = Math.min(pl.steps, pl.pulses + 1);
-        pl.pattern = generateEuclidean(pl.steps, pl.pulses);
-        if (i === forged.planets.length - 1) pl.type = "powerStrum";
-      });
-      solarScenes[idx] = forged;
-      saveStudioState();
-      showToast(`Forged Drop into Deck 0${idx + 1}`);
-    }
-
-    function runCelestialPrompt(raw) {
-      const q = raw.trim().toLowerCase();
-      if (!q) return;
-      if (q.includes("rock") || q.includes("metal") || q.includes("drop")) { setBiome("rock"); applyPreset("hybridmetal"); }
-      else if (q.includes("jazz")) { setBiome("jazz"); applyPreset("midnightjazz"); }
-      else if (q.includes("focus") || q.includes("calm")) { applyPreset("hyperfocus"); }
-      else { applyPreset("mutate"); }
-    }
-
-    const ORBIT_PRESETS = {
-      starter:      { bpm: 90,  focusHz: 12.5, scale: "minorPentatonic", chords: "none",    biome: "cosmos", tracks: [{ type: "kick808", steps: 4, pulses: 2, speedMult: 1 }, { type: "snareBreak", steps: 4, pulses: 1, speedMult: 1, pattern: [false, false, true, false] }, { type: "grandPiano", steps: 8, pulses: 4, speedMult: 1 }] },
-      hybridmetal:  { bpm: 102, focusHz: 14.0, scale: "dropC",           chords: "numetal", biome: "rock",   tracks: [{ type: "kickAcoust", steps: 4, pulses: 2, speedMult: 1 }, { type: "snareBreak", steps: 4, pulses: 2, speedMult: 1 }, { type: "powerStrum", steps: 8, pulses: 5, speedMult: 1, stepNotes: [0, 0, 1, 0, 4, 3, 1, 0] }, { type: "vinylScratch", steps: 8, pulses: 3, speedMult: 2 }] },
-      midnightjazz: { bpm: 84,  focusHz: 10.0, scale: "dorian",          chords: "jazz251", biome: "jazz",   tracks: [{ type: "uprightBass", steps: 3, pulses: 2, speedMult: 1 }, { type: "snareBrush", steps: 4, pulses: 2, speedMult: 1 }, { type: "tineKeys", steps: 6, pulses: 4, speedMult: 1 }, { type: "brassLead", steps: 12, pulses: 5, speedMult: 1 }] },
-      hyperfocus:   { bpm: 74,  focusHz: 12.5, scale: "dorian",          chords: "lofi1",   biome: "cosmos", tracks: [{ type: "kick808", steps: 4, pulses: 2, speedMult: 0.5 }, { type: "rim", steps: 4, pulses: 1, speedMult: 1 }, { type: "grandPiano", steps: 8, pulses: 4, speedMult: 1 }, { type: "bell", steps: 16, pulses: 6, speedMult: 1 }] }
-    };
-
-    function applyPreset(key) {
+    // Apply Basic Groove (Rhythmic Foundation — preserves active visual Universe!)
+    function applyBasicGroove(key) {
       if (key === "mutate") {
         planets.forEach(p => {
           if (p.locked) return;
@@ -2179,24 +2254,53 @@
           p.nodeFlashes = new Array(p.steps).fill(0);
           p.springVel += 3.5;
         });
-      } else if (ORBIT_PRESETS[key]) {
-        const cfg = ORBIT_PRESETS[key];
-        setBiome(cfg.biome, true);
-        bpm = cfg.bpm; focusHz = cfg.focusHz; scaleKey = cfg.scale; chordProgKey = cfg.chords;
-        updateBrainwaveCarrier();
-        planets = cfg.tracks.map((tr, idx) => planets[idx]?.locked ? planets[idx] : createPlanetFromTemplate(idx, tr, false));
+      } else if (BASIC_GROOVES[key]) {
+        const g = BASIC_GROOVES[key];
+        bpm = g.bpm;
+        planets = g.tracks.map((tr, idx) => planets[idx]?.locked ? planets[idx] : createPlanetFromTemplate(idx, tr, false));
         activeTarget = { universe: "main", id: 0 };
+        showToast(`Groove: ${g.label}`);
       }
       updateTopLabel();
       refreshAllOpenWidgets();
       saveStudioState();
     }
 
+    // Load Pop-Culture & Iconic Tune Blueprints inside Celestial
+    function loadIconicTune(tuneKey) {
+      const tune = ICONIC_TUNES[tuneKey];
+      if (!tune) return;
+      bpm = tune.bpm;
+      scaleKey = tune.scale;
+      chordProgKey = tune.chords;
+      if (tune.universe) setUniverse(tune.universe, true);
+      planets = tune.tracks.map((tr, idx) => createPlanetFromTemplate(idx, tr, false));
+      planets.forEach(p => { p.phaseSteps = p.steps - 1; p.springVel = 4.5; });
+      activeTarget = { universe: "main", id: 0 };
+      updateTopLabel();
+      refreshAllOpenWidgets();
+      saveStudioState();
+      if (!isPlaying) togglePlay();
+      showToast(`Loaded Motif: ${tune.label}`);
+    }
+
+    function runCelestialPrompt(raw) {
+      const q = raw.trim().toLowerCase();
+      if (!q) return;
+      for (const [key, tune] of Object.entries(ICONIC_TUNES)) {
+        if (tune.keywords.some(kw => q.includes(kw))) {
+          loadIconicTune(key);
+          return;
+        }
+      }
+      applyBasicGroove("mutate");
+    }
+
     function captureCurrentSnapshot(label = "") {
       return {
         label: label || `DECK 0${activeSceneIdx + 1}`,
         bars: 4,
-        biome: activeBiomeKey,
+        universe: activeUniverseKey,
         bpm, focusHz, drive: driveLevel, scale: scaleKey, chords: chordProgKey,
         planets: planets.map(p => ({
           type: p.type, steps: p.steps, pulses: p.pulses, speedMult: p.speedMult, probability: p.probability,
@@ -2213,7 +2317,7 @@
 
     function applySnapshot(snap, silent = false) {
       if (!snap) return;
-      setBiome(snap.biome || "cosmos", true);
+      setUniverse(snap.universe || snap.biome || "cosmos", true);
       bpm = snap.bpm || 90;
       focusHz = snap.focusHz ?? 12.5;
       driveLevel = snap.drive ?? 15;
@@ -2231,9 +2335,10 @@
 
     function loadStudioState() {
       try {
-        const raw = localStorage.getItem("pluvox_v15_dual");
+        const raw = localStorage.getItem("pluvox_v16_uni");
         if (!raw) return;
         const data = JSON.parse(raw);
+        if (typeof data.parallelVisible === "boolean") parallelVisible = data.parallelVisible;
         if (typeof data.parallelActive === "boolean") parallelActive = data.parallelActive;
         if (data.parallelBpmRatio) parallelBpmRatio = data.parallelBpmRatio;
         if (data.universeBalance !== undefined) universeBalance = data.universeBalance;
@@ -2244,7 +2349,7 @@
 
     function encodeOrbitToHash() {
       const snap = captureCurrentSnapshot();
-      return btoa(JSON.stringify({ e: snap.biome, b: snap.bpm, p: snap.planets.map(pl => [pl.steps, pl.pattern.map(x => x ? "1" : "0").join(""), pl.type, pl.speedMult]) }));
+      return btoa(JSON.stringify({ e: snap.universe, b: snap.bpm, p: snap.planets.map(pl => [pl.steps, pl.pattern.map(x => x ? "1" : "0").join(""), pl.type, pl.speedMult]) }));
     }
 
     function exportMultiTrackMidi() {
@@ -2318,7 +2423,7 @@
     }
 
     // =========================================================================
-    // 8. DUAL SOLAR SYSTEM CANVAS RENDERER (MAIN + PARALLEL UNIVERSE)
+    // 8. CANVAS RENDERER (MAIN UNIVERSE + OPTIONAL PARALLEL SOLAR SYSTEM)
     // =========================================================================
     const canvas = document.getElementById("cosmos");
     const ctx = canvas.getContext("2d", { alpha: false });
@@ -2342,10 +2447,12 @@
     const particles = Array.from({ length: 55 }, () => ({ x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight, len: 12 + Math.random() * 18, size: 1.5 + Math.random() * 2.2, speed: 3 + Math.random() * 4.5, alpha: 0.16 + Math.random() * 0.28, wob: Math.random() * 6.28 }));
     const shockwaves = [];
     const waveData = new Uint8Array(64);
-    let sunSpring = 0, sunVel = 0, reelAngle = 0, lastFrame = performance.now();
+    let sunSpring = 0, sunVel = 0, lastFrame = performance.now();
 
     function getMainCenter() {
-      return { cx: logicalW * 0.46, cy: logicalH * 0.5 };
+      return parallelVisible
+        ? { cx: logicalW * 0.45, cy: logicalH * 0.5 }
+        : { cx: logicalW * 0.5,  cy: logicalH * 0.5 };
     }
 
     function getParallelCenter() {
@@ -2360,7 +2467,7 @@
         const base = Math.max(30, minDim * 0.045);
         return base + index * Math.max(24, minDim * 0.036);
       }
-      const maxSpan = minDim * 0.37;
+      const maxSpan = minDim * (parallelVisible ? 0.36 : 0.39);
       const base = Math.max(64, minDim * 0.11);
       const spacing = Math.min(54, (maxSpan - base) / Math.max(1, Math.max(3, planets.length) - 1));
       return base + index * spacing;
@@ -2383,7 +2490,7 @@
       }
     }
 
-    function drawSolarSystem(list, center, isParallel, dt, sixteenthSec, audioNow, biome) {
+    function drawSolarSystem(list, center, isParallel, dt, sixteenthSec, audioNow) {
       const anySoloed = list.some(pl => pl.soloed);
       const isDimSystem = isParallel && !parallelActive;
 
@@ -2495,12 +2602,12 @@
       const mainC = getMainCenter();
       const parC = getParallelCenter();
       const sixteenthSec = (60 / bpm) / 4;
-      const biome = BIOMES[activeBiomeKey];
+      const u = UNIVERSES[activeUniverseKey];
 
-      ctx.fillStyle = biome.bgTrail;
+      ctx.fillStyle = u.bgTrail;
       ctx.fillRect(0, 0, w, h);
 
-      ctx.fillStyle = `rgba(${biome.streakColor}, 0.45)`;
+      ctx.fillStyle = `rgba(${u.streakColor}, 0.45)`;
       for (let i = 0; i < stars.length; i++) {
         const s = stars[i];
         ctx.fillRect(s.x * w, s.y * h, s.r, s.r);
@@ -2511,28 +2618,18 @@
       for (let i = 0; i < activeP; i++) {
         const p = particles[i];
         p.wob += 0.03;
-        if (biome.particleMode === "rain" || biome.particleMode === "neonrain") {
+        if (u.particleMode === "rain" || u.particleMode === "neonrain") {
           p.x -= p.speed * 0.55; p.y += p.speed * 1.25;
           if (p.y > h + 20 || p.x < -20) { p.x = Math.random() * (w + 200); p.y = -20; }
           ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(p.x + p.len * 0.45, p.y - p.len);
-          ctx.strokeStyle = `rgba(${biome.streakColor}, ${p.alpha * rainPct})`; ctx.lineWidth = 1.2; ctx.stroke();
+          ctx.strokeStyle = `rgba(${u.streakColor}, ${p.alpha * rainPct})`; ctx.lineWidth = 1.2; ctx.stroke();
         } else {
           p.y -= p.speed * 0.3; p.x += Math.sin(p.wob) * 0.8;
           if (p.y < -20) { p.y = h + 20; p.x = Math.random() * w; }
           ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-          ctx.fillStyle = `rgba(${biome.streakColor}, ${p.alpha * rainPct})`; ctx.fill();
+          ctx.fillStyle = `rgba(${u.streakColor}, ${p.alpha * rainPct})`; ctx.fill();
         }
       }
-
-      // Gravitational Bridge Filament between Main Solar System and Parallel Universe
-      ctx.beginPath();
-      ctx.moveTo(mainC.cx, mainC.cy);
-      ctx.lineTo(parC.cx, parC.cy);
-      ctx.strokeStyle = parallelActive ? "rgba(192, 132, 252, 0.24)" : "rgba(148, 163, 184, 0.08)";
-      ctx.setLineDash([4, 6]);
-      ctx.lineWidth = 1.2;
-      ctx.stroke();
-      ctx.setLineDash([]);
 
       for (let i = shockwaves.length - 1; i >= 0; i--) {
         const sw = shockwaves[i];
@@ -2548,7 +2645,7 @@
       sunVel = (sunVel - sunSpring * 0.11) * 0.88;
       sunSpring += sunVel;
       const sunR = Math.max(16, 24 + sunSpring);
-      const sunTint = isHumCapturing ? "#fb7185" : (isPlaying ? biome.sunCore : "#94a3b8");
+      const sunTint = isHumCapturing ? "#fb7185" : (isPlaying ? u.sunCore : "#94a3b8");
 
       ctx.beginPath(); ctx.arc(mainC.cx, mainC.cy, sunR * 2.1, 0, Math.PI * 2);
       ctx.fillStyle = sunTint; ctx.globalAlpha = 0.12; ctx.fill();
@@ -2567,33 +2664,44 @@
           const wx = mainC.cx + Math.cos(a) * rW, wy = mainC.cy + Math.sin(a) * rW;
           if (i === 0) ctx.moveTo(wx, wy); else ctx.lineTo(wx, wy);
         }
-        ctx.closePath(); ctx.strokeStyle = `rgba(${biome.streakColor}, 0.5)`; ctx.lineWidth = 1.4; ctx.stroke();
+        ctx.closePath(); ctx.strokeStyle = `rgba(${u.streakColor}, 0.5)`; ctx.lineWidth = 1.4; ctx.stroke();
       }
 
-      // Parallel Universe Mini-Sun
-      parallelSunVel = (parallelSunVel - parallelSunSpring * 0.12) * 0.88;
-      parallelSunSpring += parallelSunVel;
-      const parSunR = Math.max(10, 14 + parallelSunSpring);
-      const parTint = parallelActive ? "#c084fc" : "#64748b";
-
-      ctx.beginPath(); ctx.arc(parC.cx, parC.cy, parSunR * 2.0, 0, Math.PI * 2);
-      ctx.fillStyle = parTint; ctx.globalAlpha = parallelActive ? 0.18 : 0.08; ctx.fill();
-      ctx.beginPath(); ctx.arc(parC.cx, parC.cy, parSunR * 0.9, 0, Math.PI * 2);
-      ctx.fillStyle = parallelActive ? "#f3e8ff" : "#94a3b8"; ctx.globalAlpha = 0.9; ctx.fill();
-      ctx.globalAlpha = 1;
-
       const audioNow = audioCtx ? audioCtx.currentTime : 0;
-      drawSolarSystem(planets, mainC, false, dt, sixteenthSec, audioNow, biome);
-      drawSolarSystem(parallelPlanets, parC, true, dt, sixteenthSec, audioNow, biome);
+      drawSolarSystem(planets, mainC, false, dt, sixteenthSec, audioNow);
+
+      // Draw Optional Parallel Solar System ONLY when enabled
+      if (parallelVisible) {
+        ctx.beginPath();
+        ctx.moveTo(mainC.cx, mainC.cy);
+        ctx.lineTo(parC.cx, parC.cy);
+        ctx.strokeStyle = parallelActive ? "rgba(192, 132, 252, 0.24)" : "rgba(148, 163, 184, 0.08)";
+        ctx.setLineDash([4, 6]);
+        ctx.lineWidth = 1.2;
+        ctx.stroke();
+        ctx.setLineDash([]);
+
+        parallelSunVel = (parallelSunVel - parallelSunSpring * 0.12) * 0.88;
+        parallelSunSpring += parallelSunVel;
+        const parSunR = Math.max(10, 14 + parallelSunSpring);
+        const parTint = parallelActive ? "#c084fc" : "#64748b";
+
+        ctx.beginPath(); ctx.arc(parC.cx, parC.cy, parSunR * 2.0, 0, Math.PI * 2);
+        ctx.fillStyle = parTint; ctx.globalAlpha = parallelActive ? 0.18 : 0.08; ctx.fill();
+        ctx.beginPath(); ctx.arc(parC.cx, parC.cy, parSunR * 0.9, 0, Math.PI * 2);
+        ctx.fillStyle = parallelActive ? "#f3e8ff" : "#94a3b8"; ctx.globalAlpha = 0.9; ctx.fill();
+        ctx.globalAlpha = 1;
+
+        drawSolarSystem(parallelPlanets, parC, true, dt, sixteenthSec, audioNow);
+      }
 
       requestAnimationFrame(renderCosmos);
     }
 
-    // Pointer Interaction across BOTH Solar Systems
+    // Pointer Interaction across Main & Optional Parallel Solar System
     let longPressTimer = null, pressStartPos = null, draggingOrb = null;
 
     function hitTestSystem(list, center, isParallel, mx, my) {
-      // 1. Check Planet Bodies
       for (const p of list) {
         const pos = getPlanetPosition(p);
         if (Math.hypot(mx - pos.x, my - pos.y) <= p.planetRadius + 15) {
@@ -2601,7 +2709,6 @@
           return true;
         }
       }
-      // 2. Check Orbit Step Nodes
       for (const p of list) {
         const orbitR = getOrbitRadius(p.id, isParallel) + p.springOffset + Math.sin(p.floatPhase) * 2.0;
         for (let s = 0; s < p.steps; s++) {
@@ -2622,7 +2729,6 @@
           }
         }
       }
-      // 3. Check Orbit Ring Lines
       const dist = Math.hypot(mx - center.cx, my - center.cy);
       for (const p of list) {
         const orbitR = getOrbitRadius(p.id, isParallel) + p.springOffset + Math.sin(p.floatPhase) * 2.0;
@@ -2641,28 +2747,25 @@
       const parC = getParallelCenter();
       pressStartPos = { x: mx, y: my };
 
-      // Main Sun -> Toggle Master Play
       if (Math.hypot(mx - mainC.cx, my - mainC.cy) <= 40) {
         togglePlay();
         return;
       }
 
-      // Parallel Mini-Sun -> Toggle Parallel Universe Engine!
-      if (Math.hypot(mx - parC.cx, my - parC.cy) <= 24) {
+      if (parallelVisible && Math.hypot(mx - parC.cx, my - parC.cy) <= 24) {
         parallelActive = !parallelActive;
         parallelSunVel += 5.0;
         if (parallelActive && !isPlaying) togglePlay();
         updateTopLabel();
         refreshAllOpenWidgets();
         saveStudioState();
-        showToast(parallelActive ? "Parallel Universe IGNITED" : "Parallel Universe Muted");
+        showToast(parallelActive ? "Parallel System IGNITED" : "Parallel System Muted");
         return;
       }
 
       if (hitTestSystem(planets, mainC, false, mx, my)) return;
-      if (hitTestSystem(parallelPlanets, parC, true, mx, my)) return;
+      if (parallelVisible && hitTestSystem(parallelPlanets, parC, true, mx, my)) return;
 
-      // Empty Space Long-Press -> GTA Weapon Wheel
       holdRing.style.left = `${mx}px`;
       holdRing.style.top = `${my}px`;
       holdRing.classList.add("charging");
