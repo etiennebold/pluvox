@@ -10,7 +10,7 @@
   <link id="appleTouchIcon" rel="apple-touch-icon" />
   <link id="faviconIcon" rel="icon" type="image/png" />
   <link id="pwaManifest" rel="manifest" />
-  <title>PLUVOX — Spatial Orbital Groovebox</title>
+  <title>PLUVOX — Dual-Universe Orbital Groovebox & Note Studio</title>
   <style>
     :root {
       --void: #03050a;
@@ -70,7 +70,7 @@
     .top-cluster {
       display: flex;
       align-items: center;
-      gap: 0.5rem;
+      gap: 0.48rem;
       pointer-events: auto;
     }
 
@@ -86,7 +86,7 @@
 
     .meta-sub {
       font-family: var(--mono);
-      font-size: 0.58rem;
+      font-size: 0.56rem;
       color: var(--dim);
       letter-spacing: 0.08em;
     }
@@ -97,15 +97,15 @@
       -webkit-backdrop-filter: blur(12px);
       border: 1px solid var(--border);
       border-radius: 999px;
-      padding: 0.42rem 0.85rem;
+      padding: 0.42rem 0.82rem;
       font-family: var(--mono);
-      font-size: 0.66rem;
+      font-size: 0.64rem;
       font-weight: 700;
       color: var(--text);
       cursor: pointer;
       display: inline-flex;
       align-items: center;
-      gap: 0.4rem;
+      gap: 0.38rem;
       transition: border-color 0.15s ease, transform 0.12s ease;
     }
 
@@ -166,10 +166,7 @@
       transition: opacity 0.15s ease;
     }
 
-    .wheel-backdrop.open {
-      opacity: 1;
-      pointer-events: auto;
-    }
+    .wheel-backdrop.open { opacity: 1; pointer-events: auto; }
 
     .gta-wheel-container {
       position: fixed;
@@ -184,16 +181,8 @@
       transition: transform 0.16s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.12s ease;
     }
 
-    .wheel-backdrop.open .gta-wheel-container {
-      transform: scale(1);
-      opacity: 1;
-    }
-
-    svg#gtaWheelSvg {
-      width: 100%;
-      height: 100%;
-      overflow: visible;
-    }
+    .wheel-backdrop.open .gta-wheel-container { transform: scale(1); opacity: 1; }
+    svg#gtaWheelSvg { width: 100%; height: 100%; overflow: visible; }
 
     .wheel-wedge {
       fill: rgba(11, 17, 32, 0.88);
@@ -204,16 +193,14 @@
       transform-origin: 155px 155px;
     }
 
-    .wheel-wedge:hover, .wheel-wedge.active-wedge {
+    .wheel-wedge:hover {
       fill: rgba(56, 189, 248, 0.32);
       stroke: var(--cyan);
       stroke-width: 2;
       transform: scale(1.035);
     }
 
-    .wheel-wedge.widget-open {
-      stroke: rgba(16, 185, 129, 0.65);
-    }
+    .wheel-wedge.widget-open { stroke: rgba(16, 185, 129, 0.65); }
 
     .wheel-wedge-content {
       position: absolute;
@@ -230,8 +217,8 @@
     }
 
     .wheel-wedge-content svg {
-      width: 17px;
-      height: 17px;
+      width: 16px;
+      height: 16px;
       stroke: #f8fafc;
       fill: none;
       stroke-width: 1.9;
@@ -241,7 +228,7 @@
 
     .wheel-wedge-label {
       font-family: var(--mono);
-      font-size: 0.56rem;
+      font-size: 0.54rem;
       font-weight: 800;
       letter-spacing: 0.08em;
       color: #f8fafc;
@@ -284,7 +271,7 @@
     .studio-widget:hover { border-color: rgba(255, 255, 255, 0.32); }
 
     .widget-drag-bar {
-      padding: 0.46rem 0.7rem;
+      padding: 0.44rem 0.7rem;
       background: rgba(255, 255, 255, 0.06);
       border-bottom: 1px solid rgba(255, 255, 255, 0.09);
       display: flex;
@@ -292,7 +279,7 @@
       align-items: center;
       cursor: move;
       font-family: var(--mono);
-      font-size: 0.62rem;
+      font-size: 0.6rem;
       font-weight: 800;
       letter-spacing: 0.08em;
       color: var(--cyan);
@@ -314,7 +301,7 @@
     .widget-close-btn:hover { background: rgba(244, 63, 94, 0.45); }
 
     .widget-body {
-      padding: 0.68rem;
+      padding: 0.65rem;
       max-height: 58vh;
       overflow-y: auto;
     }
@@ -323,18 +310,18 @@
       display: flex;
       gap: 4px;
       flex-wrap: wrap;
-      margin-bottom: 0.55rem;
+      margin-bottom: 0.52rem;
     }
 
     .orb-tab {
       flex: 1;
-      min-width: 44px;
+      min-width: 42px;
       background: rgba(255, 255, 255, 0.06);
       border: 1px solid rgba(255, 255, 255, 0.14);
       border-radius: 999px;
-      padding: 0.24rem 0.36rem;
+      padding: 0.22rem 0.34rem;
       font-family: var(--mono);
-      font-size: 0.54rem;
+      font-size: 0.52rem;
       font-weight: 800;
       color: var(--dim);
       cursor: pointer;
@@ -351,9 +338,9 @@
       align-items: center;
       justify-content: space-between;
       gap: 0.5rem;
-      margin-bottom: 0.52rem;
+      margin-bottom: 0.5rem;
       font-family: var(--mono);
-      font-size: 0.6rem;
+      font-size: 0.59rem;
       color: var(--text);
     }
 
@@ -366,16 +353,16 @@
       color: var(--cyan);
     }
 
-    .w-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.3rem; }
-    .w-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.32rem; }
+    .w-grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.28rem; }
+    .w-grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.3rem; }
 
     .w-btn {
       background: rgba(255, 255, 255, 0.07);
       border: 1px solid rgba(255, 255, 255, 0.14);
       border-radius: 8px;
-      padding: 0.36rem 0.26rem;
+      padding: 0.35rem 0.25rem;
       font-family: var(--mono);
-      font-size: 0.55rem;
+      font-size: 0.54rem;
       font-weight: 700;
       color: var(--text);
       cursor: pointer;
@@ -412,12 +399,161 @@
       background: rgba(10, 15, 28, 0.65);
       border: 1px solid rgba(255, 255, 255, 0.18);
       border-radius: 8px;
-      padding: 0.28rem 0.42rem;
+      padding: 0.26rem 0.4rem;
       color: var(--text);
       font-family: var(--mono);
-      font-size: 0.58rem;
+      font-size: 0.56rem;
       font-weight: 700;
       outline: none;
+    }
+
+    /* BOTTOM-RISING "FIND THE NOTE" GLASS PIANO & GUITAR NECK DOCK */
+    .note-finder-dock {
+      position: fixed;
+      left: 50%;
+      bottom: 0;
+      transform: translateX(-50%) translateY(105%);
+      width: min(680px, 96vw);
+      background: rgba(8, 13, 24, 0.26);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-bottom: none;
+      border-radius: 20px 20px 0 0;
+      padding: 0.65rem 0.8rem max(14px, env(safe-area-inset-bottom));
+      z-index: 45;
+      transition: transform 0.26s cubic-bezier(0.22, 1, 0.36, 1);
+      box-shadow: 0 -16px 48px rgba(0, 0, 0, 0.65);
+    }
+
+    .note-finder-dock.open {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .nf-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+      margin-bottom: 0.55rem;
+      font-family: var(--mono);
+      font-size: 0.58rem;
+    }
+
+    .nf-group { display: flex; align-items: center; gap: 0.3rem; flex-wrap: wrap; }
+
+    /* GLASS PIANO KEYS */
+    .piano-bed {
+      position: relative;
+      height: 112px;
+      display: flex;
+      gap: 3px;
+      user-select: none;
+    }
+
+    .p-white {
+      flex: 1;
+      height: 100%;
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.22);
+      border-radius: 0 0 10px 10px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 6px;
+      font-family: var(--mono);
+      font-size: 0.52rem;
+      color: var(--dim);
+      cursor: pointer;
+      transition: background 0.08s ease;
+    }
+
+    .p-white:active, .p-white.lit {
+      background: rgba(56, 189, 248, 0.38);
+      border-color: var(--cyan);
+      color: #fff;
+    }
+
+    .p-black {
+      position: absolute;
+      top: 0;
+      width: 4.4%;
+      height: 62%;
+      background: rgba(4, 7, 15, 0.92);
+      border: 1px solid rgba(56, 189, 248, 0.35);
+      border-radius: 0 0 7px 7px;
+      z-index: 3;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 4px;
+      font-family: var(--mono);
+      font-size: 0.44rem;
+      color: var(--cyan);
+    }
+
+    .p-black:active, .p-black.lit {
+      background: var(--cyan);
+      color: #03050a;
+    }
+
+    /* GLASS GUITAR NECK (6 STRINGS x 12 FRETS) */
+    .guitar-neck {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 12px;
+      padding: 6px;
+      overflow-x: auto;
+    }
+
+    .g-string-row {
+      display: grid;
+      grid-template-columns: 32px repeat(12, minmax(36px, 1fr));
+      gap: 2px;
+      align-items: center;
+    }
+
+    .g-string-label {
+      font-family: var(--mono);
+      font-size: 0.52rem;
+      font-weight: 800;
+      color: var(--amber);
+      text-align: center;
+    }
+
+    .g-fret {
+      height: 20px;
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      font-family: var(--mono);
+      font-size: 0.46rem;
+      color: var(--dim);
+      display: grid;
+      place-items: center;
+      cursor: pointer;
+      position: relative;
+    }
+
+    .g-fret.dot-marker::after {
+      content: "";
+      position: absolute;
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: rgba(245, 158, 11, 0.45);
+      bottom: 2px;
+    }
+
+    .g-fret:active, .g-fret.lit {
+      background: rgba(245, 158, 11, 0.42);
+      border-color: var(--amber);
+      color: #fff;
     }
 
     .hold-ring {
@@ -502,6 +638,9 @@
     </div>
   </div>
 
+  <!-- BOTTOM-RISING "FIND THE NOTE" GLASS PIANO & GUITAR NECK -->
+  <div class="note-finder-dock" id="noteFinderDock"></div>
+
   <!-- LAYER FOR PERSISTENT DRAGGABLE WIDGETS -->
   <div id="widgetLayer"></div>
 
@@ -511,8 +650,7 @@
     // =========================================================================
     function generateAppIconDataUrl(size = 512) {
       const c = document.createElement("canvas");
-      c.width = size;
-      c.height = size;
+      c.width = size; c.height = size;
       const g = c.getContext("2d");
 
       const bgGrad = g.createRadialGradient(size * 0.5, size * 0.5, size * 0.05, size * 0.5, size * 0.5, size * 0.72);
@@ -598,7 +736,7 @@
     })();
 
     // =========================================================================
-    // 2. COPYRIGHT-CLEAN STUDIO VOICES, SCALES & 8 BIOMES
+    // 2. COPYRIGHT-CLEAN STUDIO VOICES (INCL. POWER STRUM & PIANO KEYS)
     // =========================================================================
     const SCALES = {
       minorPentatonic: [0, 3, 5, 7, 10, 12, 15, 17, 19, 22, 24],
@@ -638,22 +776,22 @@
       { id: "hatClosed",   label: "CLOSED HAT",   cat: "drum",  band: "high" },
       { id: "hatOpen",     label: "OPEN HAT",     cat: "drum",  band: "high" },
       { id: "crashCym",    label: "CRASH CYMBAL", cat: "drum",  band: "high" },
+      { id: "powerStrum",  label: "POWER STRUM",  cat: "rock",  band: "mid" },
+      { id: "chugStrum",   label: "CHUG STRUM",   cat: "rock",  band: "low" },
       { id: "nuMetalGtr",  label: "DROP-C RIFF",  cat: "rock",  band: "mid" },
-      { id: "palmMuteGtr", label: "PALM CHUG",    cat: "rock",  band: "low" },
       { id: "elecGuitar",  label: "DRIVE GUITAR", cat: "rock",  band: "mid" },
       { id: "cleanChorus", label: "CHORUS GUITAR",cat: "rock",  band: "high" },
       { id: "acousGtr",    label: "ACOUSTIC GTR", cat: "rock",  band: "mid" },
       { id: "pickedBass",  label: "PICKED BASS",  cat: "rock",  band: "low" },
-      { id: "rotaryOrgan", label: "ROTARY ORGAN", cat: "rock",  band: "mid" },
       { id: "vinylScratch",label: "VINYL SCRATCH",cat: "rock",  band: "high" },
+      { id: "grandPiano",  label: "GRAND PIANO",  cat: "synth", band: "mid" },
+      { id: "tineKeys",    label: "TINE KEYS",    cat: "synth", band: "mid" },
       { id: "warmKeys",    label: "WARM KEYS",    cat: "synth", band: "mid" },
       { id: "bell",        label: "GLASS BELL",   cat: "synth", band: "high" },
       { id: "atmosPad",    label: "ATMOS PAD",    cat: "synth", band: "high" },
-      { id: "tapeStrings", label: "TAPE STRINGS", cat: "synth", band: "mid" },
       { id: "leadSynth",   label: "LEAD SYNTH",   cat: "synth", band: "high" },
-      { id: "fmPluck",     label: "ARP PLUCK",    cat: "synth", band: "high" },
       { id: "acidBass",    label: "ACID BASS",    cat: "synth", band: "low" },
-      { id: "choirPad",    label: "CHOIR PAD",    cat: "synth", band: "mid" },
+      { id: "rotaryOrgan", label: "ROTARY ORGAN", cat: "synth", band: "mid" },
       { id: "uprightBass", label: "UPRIGHT BASS", cat: "world", band: "low" },
       { id: "snareBrush",  label: "BRUSH SNARE",  cat: "world", band: "high" },
       { id: "brassLead",   label: "VELVET BRASS", cat: "world", band: "mid" },
@@ -667,15 +805,23 @@
     const PLANET_TEMPLATES = [
       { baseName: "CORE",  type: "kick808",    layer: "rock",  color: "#f59e0b", radius: 15, steps: 4, pulses: 2, speed: 1, pitch: 0, vol: 0.88 },
       { baseName: "PULSE", type: "snareBreak", layer: "rock",  color: "#fb7185", radius: 13, steps: 4, pulses: 1, speed: 1, pitch: 0, vol: 0.72 },
-      { baseName: "AURA",  type: "warmKeys",   layer: "synth", color: "#38bdf8", radius: 14, steps: 8, pulses: 4, speed: 1, pitch: 3, vol: 0.66 },
+      { baseName: "AURA",  type: "grandPiano", layer: "synth", color: "#38bdf8", radius: 14, steps: 8, pulses: 4, speed: 1, pitch: 3, vol: 0.66 },
       { baseName: "ECHO",  type: "bell",       layer: "synth", color: "#c084fc", radius: 12, steps: 8, pulses: 3, speed: 1, pitch: 5, vol: 0.56 },
       { baseName: "SPARK", type: "hatClosed",  layer: "synth", color: "#34d399", radius: 10, steps: 8, pulses: 4, speed: 2, pitch: 0, vol: 0.46 },
-      { baseName: "FLARE", type: "nuMetalGtr", layer: "rock",  color: "#fbbf24", radius: 12, steps: 8, pulses: 4, speed: 1, pitch: 0, vol: 0.64 },
+      { baseName: "FLARE", type: "powerStrum", layer: "rock",  color: "#fbbf24", radius: 12, steps: 8, pulses: 4, speed: 1, pitch: 0, vol: 0.68 },
       { baseName: "DRIFT", type: "pickedBass", layer: "rock",  color: "#f472b6", radius: 11, steps: 8, pulses: 3, speed: 1, pitch: 0, vol: 0.68 }
     ];
 
+    const PARALLEL_TEMPLATES = [
+      { baseName: "SUB-1", type: "acidBass",   layer: "synth", color: "#c084fc", radius: 11, steps: 3, pulses: 2, speed: 1, pitch: 0, vol: 0.62 },
+      { baseName: "SUB-2", type: "powerStrum", layer: "rock",  color: "#f59e0b", radius: 10, steps: 4, pulses: 2, speed: 1, pitch: 0, vol: 0.58 },
+      { baseName: "SUB-3", type: "tineKeys",   layer: "synth", color: "#38bdf8", radius: 9,  steps: 6, pulses: 3, speed: 1, pitch: 4, vol: 0.54 }
+    ];
+
+    const NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
     function midiToFreq(midi) { return 440 * Math.pow(2, (midi - 69) / 12); }
     function freqToMidi(freq) { return Math.round(69 + 12 * Math.log2(freq / 440)); }
+    function midiToName(midi) { return `${NOTE_NAMES[midi % 12]}${Math.floor(midi / 12) - 1}`; }
 
     function quantizeMidiToScale(rawMidi, scaleKey) {
       const intervals = SCALES[scaleKey] || SCALES.minorPentatonic;
@@ -712,10 +858,11 @@
     }
 
     // =========================================================================
-    // 3. STUDIO STATE & DEBOUNCED PERSISTENCE
+    // 3. DUAL-UNIVERSE STUDIO STATE (MAIN + PARALLEL SOLAR SYSTEM)
     // =========================================================================
-    function createPlanetFromTemplate(idx, customCfg = null) {
-      const tpl = PLANET_TEMPLATES[idx % PLANET_TEMPLATES.length];
+    function createPlanetFromTemplate(idx, customCfg = null, isParallel = false) {
+      const bank = isParallel ? PARALLEL_TEMPLATES : PLANET_TEMPLATES;
+      const tpl = bank[idx % bank.length];
       const steps = customCfg ? customCfg.steps : tpl.steps;
       const pulses = customCfg ? customCfg.pulses : tpl.pulses;
       const type = customCfg && customCfg.type ? customCfg.type : tpl.type;
@@ -725,7 +872,7 @@
       let pattern;
       if (customCfg?.pattern) {
         pattern = [...customCfg.pattern];
-      } else if (!customCfg && idx === 1) {
+      } else if (!customCfg && !isParallel && idx === 1) {
         pattern = [false, false, true, false];
       } else {
         pattern = generateEuclidean(steps, pulses);
@@ -735,8 +882,14 @@
         ? [...customCfg.stepNotes]
         : Array.from({ length: steps }, (_, s) => [0, 2, 4, 3, 5, 4, 2, 0][s % 8]);
 
+      // Exact MIDI overrides set via the "Find the Note" Piano / Guitar Neck
+      const stepMidi = customCfg && Array.isArray(customCfg.stepMidi)
+        ? [...customCfg.stepMidi]
+        : new Array(steps).fill(null);
+
       return {
         id: idx,
+        isParallel,
         baseName: tpl.baseName,
         layer: tpl.layer,
         name: `${tpl.baseName} · ${voiceLabel}`,
@@ -754,8 +907,10 @@
         locked: Boolean(customCfg?.locked),
         pattern,
         stepNotes,
+        stepMidi,
         phaseSteps: 0,
-        lastTriggerAudioTime: -1,
+        pendingVisualHit: null,
+        pendingVisualStep: null,
         nodeFlashes: new Array(steps).fill(0),
         visualAngle: -Math.PI / 2,
         springOffset: 0,
@@ -765,8 +920,22 @@
       };
     }
 
-    let planets = [0, 1, 2].map(i => createPlanetFromTemplate(i));
-    let selectedPlanetId = 0;
+    let planets = [0, 1, 2].map(i => createPlanetFromTemplate(i, null, false));
+    let parallelPlanets = [0, 1].map(i => createPlanetFromTemplate(i, null, true));
+
+    // Active Selection Target: { universe: 'main' | 'parallel', id: number }
+    let activeTarget = { universe: "main", id: 0 };
+    function getSelectedPlanet() {
+      const list = activeTarget.universe === "parallel" ? parallelPlanets : planets;
+      return list[activeTarget.id] || list[0];
+    }
+
+    // Parallel Universe Independent Engine State
+    let parallelActive = false;
+    let parallelBpmRatio = 1.0; // 0.75 (3:4 polytempo), 1.0, 1.25 (5:4), 1.5
+    let universeBalance = 0;    // -100 Main only <-> 0 Equal <-> +100 Parallel only
+    let parallelSunSpring = 0, parallelSunVel = 0;
+
     let activeBiomeKey = "cosmos";
     let activePadCat = "all";
 
@@ -793,29 +962,156 @@
     let isChainActive = false;
     let chainBarCounter = 0;
 
-    // Debounced localStorage save so slider drags stay at 60fps
     let saveDebounceTimer = null;
     function saveStudioState() {
       clearTimeout(saveDebounceTimer);
       saveDebounceTimer = setTimeout(() => {
         try {
-          localStorage.setItem("pluvox_v14_fast", JSON.stringify({ activeSceneIdx, solarScenes, current: captureCurrentSnapshot() }));
+          localStorage.setItem("pluvox_v15_dual", JSON.stringify({
+            activeSceneIdx, solarScenes, parallelActive, parallelBpmRatio, universeBalance,
+            current: captureCurrentSnapshot()
+          }));
         } catch (_) {}
       }, 350);
     }
 
     // =========================================================================
-    // 4. GTA-STYLE SEGMENTED WEDGE WEAPON WHEEL
+    // 4. BOTTOM-RISING "FIND THE NOTE" GLASS PIANO & GUITAR NECK
+    // =========================================================================
+    const noteFinderDock = document.getElementById("noteFinderDock");
+    let isNoteFinderOpen = false;
+    let noteFinderInstrument = "piano"; // 'piano' | 'guitar'
+    let noteFinderMode = "audition";    // 'audition' | 'write'
+    let noteFinderWriteCursor = 0;      // Which step index gets written next
+    let guitarPowerChordMode = true;    // 1-finger power chord down-strum on guitar neck
+
+    function toggleNoteFinder(forceState = null) {
+      isNoteFinderOpen = forceState !== null ? forceState : !isNoteFinderOpen;
+      noteFinderDock.classList.toggle("open", isNoteFinderOpen);
+      if (isNoteFinderOpen) renderNoteFinder();
+    }
+
+    function playAuditionOrWriteNote(midi, forcePowerStrum = false) {
+      initAudioEngine();
+      if (audioCtx.state === "suspended") audioCtx.resume();
+      const p = getSelectedPlanet();
+      const now = audioCtx.currentTime;
+
+      // Audition sound immediately so user hears the exact note/chord they tapped
+      const useStrum = forcePowerStrum || p.type === "powerStrum" || p.type === "chugStrum";
+      if (useStrum) {
+        triggerPowerChordStrum(now, midi, 0.72, p.type === "chugStrum", 0);
+      } else {
+        triggerGrandPianoNote(now, midi, 0.68, 0);
+      }
+
+      if (noteFinderMode === "write") {
+        // Find active pulse steps on selected orbit, or write to current cursor
+        const activeSteps = p.pattern.map((v, i) => (v ? i : -1)).filter(i => i !== -1);
+        const targetStep = activeSteps.length > 0
+          ? activeSteps[noteFinderWriteCursor % activeSteps.length]
+          : (noteFinderWriteCursor % p.steps);
+
+        p.pattern[targetStep] = true;
+        p.pulses = p.pattern.filter(Boolean).length;
+        p.stepMidi[targetStep] = midi;
+        p.nodeFlashes[targetStep] = 1.0;
+        noteFinderWriteCursor++;
+
+        refreshAllOpenWidgets();
+        saveStudioState();
+        showToast(`Wrote ${midiToName(midi)} → ${p.baseName} Step ${targetStep + 1}`);
+      } else {
+        showToast(`Note: ${midiToName(midi)}${useStrum ? " Power Chord" : ""}`);
+      }
+    }
+
+    function renderNoteFinder() {
+      const p = getSelectedPlanet();
+      const whiteNotes = [48, 50, 52, 53, 55, 57, 59, 60, 62, 64, 65, 67, 69, 71]; // C3 to B4
+      const blackDefs = [
+        { midi: 49, leftPct: 4.8 }, { midi: 51, leftPct: 12.0 },
+        { midi: 54, leftPct: 26.3 }, { midi: 56, leftPct: 33.4 }, { midi: 58, leftPct: 40.6 },
+        { midi: 61, leftPct: 54.8 }, { midi: 63, leftPct: 62.0 },
+        { midi: 66, leftPct: 76.3 }, { midi: 68, leftPct: 83.4 }, { midi: 70, leftPct: 90.6 }
+      ];
+
+      // Drop-C Guitar Tuning (Low to High): C2(36), G2(43), C3(48), F3(53), A3(57), D4(62)
+      const guitarStrings = [
+        { label: "D4", openMidi: 62 },
+        { label: "A3", openMidi: 57 },
+        { label: "F3", openMidi: 53 },
+        { label: "C3", openMidi: 48 },
+        { label: "G2", openMidi: 43 },
+        { label: "C2", openMidi: 36 }
+      ];
+      const dotFrets = [3, 5, 7, 9, 12];
+
+      noteFinderDock.innerHTML = `
+        <div class="nf-header">
+          <div class="nf-group">
+            <strong style="color:${p.color};">FIND NOTE → ${p.baseName}</strong>
+            <button class="w-btn ${noteFinderInstrument === "piano" ? "active" : ""}" style="padding:0.22rem 0.5rem;" id="nfPiano">PIANO</button>
+            <button class="w-btn ${noteFinderInstrument === "guitar" ? "active" : ""}" style="padding:0.22rem 0.5rem;" id="nfGuitar">GUITAR</button>
+          </div>
+          <div class="nf-group">
+            ${noteFinderInstrument === "guitar" ? `<button class="w-btn ${guitarPowerChordMode ? "active" : ""}" style="padding:0.22rem 0.5rem;" id="nfChordToggle">POWER STRUM: ${guitarPowerChordMode ? "ON" : "OFF"}</button>` : ""}
+            <button class="w-btn ${noteFinderMode === "audition" ? "active" : ""}" style="padding:0.22rem 0.5rem;" id="nfAudition">AUDITION</button>
+            <button class="w-btn ${noteFinderMode === "write" ? "warn" : ""}" style="padding:0.22rem 0.5rem;" id="nfWrite">WRITE STEP</button>
+            <button class="widget-close-btn" id="nfClose">×</button>
+          </div>
+        </div>
+        ${noteFinderInstrument === "piano" ? `
+          <div class="piano-bed">
+            ${whiteNotes.map(m => `<div class="p-white" data-midi="${m}">${midiToName(m)}</div>`).join("")}
+            ${blackDefs.map(b => `<div class="p-black" style="left:${b.leftPct}%;" data-midi="${b.midi}">${NOTE_NAMES[b.midi % 12]}</div>`).join("")}
+          </div>
+        ` : `
+          <div class="guitar-neck">
+            ${guitarStrings.map(st => `
+              <div class="g-string-row">
+                <div class="g-string-label">${st.label}</div>
+                ${Array.from({ length: 12 }, (_, fret) => {
+                  const m = st.openMidi + fret;
+                  const isDot = dotFrets.includes(fret);
+                  return `<div class="g-fret ${isDot ? "dot-marker" : ""}" data-midi="${m}" data-low="${st.openMidi <= 43 ? "1" : "0"}">${fret === 0 ? "OPEN" : midiToName(m)}</div>`;
+                }).join("")}
+              </div>
+            `).join("")}
+          </div>
+        `}
+      `;
+
+      document.getElementById("nfPiano").onclick = () => { noteFinderInstrument = "piano"; renderNoteFinder(); };
+      document.getElementById("nfGuitar").onclick = () => { noteFinderInstrument = "guitar"; renderNoteFinder(); };
+      if (document.getElementById("nfChordToggle")) {
+        document.getElementById("nfChordToggle").onclick = () => { guitarPowerChordMode = !guitarPowerChordMode; renderNoteFinder(); };
+      }
+      document.getElementById("nfAudition").onclick = () => { noteFinderMode = "audition"; renderNoteFinder(); };
+      document.getElementById("nfWrite").onclick = () => { noteFinderMode = "write"; noteFinderWriteCursor = 0; renderNoteFinder(); };
+      document.getElementById("nfClose").onclick = () => toggleNoteFinder(false);
+
+      noteFinderDock.querySelectorAll("[data-midi]").forEach(el => {
+        el.addEventListener("pointerdown", () => {
+          const midi = Number(el.dataset.midi);
+          const isLowStr = el.dataset.low === "1";
+          playAuditionOrWriteNote(midi, noteFinderInstrument === "guitar" && guitarPowerChordMode && isLowStr);
+        });
+      });
+    }
+
+    // =========================================================================
+    // 5. GTA-STYLE SEGMENTED WEDGE WEAPON WHEEL (WITH KEYS & PARALLEL UNIVERSE)
     // =========================================================================
     const WEDGE_DEFS = [
-      { id: "vox",   label: "VOX",   svgPath: `<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/>` },
-      { id: "rack",  label: "RACK",  svgPath: `<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/>` },
-      { id: "muse",  label: "MUSE",  svgPath: `<path d="M12 3l1.9 5.8L20 11l-6.1 2.2L12 19l-1.9-5.8L4 11l6.1-2.2z"/>` },
-      { id: "orbit", label: "ORBIT", svgPath: `<circle cx="12" cy="12" r="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-25 12 12)"/>` },
-      { id: "world", label: "WORLD", svgPath: `<circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8"/><path d="M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>` },
-      { id: "decks", label: "DECKS", svgPath: `<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>` },
-      { id: "mix",   label: "MIX",   svgPath: `<line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>` },
-      { id: "save",  label: "SAVE",  svgPath: `<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>` }
+      { id: "vox",      label: "VOX",      svgPath: `<path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/>` },
+      { id: "rack",     label: "RACK",     svgPath: `<rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/>` },
+      { id: "keys",     label: "KEYS",     svgPath: `<rect x="2" y="5" width="20" height="14" rx="2"/><line x1="7" y1="5" x2="7" y2="19"/><line x1="12" y1="5" x2="12" y2="19"/><line x1="17" y1="5" x2="17" y2="19"/>` },
+      { id: "orbit",    label: "ORBIT",    svgPath: `<circle cx="12" cy="12" r="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(-25 12 12)"/>` },
+      { id: "parallel", label: "DUAL",     svgPath: `<circle cx="9" cy="12" r="5"/><circle cx="17" cy="9" r="3"/>` },
+      { id: "world",    label: "WORLD",    svgPath: `<circle cx="12" cy="12" r="9"/><path d="M3.6 9h16.8M3.6 15h16.8"/><path d="M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>` },
+      { id: "mix",      label: "MIX",      svgPath: `<line x1="4" y1="21" x2="4" y2="14"/><line x1="4" y1="10" x2="4" y2="3"/><line x1="12" y1="21" x2="12" y2="12"/><line x1="12" y1="8" x2="12" y2="3"/><line x1="20" y1="21" x2="20" y2="16"/><line x1="20" y1="12" x2="20" y2="3"/><line x1="1" y1="14" x2="7" y2="14"/><line x1="9" y1="8" x2="15" y2="8"/><line x1="17" y1="16" x2="23" y2="16"/>` },
+      { id: "save",     label: "SAVE",     svgPath: `<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>` }
     ];
 
     const wheelBackdrop = document.getElementById("wheelBackdrop");
@@ -855,10 +1151,15 @@
 
         const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
         path.setAttribute("d", createAnnularWedgePath(cx, cy, innerR, outerR, startA, endA));
-        path.setAttribute("class", `wheel-wedge ${openWidgets[w.id] ? "widget-open" : ""}`);
+        const isActive = (w.id === "keys" && isNoteFinderOpen) || openWidgets[w.id];
+        path.setAttribute("class", `wheel-wedge ${isActive ? "widget-open" : ""}`);
 
         path.addEventListener("pointerenter", () => { document.getElementById("wheelHoverName").textContent = w.label; });
-        path.addEventListener("click", () => { closeGtaWeaponWheel(); togglePersistentWidget(w.id); });
+        path.addEventListener("click", () => {
+          closeGtaWeaponWheel();
+          if (w.id === "keys") toggleNoteFinder();
+          else togglePersistentWidget(w.id);
+        });
         gtaWheelSvg.appendChild(path);
 
         const labelPos = polarToCartesian(cx, cy, (innerR + outerR) * 0.52, midA);
@@ -880,7 +1181,7 @@
     document.getElementById("btnTopCelestial").addEventListener("click", () => togglePersistentWidget("muse"));
 
     // =========================================================================
-    // 5. PERSISTENT, DRAGGABLE, 80% TRANSPARENT LAYERABLE WIDGET SYSTEM
+    // 6. PERSISTENT, DRAGGABLE, 80% TRANSPARENT LAYERABLE WIDGET SYSTEM
     // =========================================================================
     const widgetLayer = document.getElementById("widgetLayer");
     const openWidgets = {};
@@ -934,6 +1235,7 @@
 
     function refreshAllOpenWidgets() {
       Object.keys(openWidgets).forEach(id => renderWidgetContent(id));
+      if (isNoteFinderOpen) renderNoteFinder();
     }
 
     function renderWidgetContent(id) {
@@ -941,17 +1243,20 @@
       if (!el) return;
 
       if (id === "orbit") {
-        const p = planets[selectedPlanetId];
+        const p = getSelectedPlanet();
+        const isPar = activeTarget.universe === "parallel";
+        const list = isPar ? parallelPlanets : planets;
+
         el.innerHTML = `
           <div class="widget-drag-bar" style="color:${p.color};">
-            <span>ORBIT · ${p.name}</span>
+            <span>${isPar ? "DUAL" : "MAIN"} · ${p.name}</span>
             <button class="widget-close-btn">×</button>
           </div>
           <div class="widget-body">
             <div class="orbit-switcher-bar">
-              ${planets.map(pl => `
-                <button class="orb-tab ${pl.id === selectedPlanetId ? "active" : ""}"
-                        style="${pl.id === selectedPlanetId ? `border-color:${pl.color}; color:${pl.color};` : ""}"
+              ${list.map(pl => `
+                <button class="orb-tab ${pl.id === activeTarget.id ? "active" : ""}"
+                        style="${pl.id === activeTarget.id ? `border-color:${pl.color}; color:${pl.color};` : ""}"
                         data-switch-orb="${pl.id}">
                   ${pl.baseName}
                 </button>
@@ -960,7 +1265,7 @@
             <div class="w-grid-3" style="margin-bottom:0.5rem;">
               <button class="w-btn ${p.locked ? "active" : ""}" id="wLock">${p.locked ? "LOCKED" : "LOCK"}</button>
               <button class="w-btn ${p.muted ? "warn" : ""}" id="wMute">${p.muted ? "MUTED" : "MUTE"}</button>
-              <button class="w-btn" id="wPhase">SHIFT +1</button>
+              <button class="w-btn ${isNoteFinderOpen ? "active" : ""}" id="wFindNote">FIND NOTE</button>
             </div>
             <div class="w-row">
               <span>ORBIT SPEED</span>
@@ -972,31 +1277,40 @@
             </div>
             <div class="w-row"><span>STEPS</span><input type="range" id="wSteps" min="2" max="16" value="${p.steps}" /><span class="w-val" id="wStepsV">${p.steps}</span></div>
             <div class="w-row"><span>PULSES</span><input type="range" id="wPulses" min="1" max="${p.steps}" value="${p.pulses}" /><span class="w-val" id="wPulsesV">${p.pulses}</span></div>
-            <div class="w-row"><span>CHANCE</span><input type="range" id="wProb" min="15" max="100" value="${p.probability}" /><span class="w-val" id="wProbV">${p.probability}%</span></div>
             <div class="w-row"><span>PITCH</span><input type="range" id="wPitch" min="0" max="11" value="${p.pitchOffset}" /><span class="w-val" id="wPitchV">+${p.pitchOffset}</span></div>
             <div class="w-row"><span>VOLUME</span><input type="range" id="wVol" min="0" max="100" value="${Math.round(p.volume * 100)}" /><span class="w-val" id="wVolV">${Math.round(p.volume * 100)}%</span></div>
-            <div class="w-grid-2" style="margin-top:0.55rem;">
-              <button class="w-btn" id="wAddOrb">+ ADD ORBIT</button>
-              <button class="w-btn" id="wRemOrb">− REMOVE</button>
+            <div class="w-grid-3" style="margin-top:0.55rem;">
+              <button class="w-btn" id="wClearNotes">CLR NOTES</button>
+              <button class="w-btn" id="wAddOrb">+ ORBIT</button>
+              <button class="w-btn" id="wRemOrb">− ORBIT</button>
             </div>
           </div>
         `;
 
-        el.querySelectorAll("[data-switch-orb]").forEach(btn => btn.onclick = () => selectPlanet(Number(btn.dataset.switchOrb), false));
+        el.querySelectorAll("[data-switch-orb]").forEach(btn => btn.onclick = () => selectPlanet(Number(btn.dataset.switchOrb), false, activeTarget.universe));
         el.querySelectorAll("[data-speed]").forEach(btn => btn.onclick = () => { p.speedMult = Number(btn.dataset.speed); renderWidgetContent("orbit"); saveStudioState(); });
         el.querySelector("#wLock").onclick = () => { p.locked = !p.locked; renderWidgetContent("orbit"); saveStudioState(); };
         el.querySelector("#wMute").onclick = () => { p.muted = !p.muted; renderWidgetContent("orbit"); saveStudioState(); };
-        el.querySelector("#wPhase").onclick = () => {
-          p.pattern.unshift(p.pattern.pop());
-          p.stepNotes.unshift(p.stepNotes.pop());
-          p.springVel += 3;
-          saveStudioState();
-        };
+        el.querySelector("#wFindNote").onclick = () => { toggleNoteFinder(); renderWidgetContent("orbit"); };
+        el.querySelector("#wClearNotes").onclick = () => { p.stepMidi.fill(null); showToast("Cleared custom step notes"); };
+
         el.querySelector("#wAddOrb").onclick = () => {
-          if (planets.length < 7) { planets.push(createPlanetFromTemplate(planets.length)); selectPlanet(planets.length - 1, false); saveStudioState(); }
+          const maxOrbs = isPar ? 3 : 7;
+          if (list.length < maxOrbs) {
+            list.push(createPlanetFromTemplate(list.length, null, isPar));
+            selectPlanet(list.length - 1, false, activeTarget.universe);
+            saveStudioState();
+          } else {
+            showToast(isPar ? "Parallel Universe max 3 orbits" : "Max 7 orbits");
+          }
         };
         el.querySelector("#wRemOrb").onclick = () => {
-          if (planets.length > 2) { planets.pop(); selectPlanet(Math.min(selectedPlanetId, planets.length - 1), false); saveStudioState(); }
+          const minOrbs = isPar ? 1 : 2;
+          if (list.length > minOrbs) {
+            list.pop();
+            selectPlanet(Math.min(activeTarget.id, list.length - 1), false, activeTarget.universe);
+            saveStudioState();
+          }
         };
         el.querySelector("#wSteps").oninput = e => {
           p.steps = Number(e.target.value);
@@ -1004,6 +1318,7 @@
           p.pattern = generateEuclidean(p.steps, p.pulses);
           p.nodeFlashes = new Array(p.steps).fill(0);
           while (p.stepNotes.length < p.steps) p.stepNotes.push(p.stepNotes.length % 7);
+          while (p.stepMidi.length < p.steps) p.stepMidi.push(null);
           el.querySelector("#wStepsV").textContent = p.steps;
           const pSlider = el.querySelector("#wPulses");
           pSlider.max = p.steps; pSlider.value = p.pulses;
@@ -1016,11 +1331,57 @@
           el.querySelector("#wPulsesV").textContent = p.pulses;
           saveStudioState();
         };
-        el.querySelector("#wProb").oninput = e => { p.probability = Number(e.target.value); el.querySelector("#wProbV").textContent = `${p.probability}%`; saveStudioState(); };
         el.querySelector("#wPitch").oninput = e => { p.pitchOffset = Number(e.target.value); el.querySelector("#wPitchV").textContent = `+${p.pitchOffset}`; saveStudioState(); };
         el.querySelector("#wVol").oninput = e => { p.volume = Number(e.target.value) / 100; el.querySelector("#wVolV").textContent = `${e.target.value}%`; saveStudioState(); };
+      } else if (id === "parallel") {
+        // PARALLEL UNIVERSE INDEPENDENT ENGINE CONTROLLER
+        el.innerHTML = `
+          <div class="widget-drag-bar" style="color:var(--violet);">
+            <span>PARALLEL UNIVERSE</span>
+            <button class="widget-close-btn">×</button>
+          </div>
+          <div class="widget-body">
+            <div class="w-grid-2" style="margin-bottom:0.55rem;">
+              <button class="w-btn ${parallelActive ? "active" : ""}" id="pToggle">${parallelActive ? "ENGINE: LIVE" : "ENGINE: OFF"}</button>
+              <button class="w-btn" id="pEditOrbit">EDIT ORBITS</button>
+            </div>
+            <div class="w-row">
+              <span>POLY-TEMPO</span>
+              <div style="display:flex; gap:3px;">
+                ${[0.75, 1, 1.25, 1.5].map(r => `
+                  <button class="w-btn ${parallelBpmRatio === r ? "active" : ""}" style="padding:0.22rem 0.38rem;" data-pratio="${r}">${r}×</button>
+                `).join("")}
+              </div>
+            </div>
+            <div class="w-row">
+              <span>MAIN ↔ DUAL</span>
+              <input type="range" id="pBal" min="-100" max="100" value="${universeBalance}" />
+              <span class="w-val" id="pBalV">${universeBalance}</span>
+            </div>
+            <div style="font-family:var(--mono); font-size:0.55rem; color:var(--dim); line-height:1.4; margin-top:0.4rem;">
+              Tap the mini-sun on the right or any mini-orbit to sculpt its independent 3-orbit counter-universe.
+            </div>
+          </div>
+        `;
+        el.querySelector("#pToggle").onclick = () => {
+          parallelActive = !parallelActive;
+          renderWidgetContent("parallel");
+          saveStudioState();
+          showToast(parallelActive ? "Parallel Universe IGNITED" : "Parallel Universe Muted");
+        };
+        el.querySelector("#pEditOrbit").onclick = () => selectPlanet(0, true, "parallel");
+        el.querySelectorAll("[data-pratio]").forEach(btn => btn.onclick = () => {
+          parallelBpmRatio = Number(btn.dataset.pratio);
+          renderWidgetContent("parallel");
+          saveStudioState();
+        });
+        el.querySelector("#pBal").oninput = e => {
+          universeBalance = Number(e.target.value);
+          el.querySelector("#pBalV").textContent = universeBalance;
+          saveStudioState();
+        };
       } else if (id === "rack") {
-        const p = planets[selectedPlanetId];
+        const p = getSelectedPlanet();
         const list = activePadCat === "all" ? VOICE_ENGINES : VOICE_ENGINES.filter(v => v.cat === activePadCat);
         el.innerHTML = `
           <div class="widget-drag-bar" style="color:${p.color};">
@@ -1028,15 +1389,6 @@
             <button class="widget-close-btn">×</button>
           </div>
           <div class="widget-body">
-            <div class="orbit-switcher-bar">
-              ${planets.map(pl => `
-                <button class="orb-tab ${pl.id === selectedPlanetId ? "active" : ""}"
-                        style="${pl.id === selectedPlanetId ? `border-color:${pl.color}; color:${pl.color};` : ""}"
-                        data-switch-orb="${pl.id}">
-                  ${pl.baseName}
-                </button>
-              `).join("")}
-            </div>
             <div style="display:flex; gap:4px; margin-bottom:0.5rem;">
               ${["all", "drum", "rock", "synth", "world"].map(c =>
                 `<button class="w-btn ${activePadCat === c ? "active" : ""}" style="flex:1; padding:0.25rem;" data-cat="${c}">${c.toUpperCase()}</button>`
@@ -1047,7 +1399,6 @@
             </div>
           </div>
         `;
-        el.querySelectorAll("[data-switch-orb]").forEach(btn => btn.onclick = () => selectPlanet(Number(btn.dataset.switchOrb), false));
         el.querySelectorAll("[data-cat]").forEach(b => b.onclick = () => { activePadCat = b.dataset.cat; renderWidgetContent("rack"); });
         el.querySelectorAll("[data-voice]").forEach(b => b.onclick = () => {
           initAudioEngine();
@@ -1073,7 +1424,7 @@
               <button class="w-btn" id="wRetroBtn">GRAB 4 BARS</button>
             </div>
             <div style="font-family:var(--mono); font-size:0.58rem; color:var(--dim); line-height:1.4;">
-              Tap <strong>HUM ORBIT</strong> and sing "na-na-na" or "mmm-mm" to turn your melody into a live orbit.
+              Sing "na-na-na" or "mmm-mm" into your mic to convert your rhythm & pitch into an orbit.
             </div>
           </div>
         `;
@@ -1119,7 +1470,7 @@
             </div>
             <div class="w-grid-2">
               <button class="w-btn" data-preset="starter">CLEAN BEAT</button>
-              <button class="w-btn" data-preset="hybridmetal">HYBRID ROCK</button>
+              <button class="w-btn" data-preset="hybridmetal">POWER ROCK</button>
               <button class="w-btn" data-preset="midnightjazz">JAZZ CLUB</button>
               <button class="w-btn" data-preset="hyperfocus">DEEP FOCUS</button>
             </div>
@@ -1127,40 +1478,6 @@
         `;
         el.querySelectorAll("[data-biome]").forEach(b => b.onclick = () => { setBiome(b.dataset.biome); renderWidgetContent("world"); });
         el.querySelectorAll("[data-preset]").forEach(b => b.onclick = () => applyPreset(b.dataset.preset));
-      } else if (id === "decks") {
-        el.innerHTML = `
-          <div class="widget-drag-bar">
-            <span>SOLAR DECKS</span>
-            <button class="widget-close-btn">×</button>
-          </div>
-          <div class="widget-body">
-            <div class="w-row">
-              <span>SCENE CHAIN</span>
-              <button class="w-btn ${isChainActive ? "active" : ""}" id="wChainBtn" style="padding:0.25rem 0.6rem;">${isChainActive ? "CHAIN ON" : "CHAIN OFF"}</button>
-            </div>
-            <div class="w-grid-2">
-              ${solarScenes.map((sc, i) => `
-                <div style="display:flex; gap:3px;">
-                  <button class="w-btn ${i === activeSceneIdx ? "active" : ""}" style="flex:1;" data-sc="${i}">
-                    ${sc ? sc.label : `SLOT 0${i + 1}`}
-                  </button>
-                  ${sc ? `<button class="w-btn" style="padding:0.3rem;" data-del="${i}">×</button>` : ""}
-                </div>
-              `).join("")}
-            </div>
-          </div>
-        `;
-        el.querySelector("#wChainBtn").onclick = () => { isChainActive = !isChainActive; renderWidgetContent("decks"); };
-        el.querySelectorAll("[data-sc]").forEach(b => b.onclick = () => {
-          const i = Number(b.dataset.sc);
-          if (!solarScenes[i]) { solarScenes[i] = captureCurrentSnapshot(`DECK 0${i + 1}`); activeSceneIdx = i; }
-          else { activeSceneIdx = i; applySnapshot(solarScenes[i]); }
-          renderWidgetContent("decks");
-          saveStudioState();
-        });
-        el.querySelectorAll("[data-del]").forEach(b => b.onclick = () => {
-          solarScenes[Number(b.dataset.del)] = null; renderWidgetContent("decks"); saveStudioState();
-        });
       } else if (id === "mix") {
         el.innerHTML = `
           <div class="widget-drag-bar">
@@ -1251,24 +1568,23 @@
     }
 
     function updateTopLabel() {
-      document.getElementById("topMetaLabel").textContent = `${BIOMES[activeBiomeKey].label} · ${bpm} BPM`;
+      document.getElementById("topMetaLabel").textContent = `${BIOMES[activeBiomeKey].label} · ${bpm} BPM${parallelActive ? " · DUAL" : ""}`;
     }
 
     // =========================================================================
-    // 6. ZERO-ALLOCATION WEB AUDIO ENGINE (PRE-ALLOCATED BUFFERS & PANNERS)
+    // 7. ZERO-ALLOCATION WEB AUDIO ENGINE (POWER CHORD STRUMS + GRAND PIANO)
     // =========================================================================
     let audioCtx = null, masterFilter = null, masterAnalyser = null, tapeSaturator = null;
     let compressorNode = null, delayNode = null, delayWet = null, rainBandFilter = null, rainGain = null, vinylGain = null;
     let focusCarrierOsc = null, focusLfoOsc = null, focusMasterGain = null;
-    let sharedNoiseBuffer = null;
+    let sharedNoiseBuffer = null, sharedPowerCurve = null;
     const planetPanners = [];
 
     let wavProcessor = null, isRecordingWav = false, wavLeftChunks = [], wavRightChunks = [];
-    let isPlaying = false, schedulerTimer = null, nextTickTime = 0, globalTick = 0, currentChordIndex = 0;
+    let isPlaying = false, schedulerTimer = null, nextTickTime = 0, nextParallelTickTime = 0, globalTick = 0, currentChordIndex = 0;
     let micStream = null, analyserNode = null, isHumCapturing = false;
     let humCapturedSteps = new Array(16).fill(false), humCapturedNotes = new Array(16).fill(0);
 
-    // Pre-computed waveshaper curve (computed once instead of 44,100 floats per note)
     const SHARED_CURVE_SAMPLES = 4096;
     function makeTapeSaturationCurve(amount) {
       const k = amount * 1.4, curve = new Float32Array(SHARED_CURVE_SAMPLES), deg = Math.PI / 180;
@@ -1288,11 +1604,12 @@
       const AudioContext = window.AudioContext || window.webkitAudioContext;
       audioCtx = new AudioContext();
 
-      // Pre-allocate 1-second reusable white-noise buffer
       const noiseLen = audioCtx.sampleRate;
       sharedNoiseBuffer = audioCtx.createBuffer(1, noiseLen, audioCtx.sampleRate);
       const nOut = sharedNoiseBuffer.getChannelData(0);
       for (let i = 0; i < noiseLen; i++) nOut[i] = Math.random() * 2 - 1;
+
+      sharedPowerCurve = makeTapeSaturationCurve(145);
 
       compressorNode = audioCtx.createDynamicsCompressor();
       compressorNode.threshold.value = -14;
@@ -1326,14 +1643,12 @@
       compressorNode.connect(masterAnalyser);
       masterAnalyser.connect(audioCtx.destination);
 
-      // Pre-allocate 7 reusable StereoPannerNodes (one per orbit slot)
-      for (let i = 0; i < 7; i++) {
+      for (let i = 0; i < 10; i++) {
         const pan = audioCtx.createStereoPanner();
         pan.connect(tapeSaturator);
         planetPanners.push(pan);
       }
 
-      // WAV Recorder stays disconnected until user starts recording (saves main-thread CPU)
       wavProcessor = audioCtx.createScriptProcessor(4096, 2, 2);
       wavProcessor.onaudioprocess = e => {
         if (!isRecordingWav) return;
@@ -1410,12 +1725,8 @@
 
     function updateBrainwaveCarrier() {
       if (!audioCtx || !focusMasterGain) return;
-      if (focusHz <= 0) {
-        focusMasterGain.gain.setTargetAtTime(0.0001, audioCtx.currentTime, 0.12);
-      } else {
-        focusLfoOsc.frequency.setTargetAtTime(focusHz, audioCtx.currentTime, 0.08);
-        focusMasterGain.gain.setTargetAtTime(0.03, audioCtx.currentTime, 0.12);
-      }
+      if (focusHz <= 0) focusMasterGain.gain.setTargetAtTime(0.0001, audioCtx.currentTime, 0.12);
+      else { focusLfoOsc.frequency.setTargetAtTime(focusHz, audioCtx.currentTime, 0.08); focusMasterGain.gain.setTargetAtTime(0.03, audioCtx.currentTime, 0.12); }
     }
 
     function setBiome(key, silent = false) {
@@ -1429,6 +1740,73 @@
       updateTapeDrive(driveLevel);
       updateTopLabel();
       if (!silent) showToast(`World: ${b.label}`);
+    }
+
+    // Physical-Style Power Chord Down-Strum (staggered root -> 5th -> octave)
+    function triggerPowerChordStrum(time, rootMidi, vol, isPalmMute = false, panIdx = 0) {
+      const panner = planetPanners[panIdx % planetPanners.length];
+      const dist = audioCtx.createWaveShaper();
+      dist.curve = sharedPowerCurve;
+      const cabFilter = audioCtx.createBiquadFilter();
+      cabFilter.type = "lowpass";
+      cabFilter.frequency.setValueAtTime(isPalmMute ? 1350 : 2850, time);
+      cabFilter.frequency.exponentialRampToValueAtTime(isPalmMute ? 280 : 680, time + (isPalmMute ? 0.14 : 0.42));
+
+      dist.connect(cabFilter);
+      cabFilter.connect(panner);
+      if (!isPalmMute) cabFilter.connect(delayNode);
+
+      const chordIntervals = [0, 7, 12]; // Root, 5th, Octave
+      chordIntervals.forEach((semi, idx) => {
+        const strumDelay = idx * 0.015; // 15ms downward pick sweep across strings
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        osc.type = "sawtooth";
+        osc.frequency.setValueAtTime(midiToFreq(rootMidi + semi), time + strumDelay);
+
+        gain.gain.setValueAtTime(0.001, time + strumDelay);
+        gain.gain.linearRampToValueAtTime(vol * 0.22, time + strumDelay + 0.007);
+        gain.gain.exponentialRampToValueAtTime(0.0001, time + strumDelay + (isPalmMute ? 0.16 : 0.48));
+
+        osc.connect(gain);
+        gain.connect(dist);
+        osc.start(time + strumDelay);
+        osc.stop(time + strumDelay + 0.52);
+      });
+    }
+
+    // Multi-Harmonic Grand Piano / Tine Key Voice
+    function triggerGrandPianoNote(time, midi, vol, panIdx = 0, isTine = false) {
+      const panner = planetPanners[panIdx % planetPanners.length];
+      const freq = midiToFreq(midi);
+      const oscFund = audioCtx.createOscillator();
+      const oscHarm = audioCtx.createOscillator();
+      const filter = audioCtx.createBiquadFilter();
+      const gain = audioCtx.createGain();
+
+      oscFund.type = "triangle";
+      oscHarm.type = isTine ? "sine" : "triangle";
+      oscFund.frequency.setValueAtTime(freq, time);
+      oscHarm.frequency.setValueAtTime(freq * (isTine ? 3.0 : 2.0), time);
+
+      filter.type = "lowpass";
+      filter.frequency.setValueAtTime(isTine ? 3400 : 2600, time);
+      filter.frequency.exponentialRampToValueAtTime(420, time + 0.55);
+
+      gain.gain.setValueAtTime(0.001, time);
+      gain.gain.linearRampToValueAtTime(vol * 0.42, time + 0.008);
+      gain.gain.exponentialRampToValueAtTime(0.0001, time + 0.65);
+
+      oscFund.connect(filter);
+      oscHarm.connect(filter);
+      filter.connect(gain);
+      gain.connect(panner);
+      gain.connect(delayNode);
+
+      oscFund.start(time);
+      oscHarm.start(time);
+      oscFund.stop(time + 0.68);
+      oscHarm.stop(time + 0.68);
     }
 
     function triggerChordPad(time, durationSec) {
@@ -1470,16 +1848,30 @@
       let layerGain = 1.0;
       if (planet.layer === "rock" && hybridXfade > 0) layerGain = Math.max(0.08, 1 - hybridXfade / 105);
       if (planet.layer === "synth" && hybridXfade < 0) layerGain = Math.max(0.08, 1 + hybridXfade / 105);
-      const effectiveVol = planet.volume * layerGain;
 
-      const panner = planetPanners[planet.id % planetPanners.length];
+      // Universe balance (-100 Main only <-> +100 Parallel only)
+      let uniGain = 1.0;
+      if (!planet.isParallel && universeBalance > 0) uniGain = Math.max(0.05, 1 - universeBalance / 102);
+      if (planet.isParallel && universeBalance < 0) uniGain = Math.max(0.05, 1 + universeBalance / 102);
+
+      const effectiveVol = planet.volume * layerGain * uniGain;
+      const panIdx = (planet.isParallel ? 7 : 0) + (planet.id % 7);
+      const panner = planetPanners[panIdx % planetPanners.length];
       const vMeta = VOICE_ENGINES.find(v => v.id === t);
       panner.pan.setValueAtTime(Math.max(-1, Math.min(1, panVal * (vMeta?.band === "low" ? 0.22 : 0.85))), time);
 
+      // Check if user wrote an explicit MIDI note via the "Find the Note" Piano/Guitar Neck
+      const customMidi = planet.stepMidi ? planet.stepMidi[stepIndex % planet.stepMidi.length] : null;
       const stepDegree = planet.stepNotes[stepIndex % planet.stepNotes.length] || 0;
       const noteIdx = (stepDegree + planet.pitchOffset) % intervals.length;
 
-      if (t.startsWith("kick") || t === "taikoDrum") {
+      if (t === "powerStrum" || t === "chugStrum") {
+        const midi = customMidi !== null ? customMidi : (36 + intervals[noteIdx]);
+        triggerPowerChordStrum(time, midi, effectiveVol, t === "chugStrum", panIdx);
+      } else if (t === "grandPiano" || t === "tineKeys") {
+        const midi = customMidi !== null ? customMidi : (48 + intervals[noteIdx]);
+        triggerGrandPianoNote(time, midi, effectiveVol, panIdx, t === "tineKeys");
+      } else if (t.startsWith("kick") || t === "taikoDrum") {
         const osc = audioCtx.createOscillator(), gain = audioCtx.createGain();
         osc.type = t === "kick808" ? "sine" : "triangle";
         osc.frequency.setValueAtTime(t === "kick808" ? 135 : 176, time);
@@ -1529,8 +1921,9 @@
         noise.connect(filter); filter.connect(gain); gain.connect(panner);
         noise.start(time); noise.stop(time + dur + 0.01);
       } else {
-        const octaveBase = (t.includes("Bass") || t === "nuMetalGtr" || t === "palmMuteGtr") ? 36 : 52;
-        const freq = midiToFreq(octaveBase + intervals[noteIdx]);
+        const octaveBase = (t.includes("Bass") || t === "nuMetalGtr") ? 36 : 52;
+        const midi = customMidi !== null ? customMidi : (octaveBase + intervals[noteIdx]);
+        const freq = midiToFreq(midi);
         const osc1 = audioCtx.createOscillator(), osc2 = audioCtx.createOscillator();
         const filter = audioCtx.createBiquadFilter(), gain = audioCtx.createGain();
 
@@ -1553,79 +1946,67 @@
       }
     }
 
-    // Zero-setTimeout Scheduler: stores audio-clock timestamps for direct rAF sync
+    function scheduleSystemOrbits(list, playTime, sixteenthDuration, isFillWindow) {
+      const anySoloed = list.some(pl => pl.soloed);
+      list.forEach(p => {
+        const stepAdvance = p.speedMult === 0.5 ? (globalTick % 2 === 0 ? 1 : 0) : p.speedMult;
+        const subTicks = Math.max(1, Math.floor(stepAdvance));
+
+        for (let sub = 0; sub < subTicks; sub++) {
+          if (stepAdvance === 0) break;
+          const subTime = playTime + (sub / subTicks) * sixteenthDuration;
+          p.phaseSteps = (p.phaseSteps + 1) % p.steps;
+          const stepIdx = Math.floor(p.phaseSteps) % p.steps;
+
+          const isAudible = anySoloed ? p.soloed : !p.muted;
+          const passesProb = (p.probability >= 100) || (Math.random() * 100 <= p.probability);
+          let isHit = p.pattern[stepIdx] && isAudible && passesProb;
+
+          if (isFillWindow && isAudible && !p.isParallel && p.id === 1) isHit = true;
+
+          if (isHit) {
+            const targetAngle = (stepIdx / p.steps) * Math.PI * 2 - Math.PI / 2;
+            triggerPlanetVoice(p, subTime, stepIdx, Math.cos(targetAngle));
+            p.pendingVisualHit = { time: subTime, stepIdx, angle: targetAngle };
+          } else {
+            p.pendingVisualStep = { time: subTime, angle: (stepIdx / p.steps) * Math.PI * 2 - Math.PI / 2 };
+          }
+        }
+      });
+    }
+
     function schedulerLoop() {
       const sixteenthDuration = (60 / bpm) / 4;
       while (nextTickTime < audioCtx.currentTime + 0.08) {
-        if (isChainActive && globalTick > 0 && globalTick % 16 === 0 && queuedSceneIdx === null) {
-          chainBarCounter++;
-          const targetBars = solarScenes[activeSceneIdx]?.bars || 4;
-          if (chainBarCounter >= targetBars) {
-            chainBarCounter = 0;
-            const populated = solarScenes.map((s, i) => (s ? i : -1)).filter(i => i !== -1);
-            if (populated.length > 1) queuedSceneIdx = populated[(populated.indexOf(activeSceneIdx) + 1) % populated.length];
-          }
-        }
-
-        if (queuedSceneIdx !== null && globalTick % 8 === 0) {
-          const nextIdx = queuedSceneIdx;
-          queuedSceneIdx = null;
-          activeSceneIdx = nextIdx;
-          chainBarCounter = 0;
-          applySnapshot(solarScenes[nextIdx], true);
-        }
-
         const playTime = nextTickTime;
         if (globalTick % 16 === 0) triggerChordPad(playTime, sixteenthDuration * 15.5);
 
         const barTick64 = globalTick % 64;
         const isFillWindow = autoFillsEnabled && (barTick64 >= 60);
-        const anySoloed = planets.some(pl => pl.soloed);
 
-        planets.forEach(p => {
-          const stepAdvance = p.speedMult === 0.5 ? (globalTick % 2 === 0 ? 1 : 0) : p.speedMult;
-          const subTicks = Math.max(1, Math.floor(stepAdvance));
-
-          for (let sub = 0; sub < subTicks; sub++) {
-            if (stepAdvance === 0) break;
-            const subTime = playTime + (sub / subTicks) * sixteenthDuration;
-            p.phaseSteps = (p.phaseSteps + 1) % p.steps;
-            const stepIdx = Math.floor(p.phaseSteps) % p.steps;
-
-            const isAudible = anySoloed ? p.soloed : !p.muted;
-            const passesProb = (p.probability >= 100) || (Math.random() * 100 <= p.probability);
-            let isHit = p.pattern[stepIdx] && isAudible && passesProb;
-
-            if (isFillWindow && isAudible && p.id === 1) isHit = true;
-
-            if (isHit) {
-              const targetAngle = (stepIdx / p.steps) * Math.PI * 2 - Math.PI / 2;
-              triggerPlanetVoice(p, subTime, stepIdx, Math.cos(targetAngle));
-              p.pendingVisualHit = { time: subTime, stepIdx, angle: targetAngle };
-            } else {
-              p.pendingVisualStep = { time: subTime, angle: (stepIdx / p.steps) * Math.PI * 2 - Math.PI / 2 };
-            }
-          }
-        });
+        // Schedule Main Universe
+        scheduleSystemOrbits(planets, playTime, sixteenthDuration, isFillWindow);
 
         if (jamPartnerEnabled && globalTick % 2 === 1) {
           const silenceMs = performance.now() - lastUserPlayTime;
           if (silenceMs > 650 && silenceMs < 6000) {
             const intervals = SCALES[scaleKey];
             const replyDeg = (globalTick % 5 + 2) % intervals.length;
-            const osc = audioCtx.createOscillator(), gain = audioCtx.createGain();
-            osc.type = "triangle";
-            osc.frequency.setValueAtTime(midiToFreq(60 + intervals[replyDeg]), playTime);
-            gain.gain.setValueAtTime(0.001, playTime);
-            gain.gain.linearRampToValueAtTime(0.14, playTime + 0.015);
-            gain.gain.exponentialRampToValueAtTime(0.0001, playTime + 0.32);
-            osc.connect(gain); gain.connect(delayNode); gain.connect(tapeSaturator);
-            osc.start(playTime); osc.stop(playTime + 0.35);
+            triggerGrandPianoNote(playTime, 60 + intervals[replyDeg], 0.35, 0, true);
           }
         }
 
         nextTickTime += sixteenthDuration;
         globalTick++;
+      }
+
+      // Independent Parallel Universe Clock (supports separate poly-tempo ratios)
+      if (parallelActive) {
+        const parSixteenth = ((60 / (bpm * parallelBpmRatio)) / 4);
+        while (nextParallelTickTime < audioCtx.currentTime + 0.08) {
+          scheduleSystemOrbits(parallelPlanets, nextParallelTickTime, parSixteenth, false);
+          nextParallelTickTime += parSixteenth;
+        }
       }
     }
 
@@ -1641,7 +2022,9 @@
         globalTick = 0;
         currentChordIndex = 0;
         planets.forEach(p => { p.phaseSteps = p.steps - 1; });
+        parallelPlanets.forEach(p => { p.phaseSteps = p.steps - 1; });
         nextTickTime = audioCtx.currentTime + 0.04;
+        nextParallelTickTime = audioCtx.currentTime + 0.04;
         schedulerTimer = setInterval(schedulerLoop, 20);
         updateBrainwaveCarrier();
         textEl.textContent = "STOP";
@@ -1662,16 +2045,12 @@
       for (let i = 0; i < size; i++) rms += buf[i] * buf[i];
       rms = Math.sqrt(rms / size);
       if (rms < 0.018) return { freq: -1, rms };
-
       let r1 = 0, r2 = size - 1, thres = 0.2;
       for (let i = 0; i < size / 2; i++) if (Math.abs(buf[i]) < thres) { r1 = i; break; }
       for (let i = 1; i < size / 2; i++) if (Math.abs(buf[size - i]) < thres) { r2 = size - i; break; }
       buf = buf.slice(r1, r2); size = buf.length;
-
       const c = new Array(size).fill(0);
-      for (let i = 0; i < size; i++) {
-        for (let j = 0; j < size - i; j++) c[i] += buf[j] * buf[j + i];
-      }
+      for (let i = 0; i < size; i++) for (let j = 0; j < size - i; j++) c[i] += buf[j] * buf[j + i];
       let d = 0;
       while (c[d] > c[d + 1]) d++;
       let maxval = -1, maxpos = -1;
@@ -1682,7 +2061,6 @@
     async function toggleHumToOrbit() {
       initAudioEngine();
       if (audioCtx.state === "suspended") await audioCtx.resume();
-
       if (isHumCapturing) {
         isHumCapturing = false;
         if (openWidgets.vox) renderWidgetContent("vox");
@@ -1693,13 +2071,13 @@
         const hits = pat.filter(Boolean).length;
         if (hits === 0) { showToast("No hum detected"); return; }
 
-        const targetIdx = planets.length < 7 ? planets.length : selectedPlanetId;
-        const orbit = createPlanetFromTemplate(targetIdx, { type: "nuMetalGtr", steps, pulses: hits, pattern: pat, stepNotes: notes, volume: 0.72 });
+        const targetIdx = planets.length < 7 ? planets.length : 0;
+        const orbit = createPlanetFromTemplate(targetIdx, { type: "powerStrum", steps, pulses: hits, pattern: pat, stepNotes: notes, volume: 0.72 }, false);
         orbit.name = `${orbit.baseName} · HUM RIFF`;
         orbit.springVel = 6.5;
         if (planets.length < 7) planets.push(orbit);
         else planets[targetIdx] = orbit;
-        selectPlanet(targetIdx, true);
+        selectPlanet(targetIdx, true, "main");
         saveStudioState();
         showToast(`Captured ${hits}-note Hum Orbit!`);
         return;
@@ -1750,12 +2128,12 @@
     function captureRetroBuffer() {
       const hits = retroSteps.filter(Boolean).length;
       if (hits === 0) { showToast("Hum or play first"); return; }
-      const idx = planets.length < 7 ? planets.length : selectedPlanetId;
-      const p = createPlanetFromTemplate(idx, { type: "warmKeys", steps: 16, pulses: hits, pattern: [...retroSteps], stepNotes: [...retroNotes] });
+      const idx = planets.length < 7 ? planets.length : 0;
+      const p = createPlanetFromTemplate(idx, { type: "grandPiano", steps: 16, pulses: hits, pattern: [...retroSteps], stepNotes: [...retroNotes] }, false);
       if (planets.length < 7) planets.push(p);
       else planets[idx] = p;
       retroSteps.fill(false);
-      selectPlanet(idx, true);
+      selectPlanet(idx, true, "main");
       showToast(`Captured ${hits}-note phrase!`);
     }
 
@@ -1768,10 +2146,9 @@
         if (planets[i]?.locked) return;
         pl.pulses = Math.min(pl.steps, pl.pulses + 1);
         pl.pattern = generateEuclidean(pl.steps, pl.pulses);
-        if (i === forged.planets.length - 1) pl.type = "nuMetalGtr";
+        if (i === forged.planets.length - 1) pl.type = "powerStrum";
       });
       solarScenes[idx] = forged;
-      if (openWidgets.decks) renderWidgetContent("decks");
       saveStudioState();
       showToast(`Forged Drop into Deck 0${idx + 1}`);
     }
@@ -1786,10 +2163,10 @@
     }
 
     const ORBIT_PRESETS = {
-      starter:      { bpm: 90,  focusHz: 12.5, scale: "minorPentatonic", chords: "none",    biome: "cosmos", tracks: [{ type: "kick808", steps: 4, pulses: 2, speedMult: 1 }, { type: "snareBreak", steps: 4, pulses: 1, speedMult: 1, pattern: [false, false, true, false] }, { type: "warmKeys", steps: 8, pulses: 4, speedMult: 1 }] },
-      hybridmetal:  { bpm: 102, focusHz: 14.0, scale: "dropC",           chords: "numetal", biome: "rock",   tracks: [{ type: "kickAcoust", steps: 4, pulses: 2, speedMult: 1 }, { type: "snareBreak", steps: 4, pulses: 2, speedMult: 1 }, { type: "nuMetalGtr", steps: 8, pulses: 5, speedMult: 1, stepNotes: [0, 0, 1, 0, 4, 3, 1, 0] }, { type: "vinylScratch", steps: 8, pulses: 3, speedMult: 2 }] },
-      midnightjazz: { bpm: 84,  focusHz: 10.0, scale: "dorian",          chords: "jazz251", biome: "jazz",   tracks: [{ type: "uprightBass", steps: 3, pulses: 2, speedMult: 1 }, { type: "snareBrush", steps: 4, pulses: 2, speedMult: 1 }, { type: "warmKeys", steps: 6, pulses: 4, speedMult: 1 }, { type: "brassLead", steps: 12, pulses: 5, speedMult: 1 }] },
-      hyperfocus:   { bpm: 74,  focusHz: 12.5, scale: "dorian",          chords: "lofi1",   biome: "cosmos", tracks: [{ type: "kick808", steps: 4, pulses: 2, speedMult: 0.5 }, { type: "rim", steps: 4, pulses: 1, speedMult: 1 }, { type: "warmKeys", steps: 8, pulses: 4, speedMult: 1 }, { type: "bell", steps: 16, pulses: 6, speedMult: 1 }] }
+      starter:      { bpm: 90,  focusHz: 12.5, scale: "minorPentatonic", chords: "none",    biome: "cosmos", tracks: [{ type: "kick808", steps: 4, pulses: 2, speedMult: 1 }, { type: "snareBreak", steps: 4, pulses: 1, speedMult: 1, pattern: [false, false, true, false] }, { type: "grandPiano", steps: 8, pulses: 4, speedMult: 1 }] },
+      hybridmetal:  { bpm: 102, focusHz: 14.0, scale: "dropC",           chords: "numetal", biome: "rock",   tracks: [{ type: "kickAcoust", steps: 4, pulses: 2, speedMult: 1 }, { type: "snareBreak", steps: 4, pulses: 2, speedMult: 1 }, { type: "powerStrum", steps: 8, pulses: 5, speedMult: 1, stepNotes: [0, 0, 1, 0, 4, 3, 1, 0] }, { type: "vinylScratch", steps: 8, pulses: 3, speedMult: 2 }] },
+      midnightjazz: { bpm: 84,  focusHz: 10.0, scale: "dorian",          chords: "jazz251", biome: "jazz",   tracks: [{ type: "uprightBass", steps: 3, pulses: 2, speedMult: 1 }, { type: "snareBrush", steps: 4, pulses: 2, speedMult: 1 }, { type: "tineKeys", steps: 6, pulses: 4, speedMult: 1 }, { type: "brassLead", steps: 12, pulses: 5, speedMult: 1 }] },
+      hyperfocus:   { bpm: 74,  focusHz: 12.5, scale: "dorian",          chords: "lofi1",   biome: "cosmos", tracks: [{ type: "kick808", steps: 4, pulses: 2, speedMult: 0.5 }, { type: "rim", steps: 4, pulses: 1, speedMult: 1 }, { type: "grandPiano", steps: 8, pulses: 4, speedMult: 1 }, { type: "bell", steps: 16, pulses: 6, speedMult: 1 }] }
     };
 
     function applyPreset(key) {
@@ -1805,13 +2182,10 @@
       } else if (ORBIT_PRESETS[key]) {
         const cfg = ORBIT_PRESETS[key];
         setBiome(cfg.biome, true);
-        bpm = cfg.bpm;
-        focusHz = cfg.focusHz;
-        scaleKey = cfg.scale;
-        chordProgKey = cfg.chords;
+        bpm = cfg.bpm; focusHz = cfg.focusHz; scaleKey = cfg.scale; chordProgKey = cfg.chords;
         updateBrainwaveCarrier();
-        planets = cfg.tracks.map((tr, idx) => planets[idx]?.locked ? planets[idx] : createPlanetFromTemplate(idx, tr));
-        if (selectedPlanetId >= planets.length) selectedPlanetId = 0;
+        planets = cfg.tracks.map((tr, idx) => planets[idx]?.locked ? planets[idx] : createPlanetFromTemplate(idx, tr, false));
+        activeTarget = { universe: "main", id: 0 };
       }
       updateTopLabel();
       refreshAllOpenWidgets();
@@ -1823,15 +2197,16 @@
         label: label || `DECK 0${activeSceneIdx + 1}`,
         bars: 4,
         biome: activeBiomeKey,
-        bpm,
-        focusHz,
-        drive: driveLevel,
-        scale: scaleKey,
-        chords: chordProgKey,
+        bpm, focusHz, drive: driveLevel, scale: scaleKey, chords: chordProgKey,
         planets: planets.map(p => ({
           type: p.type, steps: p.steps, pulses: p.pulses, speedMult: p.speedMult, probability: p.probability,
           pitchOffset: p.pitchOffset, volume: p.volume, muted: p.muted, soloed: p.soloed, locked: p.locked,
-          pattern: [...p.pattern], stepNotes: [...p.stepNotes]
+          pattern: [...p.pattern], stepNotes: [...p.stepNotes], stepMidi: [...p.stepMidi]
+        })),
+        parallelPlanets: parallelPlanets.map(p => ({
+          type: p.type, steps: p.steps, pulses: p.pulses, speedMult: p.speedMult, probability: p.probability,
+          pitchOffset: p.pitchOffset, volume: p.volume, muted: p.muted, soloed: p.soloed, locked: p.locked,
+          pattern: [...p.pattern], stepNotes: [...p.stepNotes], stepMidi: [...p.stepMidi]
         }))
       };
     }
@@ -1844,8 +2219,11 @@
       driveLevel = snap.drive ?? 15;
       scaleKey = snap.scale || "minorPentatonic";
       chordProgKey = snap.chords || "none";
-      planets = snap.planets.map((sp, idx) => planets[idx]?.locked ? planets[idx] : createPlanetFromTemplate(idx, sp));
-      if (selectedPlanetId >= planets.length) selectedPlanetId = 0;
+      planets = snap.planets.map((sp, idx) => planets[idx]?.locked ? planets[idx] : createPlanetFromTemplate(idx, sp, false));
+      if (Array.isArray(snap.parallelPlanets)) {
+        parallelPlanets = snap.parallelPlanets.map((sp, idx) => createPlanetFromTemplate(idx, sp, true));
+      }
+      activeTarget = { universe: "main", id: 0 };
       updateTopLabel();
       refreshAllOpenWidgets();
       if (!silent) showToast(`Loaded ${snap.label}`);
@@ -1853,9 +2231,12 @@
 
     function loadStudioState() {
       try {
-        const raw = localStorage.getItem("pluvox_v14_fast");
+        const raw = localStorage.getItem("pluvox_v15_dual");
         if (!raw) return;
         const data = JSON.parse(raw);
+        if (typeof data.parallelActive === "boolean") parallelActive = data.parallelActive;
+        if (data.parallelBpmRatio) parallelBpmRatio = data.parallelBpmRatio;
+        if (data.universeBalance !== undefined) universeBalance = data.universeBalance;
         if (Array.isArray(data.solarScenes)) data.solarScenes.forEach((s, i) => { solarScenes[i] = s; });
         if (data.current) applySnapshot(data.current, true);
       } catch (_) {}
@@ -1875,7 +2256,8 @@
         for (let step = 0; step < 64; step++) {
           const sIdx = step % p.steps;
           if (!p.pattern[sIdx]) continue;
-          const note = p.type.startsWith("kick") ? 36 : (p.type.startsWith("snare") ? 38 : 48 + intervals[(p.stepNotes[sIdx] || 0) % intervals.length]);
+          const customM = p.stepMidi ? p.stepMidi[sIdx] : null;
+          const note = customM !== null ? customM : (p.type.startsWith("kick") ? 36 : (p.type.startsWith("snare") ? 38 : 48 + intervals[(p.stepNotes[sIdx] || 0) % intervals.length]));
           events.push({ tick: step * stepTicks, data: [0x90 | ch, note, 100] });
           events.push({ tick: step * stepTicks + 110, data: [0x80 | ch, note, 0] });
         }
@@ -1936,7 +2318,7 @@
     }
 
     // =========================================================================
-    // 7. HIGH-SPEED CANVAS RENDERER (1.5x CAPPED DPR + ZERO-SETTIMEOUT SYNC)
+    // 8. DUAL SOLAR SYSTEM CANVAS RENDERER (MAIN + PARALLEL UNIVERSE)
     // =========================================================================
     const canvas = document.getElementById("cosmos");
     const ctx = canvas.getContext("2d", { alpha: false });
@@ -1956,29 +2338,44 @@
     window.addEventListener("resize", resizeCanvas);
     resizeCanvas();
 
-    const stars = Array.from({ length: 120 }, () => ({ x: Math.random(), y: Math.random(), r: 0.7 + Math.random() * 1.2, tw: Math.random() * 6.28, sp: 0.01 + Math.random() * 0.02 }));
+    const stars = Array.from({ length: 120 }, () => ({ x: Math.random(), y: Math.random(), r: 0.7 + Math.random() * 1.2 }));
     const particles = Array.from({ length: 55 }, () => ({ x: Math.random() * window.innerWidth, y: Math.random() * window.innerHeight, len: 12 + Math.random() * 18, size: 1.5 + Math.random() * 2.2, speed: 3 + Math.random() * 4.5, alpha: 0.16 + Math.random() * 0.28, wob: Math.random() * 6.28 }));
     const shockwaves = [];
     const waveData = new Uint8Array(64);
     let sunSpring = 0, sunVel = 0, reelAngle = 0, lastFrame = performance.now();
 
-    function getOrbitRadius(index) {
+    function getMainCenter() {
+      return { cx: logicalW * 0.46, cy: logicalH * 0.5 };
+    }
+
+    function getParallelCenter() {
+      return logicalW < 760
+        ? { cx: logicalW * 0.80, cy: logicalH * 0.22 }
+        : { cx: logicalW * 0.82, cy: logicalH * 0.28 };
+    }
+
+    function getOrbitRadius(index, isParallel = false) {
       const minDim = Math.min(logicalW, logicalH);
-      const maxSpan = minDim * 0.39;
-      const base = Math.max(66, minDim * 0.12);
-      const spacing = Math.min(58, (maxSpan - base) / Math.max(1, Math.max(3, planets.length) - 1));
+      if (isParallel) {
+        const base = Math.max(30, minDim * 0.045);
+        return base + index * Math.max(24, minDim * 0.036);
+      }
+      const maxSpan = minDim * 0.37;
+      const base = Math.max(64, minDim * 0.11);
+      const spacing = Math.min(54, (maxSpan - base) / Math.max(1, Math.max(3, planets.length) - 1));
       return base + index * spacing;
     }
 
     function getPlanetPosition(p) {
-      const cx = logicalW / 2, cy = logicalH / 2;
-      const r = getOrbitRadius(p.id) + p.springOffset + Math.sin(p.floatPhase) * 2.5;
-      return { x: cx + Math.cos(p.visualAngle) * r, y: cy + Math.sin(p.visualAngle) * r, orbitR: r };
+      const center = p.isParallel ? getParallelCenter() : getMainCenter();
+      const r = getOrbitRadius(p.id, p.isParallel) + p.springOffset + Math.sin(p.floatPhase) * 2.0;
+      return { x: center.cx + Math.cos(p.visualAngle) * r, y: center.cy + Math.sin(p.visualAngle) * r, orbitR: r };
     }
 
-    function selectPlanet(id, autoOpenInspector = false) {
-      selectedPlanetId = id;
-      planets[id].springVel += 3.5;
+    function selectPlanet(id, autoOpenInspector = false, universe = "main") {
+      activeTarget = { universe, id };
+      const p = getSelectedPlanet();
+      p.springVel += 3.5;
       if (autoOpenInspector) {
         togglePersistentWidget("orbit", true);
       } else {
@@ -1986,26 +2383,122 @@
       }
     }
 
+    function drawSolarSystem(list, center, isParallel, dt, sixteenthSec, audioNow, biome) {
+      const anySoloed = list.some(pl => pl.soloed);
+      const isDimSystem = isParallel && !parallelActive;
+
+      list.forEach(p => {
+        if (p.pendingVisualHit && audioNow >= p.pendingVisualHit.time) {
+          const hit = p.pendingVisualHit;
+          p.pendingVisualHit = null;
+          p.visualAngle = hit.angle;
+          p.pulseFlash = 1.0;
+          p.nodeFlashes[hit.stepIdx] = 1.0;
+          p.springVel += (p.type.startsWith("kick") ? 4.5 : 2.8);
+          if (isParallel) parallelSunVel += 3.2;
+          else if (p.type.startsWith("kick")) sunVel += 5.0;
+          const pos = getPlanetPosition(p);
+          shockwaves.push({ x: pos.x, y: pos.y, r: p.planetRadius, maxR: isParallel ? 42 : 68, color: p.color, alpha: 0.78 });
+        } else if (p.pendingVisualStep && audioNow >= p.pendingVisualStep.time) {
+          p.visualAngle = p.pendingVisualStep.angle;
+          p.pendingVisualStep = null;
+        }
+
+        p.springVel = (p.springVel - p.springOffset * 0.09) * 0.89;
+        p.springOffset += p.springVel;
+        p.floatPhase += dt * (1.2 + p.id * 0.25);
+        p.pulseFlash *= 0.9;
+
+        const systemRunning = isPlaying && (!isParallel || parallelActive);
+        if (systemRunning) {
+          const effSixteenth = isParallel ? (sixteenthSec / parallelBpmRatio) : sixteenthSec;
+          const orbitPeriodSec = (p.steps * effSixteenth) / p.speedMult;
+          p.visualAngle += ((Math.PI * 2) / orbitPeriodSec) * dt;
+        } else {
+          p.visualAngle += 0.07 * dt * (p.id % 2 === 0 ? 1 : -1);
+        }
+
+        const orbitR = getOrbitRadius(p.id, isParallel) + p.springOffset + Math.sin(p.floatPhase) * 2.0;
+        const isSel = (activeTarget.universe === (isParallel ? "parallel" : "main")) && (p.id === activeTarget.id);
+        const dimmed = isDimSystem || (anySoloed ? !p.soloed : p.muted);
+
+        ctx.beginPath(); ctx.arc(center.cx, center.cy, orbitR, 0, Math.PI * 2);
+        ctx.strokeStyle = p.locked ? "#38bdf8" : (isSel ? p.color : "rgba(148, 163, 184, 0.22)");
+        ctx.globalAlpha = dimmed ? 0.16 : (isSel || p.locked ? 0.7 : 1);
+        ctx.lineWidth = isSel || p.locked ? 1.8 : 1.0; ctx.stroke(); ctx.globalAlpha = 1;
+
+        const nodes = [];
+        for (let s = 0; s < p.steps; s++) {
+          const sa = (s / p.steps) * Math.PI * 2 - Math.PI / 2;
+          const nx = center.cx + Math.cos(sa) * orbitR, ny = center.cy + Math.sin(sa) * orbitR;
+          const active = p.pattern[s];
+          if (active) nodes.push({ x: nx, y: ny });
+
+          if (p.nodeFlashes[s] > 0.04) {
+            p.nodeFlashes[s] *= 0.87;
+            ctx.beginPath();
+            ctx.arc(nx, ny, (isParallel ? 4 : 6) + (1 - p.nodeFlashes[s]) * 10, 0, Math.PI * 2);
+            ctx.strokeStyle = p.color;
+            ctx.globalAlpha = p.nodeFlashes[s];
+            ctx.lineWidth = 1.4;
+            ctx.stroke();
+            ctx.globalAlpha = 1;
+          }
+
+          const hasCustomNote = p.stepMidi && p.stepMidi[s] !== null;
+          ctx.beginPath();
+          ctx.arc(nx, ny, active ? (isParallel ? 3.8 : 5.2) : (isParallel ? 2.0 : 2.8), 0, Math.PI * 2);
+          ctx.globalAlpha = dimmed ? 0.25 : 1;
+          ctx.fillStyle = active ? (hasCustomNote ? "#ffffff" : p.color) : "rgba(148, 163, 184, 0.45)";
+          ctx.fill();
+          if (active && hasCustomNote) {
+            ctx.strokeStyle = p.color;
+            ctx.lineWidth = 1.5;
+            ctx.stroke();
+          }
+          ctx.globalAlpha = 1;
+        }
+
+        if (nodes.length > 1) {
+          ctx.beginPath();
+          nodes.forEach((pt, i) => { if (i === 0) ctx.moveTo(pt.x, pt.y); else ctx.lineTo(pt.x, pt.y); });
+          ctx.closePath(); ctx.strokeStyle = p.color;
+          ctx.globalAlpha = dimmed ? 0.08 : (0.24 + p.pulseFlash * 0.35);
+          ctx.lineWidth = 1.2; ctx.stroke(); ctx.globalAlpha = 1;
+        }
+
+        const px = center.cx + Math.cos(p.visualAngle) * orbitR;
+        const py = center.cy + Math.sin(p.visualAngle) * orbitR;
+        const pRad = p.planetRadius + p.pulseFlash * 4.0;
+
+        ctx.beginPath(); ctx.arc(px, py, pRad * 1.55, 0, Math.PI * 2);
+        ctx.fillStyle = p.color; ctx.globalAlpha = dimmed ? 0.08 : 0.18; ctx.fill();
+
+        ctx.beginPath(); ctx.arc(px, py, pRad * 0.85, 0, Math.PI * 2);
+        ctx.globalAlpha = dimmed ? 0.32 : 0.95; ctx.fill();
+
+        ctx.beginPath(); ctx.arc(px, py, pRad * 0.38, 0, Math.PI * 2);
+        ctx.fillStyle = "#ffffff"; ctx.globalAlpha = dimmed ? 0.28 : 0.95; ctx.fill();
+        ctx.globalAlpha = 1;
+
+        if (isSel || p.locked) {
+          ctx.beginPath(); ctx.arc(px, py, pRad + 4.5, 0, Math.PI * 2);
+          ctx.strokeStyle = p.locked ? "#38bdf8" : "#ffffff"; ctx.lineWidth = 1.5; ctx.stroke();
+        }
+      });
+    }
+
     function renderCosmos(now) {
       const dt = Math.min(0.05, (now - lastFrame) / 1000);
       lastFrame = now;
-      const w = logicalW, h = logicalH, cx = w / 2, cy = h / 2;
+      const w = logicalW, h = logicalH;
+      const mainC = getMainCenter();
+      const parC = getParallelCenter();
       const sixteenthSec = (60 / bpm) / 4;
       const biome = BIOMES[activeBiomeKey];
 
       ctx.fillStyle = biome.bgTrail;
       ctx.fillRect(0, 0, w, h);
-
-      if (biome.particleMode === "studio") {
-        if (isPlaying) reelAngle += dt * (bpm / 45);
-        const rr = Math.min(w, h) * 0.15;
-        [w * 0.25, w * 0.75].forEach(rx => {
-          ctx.save(); ctx.translate(rx, h * 0.32); ctx.rotate(reelAngle);
-          ctx.beginPath(); ctx.arc(0, 0, rr, 0, Math.PI * 2);
-          ctx.strokeStyle = "rgba(245, 158, 11, 0.15)"; ctx.lineWidth = 2; ctx.stroke();
-          ctx.restore();
-        });
-      }
 
       ctx.fillStyle = `rgba(${biome.streakColor}, 0.45)`;
       for (let i = 0; i < stars.length; i++) {
@@ -2031,6 +2524,16 @@
         }
       }
 
+      // Gravitational Bridge Filament between Main Solar System and Parallel Universe
+      ctx.beginPath();
+      ctx.moveTo(mainC.cx, mainC.cy);
+      ctx.lineTo(parC.cx, parC.cy);
+      ctx.strokeStyle = parallelActive ? "rgba(192, 132, 252, 0.24)" : "rgba(148, 163, 184, 0.08)";
+      ctx.setLineDash([4, 6]);
+      ctx.lineWidth = 1.2;
+      ctx.stroke();
+      ctx.setLineDash([]);
+
       for (let i = shockwaves.length - 1; i >= 0; i--) {
         const sw = shockwaves[i];
         sw.r += (sw.maxR - sw.r) * 0.12;
@@ -2041,17 +2544,17 @@
         ctx.globalAlpha = 1;
       }
 
-      // Hardware-Friendly Layered Sun Glow (no per-frame gradient allocations)
+      // Main Sun
       sunVel = (sunVel - sunSpring * 0.11) * 0.88;
       sunSpring += sunVel;
       const sunR = Math.max(16, 24 + sunSpring);
       const sunTint = isHumCapturing ? "#fb7185" : (isPlaying ? biome.sunCore : "#94a3b8");
 
-      ctx.beginPath(); ctx.arc(cx, cy, sunR * 2.1, 0, Math.PI * 2);
+      ctx.beginPath(); ctx.arc(mainC.cx, mainC.cy, sunR * 2.1, 0, Math.PI * 2);
       ctx.fillStyle = sunTint; ctx.globalAlpha = 0.12; ctx.fill();
-      ctx.beginPath(); ctx.arc(cx, cy, sunR * 1.35, 0, Math.PI * 2);
+      ctx.beginPath(); ctx.arc(mainC.cx, mainC.cy, sunR * 1.35, 0, Math.PI * 2);
       ctx.globalAlpha = 0.28; ctx.fill();
-      ctx.beginPath(); ctx.arc(cx, cy, sunR * 0.85, 0, Math.PI * 2);
+      ctx.beginPath(); ctx.arc(mainC.cx, mainC.cy, sunR * 0.85, 0, Math.PI * 2);
       ctx.fillStyle = "#ffffff"; ctx.globalAlpha = 0.95; ctx.fill();
       ctx.globalAlpha = 1;
 
@@ -2061,160 +2564,105 @@
         for (let i = 0; i < waveData.length; i++) {
           const a = (i / waveData.length) * Math.PI * 2;
           const rW = sunR + 12 + ((waveData[i] - 128) / 128) * 14;
-          const wx = cx + Math.cos(a) * rW, wy = cy + Math.sin(a) * rW;
+          const wx = mainC.cx + Math.cos(a) * rW, wy = mainC.cy + Math.sin(a) * rW;
           if (i === 0) ctx.moveTo(wx, wy); else ctx.lineTo(wx, wy);
         }
         ctx.closePath(); ctx.strokeStyle = `rgba(${biome.streakColor}, 0.5)`; ctx.lineWidth = 1.4; ctx.stroke();
       }
 
-      const anySoloed = planets.some(pl => pl.soloed);
+      // Parallel Universe Mini-Sun
+      parallelSunVel = (parallelSunVel - parallelSunSpring * 0.12) * 0.88;
+      parallelSunSpring += parallelSunVel;
+      const parSunR = Math.max(10, 14 + parallelSunSpring);
+      const parTint = parallelActive ? "#c084fc" : "#64748b";
+
+      ctx.beginPath(); ctx.arc(parC.cx, parC.cy, parSunR * 2.0, 0, Math.PI * 2);
+      ctx.fillStyle = parTint; ctx.globalAlpha = parallelActive ? 0.18 : 0.08; ctx.fill();
+      ctx.beginPath(); ctx.arc(parC.cx, parC.cy, parSunR * 0.9, 0, Math.PI * 2);
+      ctx.fillStyle = parallelActive ? "#f3e8ff" : "#94a3b8"; ctx.globalAlpha = 0.9; ctx.fill();
+      ctx.globalAlpha = 1;
+
       const audioNow = audioCtx ? audioCtx.currentTime : 0;
-
-      planets.forEach(p => {
-        // Process scheduled visual hit directly against Web Audio clock
-        if (p.pendingVisualHit && audioNow >= p.pendingVisualHit.time) {
-          const hit = p.pendingVisualHit;
-          p.pendingVisualHit = null;
-          p.visualAngle = hit.angle;
-          p.pulseFlash = 1.0;
-          p.nodeFlashes[hit.stepIdx] = 1.0;
-          p.springVel += (p.type.startsWith("kick") ? 5.0 : 3.0);
-          if (p.type.startsWith("kick")) sunVel += 5.0;
-          const pos = getPlanetPosition(p);
-          shockwaves.push({ x: pos.x, y: pos.y, r: p.planetRadius, maxR: 68, color: p.color, alpha: 0.8 });
-        } else if (p.pendingVisualStep && audioNow >= p.pendingVisualStep.time) {
-          p.visualAngle = p.pendingVisualStep.angle;
-          p.pendingVisualStep = null;
-        }
-
-        p.springVel = (p.springVel - p.springOffset * 0.09) * 0.89;
-        p.springOffset += p.springVel;
-        p.floatPhase += dt * (1.2 + p.id * 0.25);
-        p.pulseFlash *= 0.9;
-
-        if (isPlaying) {
-          const orbitPeriodSec = (p.steps * sixteenthSec) / p.speedMult;
-          p.visualAngle += ((Math.PI * 2) / orbitPeriodSec) * dt;
-        } else {
-          p.visualAngle += 0.08 * dt * (p.id % 2 === 0 ? 1 : -1);
-        }
-
-        const orbitR = getOrbitRadius(p.id) + p.springOffset + Math.sin(p.floatPhase) * 2.5;
-        const isSel = p.id === selectedPlanetId;
-        const dimmed = anySoloed ? !p.soloed : p.muted;
-
-        ctx.beginPath(); ctx.arc(cx, cy, orbitR, 0, Math.PI * 2);
-        ctx.strokeStyle = p.locked ? "#38bdf8" : (isSel ? p.color : "rgba(148, 163, 184, 0.2)");
-        ctx.globalAlpha = dimmed ? 0.16 : (isSel || p.locked ? 0.65 : 1);
-        ctx.lineWidth = isSel || p.locked ? 1.8 : 1.1; ctx.stroke(); ctx.globalAlpha = 1;
-
-        const nodes = [];
-        for (let s = 0; s < p.steps; s++) {
-          const sa = (s / p.steps) * Math.PI * 2 - Math.PI / 2;
-          const nx = cx + Math.cos(sa) * orbitR, ny = cy + Math.sin(sa) * orbitR;
-          const active = p.pattern[s];
-          if (active) nodes.push({ x: nx, y: ny });
-
-          if (p.nodeFlashes[s] > 0.04) {
-            p.nodeFlashes[s] *= 0.87;
-            ctx.beginPath();
-            ctx.arc(nx, ny, 6 + (1 - p.nodeFlashes[s]) * 11, 0, Math.PI * 2);
-            ctx.strokeStyle = p.color;
-            ctx.globalAlpha = p.nodeFlashes[s];
-            ctx.lineWidth = 1.5;
-            ctx.stroke();
-            ctx.globalAlpha = 1;
-          }
-
-          ctx.beginPath(); ctx.arc(nx, ny, active ? 5.2 : 2.8, 0, Math.PI * 2);
-          ctx.globalAlpha = dimmed ? 0.25 : 1;
-          ctx.fillStyle = active ? p.color : "rgba(148, 163, 184, 0.45)";
-          ctx.fill(); ctx.globalAlpha = 1;
-        }
-
-        if (nodes.length > 1) {
-          ctx.beginPath();
-          nodes.forEach((pt, i) => { if (i === 0) ctx.moveTo(pt.x, pt.y); else ctx.lineTo(pt.x, pt.y); });
-          ctx.closePath(); ctx.strokeStyle = p.color;
-          ctx.globalAlpha = dimmed ? 0.08 : (0.24 + p.pulseFlash * 0.35);
-          ctx.lineWidth = 1.3; ctx.stroke(); ctx.globalAlpha = 1;
-        }
-
-        const px = cx + Math.cos(p.visualAngle) * orbitR;
-        const py = cy + Math.sin(p.visualAngle) * orbitR;
-        const pRad = p.planetRadius + p.pulseFlash * 4.5;
-
-        ctx.beginPath(); ctx.arc(px, py, pRad * 1.6, 0, Math.PI * 2);
-        ctx.fillStyle = p.color; ctx.globalAlpha = dimmed ? 0.08 : 0.18; ctx.fill();
-
-        ctx.beginPath(); ctx.arc(px, py, pRad * 0.85, 0, Math.PI * 2);
-        ctx.globalAlpha = dimmed ? 0.35 : 0.95; ctx.fill();
-
-        ctx.beginPath(); ctx.arc(px, py, pRad * 0.38, 0, Math.PI * 2);
-        ctx.fillStyle = "#ffffff"; ctx.globalAlpha = dimmed ? 0.3 : 0.95; ctx.fill();
-        ctx.globalAlpha = 1;
-
-        if (isSel || p.locked) {
-          ctx.beginPath(); ctx.arc(px, py, pRad + 5, 0, Math.PI * 2);
-          ctx.strokeStyle = p.locked ? "#38bdf8" : "#ffffff"; ctx.lineWidth = 1.6; ctx.stroke();
-        }
-      });
+      drawSolarSystem(planets, mainC, false, dt, sixteenthSec, audioNow, biome);
+      drawSolarSystem(parallelPlanets, parC, true, dt, sixteenthSec, audioNow, biome);
 
       requestAnimationFrame(renderCosmos);
     }
 
-    // Pointer Interaction
+    // Pointer Interaction across BOTH Solar Systems
     let longPressTimer = null, pressStartPos = null, draggingOrb = null;
 
-    canvas.addEventListener("pointerdown", e => {
-      const rect = canvas.getBoundingClientRect();
-      const mx = e.clientX - rect.left, my = e.clientY - rect.top;
-      const cx = logicalW / 2, cy = logicalH / 2;
-      pressStartPos = { x: mx, y: my };
-
-      if (Math.hypot(mx - cx, my - cy) <= 42) {
-        togglePlay();
-        return;
-      }
-
-      for (const p of planets) {
+    function hitTestSystem(list, center, isParallel, mx, my) {
+      // 1. Check Planet Bodies
+      for (const p of list) {
         const pos = getPlanetPosition(p);
-        if (Math.hypot(mx - pos.x, my - pos.y) <= p.planetRadius + 16) {
-          selectPlanet(p.id, true);
-          return;
+        if (Math.hypot(mx - pos.x, my - pos.y) <= p.planetRadius + 15) {
+          selectPlanet(p.id, true, isParallel ? "parallel" : "main");
+          return true;
         }
       }
-
-      for (const p of planets) {
-        const orbitR = getOrbitRadius(p.id) + p.springOffset + Math.sin(p.floatPhase) * 2.5;
+      // 2. Check Orbit Step Nodes
+      for (const p of list) {
+        const orbitR = getOrbitRadius(p.id, isParallel) + p.springOffset + Math.sin(p.floatPhase) * 2.0;
         for (let s = 0; s < p.steps; s++) {
           const sa = (s / p.steps) * Math.PI * 2 - Math.PI / 2;
-          const nx = cx + Math.cos(sa) * orbitR, ny = cy + Math.sin(sa) * orbitR;
-          if (Math.hypot(mx - nx, my - ny) <= 16) {
-            selectPlanet(p.id, true);
+          const nx = center.cx + Math.cos(sa) * orbitR, ny = center.cy + Math.sin(sa) * orbitR;
+          if (Math.hypot(mx - nx, my - ny) <= 15) {
+            selectPlanet(p.id, true, isParallel ? "parallel" : "main");
             if (p.pattern[s]) {
-              draggingOrb = { planetId: p.id, originStep: s, hoverStep: s, moved: false };
+              draggingOrb = { universe: isParallel ? "parallel" : "main", planetId: p.id, originStep: s, hoverStep: s, moved: false };
             } else {
               p.pattern[s] = true;
               p.pulses = p.pattern.filter(Boolean).length;
               refreshAllOpenWidgets();
               saveStudioState();
-              shockwaves.push({ x: nx, y: ny, r: 4, maxR: 34, color: p.color, alpha: 0.85 });
+              shockwaves.push({ x: nx, y: ny, r: 4, maxR: 32, color: p.color, alpha: 0.85 });
             }
-            return;
+            return true;
           }
         }
       }
-
-      const distFromCenter = Math.hypot(mx - cx, my - cy);
-      for (const p of planets) {
-        const orbitR = getOrbitRadius(p.id) + p.springOffset + Math.sin(p.floatPhase) * 2.5;
-        if (Math.abs(distFromCenter - orbitR) <= 14) {
-          selectPlanet(p.id, true);
-          return;
+      // 3. Check Orbit Ring Lines
+      const dist = Math.hypot(mx - center.cx, my - center.cy);
+      for (const p of list) {
+        const orbitR = getOrbitRadius(p.id, isParallel) + p.springOffset + Math.sin(p.floatPhase) * 2.0;
+        if (Math.abs(dist - orbitR) <= 12) {
+          selectPlanet(p.id, true, isParallel ? "parallel" : "main");
+          return true;
         }
       }
+      return false;
+    }
 
+    canvas.addEventListener("pointerdown", e => {
+      const rect = canvas.getBoundingClientRect();
+      const mx = e.clientX - rect.left, my = e.clientY - rect.top;
+      const mainC = getMainCenter();
+      const parC = getParallelCenter();
+      pressStartPos = { x: mx, y: my };
+
+      // Main Sun -> Toggle Master Play
+      if (Math.hypot(mx - mainC.cx, my - mainC.cy) <= 40) {
+        togglePlay();
+        return;
+      }
+
+      // Parallel Mini-Sun -> Toggle Parallel Universe Engine!
+      if (Math.hypot(mx - parC.cx, my - parC.cy) <= 24) {
+        parallelActive = !parallelActive;
+        parallelSunVel += 5.0;
+        if (parallelActive && !isPlaying) togglePlay();
+        updateTopLabel();
+        refreshAllOpenWidgets();
+        saveStudioState();
+        showToast(parallelActive ? "Parallel Universe IGNITED" : "Parallel Universe Muted");
+        return;
+      }
+
+      if (hitTestSystem(planets, mainC, false, mx, my)) return;
+      if (hitTestSystem(parallelPlanets, parC, true, mx, my)) return;
+
+      // Empty Space Long-Press -> GTA Weapon Wheel
       holdRing.style.left = `${mx}px`;
       holdRing.style.top = `${my}px`;
       holdRing.classList.add("charging");
@@ -2235,9 +2683,11 @@
 
       if (draggingOrb) {
         draggingOrb.moved = true;
-        const cx = logicalW / 2, cy = logicalH / 2;
-        const p = planets[draggingOrb.planetId];
-        let a = Math.atan2(my - cy, mx - cx) + Math.PI / 2;
+        const isPar = draggingOrb.universe === "parallel";
+        const center = isPar ? getParallelCenter() : getMainCenter();
+        const list = isPar ? parallelPlanets : planets;
+        const p = list[draggingOrb.planetId];
+        let a = Math.atan2(my - center.cy, mx - center.cx) + Math.PI / 2;
         if (a < 0) a += Math.PI * 2;
         draggingOrb.hoverStep = Math.round((a / (Math.PI * 2)) * p.steps) % p.steps;
       }
@@ -2249,12 +2699,18 @@
       pressStartPos = null;
 
       if (draggingOrb) {
-        const p = planets[draggingOrb.planetId];
+        const list = draggingOrb.universe === "parallel" ? parallelPlanets : planets;
+        const p = list[draggingOrb.planetId];
         if (!draggingOrb.moved || draggingOrb.hoverStep === draggingOrb.originStep) {
           p.pattern[draggingOrb.originStep] = false;
+          if (p.stepMidi) p.stepMidi[draggingOrb.originStep] = null;
         } else {
           p.pattern[draggingOrb.originStep] = false;
           p.pattern[draggingOrb.hoverStep] = true;
+          if (p.stepMidi) {
+            p.stepMidi[draggingOrb.hoverStep] = p.stepMidi[draggingOrb.originStep];
+            p.stepMidi[draggingOrb.originStep] = null;
+          }
           p.springVel += 2.8;
         }
         p.pulses = p.pattern.filter(Boolean).length;
@@ -2268,8 +2724,6 @@
     window.addEventListener("keydown", e => {
       if (document.activeElement.tagName === "INPUT") return;
       if (e.code === "Space") { e.preventDefault(); togglePlay(); }
-      else if (e.code === "ArrowRight" || e.code === "ArrowUp") selectPlanet((selectedPlanetId + 1) % planets.length, false);
-      else if (e.code === "ArrowLeft" || e.code === "ArrowDown") selectPlanet((selectedPlanetId - 1 + planets.length) % planets.length, false);
     });
 
     // Boot
