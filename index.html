@@ -266,7 +266,7 @@
     /* PERSISTENT, DRAGGABLE, 80% TRANSPARENT LAYERABLE WIDGETS */
     .studio-widget {
       position: fixed;
-      width: 320px;
+      width: 324px;
       max-width: 92vw;
       background: var(--widget-bg);
       backdrop-filter: blur(12px);
@@ -396,9 +396,8 @@
     .w-btn.active { border-color: var(--emerald); background: rgba(16, 185, 129, 0.28); color: #a7f3d0; }
     .w-btn.warn { border-color: var(--rose); background: rgba(244, 63, 94, 0.28); color: #ffe4e6; animation: pulseW 1s infinite; }
 
-    /* SEARCHABLE 100-MOTIF JUKEBOX LIST */
     .jukebox-scroll {
-      max-height: 175px;
+      max-height: 170px;
       overflow-y: auto;
       display: flex;
       flex-direction: column;
@@ -827,8 +826,6 @@
       waltz34:   { label: "WALTZ 3/4",  bpm: 82,  tracks: [{ type: "kick808", steps: 3, pulses: 1, speedMult: 1, pattern: [true, false, false] }, { type: "rim", steps: 3, pulses: 2, speedMult: 1, pattern: [false, true, true] }, { type: "grandPiano", steps: 6, pulses: 4, speedMult: 1 }] }
     };
 
-    // Compact 100-Theme Pop-Culture Motif Library:
-    // [title, category, searchKeywords, bpm, universe, leadVoice, bassVoice, midiSequence, stepMask, speedMult]
     const MOTIF_TABLE = [
       // 1-20: Sci-Fi TV & Synth Arpeggios
       ["80s Upside-Down Arp",   "TV",    "stranger things 80s hawkins synth",     84,  "eclipse", "fmPluck",    "acidBass",   [48,52,55,59,60,59,55,52], [1,1,1,1,1,1,1,1], 2],
@@ -947,6 +944,7 @@
       const steps = midiSeq.length;
       const pattern = mask.map(v => Boolean(v));
       const pulses = pattern.filter(Boolean).length;
+      const drumSteps = (steps === 5 || steps === 7) ? steps : 4;
       return {
         index,
         label,
@@ -955,8 +953,8 @@
         bpm: bpmVal,
         universe: uni,
         tracks: [
-          { type: "kick808", steps: steps === 5 || steps === 7 ? steps : 4, pulses: 2, speedMult: 1 },
-          { type: "snareBreak", steps: steps === 5 || steps === 7 ? steps : 4, pulses: 1, speedMult: 1, pattern: steps === 4 ? [false, false, true, false] : generateEuclidean(steps === 5 || steps === 7 ? steps : 4, 1) },
+          { type: "kick808", steps: drumSteps, pulses: 2, speedMult: 1 },
+          { type: "snareBreak", steps: drumSteps, pulses: 1, speedMult: 1, pattern: drumSteps === 4 ? [false, false, true, false] : generateEuclidean(drumSteps, 1) },
           { type: leadVoice, steps, pulses, speedMult, pattern, stepMidi: [...midiSeq], volume: 0.74 }
         ],
         parallelTracks: [
@@ -968,6 +966,7 @@
 
     const COMPILED_MOTIFS = MOTIF_TABLE.map((_, i) => compileMotif(i));
     let jukeboxFilterText = "";
+    let jukeboxCatFilter = "ALL";
 
     const VOICE_ENGINES = [
       { id: "kick808",     label: "SUB KICK",     cat: "drum",  band: "low" },
@@ -1175,7 +1174,7 @@
       clearTimeout(saveDebounceTimer);
       saveDebounceTimer = setTimeout(() => {
         try {
-          localStorage.setItem("pluvox_v18_jukebox", JSON.stringify({
+          localStorage.setItem("pluvox_v19_clean", JSON.stringify({
             activeSceneIdx, solarScenes, parallelVisible, parallelActive, parallelBpmRatio, universeBalance,
             current: captureCurrentSnapshot()
           }));
@@ -1407,7 +1406,7 @@
         const el = document.createElement("div");
         el.className = "studio-widget";
         const count = Object.keys(openWidgets).length;
-        el.style.left = `${Math.min(logicalW - 328, Math.max(14, 20 + (count % 3) * 32))}px`;
+        el.style.left = `${Math.min(logicalW - 332, Math.max(14, 20 + (count % 3) * 32))}px`;
         el.style.top = `${Math.min(logicalH - 300, Math.max(64, 70 + (count % 4) * 36))}px`;
         bringWidgetToFront(el);
         el.addEventListener("pointerdown", () => bringWidgetToFront(el));
@@ -1445,9 +1444,11 @@
 
     function renderJukeboxList(containerEl) {
       const q = jukeboxFilterText.trim().toLowerCase();
-      const matches = q
-        ? COMPILED_MOTIFS.filter(m => m.keywords.includes(q))
-        : COMPILED_MOTIFS;
+      const matches = COMPILED_MOTIFS.filter(m => {
+        const catOk = jukeboxCatFilter === "ALL" || m.cat === jukeboxCatFilter;
+        const textOk = !q || m.keywords.includes(q);
+        return catOk && textOk;
+      });
 
       containerEl.innerHTML = matches.length === 0
         ? `<div style="font-family:var(--mono); font-size:0.55rem; color:var(--dim); padding:0.4rem;">No matching motif—try '80s', 'rock', 'game', or '5/4'</div>`
@@ -1671,15 +1672,19 @@
         el.querySelector("#wHumBtn").onclick = () => toggleHumToOrbit();
         el.querySelector("#wRetroBtn").onclick = () => captureRetroBuffer();
       } else if (id === "muse") {
-        // CELESTIAL MUSE: LIVE SEARCHABLE 100-THEME JUKEBOX + RANDOMIZER + MASHUPS
         el.innerHTML = `
           <div class="widget-drag-bar" style="color:var(--violet);">
             <span>CELESTIAL · 100 POP MOTIFS</span>
             <button class="widget-close-btn">×</button>
           </div>
           <div class="widget-body">
+            <div style="display:flex; gap:3px; margin-bottom:0.42rem;">
+              ${["ALL", "TV", "FILM", "GAME", "ROCK", "CLUB"].map(cat =>
+                `<button class="w-btn ${jukeboxCatFilter === cat ? "active" : ""}" style="flex:1; padding:0.22rem;" data-jcat="${cat}">${cat}</button>`
+              ).join("")}
+            </div>
             <div class="w-row" style="margin-bottom:0.45rem;">
-              <input id="wJukeboxSearch" value="${jukeboxFilterText}" placeholder="Search 100 themes (Stranger Things, Mario, Linkin)..." style="flex:1; background:rgba(0,0,0,0.38); border:1px solid var(--border); border-radius:8px; padding:0.36rem 0.52rem; color:#fff; font-family:var(--mono); font-size:0.55rem; outline:none;" />
+              <input id="wJukeboxSearch" value="${jukeboxFilterText}" placeholder="Search 100 themes..." style="flex:1; background:rgba(0,0,0,0.38); border:1px solid var(--border); border-radius:8px; padding:0.36rem 0.52rem; color:#fff; font-family:var(--mono); font-size:0.55rem; outline:none;" />
               <button class="w-btn" id="wRandMotif" style="padding:0.36rem 0.55rem; border-color:var(--violet);">RANDOM</button>
             </div>
             <div class="jukebox-scroll" id="wJukeboxList"></div>
@@ -1692,6 +1697,11 @@
         `;
         const listEl = el.querySelector("#wJukeboxList");
         renderJukeboxList(listEl);
+
+        el.querySelectorAll("[data-jcat]").forEach(btn => btn.onclick = () => {
+          jukeboxCatFilter = btn.dataset.jcat;
+          renderWidgetContent("muse");
+        });
 
         const searchInput = el.querySelector("#wJukeboxSearch");
         searchInput.oninput = e => {
@@ -1908,8 +1918,8 @@
       delayWet = audioCtx.createGain();
       delayWet.gain.value = delayAmount / 100;
 
-      delayNode.connect(fb = delayFeedback);
-      fb.connect(delayNode);
+      delayNode.connect(delayFeedback);
+      delayFeedback.connect(delayNode);
       delayNode.connect(delayWet);
       delayWet.connect(tapeSaturator);
 
@@ -2198,7 +2208,6 @@
         osc1.type = (t === "nuMetalGtr" || t === "elecGuitar" || t === "leadSynth" || t === "acidBass" || t === "brassLead") ? "sawtooth" : "triangle";
         osc2.type = "sine";
 
-        // Portamento pitch-glide for G-Funk, Theremin & Acid 303 leads
         if (isGlideVoice && planet.lastFreq > 0) {
           osc1.frequency.setValueAtTime(planet.lastFreq, time);
           osc1.frequency.exponentialRampToValueAtTime(freq, time + 0.085);
@@ -2520,7 +2529,6 @@
       planets = motif.tracks.map((tr, idx) => createPlanetFromTemplate(idx, tr, false));
       planets.forEach(p => { p.phaseSteps = p.steps - 1; p.springVel = 4.5; });
 
-      // Populate Parallel Universe accompaniment so toggling DUAL layers it immediately
       parallelPlanets = motif.parallelTracks.map((tr, idx) => createPlanetFromTemplate(idx, tr, true));
       parallelPlanets.forEach(p => { p.phaseSteps = p.steps - 1; });
 
@@ -2571,7 +2579,7 @@
 
     function loadStudioState() {
       try {
-        const raw = localStorage.getItem("pluvox_v18_jukebox");
+        const raw = localStorage.getItem("pluvox_v19_clean");
         if (!raw) return;
         const data = JSON.parse(raw);
         if (typeof data.parallelVisible === "boolean") parallelVisible = data.parallelVisible;
