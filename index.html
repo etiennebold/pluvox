@@ -505,55 +505,78 @@
       c.height = size;
       const g = c.getContext("2d");
 
-      // Deep-space obsidian rounded backdrop
-      const bgGrad = g.createRadialGradient(size * 0.5, size * 0.45, size * 0.05, size * 0.5, size * 0.5, size * 0.72);
-      bgGrad.addColorStop(0, "#0f172a");
-      bgGrad.addColorStop(0.6, "#050814");
+      // 1. Deep obsidian backdrop
+      const bgGrad = g.createRadialGradient(size * 0.5, size * 0.5, size * 0.05, size * 0.5, size * 0.5, size * 0.72);
+      bgGrad.addColorStop(0, "#0b1224");
+      bgGrad.addColorStop(0.65, "#050814");
       bgGrad.addColorStop(1, "#020308");
       g.fillStyle = bgGrad;
       g.fillRect(0, 0, size, size);
 
       const cx = size * 0.5;
       const cy = size * 0.5;
+      const baseR = size * 0.31;
 
-      // 3 Concentric Orbital Rings
-      const rings = [
-        { r: size * 0.36, color: "rgba(56, 189, 248, 0.38)", w: size * 0.008, angle: -0.6, orbColor: "#38bdf8", orbR: size * 0.026 },
-        { r: size * 0.26, color: "rgba(192, 132, 252, 0.45)", w: size * 0.009, angle: 1.9, orbColor: "#c084fc", orbR: size * 0.022 },
-        { r: size * 0.16, color: "rgba(245, 158, 11, 0.52)", w: size * 0.01, angle: 0.7, orbColor: "#f59e0b", orbR: size * 0.02 }
-      ];
-
-      rings.forEach(ring => {
+      // 2. Concentric fine-line acoustic waveform ripples
+      for (let layer = 1; layer <= 6; layer++) {
         g.beginPath();
-        g.arc(cx, cy, ring.r, 0, Math.PI * 2);
-        g.strokeStyle = ring.color;
-        g.lineWidth = ring.w;
+        const rLayer = baseR + size * 0.018 + layer * (size * 0.015);
+        const amp = (size * 0.018) * (1 - layer / 7.5);
+        for (let i = 0; i <= 180; i++) {
+          const a = (i / 180) * Math.PI * 2;
+          const wave = Math.sin(a * 4 + layer * 0.35) * Math.cos(a * 2) * amp;
+          const r = rLayer + wave;
+          const x = cx + Math.cos(a) * r;
+          const y = cy + Math.sin(a) * r;
+          if (i === 0) g.moveTo(x, y);
+          else g.lineTo(x, y);
+        }
+        g.closePath();
+        const rippleGrad = g.createLinearGradient(cx - rLayer, cy, cx + rLayer, cy);
+        rippleGrad.addColorStop(0, `rgba(245, 158, 11, ${0.32 - layer * 0.04})`);
+        rippleGrad.addColorStop(1, `rgba(56, 189, 248, ${0.32 - layer * 0.04})`);
+        g.strokeStyle = rippleGrad;
+        g.lineWidth = Math.max(1, size * 0.0022);
         g.stroke();
+      }
 
-        const ox = cx + Math.cos(ring.angle) * ring.r;
-        const oy = cy + Math.sin(ring.angle) * ring.r;
-        g.beginPath();
-        g.arc(ox, oy, ring.orbR, 0, Math.PI * 2);
-        g.fillStyle = ring.orbColor;
-        g.shadowColor = ring.orbColor;
-        g.shadowBlur = size * 0.04;
-        g.fill();
-        g.shadowBlur = 0;
-      });
+      // 3. Glowing Warm Amber -> Electric Cyan Eclipse Ring
+      const ringGrad = g.createLinearGradient(cx - baseR, cy, cx + baseR, cy);
+      ringGrad.addColorStop(0, "#f59e0b");
+      ringGrad.addColorStop(0.48, "#fde68a");
+      ringGrad.addColorStop(0.55, "#7dd3fc");
+      ringGrad.addColorStop(1, "#38bdf8");
 
-      // Central Glowing Pulsar Sun Core
-      const sunGrad = g.createRadialGradient(cx, cy, size * 0.01, cx, cy, size * 0.11);
-      sunGrad.addColorStop(0, "#ffffff");
-      sunGrad.addColorStop(0.45, "#38bdf8");
-      sunGrad.addColorStop(1, "rgba(56, 189, 248, 0)");
+      g.save();
       g.beginPath();
-      g.arc(cx, cy, size * 0.11, 0, Math.PI * 2);
-      g.fillStyle = sunGrad;
-      g.fill();
+      g.arc(cx, cy, baseR, 0, Math.PI * 2);
+      g.strokeStyle = ringGrad;
+      g.lineWidth = size * 0.022;
+      g.shadowColor = "#38bdf8";
+      g.shadowBlur = size * 0.045;
+      g.stroke();
+      g.restore();
+
+      // 4. Thin, wide-spaced geometric 'PLUVOX' typography centered inside the core
+      g.save();
+      const fontSize = Math.round(size * 0.082);
+      g.font = `300 ${fontSize}px "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`;
+      g.fillStyle = "#f8fafc";
+      g.textAlign = "center";
+      g.textBaseline = "middle";
+      g.shadowColor = "rgba(56, 189, 248, 0.55)";
+      g.shadowBlur = size * 0.02;
+
+      const letters = "PLUVOX".split("");
+      const spacing = fontSize * 0.92;
+      const totalW = spacing * (letters.length - 1);
+      letters.forEach((ch, idx) => {
+        g.fillText(ch, cx - totalW / 2 + idx * spacing, cy + size * 0.004);
+      });
+      g.restore();
 
       return c.toDataURL("image/png");
     }
-
     function injectNativeMobileIcons() {
       const icon512 = generateAppIconDataUrl(512);
       const icon180 = generateAppIconDataUrl(180);
